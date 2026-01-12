@@ -1,10 +1,10 @@
 # -----------------------------------------
 # Makefile – TIC-80 project builder
 # Usage:
-#   make PROJECT=mranderson
-#   make build PROJECT=mranderson
-#   make watch PROJECT=mranderson
-#   make export PROJECT=mranderson
+#   make PROJECT=impostor
+#   make build PROJECT=impostor
+#   make watch PROJECT=impostor
+#   make export PROJECT=impostor
 # -----------------------------------------
 
 ifndef PROJECT

@@ -8,6 +8,13 @@
 -- 006:9999999999999999999999999999999999999999999999999999999999999999
 -- 007:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 -- 008:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+-- 016:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+-- 017:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+-- 018:cc222222cc222222cc222222cc222222222222222222222222222222eeeeeeee
+-- 019:222222cc222222cc222222cc222222cc222222222222222222222222eeeeeeee
+-- 020:daaaabdddaaaabdddaaaabdddaaaabdddaaaabdddaaaabdddddddddddddddddd
+-- 021:f888888ff888888ff888888ff888888f8888888f8888888ffeeeeffeeeeffee
+-- 022:e000000ee000000ee000000ee000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 -- </TILES>
 
 -- <WAVES>

@@ -1,7 +1,7 @@
--- title:   Mr Anderson's Adventure
--- author:  Zsolt Tasnadi
+-- title:   Definitely not an Impostor
+-- author:  Teletype Games
 -- desc:    Life of a programmer in the Vector
--- site:    https://github.com/rastasi/mranderson
+-- site:    https://git.teletype.hu/games/impostor
 -- license: MIT License
 -- version: 0.15
 -- script:  lua

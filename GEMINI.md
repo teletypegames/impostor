@@ -1,6 +1,6 @@
 # TIC-80 Lua Code Regularities
 
-Based on the analysis of `mranderson.lua`, the following regularities and conventions should be followed for future modifications and development within this project:
+Based on the analysis of `impostor.lua`, the following regularities and conventions should be followed for future modifications and development within this project:
 
 ## General Structure & Lifecycle
 

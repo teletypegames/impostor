@@ -9,6 +9,7 @@ entity/entity.item.lua
 entity/entity.player.lua
 system/system.input.lua
 system/system.ui.lua
+map/map.bedroom.lua
 window/window.splash.lua
 window/window.intro.lua
 window/window.menu.lua

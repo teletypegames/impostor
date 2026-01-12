@@ -1,5 +1,5 @@
 environment: &environment
-  GAME_NAME: mranderson
+  GAME_NAME: impostor
   GAME_LANG: lua
 
 steps:
