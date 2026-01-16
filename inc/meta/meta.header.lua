@@ -3,5 +3,5 @@
 -- desc:    Life of a programmer in the Vector
 -- site:    https://git.teletype.hu/games/impostor
 -- license: MIT License
--- version: 0.15
+-- version: 0.1
 -- script:  lua

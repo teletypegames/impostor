@@ -20,15 +20,6 @@ local STATE_HANDLERS = {
     PopupWindow.update()
     PopupWindow.draw()
   end,
-  [WINDOW_INVENTORY] = function()
-    InventoryWindow.update()
-    InventoryWindow.draw()
-  end,
-  [WINDOW_INVENTORY_ACTION] = function()
-    InventoryWindow.draw()
-    PopupWindow.draw()
-    PopupWindow.update()
-  end,
   [WINDOW_CONFIGURATION] = function()
     ConfigurationWindow.update()
     ConfigurationWindow.draw()
@@ -37,7 +28,7 @@ local STATE_HANDLERS = {
 
 local initialized_game = false
 
-function init_game()
+local function init_game()
   if initialized_game then return end
 
   MenuWindow.refresh_menu_items()
@@ -45,7 +36,7 @@ function init_game()
 end
 
 function TIC()
-  init_game() 
+  init_game()
 
   cls(Config.colors.black)
   local handler = STATE_HANDLERS[Context.active_window]

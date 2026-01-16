@@ -41,7 +41,7 @@ function PopupWindow.update()
     if Input.menu_confirm() or Input.menu_back() then
       Context.dialog.showing_description = false
       Context.dialog.text = "" -- Clear the description text
-      -- No need to change active_window, as it remains in WINDOW_POPUP or WINDOW_INVENTORY_ACTION
+      -- No need to change active_window, as it remains in WINDOW_POPUP
     end
   else
     Context.dialog.selected_menu_item = UI.update_menu(Context.dialog.menu_items, Context.dialog.selected_menu_item)

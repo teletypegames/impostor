@@ -6,7 +6,6 @@ init/init.context.lua
 system/system.print.lua
 entity/entity.npc.lua
 entity/entity.item.lua
-entity/entity.player.lua
 system/system.input.lua
 system/system.ui.lua
 map/map.bedroom.lua
@@ -15,7 +14,6 @@ window/window.intro.lua
 window/window.menu.lua
 window/window.configuration.lua
 window/window.popup.lua
-window/window.inventory.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

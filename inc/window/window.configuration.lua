@@ -5,18 +5,6 @@ ConfigurationWindow = {
 
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
-    UI.create_numeric_stepper(
-      "Move Speed",
-      function() return Config.physics.move_speed end,
-      function(v) Config.physics.move_speed = v end,
-      0.5, 3, 0.1, "%.1f"
-    ),
-    UI.create_numeric_stepper(
-      "Max Jumps",
-      function() return Config.physics.max_jumps end,
-      function(v) Config.physics.max_jumps = v end,
-      1, 5, 1, "%d"
-    ),
     UI.create_action_item(
       "Save",
       function() Config.save() end

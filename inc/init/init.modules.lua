@@ -3,7 +3,6 @@ local IntroWindow = {}
 local MenuWindow = {}
 local GameWindow = {}
 local PopupWindow = {}
-local InventoryWindow = {}
 local ConfigurationWindow = {}
 
 local UI = {}

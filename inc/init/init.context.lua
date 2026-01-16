@@ -6,7 +6,7 @@ local SAVE_GAME_PLAYER_X_ADDRESS = 1
 local SAVE_GAME_PLAYER_Y_ADDRESS = 2
 local SAVE_GAME_PLAYER_VX_ADDRESS = 3
 local SAVE_GAME_PLAYER_VY_ADDRESS = 4
-local SAVE_GAME_PLAYER_JUMPS_ADDRESS = 5
+local SAVE_GAME_selectS_ADDRESS = 5
 local SAVE_GAME_CURRENT_SCREEN_ADDRESS = 6
 
 local VX_VY_OFFSET = 128 -- Offset for negative velocities
@@ -28,11 +28,10 @@ end
 local function get_initial_data()
   return {
     active_window = WINDOW_SPLASH,
-    inventory = {},
     intro = {
       y = Config.screen.height,
       speed = 0.5,
-      text = "Mr. Anderson is an average\nprogrammer. His daily life\nrevolves around debugging,\npull requests, and end-of-sprint\nmeetings, all while secretly\ndreaming of being destined\nfor something more."
+      text = "Norman Reds’ everyday life\nseems ordinary: work,\nmeetings, coffee, and\nendless notifications.\nBut beneath the surface\n— within him, or around\nhim — something is\nconstantly building, and\nit soon becomes clear\nthat there is more going\non than meets the eye."
     },
     current_screen = 1,
     splash_timer = Config.timing.splash_duration,
@@ -45,13 +44,6 @@ local function get_initial_data()
       current_node_key = nil
     },
     player = {
-      x = Config.player.start_x,
-      y = Config.player.start_y,
-      w = Config.player.w,
-      h = Config.player.h,
-      vx = 0,
-      vy = 0,
-      jumps = 0,
       sprite_id = Config.player.sprite_id
     },
     ground = {
@@ -62,30 +54,13 @@ local function get_initial_data()
     },
     menu_items = {},
     selected_menu_item = 1,
-    selected_inventory_item = 1,
     game_in_progress = false, -- New flag
     screens = clone_table({
       {
         -- Screen 1
         name = "Screen 1",
-        platforms = {
-          {
-            x = 80,
-            y = 110,
-            w = 40,
-            h = 8
-          },
-          {
-            x = 160,
-            y = 90,
-            w = 40,
-            h = 8
-          }
-        },
         npcs = {
           {
-            x = 180,
-            y = 82,
             name = "Trinity",
             sprite_id = 2,
             dialog = {
@@ -141,8 +116,6 @@ local function get_initial_data()
             }
           },
           {
-            x = 90,
-            y = 102,
             name = "Oracle",
             sprite_id = 3,
             dialog = {
@@ -202,10 +175,6 @@ local function get_initial_data()
         },
         items = {
           {
-            x = 100,
-            y = 128,
-            w = 8,
-            h = 8,
             name = "Key",
             sprite_id = 4,
             desc = "A rusty old key. It might open something."
@@ -215,30 +184,8 @@ local function get_initial_data()
       {
         -- Screen 2
         name = "Screen 2",
-        platforms = {
-          {
-            x = 30,
-            y = 100,
-            w = 50,
-            h = 8
-          },
-          {
-            x = 100,
-            y = 80,
-            w = 50,
-            h = 8
-          },
-          {
-            x = 170,
-            y = 60,
-            w = 50,
-            h = 8
-          }
-        },
         npcs = {
           {
-            x = 120,
-            y = 72,
             name = "Morpheus",
             sprite_id = 5,
             dialog = {
@@ -274,8 +221,6 @@ local function get_initial_data()
             }
           },
           {
-            x = 40,
-            y = 92,
             name = "Tank",
             sprite_id = 6,
             dialog = {
@@ -320,10 +265,6 @@ local function get_initial_data()
         },
         items = {
           {
-            x = 180,
-            y = 52,
-            w = 8,
-            h = 8,
             name = "Potion",
             sprite_id = 7,
             desc = "A glowing red potion. It looks potent."
@@ -333,36 +274,8 @@ local function get_initial_data()
       {
         -- Screen 3
         name = "Screen 3",
-        platforms = {
-          {
-            x = 50,
-            y = 110,
-            w = 30,
-            h = 8
-          },
-          {
-            x = 100,
-            y = 90,
-            w = 30,
-            h = 8
-          },
-          {
-            x = 150,
-            y = 70,
-            w = 30,
-            h = 8
-          },
-          {
-            x = 200,
-            y = 50,
-            w = 30,
-            h = 8
-          }
-        },
         npcs = {
           {
-            x = 210,
-            y = 42,
             name = "Agent Smith",
             sprite_id = 8,
             dialog = {
@@ -404,8 +317,6 @@ local function get_initial_data()
             }
           },
           {
-            x = 160,
-            y = 62,
             name = "Cypher",
             sprite_id = 9,
             dialog = {
@@ -492,11 +403,6 @@ function Context.save_game()
   if not Context.game_in_progress then return end
 
   mset(SAVE_GAME_MAGIC_VALUE, SAVE_GAME_MAGIC_VALUE_ADDRESS, SAVE_GAME_BANK)
-  mset(Context.player.x * 10, SAVE_GAME_PLAYER_X_ADDRESS, SAVE_GAME_BANK)
-  mset(Context.player.y * 10, SAVE_GAME_PLAYER_Y_ADDRESS, SAVE_GAME_BANK)
-  mset( (Context.player.vx * 100) + VX_VY_OFFSET, SAVE_GAME_PLAYER_VX_ADDRESS, SAVE_GAME_BANK)
-  mset( (Context.player.vy * 100) + VX_VY_OFFSET, SAVE_GAME_PLAYER_VY_ADDRESS, SAVE_GAME_BANK)
-  mset(Context.player.jumps, SAVE_GAME_PLAYER_JUMPS_ADDRESS, SAVE_GAME_BANK)
   mset(Context.current_screen, SAVE_GAME_CURRENT_SCREEN_ADDRESS, SAVE_GAME_BANK)
 end
 
@@ -509,11 +415,6 @@ function Context.load_game()
 
   reset_context_to_initial_state() -- Reset data, preserve methods
 
-  Context.player.x = mget(SAVE_GAME_PLAYER_X_ADDRESS, SAVE_GAME_BANK) / 10
-  Context.player.y = mget(SAVE_GAME_PLAYER_Y_ADDRESS, SAVE_GAME_BANK) / 10
-  Context.player.vx = (mget(SAVE_GAME_PLAYER_VX_ADDRESS, SAVE_GAME_BANK) - VX_VY_OFFSET) / 100
-  Context.player.vy = (mget(SAVE_GAME_PLAYER_VY_ADDRESS, SAVE_GAME_BANK) - VX_VY_OFFSET) / 100
-  Context.player.jumps = mget(SAVE_GAME_PLAYER_JUMPS_ADDRESS, SAVE_GAME_BANK)
   Context.current_screen = mget(SAVE_GAME_CURRENT_SCREEN_ADDRESS, SAVE_GAME_BANK)
 
   Context.game_in_progress = true

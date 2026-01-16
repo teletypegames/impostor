@@ -18,7 +18,7 @@ function Input.up() return btnp(INPUT_KEY_UP) end
 function Input.down() return btnp(INPUT_KEY_DOWN) end
 function Input.left() return btn(INPUT_KEY_LEFT) end
 function Input.right() return btn(INPUT_KEY_RIGHT) end
-function Input.player_jump() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) end
+function Input.select() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) end
 function Input.menu_confirm() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_ENTER) end
 function Input.player_interact() return btnp(INPUT_KEY_B) or keyp(INPUT_KEY_ENTER) end -- B button
 function Input.menu_back() return btnp(INPUT_KEY_Y) or keyp(INPUT_KEY_BACKSPACE) end

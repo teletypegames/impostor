@@ -1,13 +1,9 @@
 function SplashWindow.draw()
-  for y, row in ipairs(MapBedroom) do
-    for x = 1, #row, 2 do
-      local tile_id_hex = string.sub(row, x, x + 1)
-      local tile_id = tonumber(tile_id_hex, 16)
-      local screen_x = (x - 1) / 2 * 8
-      local screen_y = (y - 1) * 8
-      spr(tile_id, screen_x, screen_y, -1, 1, 0, 0, 1, 1)
-    end
-  end
+  local txt = "Definitely not an Impostor"
+  local w = #txt * 6
+  local x = (240 - w) / 2
+  local y = (136 - 6) / 2
+  print(txt, x, y, 12)
 end
 
 function SplashWindow.update()

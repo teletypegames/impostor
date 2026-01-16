@@ -2,27 +2,6 @@ function GameWindow.draw()
   local currentScreenData = Context.screens[Context.current_screen]
 
   UI.draw_top_bar(currentScreenData.name)
-
-  -- Draw platforms
-  for _, p in ipairs(currentScreenData.platforms) do
-    rect(p.x, p.y, p.w, p.h, Config.colors.green)
-  end
-
-  -- Draw items
-  for _, item in ipairs(currentScreenData.items) do
-    spr(item.sprite_id, item.x, item.y, 0)
-  end
-
-  -- Draw NPCs
-  for _, npc in ipairs(currentScreenData.npcs) do
-    spr(npc.sprite_id, npc.x, npc.y, 0)
-  end
-
-  -- Draw ground
-  rect(Context.ground.x, Context.ground.y, Context.ground.w, Context.ground.h, Config.colors.dark_grey)
-
-  -- Draw player
-  Player.draw()
 end
 
 function GameWindow.update()
@@ -31,7 +10,21 @@ function GameWindow.update()
     MenuWindow.refresh_menu_items()
     return
   end
-  Player.update() -- Call the encapsulated player update logic
+  if Input.select() then
+    if Context.current_screen == #Context.screens then
+      Context.current_screen = 1
+    else
+      Context.current_screen = Context.current_screen + 1
+    end
+  end
+
+  if Input.player_interact() then
+      PopupWindow.show_menu_dialog(npc, {
+        {label = "Talk to", action = NPC.talk_to},
+        {label = "Fight", action = NPC.fight},
+        {label = "Go back", action = NPC.go_back}
+      }, WINDOW_POPUP)
+  end
 end
 
 function GameWindow.set_state(new_state)
