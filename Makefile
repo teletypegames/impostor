@@ -1,15 +1,13 @@
 # -----------------------------------------
 # Makefile – TIC-80 project builder
 # Usage:
-#   make PROJECT=impostor
-#   make build PROJECT=impostor
-#   make watch PROJECT=impostor
-#   make export PROJECT=impostor
+#   make build 
+#   make import_assets
+#   make watch
+#   make export
 # -----------------------------------------
 
-ifndef PROJECT
-$(error Specify the project name: make PROJECT=name)
-endif
+PROJECT = impostor
 
 ORDER      = $(PROJECT).inc
 OUTPUT     = $(PROJECT).lua
@@ -17,30 +15,35 @@ OUTPUT_ZIP = $(PROJECT).html.zip
 OUTPUT_TIC = $(PROJECT).tic
 
 SRC_DIR    = inc
-SRC = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
+SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
+
+ASSETS_DIR = assets
+ASSET_TYPES = tiles sprites sfx music
 
 all: build
 
-build: $(OUTPUT)
-	@echo "==> Build complete: $(OUTPUT)"
+build: import_assets $(OUTPUT)
 
 $(OUTPUT): $(SRC) $(ORDER)
-	@echo "==> Building $(OUTPUT)..."
 	@rm -f $(OUTPUT)
 	@while read f; do \
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
 		echo "\n" >> $(OUTPUT); \
 	done < $(ORDER)
-	@echo "==> Done."
 
-export: $(OUTPUT)
-	@echo "==> TIC-80 export..."
+import_assets:
+	@for t in $(ASSET_TYPES); do \
+		for f in $(ASSETS_DIR)/$$t/*.png; do \
+			[ -e "$$f" ] || continue; \
+			echo "==> Importing $$f as $$t..."; \
+			tic80 --cli --skip --fs=. --cmd="import $$t $$f & exit"; \
+		done; \
+	done
+
+export: build
 	tic80 --cli --skip --fs=. \
 		--cmd="load $(OUTPUT) & save $(PROJECT) & export html $(PROJECT).html & exit"
-	@echo "==> HTML ZIP: $(OUTPUT_ZIP)"
-	@echo "==> TIC: $(OUTPUT_TIC)"
 
 watch:
-	@echo "==> Watching project: $(PROJECT)"
-	make build PROJECT=$(PROJECT)
-	fswatch -o $(SRC_DIR) $(ORDER) | while read; do make build PROJECT=$(PROJECT); done
+	make build
+	fswatch -o $(SRC_DIR) $(ORDER) $(ASSETS_DIR) | while read; do make build; done
