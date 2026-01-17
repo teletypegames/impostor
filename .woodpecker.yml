@@ -9,8 +9,8 @@ steps:
       <<: *environment
       XDG_RUNTIME_DIR: /tmp
     commands:
-      - make build PROJECT=$GAME_NAME
-      - make export PROJECT=$GAME_NAME
+      - make build
+      - make export
 
   - name: artifact
     image: alpine

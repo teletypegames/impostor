@@ -1,10 +1,5 @@
 # -----------------------------------------
 # Makefile – TIC-80 project builder
-# Usage:
-#   make build 
-#   make import_assets
-#   make watch
-#   make export
 # -----------------------------------------
 
 PROJECT = impostor
@@ -17,28 +12,29 @@ OUTPUT_TIC = $(PROJECT).tic
 SRC_DIR    = inc
 SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
 
-ASSETS_DIR = assets
-ASSET_TYPES = tiles sprites sfx music
+ASSETS_LUA = inc/meta/meta.assets.lua
 
 all: build
 
-build: import_assets $(OUTPUT)
+build: $(OUTPUT)
 
 $(OUTPUT): $(SRC) $(ORDER)
 	@rm -f $(OUTPUT)
 	@while read f; do \
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
-		echo "\n" >> $(OUTPUT); \
+		echo "" >> $(OUTPUT); \
 	done < $(ORDER)
 
-import_assets:
-	@for t in $(ASSET_TYPES); do \
-		for f in $(ASSETS_DIR)/$$t/*.png; do \
-			[ -e "$$f" ] || continue; \
-			echo "==> Importing $$f as $$t..."; \
-			tic80 --cli --skip --fs=. --cmd="import $$t $$f & exit"; \
-		done; \
-	done
+export_assets: build
+	@echo "==> Exporting TIC-80 asset sections"
+	@mkdir -p inc/meta
+	@sed -n '/^-- <PALETTE>/,/^-- <\/PALETTE>/p;\
+	         /^-- <TILES>/,/^-- <\/TILES>/p;\
+	         /^-- <SPRITES>/,/^-- <\/SPRITES>/p;\
+	         /^-- <MAP>/,/^-- <\/MAP>/p;\
+	         /^-- <SFX>/,/^-- <\/SFX>/p;\
+	         /^-- <MUSIC>/,/^-- <\/MUSIC>/p' \
+		$(OUTPUT) > $(ASSETS_LUA)
 
 export: build
 	tic80 --cli --skip --fs=. \
@@ -46,4 +42,4 @@ export: build
 
 watch:
 	make build
-	fswatch -o $(SRC_DIR) $(ORDER) $(ASSETS_DIR) | while read; do make build; done
+	fswatch -o $(SRC_DIR) $(ORDER) assets | while read; do make build; done
