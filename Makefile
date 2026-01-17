@@ -25,6 +25,15 @@ $(OUTPUT): $(SRC) $(ORDER)
 		echo "" >> $(OUTPUT); \
 	done < $(ORDER)
 
+import_assets:
+	@for t in $(ASSET_TYPES); do \
+		for f in $(ASSETS_DIR)/$$t/*.png; do \
+			[ -e "$$f" ] || continue; \
+			echo "==> Importing $$f as $$t..."; \
+			tic80 --cli --skip --fs=. --cmd="import $$t $$f & exit"; \
+		done; \
+	done
+
 export_assets: build
 	@echo "==> Exporting TIC-80 asset sections"
 	@mkdir -p inc/meta
