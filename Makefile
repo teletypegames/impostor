@@ -14,6 +14,15 @@ SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
 
 ASSETS_LUA = inc/meta/meta.assets.lua
 
+# CI/CD variables
+VERSION_FILE = .version
+GAME_LANG ?= lua
+DROPAREA_HOST ?= vps.teletype.hu
+DROPAREA_PORT ?= 2223
+DROPAREA_TARGET_PATH ?= /home/drop
+DROPAREA_USER ?= drop
+UPDATE_SERVER ?= https://games.vps.teletype.hu
+
 all: build
 
 build: $(OUTPUT)
@@ -24,6 +33,28 @@ $(OUTPUT): $(SRC) $(ORDER)
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
 		echo "" >> $(OUTPUT); \
 	done < $(ORDER)
+
+export: build
+	@if [ -z "$(VERSION)" ]; then \
+		echo "ERROR: VERSION not set!"; \
+		exit 1; \
+	fi
+	@echo "==> Exporting HTML for version $(VERSION)"
+	@tic80 --cli --skip --fs=. \
+		--cmd="load $(OUTPUT) & save $(PROJECT)-$(VERSION) & export html $(PROJECT)-$(VERSION).html & exit"
+	@echo "==> Creating versioned files"
+	@if [ -f "$(PROJECT)-$(VERSION).tic" ]; then \
+		cp $(PROJECT)-$(VERSION).tic $(PROJECT).tic; \
+	fi
+	@if [ -f "$(PROJECT)-$(VERSION).html.zip" ]; then \
+		cp $(PROJECT)-$(VERSION).html.zip $(PROJECT).html.zip; \
+	fi
+	@echo "==> Generated files:"
+	@ls -lh $(PROJECT)-$(VERSION).* $(PROJECT).tic $(PROJECT).html.zip 2>/dev/null || true
+
+watch:
+	make build
+	fswatch -o $(SRC_DIR) $(ORDER) assets | while read; do make build; done
 
 import_assets:
 	@for t in $(ASSET_TYPES); do \
@@ -45,10 +76,37 @@ export_assets: build
 	         /^-- <MUSIC>/,/^-- <\/MUSIC>/p' \
 		$(OUTPUT) > $(ASSETS_LUA)
 
-export: build
-	tic80 --cli --skip --fs=. \
-		--cmd="load $(OUTPUT) & save $(PROJECT) & export html $(PROJECT).html & exit"
+clean:
+	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT)
+	@echo "==> Cleaned build artifacts"
 
-watch:
-	make build
-	fswatch -o $(SRC_DIR) $(ORDER) assets | while read; do make build; done
+# CI/CD Targets
+ci-version:
+	@echo "==> Extracting version"
+	@VERSION=$$(sed -n "s/^-- version: //p" inc/meta/meta.header.lua | head -n 1 | tr -d "[:space:]"); \
+	echo "VERSION is: $$VERSION"; \
+	echo $$VERSION > $(VERSION_FILE)
+
+ci-export:
+	@VERSION=$$(cat $(VERSION_FILE)); \
+	echo "==> Building and exporting version $$VERSION"; \
+	$(MAKE) export VERSION=$$VERSION
+
+ci-upload:
+	@VERSION=$$(cat $(VERSION_FILE)); \
+	echo "==> Uploading artifacts for version $$VERSION"; \
+	ls -lh $(PROJECT)-$$VERSION.* $(PROJECT).tic $(PROJECT).html.zip 2>/dev/null || true; \
+	cp $(PROJECT).lua $(PROJECT)-$$VERSION.lua; \
+	FILE_LUA=$(PROJECT)-$$VERSION.lua; \
+	FILE_TIC=$(PROJECT)-$$VERSION.tic; \
+	FILE_HTML_ZIP=$(PROJECT)-$$VERSION.html.zip; \
+	SCP_TARGET="$(DROPAREA_USER)@$(DROPAREA_HOST):$(DROPAREA_TARGET_PATH)/"; \
+	sshpass -p "$(DROPAREA_SSH_PASSWORD)" scp -o StrictHostKeyChecking=no -P $(DROPAREA_PORT) $$FILE_LUA $$FILE_TIC $$FILE_HTML_ZIP $$SCP_TARGET
+
+ci-update:
+	@VERSION=$$(cat $(VERSION_FILE)); \
+	echo "==> Triggering update for version $$VERSION"; \
+	curl "$(UPDATE_SERVER)/update?secret=$(UPDATE_SECRET)&name=$(PROJECT)&platform=tic80&version=$$VERSION"
+
+.PHONY: all build export watch import_assets export_assets clean ci-version ci-export ci-upload ci-update
+
