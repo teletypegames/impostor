@@ -1,4 +1,5 @@
 -- title:   Definitely not an Impostor
+-- name: impostor
 -- author:  Teletype Games
 -- desc:    Life of a programmer in the Vector
 -- site:    https://git.teletype.hu/games/impostor
