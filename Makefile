@@ -13,6 +13,8 @@ SRC_DIR    = inc
 SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
 
 ASSETS_LUA = inc/meta/meta.assets.lua
+ASSETS_DIR = assets
+ASSET_TYPES = tiles sprites sfx music
 
 # CI/CD variables
 VERSION_FILE = .version
