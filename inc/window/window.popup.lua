@@ -1,4 +1,28 @@
 function PopupWindow.set_dialog_node(node_key)
+  -- Special handling for minigame trigger
+  if node_key == "__MINIGAME_BUTTON_MASH__" then
+    MinigameButtonMashWindow.start(WINDOW_GAME)
+    return
+  end
+
+  -- Special handling for rhythm minigame trigger
+  if node_key == "__MINIGAME_RHYTHM__" then
+    MinigameRhythmWindow.start(WINDOW_GAME)
+    return
+  end
+
+  -- Special handling for DDR minigame trigger
+  -- Format: __MINIGAME_DDR__ or __MINIGAME_DDR:song_key__
+  if node_key == "__MINIGAME_DDR__" then
+    MinigameDDRWindow.start(WINDOW_GAME, nil)
+    return
+  end
+  if node_key:sub(1, 16) == "__MINIGAME_DDR:" then
+    -- Extract song key from the node (format: __MINIGAME_DDR:test_song__)
+    local song_key = node_key:sub(17, -3) -- Remove prefix "__MINIGAME_DDR:" and trailing "__"
+    MinigameDDRWindow.start(WINDOW_GAME, song_key)
+    return
+  end
   local npc = Context.dialog.active_entity
   local node = npc.dialog[node_key]
 
@@ -24,10 +48,10 @@ function PopupWindow.set_dialog_node(node_key)
 
   -- if no options, it's the end of this branch.
   if #menu_items == 0 then
-      table.insert(menu_items, {
-          label = "Go back",
-          action = function() GameWindow.set_state(WINDOW_GAME) end
-      })
+    table.insert(menu_items, {
+      label = "Go back",
+      action = function() GameWindow.set_state(WINDOW_GAME) end
+    })
   end
 
   Context.dialog.menu_items = menu_items
@@ -52,7 +76,7 @@ function PopupWindow.update()
         selected_item.action()
       end
     end
-    
+
     if Input.menu_back() then
       GameWindow.set_state(WINDOW_GAME)
     end
@@ -87,12 +111,12 @@ function PopupWindow.draw()
 
   -- Display the dialog content (description for "look at", or initial name/dialog for others)
   local wrapped_lines = UI.word_wrap(Context.dialog.text, 25) -- Max 25 chars per line
-  local current_y = 55 -- Starting Y position for the first line of content
+  local current_y = 55                                        -- Starting Y position for the first line of content
   for _, line in ipairs(wrapped_lines) do
     Print.text(line, 50, current_y, Config.colors.light_grey)
     current_y = current_y + 8 -- Move to the next line (8 pixels for default font height + padding)
   end
-  
+
   -- Adjust menu position based on the number of wrapped lines
   if not Context.dialog.showing_description then
     UI.draw_menu(Context.dialog.menu_items, Context.dialog.selected_menu_item, 50, current_y + 2)

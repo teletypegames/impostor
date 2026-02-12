@@ -31,10 +31,10 @@ build: $(OUTPUT)
 
 $(OUTPUT): $(SRC) $(ORDER)
 	@rm -f $(OUTPUT)
-	@while read f; do \
+	@sed 's/\r$$//' $(ORDER) | while read f; do \
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
 		echo "" >> $(OUTPUT); \
-	done < $(ORDER)
+	done
 
 export: build
 	@if [ -z "$(VERSION)" ]; then \
