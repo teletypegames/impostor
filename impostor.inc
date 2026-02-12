@@ -3,6 +3,7 @@ init/init.modules.lua
 init/init.config.lua
 init/init.windows.lua
 init/init.context.lua
+data/data.songs.lua
 system/system.print.lua
 entity/entity.npc.lua
 entity/entity.item.lua
@@ -14,6 +15,9 @@ window/window.intro.lua
 window/window.menu.lua
 window/window.configuration.lua
 window/window.popup.lua
+window/window.minigame.mash.lua
+window/window.minigame.rhythm.lua
+window/window.minigame.ddr.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua
