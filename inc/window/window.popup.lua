@@ -13,16 +13,18 @@ function PopupWindow.set_dialog_node(node_key)
 
   -- Special handling for DDR minigame trigger
   -- Format: __MINIGAME_DDR__ or __MINIGAME_DDR:song_key__
+  local song_key = node_key:match("^__MINIGAME_DDR:(.+)__$")
+  if song_key then
+    -- Extract song key from the node (format: __MINIGAME_DDR/test_song__)
+    trace('Playing song: ' .. song_key)
+    MinigameDDRWindow.start(WINDOW_GAME, song_key)
+    return
+  end
   if node_key == "__MINIGAME_DDR__" then
     MinigameDDRWindow.start(WINDOW_GAME, nil)
     return
   end
-  if node_key:sub(1, 16) == "__MINIGAME_DDR:" then
-    -- Extract song key from the node (format: __MINIGAME_DDR:test_song__)
-    local song_key = node_key:sub(17, -3) -- Remove prefix "__MINIGAME_DDR:" and trailing "__"
-    MinigameDDRWindow.start(WINDOW_GAME, song_key)
-    return
-  end
+
   local npc = Context.dialog.active_entity
   local node = npc.dialog[node_key]
 

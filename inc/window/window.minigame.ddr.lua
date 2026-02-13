@@ -150,7 +150,7 @@ end
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
   
-  -- Check for completion
+  -- Check for completion (bar filled to 100%)
   if mg.bar_fill >= mg.max_fill then
     Context.active_window = mg.return_window
     return
@@ -158,6 +158,16 @@ function MinigameDDRWindow.update()
   
   -- Increment frame counter
   mg.frame_counter = mg.frame_counter + 1
+  
+  -- Check if song has ended (pattern mode only)
+  if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
+    -- Song has ended if we've passed the end frame AND all arrows are cleared
+    if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
+      -- Song complete! Return to previous window
+      Context.active_window = mg.return_window
+      return
+    end
+  end
   
   -- Spawn arrows based on mode (pattern or random)
   if mg.use_pattern and mg.current_song and mg.current_song.pattern then
@@ -176,13 +186,6 @@ function MinigameDDRWindow.update()
         -- Not time yet, break the loop
         break
       end
-    end
-    
-    -- If we've finished the pattern, check if we should loop or end
-    if mg.pattern_index > #pattern then
-      -- Pattern complete - could loop or switch to random mode
-      -- For now, keep playing but stop spawning new arrows
-      -- Optionally: mg.pattern_index = 1 to loop
     end
   else
     -- Random spawning mode (original behavior)
