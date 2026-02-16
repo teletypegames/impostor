@@ -24,6 +24,10 @@ local STATE_HANDLERS = {
     ConfigurationWindow.update()
     ConfigurationWindow.draw()
   end,
+  [WINDOW_AUDIOTEST] = function()
+    AudioTestWindow.update()
+    AudioTestWindow.draw()
+  end,
 }
 
 local initialized_game = false

@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run TIC80",
+            "type": "shell",
+            "command": "tic80 --fs=. impostor.lua"
+        },
+        {
+            "label": "Build & Run TIC80",
+            "type": "shell",
+            "command": "make build && tic80 --fs=. impostor.lua"
+        },
+        {
+            "label": "Export assets",
+            "type": "shell",
+            "command": "make export_assets"
+        },
+        {
+            "label": "Make build",
+            "type": "shell",
+            "command": "make build"
+        },
+    ]
+}

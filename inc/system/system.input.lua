@@ -16,8 +16,8 @@ local INPUT_KEY_ENTER = 50
 
 function Input.up() return btnp(INPUT_KEY_UP) end
 function Input.down() return btnp(INPUT_KEY_DOWN) end
-function Input.left() return btn(INPUT_KEY_LEFT) end
-function Input.right() return btn(INPUT_KEY_RIGHT) end
+function Input.left() return btnp(INPUT_KEY_LEFT) end
+function Input.right() return btnp(INPUT_KEY_RIGHT) end
 function Input.select() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) end
 function Input.menu_confirm() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_ENTER) end
 function Input.player_interact() return btnp(INPUT_KEY_B) or keyp(INPUT_KEY_ENTER) end -- B button

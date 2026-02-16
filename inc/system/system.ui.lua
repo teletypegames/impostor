@@ -19,11 +19,13 @@ end
 
 function UI.update_menu(items, selected_item)
   if Input.up() then
+    Audio.sfx_beep()
     selected_item = selected_item - 1
     if selected_item < 1 then
       selected_item = #items
     end
   elseif Input.down() then
+    Audio.sfx_beep()
     selected_item = selected_item + 1
     if selected_item > #items then
       selected_item = 1

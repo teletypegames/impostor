@@ -4,3 +4,4 @@ local WINDOW_MENU = 2
 local WINDOW_GAME = 3
 local WINDOW_POPUP = 4
 local WINDOW_CONFIGURATION = 7
+local WINDOW_AUDIOTEST = 9001 -- mert ez debug

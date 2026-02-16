@@ -9,6 +9,7 @@ function MenuWindow.update()
   if Input.menu_confirm() then
     local selected_item = Context.menu_items[Context.selected_menu_item]
     if selected_item and selected_item.action then
+      Audio.sfx_select()
       selected_item.action()
     end
   end
@@ -41,6 +42,11 @@ function MenuWindow.configuration()
   GameWindow.set_state(WINDOW_CONFIGURATION)
 end
 
+function MenuWindow.audio_test()
+  AudioTestWindow.init()
+  GameWindow.set_state(WINDOW_AUDIOTEST)
+end
+
 function MenuWindow.refresh_menu_items()
   Context.menu_items = {} -- Start with an empty table
 
@@ -52,9 +58,8 @@ function MenuWindow.refresh_menu_items()
   table.insert(Context.menu_items, {label = "New Game", action = MenuWindow.new_game})
   table.insert(Context.menu_items, {label = "Load Game", action = MenuWindow.load_game})
   table.insert(Context.menu_items, {label = "Configuration", action = MenuWindow.configuration})
+  table.insert(Context.menu_items, {label = "Audio Test", action = MenuWindow.audio_test})
   table.insert(Context.menu_items, {label = "Exit", action = MenuWindow.exit})
-  
+
   Context.selected_menu_item = 1 -- Reset selection after refreshing
 end
-
-
