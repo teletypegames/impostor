@@ -309,6 +309,7 @@ local function get_initial_data()
                   text = "Test your reflexes! Hit the arrows in time with the music. Choose your difficulty:",
                   options = {
                       {label = "Test Song", next_node = "test"},
+                      {label = "Test Song 2", next_node = "test_2"},
                       {label = "Random Mode", next_node = "random"},
                       {label = "Not now.", next_node = "dialog_end"}
                   }
@@ -317,6 +318,12 @@ local function get_initial_data()
                   text = "Test song selected. Show me what you got!",
                   options = {
                       {label = "Start!", next_node = "__MINIGAME_DDR:test_song__"}
+                  }
+              },
+              test_2 = {
+                  text = "Test song 2 selected. Show me what you got!",
+                  options = {
+                      {label = "Start!", next_node = "__MINIGAME_DDR:test_song_2__"}
                   }
               },
               random = {
