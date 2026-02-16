@@ -31,10 +31,10 @@ build: $(OUTPUT)
 
 $(OUTPUT): $(SRC) $(ORDER)
 	@rm -f $(OUTPUT)
-	@while read f; do \
+	@sed 's/\r$$//' $(ORDER) | while read f; do \
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
 		echo "" >> $(OUTPUT); \
-	done < $(ORDER)
+	done
 
 export: build
 	@if [ -z "$(VERSION)" ]; then \
@@ -95,8 +95,9 @@ clean:
 
 # CI/CD Targets
 ci-version:
-	@VERSION=$$(sed -n "s/^-- version: //p" inc/meta/meta.header.lua | head -n 1 | tr -d "[:space:]"); \
+	@VERSION=$$(sed -n "s/^-- version: //p" inc-meta-meta.header.lua | head -n 1 | tr -d "[:space:]"); \
 	BRANCH=$${CI_COMMIT_BRANCH:-$${WOODPECKER_BRANCH}}; \
+	BRANCH=$$(echo "$$BRANCH" | tr '/' '-'); \
 	if [ "$$BRANCH" != "main" ] && [ "$$BRANCH" != "master" ] && [ -n "$$BRANCH" ]; then \
 		VERSION=dev-$$VERSION-$$BRANCH; \
 	fi; \

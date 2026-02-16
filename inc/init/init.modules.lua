@@ -5,6 +5,9 @@ local GameWindow = {}
 local PopupWindow = {}
 local ConfigurationWindow = {}
 local AudioTestWindow = {}
+local MinigameButtonMashWindow = {}
+local MinigameRhythmWindow = {}
+local MinigameDDRWindow = {}
 
 local Util = {}
 local UI = {}

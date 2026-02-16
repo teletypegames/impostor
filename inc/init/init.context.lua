@@ -2,14 +2,7 @@ local SAVE_GAME_BANK = 6
 local SAVE_GAME_MAGIC_VALUE_ADDRESS = 0
 local SAVE_GAME_MAGIC_VALUE = 0xCA
 
-local SAVE_GAME_PLAYER_X_ADDRESS = 1
-local SAVE_GAME_PLAYER_Y_ADDRESS = 2
-local SAVE_GAME_PLAYER_VX_ADDRESS = 3
-local SAVE_GAME_PLAYER_VY_ADDRESS = 4
-local SAVE_GAME_selectS_ADDRESS = 5
 local SAVE_GAME_CURRENT_SCREEN_ADDRESS = 6
-
-local VX_VY_OFFSET = 128 -- Offset for negative velocities
 
 -- Helper for deep copying tables
 local function clone_table(t)
@@ -57,9 +50,25 @@ local function get_initial_data()
     game_in_progress = false, -- New flag
     screens = clone_table({
       {
-        -- Screen 1
         name = "Screen 1",
         npcs = {
+          {
+            name = "Button Mash Minigame",
+            sprite_id = 4,
+            dialog = {
+              start = {
+                  text = "Ready to test your reflexes? Prove your speed!",
+                  options = {
+                      {label = "Let's do it!", next_node = "__MINIGAME_BUTTON_MASH__"},
+                      {label = "Not now.", next_node = "dialog_end"}
+                  }
+              },
+              dialog_end = {
+                  text = "Come back when you're ready.",
+                  options = {}
+              }
+            }
+          },
           {
             name = "Trinity",
             sprite_id = 2,
@@ -171,7 +180,7 @@ local function get_initial_data()
                   options = {}
               }
             }
-          }
+          },
         },
         items = {
           {
@@ -185,6 +194,23 @@ local function get_initial_data()
         -- Screen 2
         name = "Screen 2",
         npcs = {
+          {
+            name = "Rhythm Master",
+            sprite_id = 4,
+            dialog = {
+              start = {
+                text = "Test your timing! Hit the mark when the moment is right.",
+                options = {
+                  {label = "Let's go!", next_node = "__MINIGAME_RHYTHM__"},
+                  {label = "Not now.", next_node = "dialog_end"}
+                }
+              },
+              dialog_end = {
+                text = "Come back when you're ready to test your reflexes.",
+                options = {}
+              }
+            }
+          },
           {
             name = "Morpheus",
             sprite_id = 5,
@@ -275,6 +301,43 @@ local function get_initial_data()
         -- Screen 3
         name = "Screen 3",
         npcs = {
+          {
+            name = "DDR Rhythm Master",
+            sprite_id = 4,
+            dialog = {
+              start = {
+                  text = "Test your reflexes! Hit the arrows in time with the music. Choose your difficulty:",
+                  options = {
+                      {label = "Test Song", next_node = "test"},
+                      {label = "Test Song 2", next_node = "test_2"},
+                      {label = "Random Mode", next_node = "random"},
+                      {label = "Not now.", next_node = "dialog_end"}
+                  }
+              },
+              test = {
+                  text = "Test song selected. Show me what you got!",
+                  options = {
+                      {label = "Start!", next_node = "__MINIGAME_DDR:test_song__"}
+                  }
+              },
+              test_2 = {
+                  text = "Test song 2 selected. Show me what you got!",
+                  options = {
+                      {label = "Start!", next_node = "__MINIGAME_DDR:test_song_2__"}
+                  }
+              },
+              random = {
+                  text = "Random arrows! No pattern, just react!",
+                  options = {
+                      {label = "Start!", next_node = "__MINIGAME_DDR__"}
+                  }
+              },
+              dialog_end = {
+                  text = "Come back when you're ready to dance!",
+                  options = {}
+              }
+            }
+          },
           {
             name = "Agent Smith",
             sprite_id = 8,

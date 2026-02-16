@@ -28,6 +28,18 @@ local STATE_HANDLERS = {
     AudioTestWindow.update()
     AudioTestWindow.draw()
   end,
+  [WINDOW_MINIGAME_BUTTON_MASH] = function()
+    MinigameButtonMashWindow.update()
+    MinigameButtonMashWindow.draw()
+  end,
+  [WINDOW_MINIGAME_RHYTHM] = function()
+    MinigameRhythmWindow.update()
+    MinigameRhythmWindow.draw()
+  end,
+  [WINDOW_MINIGAME_DDR] = function()
+    MinigameDDRWindow.update()
+    MinigameDDRWindow.draw()
+  end,
 }
 
 local initialized_game = false
