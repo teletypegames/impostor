@@ -10,9 +10,8 @@ local MinigameRhythmWindow = {}
 local MinigameDDRWindow = {}
 
 local Util = {}
-local Context = {}
-local Desitions = {}
 local DesitionManager = {}
+local ScreenManager = {} -- New declaration
 local UI = {}
 local Print = {}
 local Input = {}

@@ -4,11 +4,17 @@ function GameWindow.draw()
   UI.draw_top_bar(currentScreenData.name)
   
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
-    local display_decisions = {}
+    local available_desitions = {}
     for _, desition_id in ipairs(currentScreenData.decisions) do
-      table.insert(display_decisions, DesitionManager.get(desition_id))
+      local desition_obj = DesitionManager.get(desition_id)
+      if desition_obj and desition_obj.condition() then -- Check condition directly
+        table.insert(available_desitions, desition_obj)
+      end
     end
-    UI.draw_desition_selector(display_decisions, Context.selected_desition_index)
+    -- If no available desitions, display nothing or a message
+    if #available_desitions > 0 then
+      UI.draw_desition_selector(available_desitions, Context.selected_desition_index)
+    end
   end
 end
 
@@ -37,14 +43,20 @@ function GameWindow.update()
   local currentScreenData = Context.screens[Context.current_screen]
   
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
-    local display_decisions = {}
+    local available_desitions = {}
     for _, desition_id in ipairs(currentScreenData.decisions) do
-      table.insert(display_decisions, DesitionManager.get(desition_id))
+      local desition_obj = DesitionManager.get(desition_id)
+      if desition_obj and desition_obj.condition() then -- Check condition directly
+        table.insert(available_desitions, desition_obj)
+      end
     end
+
+    -- If no available desitions, we can't update or execute
+    if #available_desitions == 0 then return end
 
     -- Update selected decision using left/right inputs
     local new_selected_desition_index = UI.update_desition_selector(
-      display_decisions,
+      available_desitions,
       Context.selected_desition_index
     )
 
@@ -55,10 +67,10 @@ function GameWindow.update()
 
     -- Execute selected decision on Input.select()
     if Input.select() then
-      local selected_desition = display_decisions[Context.selected_desition_index]
-      if selected_desition and selected_desition.handler then
+      local selected_desition = available_desitions[Context.selected_desition_index]
+      if selected_desition and selected_desition.handle then -- Call handle directly
         Audio.sfx_select() -- Play sound for selection
-        selected_desition.handler()
+        selected_desition.handle()
       end
     end
   end

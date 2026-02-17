@@ -45,51 +45,11 @@ local function get_initial_data()
     selected_menu_item = 1,
     selected_desition_index = 1, -- New desition index
     game_in_progress = false, -- New flag
-    screens = clone_table({
-      {
-        id = "home",
-        name = "Home",
-        decisions = {
-          "go_to_toilet",
-          "go_to_walking_to_office",
-        }
-      },
-      {
-        id = "toilet",
-        name = "Toilet",
-        decisions = {
-          "go_to_home",
-        }
-      },
-      {
-        id = "walking_to_office",
-        name = "Walking to office",
-        decisions = {
-          "go_to_home",
-          "go_to_office",
-        }
-      },
-      {
-        id = "office",
-        name = "Office",
-        decisions = {
-          "play_button_mash",
-          "play_rhythm",
-          "play_ddr",
-          "go_to_walking_to_home",
-        }
-      },
-      {
-        id = "walking_to_home",
-        name = "Walking to home",
-        decisions = {
-          "go_to_home",
-          "go_to_office",
-        }
-      }
-    })
+    screens = {} -- Initialize as empty, populated on reset
   }
 end
+
+Context = {}
 
 local function reset_context_to_initial_state()
   local initial_data = get_initial_data()
@@ -104,6 +64,22 @@ local function reset_context_to_initial_state()
   -- Copy all initial data properties into Context
   for k, v in pairs(initial_data) do
     Context[k] = v
+  end
+
+  -- Populate Context.screens from ScreenManager, ensuring indexed array
+  Context.screens = {}
+  Context.screen_indices_by_id = {} -- Renamed for clarity, stores index
+  -- The screen order needs to be explicit to ensure consistent numerical indices
+  local screen_order = {"home", "toilet", "walking_to_office", "office", "walking_to_home"}
+  for i, screen_id in ipairs(screen_order) do
+    local screen_data = ScreenManager.get_by_id(screen_id)
+    if screen_data then
+      table.insert(Context.screens, screen_data)
+      Context.screen_indices_by_id[screen_id] = i -- Store index
+    else
+      -- Handle error if a screen is not registered
+      PopupWindow.show({"Error: Screen '" .. screen_id .. "' not registered!"})
+    end
   end
 end
 
