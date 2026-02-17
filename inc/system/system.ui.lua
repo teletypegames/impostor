@@ -98,15 +98,17 @@ function UI.draw_desition_selector(desitions, selected_desition_index)
     local selected_desition = desitions[selected_desition_index]
     local desition_label = selected_desition.label
     local text_width = #desition_label * 4 -- Assuming 4 pixels per char
-    local text_x = (Config.screen.width - text_width) / 2
     local text_y = bar_y + 4
 
-    -- Draw left arrow
-    Print.text("<", text_x - 10, text_y, Config.colors.green)
+    -- Center the decision label
+    local text_x = (Config.screen.width - text_width) / 2
+
+    -- Draw left arrow at the far left
+    Print.text("<", 2, text_y, Config.colors.green)
     -- Draw selected desition label
     Print.text(desition_label, text_x, text_y, Config.colors.item) -- Highlight color
-    -- Draw right arrow
-    Print.text(">", text_x + text_width + 6, text_y, Config.colors.green)
+    -- Draw right arrow at the far right
+    Print.text(">", Config.screen.width - 6, text_y, Config.colors.green) -- 6 = 2 (right margin) + 4 (char width)
   end
 end
 
