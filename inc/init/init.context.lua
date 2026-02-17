@@ -47,82 +47,87 @@ local function get_initial_data()
     game_in_progress = false, -- New flag
     screens = clone_table({
       {
+        id = "home",
         name = "Home",
         decisions = {
           Util.create_decision(
             "go_to_toilet",
             "Go to Toilet",
-            function() Context.current_screen = 2; Context.selected_desition_index = 1 end
+            Desitions.go_to_toilet
           ),
           Util.create_decision(
             "go_to_walking_to_office",
             "Go to Walking to office",
-            function() Context.current_screen = 3; Context.selected_desition_index = 1 end
+            Desitions.go_to_walking_to_office
           ),
         }
       },
       {
+        id = "toilet",
         name = "Toilet",
         decisions = {
           Util.create_decision(
             "go_to_home",
             "Go to Home",
-            function() Context.current_screen = 1; Context.selected_desition_index = 1 end
+            Desitions.go_to_home
           ),
         }
       },
       {
+        id = "walking_to_office",
         name = "Walking to office",
         decisions = {
           Util.create_decision(
             "go_to_home",
             "Go to Home",
-            function() Context.current_screen = 1; Context.selected_desition_index = 1 end
+            Desitions.go_to_home
           ),
           Util.create_decision(
             "go_to_office",
             "Go to Office",
-            function() Context.current_screen = 4; Context.selected_desition_index = 1 end
+            Desitions.go_to_office
           ),
         }
       },
       {
+        id = "office",
         name = "Office",
         decisions = {
           Util.create_decision(
             "play_button_mash",
             "Play Button Mash",
-            function() Desitions.start_minigame_mash() end
+            Desitions.start_minigame_mash
           ),
           Util.create_decision(
             "play_rhythm",
             "Play Rhythm Game",
-            function() Desitions.start_minigame_rhythm() end
+            Desitions.start_minigame_rhythm
           ),
           Util.create_decision(
             "play_ddr",
             "Play DDR (Random)",
-            function() Desitions.start_minigame_ddr(nil) end
+            Desitions.start_minigame_ddr
           ),
           Util.create_decision(
             "go_to_walking_to_home",
             "Go to Walking to home",
-            function() Context.current_screen = 5; Context.selected_desition_index = 1 end
+            Desitions.go_to_walking_to_home
           ),
         }
       },
       {
+        id = "walking_to_home",
         name = "Walking to home",
         decisions = {
           Util.create_decision(
             "go_to_home",
             "Go to Home",
-            function() Context.current_screen = 1; Context.selected_desition_index = 1 end
+            Desitions.go_to_home
           ),
           Util.create_decision(
             "go_to_office",
             "Go to Office",
-            function() Context.current_screen = 4; Context.selected_desition_index = 1 end
+            Desitions.go_to_office
           ),
         }
       }
