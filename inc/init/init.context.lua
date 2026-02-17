@@ -28,13 +28,9 @@ local function get_initial_data()
     },
     current_screen = 1,
     splash_timer = Config.timing.splash_duration,
-    dialog = {
-      text = "",
-      menu_items = {},
-      selected_menu_item = 1,
-      active_entity = nil,
-      showing_description = false,
-      current_node_key = nil
+    popup = { -- New popup table
+      show = false,
+      content = {} -- Array of strings
     },
     player = {
       sprite_id = Config.player.sprite_id
@@ -51,35 +47,16 @@ local function get_initial_data()
     screens = clone_table({
       {
         name = "Screen 1",
-        items = {
-          {
-            name = "Key",
-            sprite_id = 4,
-            desc = "A rusty old key. It might open something."
-          }
-        }
       },
       {
-        -- Screen 2
         name = "Screen 2",
-        items = {
-          {
-            name = "Potion",
-            sprite_id = 7,
-            desc = "A glowing red potion. It looks potent."
-          }
-        }
       },
       {
-        -- Screen 3
         name = "Screen 3",
-        items = {}
       }
     })
   }
 end
-
-Context = {}
 
 local function reset_context_to_initial_state()
   local initial_data = get_initial_data()

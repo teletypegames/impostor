@@ -83,7 +83,7 @@ function MinigameButtonMashWindow.draw()
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item -- yellow
     elseif mg.bar_fill > 33 then
-      bar_color = Config.colors.npc -- medium color
+      bar_color = Config.colors.bar -- medium color
     end
     
     rect(mg.bar_x, mg.bar_y, fill_width, mg.bar_height, bar_color)
