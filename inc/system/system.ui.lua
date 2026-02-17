@@ -80,10 +80,10 @@ function UI.create_numeric_stepper(label, value_getter, value_setter, min, max, 
   }
 end
 
-function UI.create_action_item(label, action)
+function UI.create_desition_item(label, desition)
   return {
     label = label,
-    action = action,
-    type = "action_item"
+    desition = desition,
+    type = "desition_item"
   }
 end
