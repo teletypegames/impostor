@@ -5,11 +5,11 @@ ConfigurationWindow = {
 
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
-    UI.create_action_item(
+    UI.create_desition_item(
       "Save",
       function() Config.save() end
     ),
-    UI.create_action_item(
+    UI.create_desition_item(
       "Restore Defaults",
       function() Config.restore_defaults() end
     ),
@@ -46,7 +46,7 @@ function ConfigurationWindow.draw()
         Print.text(label_text, x_start, current_y, color)
         Print.text(value_text, value_x, current_y, color)
       end
-    elseif control.type == "action_item" then
+    elseif control.type == "desition_item" then
       local label_text = control.label
       if i == ConfigurationWindow.selected_control then
         color = Config.colors.item
@@ -91,9 +91,9 @@ function ConfigurationWindow.update()
         local new_value = math.min(control.max, current_value + control.step)
         control.set(new_value)
       end
-    elseif control.type == "action_item" then
+    elseif control.type == "desition_item" then
       if Input.menu_confirm() then
-        control.action()
+        control.desition()
       end
     end
   end

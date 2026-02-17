@@ -304,7 +304,7 @@ function MinigameDDRWindow.draw()
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item -- yellow
     elseif mg.bar_fill > 33 then
-      bar_color = Config.colors.npc
+      bar_color = Config.colors.bar
     end
     
     rect(mg.bar_x, mg.bar_y, fill_width, mg.bar_height, bar_color)
@@ -326,7 +326,7 @@ function MinigameDDRWindow.draw()
   -- Draw falling arrows (blue)
   if mg.arrows then
     for _, arrow in ipairs(mg.arrows) do
-      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.npc) -- blue color
+      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.bar) -- blue color
     end
   end
   
@@ -345,6 +345,6 @@ function MinigameDDRWindow.draw()
       Print.text_center("Pattern Len:" .. #mg.current_song.pattern .. " Index:" .. mg.pattern_index, Config.screen.width / 2, debug_y + 10, Config.colors.green)
     end
   else
-    Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.npc)
+    Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.bar)
   end
 end

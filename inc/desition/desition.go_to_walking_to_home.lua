@@ -1,0 +1,8 @@
+DesitionManager.register({
+  id = "go_to_walking_to_home",
+  label = "Go to Walking to home",
+  handle = function()
+    Util.go_to_screen_by_id("walking_to_home")
+  end,
+  condition = function() return true end
+})

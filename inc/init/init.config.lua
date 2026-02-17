@@ -8,7 +8,6 @@ local DEFAULT_CONFIG = {
     light_grey = 13,
     dark_grey = 14,
     green = 6,
-    npc = 8,
     item = 12 -- yellow
   },
   player = {
@@ -29,19 +28,26 @@ local Config = {
 
 local CONFIG_SAVE_BANK = 7
 local CONFIG_MAGIC_VALUE_ADDRESS = 2
+local CONFIG_SPLASH_DURATION_ADDRESS = 3 -- New address for splash duration
 local CONFIG_MAGIC_VALUE = 0xDE -- A magic number to check if config is saved
 
 function Config.save()
-  -- Save physics settings
   mset(CONFIG_MAGIC_VALUE, CONFIG_MAGIC_VALUE_ADDRESS, CONFIG_SAVE_BANK) -- Mark as saved
+  --mset(Config.timing.splash_duration, CONFIG_SPLASH_DURATION_ADDRESS, CONFIG_SAVE_BANK)
 end
 
 function Config.load()
-  Config.restore_defaults()
-  -- Check if config has been saved before using a magic value
+  if mget(CONFIG_MAGIC_VALUE_ADDRESS, CONFIG_SAVE_BANK) == CONFIG_MAGIC_VALUE then
+    -- Config has been saved, load values
+    Config.timing.splash_duration = mget(CONFIG_SPLASH_DURATION_ADDRESS, CONFIG_SAVE_BANK)
+  else
+    -- No saved config, restore defaults
+    Config.restore_defaults()
+  end
 end
 
 function Config.restore_defaults()
+  Config.timing.splash_duration = DEFAULT_CONFIG.timing.splash_duration
   -- Any other configurable items should be reset here
 end
 
