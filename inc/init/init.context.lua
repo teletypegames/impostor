@@ -43,16 +43,38 @@ local function get_initial_data()
     },
     menu_items = {},
     selected_menu_item = 1,
+    selected_desition_index = 1, -- New desition index
     game_in_progress = false, -- New flag
     screens = clone_table({
       {
         name = "Screen 1",
+        decisions = {
+          Util.create_decision(
+            "play_button_mash",
+            "Play Button Mash",
+            function() Desitions.start_minigame_mash() end
+          ),
+        }
       },
       {
         name = "Screen 2",
+        decisions = {
+          Util.create_decision(
+            "play_rhythm",
+            "Play Rhythm Game",
+            function() Desitions.start_minigame_rhythm() end
+          ),
+        }
       },
       {
         name = "Screen 3",
+        decisions = {
+          Util.create_decision(
+            "play_ddr",
+            "Play DDR (Random)",
+            function() Desitions.start_minigame_ddr(nil) end
+          ),
+        }
       }
     })
   }

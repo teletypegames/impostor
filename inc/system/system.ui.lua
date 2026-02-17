@@ -80,10 +80,43 @@ function UI.create_numeric_stepper(label, value_getter, value_setter, min, max, 
   }
 end
 
-function UI.create_desition_item(label, desition)
+function UI.create_action_item(label, action)
   return {
     label = label,
-    desition = desition,
-    type = "desition_item"
+    action = action,
+    type = "action_item"
   }
+end
+
+function UI.draw_desition_selector(desitions, selected_desition_index)
+  local bar_height = 16
+  local bar_y = Config.screen.height - bar_height
+  
+  rect(0, bar_y, Config.screen.width, bar_height, Config.colors.dark_grey)
+
+  if #desitions > 0 then
+    local selected_desition = desitions[selected_desition_index]
+    local desition_label = selected_desition.label
+    local text_width = #desition_label * 4 -- Assuming 4 pixels per char
+    local text_x = (Config.screen.width - text_width) / 2
+    local text_y = bar_y + 4
+
+    -- Draw left arrow
+    Print.text("<", text_x - 10, text_y, Config.colors.green)
+    -- Draw selected desition label
+    Print.text(desition_label, text_x, text_y, Config.colors.item) -- Highlight color
+    -- Draw right arrow
+    Print.text(">", text_x + text_width + 6, text_y, Config.colors.green)
+  end
+end
+
+function UI.update_desition_selector(desitions, selected_desition_index)
+  if Input.left() then
+    Audio.sfx_beep()
+    selected_desition_index = Util.safeindex(desitions, selected_desition_index - 1)
+  elseif Input.right() then
+    Audio.sfx_beep()
+    selected_desition_index = Util.safeindex(desitions, selected_desition_index + 1)
+  end
+  return selected_desition_index
 end

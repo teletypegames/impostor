@@ -1,4 +1,3 @@
-
 function Desitions.start_minigame_mash()
   MinigameButtonMashWindow.start(WINDOW_GAME)
 end

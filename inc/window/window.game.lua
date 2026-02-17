@@ -2,6 +2,10 @@ function GameWindow.draw()
   local currentScreenData = Context.screens[Context.current_screen]
 
   UI.draw_top_bar(currentScreenData.name)
+  
+  if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
+    UI.draw_desition_selector(currentScreenData.decisions, Context.selected_desition_index)
+  end
 end
 
 function GameWindow.update()
@@ -10,11 +14,43 @@ function GameWindow.update()
     MenuWindow.refresh_menu_items()
     return
   end
-  if Input.select() then
-    if Context.current_screen == #Context.screens then
+
+  -- Handle screen changing using up/down
+  if Input.up() then
+    Context.current_screen = Context.current_screen - 1
+    if Context.current_screen < 1 then
+      Context.current_screen = #Context.screens
+    end
+    Context.selected_desition_index = 1 -- Reset selected decision on screen change
+  elseif Input.down() then
+    Context.current_screen = Context.current_screen + 1
+    if Context.current_screen > #Context.screens then
       Context.current_screen = 1
-    else
-      Context.current_screen = Context.current_screen + 1
+    end
+    Context.selected_desition_index = 1 -- Reset selected decision on screen change
+  end
+
+  local currentScreenData = Context.screens[Context.current_screen]
+
+  if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
+    -- Update selected decision using left/right inputs
+    local new_selected_desition_index = UI.update_desition_selector(
+      currentScreenData.decisions,
+      Context.selected_desition_index
+    )
+
+    -- Only update Context if the selection actually changed to avoid unnecessary re-assignment
+    if new_selected_desition_index ~= Context.selected_desition_index then
+      Context.selected_desition_index = new_selected_desition_index
+    end
+
+    -- Execute selected decision on Input.select()
+    if Input.select() then
+      local selected_desition = currentScreenData.decisions[Context.selected_desition_index]
+      if selected_desition and selected_desition.handler then
+        Audio.sfx_select() -- Play sound for selection
+        selected_desition.handler()
+      end
     end
   end
 end
