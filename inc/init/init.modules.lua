@@ -12,6 +12,7 @@ local MinigameDDRWindow = {}
 local Util = {}
 local Context = {}
 local Desitions = {}
+local DesitionManager = {}
 local UI = {}
 local Print = {}
 local Input = {}

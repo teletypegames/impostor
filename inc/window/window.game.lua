@@ -4,7 +4,11 @@ function GameWindow.draw()
   UI.draw_top_bar(currentScreenData.name)
   
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
-    UI.draw_desition_selector(currentScreenData.decisions, Context.selected_desition_index)
+    local display_decisions = {}
+    for _, desition_id in ipairs(currentScreenData.decisions) do
+      table.insert(display_decisions, DesitionManager.get(desition_id))
+    end
+    UI.draw_desition_selector(display_decisions, Context.selected_desition_index)
   end
 end
 
@@ -31,11 +35,16 @@ function GameWindow.update()
   end
 
   local currentScreenData = Context.screens[Context.current_screen]
-
+  
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
+    local display_decisions = {}
+    for _, desition_id in ipairs(currentScreenData.decisions) do
+      table.insert(display_decisions, DesitionManager.get(desition_id))
+    end
+
     -- Update selected decision using left/right inputs
     local new_selected_desition_index = UI.update_desition_selector(
-      currentScreenData.decisions,
+      display_decisions,
       Context.selected_desition_index
     )
 
@@ -46,7 +55,7 @@ function GameWindow.update()
 
     -- Execute selected decision on Input.select()
     if Input.select() then
-      local selected_desition = currentScreenData.decisions[Context.selected_desition_index]
+      local selected_desition = display_decisions[Context.selected_desition_index]
       if selected_desition and selected_desition.handler then
         Audio.sfx_select() -- Play sound for selection
         selected_desition.handler()

@@ -50,85 +50,41 @@ local function get_initial_data()
         id = "home",
         name = "Home",
         decisions = {
-          Util.create_decision(
-            "go_to_toilet",
-            "Go to Toilet",
-            Desitions.go_to_toilet
-          ),
-          Util.create_decision(
-            "go_to_walking_to_office",
-            "Go to Walking to office",
-            Desitions.go_to_walking_to_office
-          ),
+          "go_to_toilet",
+          "go_to_walking_to_office",
         }
       },
       {
         id = "toilet",
         name = "Toilet",
         decisions = {
-          Util.create_decision(
-            "go_to_home",
-            "Go to Home",
-            Desitions.go_to_home
-          ),
+          "go_to_home",
         }
       },
       {
         id = "walking_to_office",
         name = "Walking to office",
         decisions = {
-          Util.create_decision(
-            "go_to_home",
-            "Go to Home",
-            Desitions.go_to_home
-          ),
-          Util.create_decision(
-            "go_to_office",
-            "Go to Office",
-            Desitions.go_to_office
-          ),
+          "go_to_home",
+          "go_to_office",
         }
       },
       {
         id = "office",
         name = "Office",
         decisions = {
-          Util.create_decision(
-            "play_button_mash",
-            "Play Button Mash",
-            Desitions.start_minigame_mash
-          ),
-          Util.create_decision(
-            "play_rhythm",
-            "Play Rhythm Game",
-            Desitions.start_minigame_rhythm
-          ),
-          Util.create_decision(
-            "play_ddr",
-            "Play DDR (Random)",
-            Desitions.start_minigame_ddr
-          ),
-          Util.create_decision(
-            "go_to_walking_to_home",
-            "Go to Walking to home",
-            Desitions.go_to_walking_to_home
-          ),
+          "play_button_mash",
+          "play_rhythm",
+          "play_ddr",
+          "go_to_walking_to_home",
         }
       },
       {
         id = "walking_to_home",
         name = "Walking to home",
         decisions = {
-          Util.create_decision(
-            "go_to_home",
-            "Go to Home",
-            Desitions.go_to_home
-          ),
-          Util.create_decision(
-            "go_to_office",
-            "Go to Office",
-            Desitions.go_to_office
-          ),
+          "go_to_home",
+          "go_to_office",
         }
       }
     })
