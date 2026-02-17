@@ -1,13 +1,12 @@
 meta/meta.header.lua
 init/init.modules.lua
 init/init.config.lua
+system/system.util.lua
 init/init.windows.lua
 init/init.context.lua
 data/data.songs.lua
 system/system.print.lua
-system/system.util.lua
-entity/entity.npc.lua
-entity/entity.item.lua
+system/system.actions.lua
 system/system.input.lua
 system/system.audio.lua
 system/system.ui.lua

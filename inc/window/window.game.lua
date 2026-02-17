@@ -17,21 +17,6 @@ function GameWindow.update()
       Context.current_screen = Context.current_screen + 1
     end
   end
-
-  if Input.player_interact() then
-    -- Get the current screen's NPCs
-    local currentScreenData = Context.screens[Context.current_screen]
-    if currentScreenData and currentScreenData.npcs and #currentScreenData.npcs > 0 then
-      -- For now, interact with the first NPC on the screen
-      -- TODO: Add proximity detection to find nearest NPC
-      local npc = currentScreenData.npcs[1]
-      PopupWindow.show_menu_dialog(npc, {
-        {label = "Talk to", action = NPC.talk_to},
-        {label = "Fight", action = NPC.fight},
-        {label = "Go back", action = NPC.go_back}
-      }, WINDOW_POPUP)
-    end
-  end
 end
 
 function GameWindow.set_state(new_state)

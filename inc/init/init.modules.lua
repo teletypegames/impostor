@@ -10,10 +10,9 @@ local MinigameRhythmWindow = {}
 local MinigameDDRWindow = {}
 
 local Util = {}
+local Actions = {}
 local UI = {}
 local Print = {}
 local Input = {}
-local NPC = {}
-local Item = {}
 local Player = {}
-local Audio = {}
+local Audio = {}local Audio = {}
