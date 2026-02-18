@@ -1,5 +1,3 @@
--- Audio subsystem
-
 function Audio.music_stop() music() end
 function Audio.music_play_mainmenu() end
 function Audio.music_play_wakingup() end

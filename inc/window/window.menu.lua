@@ -16,18 +16,15 @@ function MenuWindow.update()
 end
 
 function MenuWindow.new_game()
-  Context.new_game() -- This function will be created in Context
-  GameWindow.set_state(WINDOW_GAME)
+  Context.new_game()   GameWindow.set_state(WINDOW_GAME)
 end
 
 function MenuWindow.load_game()
-  Context.load_game() -- This function will be created in Context
-  GameWindow.set_state(WINDOW_GAME)
+  Context.load_game()   GameWindow.set_state(WINDOW_GAME)
 end
 
 function MenuWindow.save_game()
-  Context.save_game() -- This function will be created in Context
-end
+  Context.save_game() end
 
 function MenuWindow.resume_game()
   GameWindow.set_state(WINDOW_GAME)
@@ -48,8 +45,7 @@ function MenuWindow.audio_test()
 end
 
 function MenuWindow.refresh_menu_items()
-  Context.menu_items = {} -- Start with an empty table
-
+  Context.menu_items = {}
   if Context.game_in_progress then
     table.insert(Context.menu_items, {label = "Resume Game", desition = MenuWindow.resume_game})
     table.insert(Context.menu_items, {label = "Save Game", desition = MenuWindow.save_game})
@@ -61,5 +57,4 @@ function MenuWindow.refresh_menu_items()
   table.insert(Context.menu_items, {label = "Audio Test", desition = MenuWindow.audio_test})
   table.insert(Context.menu_items, {label = "Exit", desition = MenuWindow.exit})
 
-  Context.selected_menu_item = 1 -- Reset selection after refreshing
-end
+  Context.selected_menu_item = 1 end

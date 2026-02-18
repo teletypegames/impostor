@@ -30,6 +30,8 @@ globals = {
   "exit",
   "trace",
   "index_menu",
+  "MapManager",
+  "map",
 }
 
 
