@@ -151,7 +151,7 @@ clean:
 
 # CI/CD Targets
 ci-version:
-	@VERSION=$$(sed -n "s/^-- version: //p" inc-meta-meta.header.lua | head -n 1 | tr -d "[:space:]"); \
+	@VERSION=$$(sed -n "s/^-- version: //p" inc/meta/meta.header.lua | head -n 1 | tr -d "[:space:]"); \
 	BRANCH=$${CI_COMMIT_BRANCH:-$${WOODPECKER_BRANCH}}; \
 	BRANCH=$$(echo "$$BRANCH" | tr '/' '-'); \
 	if [ "$$BRANCH" != "main" ] && [ "$$BRANCH" != "master" ] && [ -n "$$BRANCH" ]; then \
