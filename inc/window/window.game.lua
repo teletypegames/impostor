@@ -1,6 +1,6 @@
 function GameWindow.draw()
   local screen = Context.screens[Context.current_screen]
-  MapManager.draw(screen.background_map_id)
+  MapManager.draw(screen.background)
   UI.draw_top_bar(screen.name)
   if screen and screen.decisions and #screen.decisions > 0 then
     local available_desitions = {}
