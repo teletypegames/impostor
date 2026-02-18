@@ -95,7 +95,7 @@ lint:
 	    line=$$((line + linecount)); \
 	done < $(ORDER)
 	@echo "==> luacheck..."
-	@luacheck --no-max-line-length $(LINT_TMP_LUA) 2>&1 | awk -v map=$(LINT_TMP_MAP) ' \
+	@LINT_OUTPUT=$$(luacheck --no-max-line-length $(LINT_TMP_LUA) 2>&1 | awk -v map=$(LINT_TMP_MAP) ' \
 	BEGIN { \
 	    NR_map = 0; \
 	    while ((getline line < map) > 0) { \
@@ -129,7 +129,16 @@ lint:
 	    next; \
 	} \
 	{ print } \
-	'; true
+	'); \
+	echo "$$LINT_OUTPUT"; \
+	NUM_ISSUES=$$(echo "$$LINT_OUTPUT" | grep -cE "^[^:]+:[0-9]+:[0-9]+:"); \
+	if [ "$$NUM_ISSUES" -gt 0 ]; then \
+	    echo "Total: $$NUM_ISSUES issue(s) found, commit aborted."; \
+	    exit 1; \
+	else \
+	    echo "Checking /tmp/_lint_combined.lua                  OK"; \
+	    echo "Total: 0 warnings / 0 errors in 1 file"; \
+	fi
 	@rm -f $(LINT_TMP_LUA) $(LINT_TMP_MAP)
 
 export_assets:
@@ -181,7 +190,20 @@ ci-update:
 	echo "==> Triggering update for version $$VERSION"; \
 	curl "$(UPDATE_SERVER)/update?secret=$(UPDATE_SECRET)&name=$(PROJECT)&platform=tic80&version=$$VERSION"
 
-.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update
+install_precommit_hook:
+	@echo "Installing Git pre-commit hook (lint check)..."
+	@mkdir -p .git/hooks
+	@printf '#!/bin/bash\n' > .git/hooks/pre-commit
+	@printf 'echo "Running lint before commit..."\n' >> .git/hooks/pre-commit
+	@printf 'make lint\n' >> .git/hooks/pre-commit
+	@printf 'if [ $$? -ne 0 ]; then\n' >> .git/hooks/pre-commit
+	@printf '    echo "Lint failed! Commit aborted."\n' >> .git/hooks/pre-commit
+	@printf '    exit 1\n' >> .git/hooks/pre-commit
+	@printf 'fi\n' >> .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+	@echo "Pre-commit hook installed successfully."
+
+.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook
 
 #-- <WAVES>
 #-- 000:224578acdeeeeddcba95434567653100
