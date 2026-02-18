@@ -53,7 +53,6 @@ end
 
 function TIC()
   init_game()
-
   cls(Config.colors.black)
   local handler = STATE_HANDLERS[Context.active_window]
   if handler then

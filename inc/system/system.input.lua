@@ -5,7 +5,6 @@ local INPUT_KEY_LEFT = 2
 local INPUT_KEY_RIGHT = 3
 local INPUT_KEY_A = 4 -- Z key
 local INPUT_KEY_B = 5 -- X key
-local INPUT_KEY_X = 6 -- A key
 local INPUT_KEY_Y = 7 -- S key
 
 -- Keyboard keys

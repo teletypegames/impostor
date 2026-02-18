@@ -37,7 +37,6 @@ end
 function UI.word_wrap(text, max_chars_per_line)
     if text == nil then return {""} end
     local lines = {}
-    
     for input_line in (text .. "\n"):gmatch("(.-)\n") do
         local current_line = ""
         local words_in_line = 0
@@ -52,18 +51,15 @@ function UI.word_wrap(text, max_chars_per_line)
                 current_line = word
             end
         end
-        
         if words_in_line > 0 then
             table.insert(lines, current_line)
         else
             table.insert(lines, "")
         end
     end
-    
     if #lines == 0 then
         return {""}
     end
-    
     return lines
 end
 
@@ -91,7 +87,6 @@ end
 function UI.draw_desition_selector(desitions, selected_desition_index)
   local bar_height = 16
   local bar_y = Config.screen.height - bar_height
-  
   rect(0, bar_y, Config.screen.width, bar_height, Config.colors.dark_grey)
 
   if #desitions > 0 then

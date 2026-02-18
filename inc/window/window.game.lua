@@ -1,8 +1,6 @@
 function GameWindow.draw()
   local currentScreenData = Context.screens[Context.current_screen]
-
   UI.draw_top_bar(currentScreenData.name)
-  
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
     local available_desitions = {}
     for _, desition_id in ipairs(currentScreenData.decisions) do
@@ -41,7 +39,6 @@ function GameWindow.update()
   end
 
   local currentScreenData = Context.screens[Context.current_screen]
-  
   if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
     local available_desitions = {}
     for _, desition_id in ipairs(currentScreenData.decisions) do

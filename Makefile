@@ -82,17 +82,20 @@ endef
 lint:
 	@echo "==> Merging..."
 	@rm -f $(LINT_TMP_LUA) $(LINT_TMP_MAP)
+	@touch $(LINT_TMP_LUA)
 	@line=1; \
 	while IFS= read -r f || [ -n "$$f" ]; do \
 	    [ -z "$$f" ] && continue; \
-	    linecount=$$(awk 'END{print NR}' "$(SRC_DIR)/$$f"); \
-	    echo "$$line $$linecount $(SRC_DIR)/$$f" >> $(LINT_TMP_MAP); \
+	    before=$$(wc -l < $(LINT_TMP_LUA)); \
 	    cat "$(SRC_DIR)/$$f" >> $(LINT_TMP_LUA); \
-	    echo "" >> $(LINT_TMP_LUA); \
-	    line=$$((line + linecount + 1)); \
+	    printf '\n' >> $(LINT_TMP_LUA); \
+	    after=$$(wc -l < $(LINT_TMP_LUA)); \
+	    linecount=$$((after - before)); \
+	    echo "$$line $$linecount $(SRC_DIR)/$$f" >> $(LINT_TMP_MAP); \
+	    line=$$((line + linecount)); \
 	done < $(ORDER)
 	@echo "==> luacheck..."
-	@luacheck $(LINT_TMP_LUA) 2>&1 | awk -v map=$(LINT_TMP_MAP) ' \
+	@luacheck --no-max-line-length $(LINT_TMP_LUA) 2>&1 | awk -v map=$(LINT_TMP_MAP) ' \
 	BEGIN { \
 	    NR_map = 0; \
 	    while ((getline line < map) > 0) { \
@@ -114,7 +117,7 @@ lint:
 	    rest   = substr(rest2, colon3); \
 	    found  = 0; \
 	    for (i = 0; i < NR_map; i++) { \
-	        end_line = start[i] + count[i]; \
+	        end_line = start[i] + count[i] -1; \
 	        if (absline >= start[i] && absline <= end_line) { \
 	            relline = absline - start[i] + 1; \
 	            print fname[i] ":" relline ":" col ":" rest; \

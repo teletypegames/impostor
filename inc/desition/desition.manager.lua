@@ -21,10 +21,9 @@ function DesitionManager.register(desition_object)
   if not desition_object.handle then
     desition_object.handle = function() end
   end
-  
   if _desitions[desition_object.id] then
     -- Optional: warning if overwriting an existing desition
-    -- trace("Warning: Overwriting desition with id: " .. desition_object.id)
+    trace("Warning: Overwriting desition with id: " .. desition_object.id)
   end
   _desitions[desition_object.id] = desition_object
 end

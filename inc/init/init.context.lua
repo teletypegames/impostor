@@ -5,17 +5,17 @@ local SAVE_GAME_MAGIC_VALUE = 0xCA
 local SAVE_GAME_CURRENT_SCREEN_ADDRESS = 6
 
 -- Helper for deep copying tables
-local function clone_table(t)
-  local copy = {}
-  for k, v in pairs(t) do
-    if type(v) == "table" then
-      copy[k] = clone_table(v)
-    else
-      copy[k] = v
-    end
-  end
-  return copy
-end
+-- local function clone_table(t)
+--   local copy = {}
+--   for k, v in pairs(t) do
+--     if type(v) == "table" then
+--       copy[k] = clone_table(v)
+--     else
+--       copy[k] = v
+--     end
+--   end
+--   return copy
+-- end
 
 -- This function returns a table containing only the initial *data* for Context
 local function get_initial_data()
@@ -24,7 +24,17 @@ local function get_initial_data()
     intro = {
       y = Config.screen.height,
       speed = 0.5,
-      text = "Norman Reds’ everyday life\nseems ordinary: work,\nmeetings, coffee, and\nendless notifications.\nBut beneath the surface\n— within him, or around\nhim — something is\nconstantly building, and\nit soon becomes clear\nthat there is more going\non than meets the eye."
+      text = [[Norman Reds’ everyday life
+seems ordinary: work,
+meetings, coffee, and
+endless notifications.
+But beneath the surface
+— within him, or around
+him — something is
+constantly building, and
+it soon becomes clear
+that there is more going
+on than meets the eye.]]
     },
     current_screen = 1,
     splash_timer = Config.timing.splash_duration,
