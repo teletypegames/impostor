@@ -1,12 +1,13 @@
 function GameWindow.draw()
-  local currentScreenData = Context.screens[Context.current_screen]
-  UI.draw_top_bar(currentScreenData.name)
-  if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
+  local screen = Context.screens[Context.current_screen]
+  MapManager.draw(screen.background_map_id)
+  UI.draw_top_bar(screen.name)
+  if screen and screen.decisions and #screen.decisions > 0 then
     local available_desitions = {}
-    for _, desition_id in ipairs(currentScreenData.decisions) do
-      local desition_obj = DesitionManager.get(desition_id)
-      if desition_obj and desition_obj.condition() then -- Check condition directly
-        table.insert(available_desitions, desition_obj)
+    for _, desition_id in ipairs(screen.decisions) do
+      local desition = DesitionManager.get(desition_id)
+      if desition and desition.condition() then
+        table.insert(available_desitions, desition)
       end
     end
     -- If no available desitions, display nothing or a message
@@ -38,13 +39,13 @@ function GameWindow.update()
     Context.selected_desition_index = 1 -- Reset selected decision on screen change
   end
 
-  local currentScreenData = Context.screens[Context.current_screen]
-  if currentScreenData and currentScreenData.decisions and #currentScreenData.decisions > 0 then
+  local screen = Context.screens[Context.current_screen]
+  if screen and screen.decisions and #screen.decisions > 0 then
     local available_desitions = {}
-    for _, desition_id in ipairs(currentScreenData.decisions) do
-      local desition_obj = DesitionManager.get(desition_id)
-      if desition_obj and desition_obj.condition() then -- Check condition directly
-        table.insert(available_desitions, desition_obj)
+    for _, desition_id in ipairs(screen.decisions) do
+      local desition = DesitionManager.get(desition_id)
+      if desition and desition.condition() then -- Check condition directly
+        table.insert(available_desitions, desition)
       end
     end
 

@@ -12,6 +12,8 @@ desition/desition.go_to_walking_to_home.lua
 desition/desition.play_button_mash.lua
 desition/desition.play_rhythm.lua
 desition/desition.play_ddr.lua
+map/map.manager.lua
+map/map.bedroom.lua
 screen/screen.manager.lua
 screen/screen.home.lua
 screen/screen.toilet.lua
@@ -24,7 +26,6 @@ system/system.print.lua
 system/system.input.lua
 system/system.audio.lua
 system/system.ui.lua
-map/map.bedroom.lua
 window/window.splash.lua
 window/window.intro.lua
 window/window.menu.lua
