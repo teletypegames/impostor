@@ -85,6 +85,7 @@ lint:
 	@touch $(LINT_TMP_LUA)
 	@line=1; \
 	while IFS= read -r f || [ -n "$$f" ]; do \
+	    f=$$(printf '%s' "$$f" | tr -d '\r'); \
 	    [ -z "$$f" ] && continue; \
 	    before=$$(wc -l < $(LINT_TMP_LUA)); \
 	    cat "$(SRC_DIR)/$$f" >> $(LINT_TMP_LUA); \
