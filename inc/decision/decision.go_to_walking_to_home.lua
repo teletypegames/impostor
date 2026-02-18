@@ -1,4 +1,4 @@
-DesitionManager.register({
+DecisionManager.register({
   id = "go_to_walking_to_home",
   label = "Walking to home",
   handle = function()

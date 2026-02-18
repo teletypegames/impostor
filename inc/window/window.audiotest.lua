@@ -10,7 +10,7 @@ function AudioTestWindow.generate_menuitems(list_func, index_func)
     return {
         {
             label = "Play music/sound: " .. (list_func[index_func] or "?"),
-            desition = function()
+            decision = function()
                 local current_func = Audio[list_func[index_func]]
                 if current_func then
                     current_func()
@@ -21,13 +21,13 @@ function AudioTestWindow.generate_menuitems(list_func, index_func)
         },
         {
             label = "Stop playing music",
-            desition = function()
+            decision = function()
                 Audio.music_stop()
             end
         },
         {
             label = "Back",
-            desition = function()
+            decision = function()
                 AudioTestWindow.back()
             end
         },
@@ -90,7 +90,7 @@ function AudioTestWindow.update()
             AudioTestWindow.list_func, AudioTestWindow.index_func
         )
     elseif Input.menu_confirm() then
-        AudioTestWindow.menuitems[AudioTestWindow.index_menu].desition()
+        AudioTestWindow.menuitems[AudioTestWindow.index_menu].decision()
     elseif Input.menu_back() then
         AudioTestWindow.back()
     end

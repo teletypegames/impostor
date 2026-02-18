@@ -7,8 +7,12 @@ local DEFAULT_CONFIG = {
     black = 0,
     light_grey = 13,
     dark_grey = 14,
+    red = 2,
     green = 6,
-    item = 12
+    blue = 9,
+    white = 12,
+    item = 12,
+    meter_bg = 12
   },
   player = {
     sprite_id = 1
