@@ -19,11 +19,9 @@ end
 function ConfigurationWindow.draw()
   UI.draw_top_bar("Configuration")
 
-  local x_start = 10 -- Left margin for labels
-  local y_start = 40
-  local x_value_right_align = Config.screen.width - 10 -- Right margin for values
-  local char_width = 4 -- Approximate character width for default font
-
+  local x_start = 10   local y_start = 40
+  local x_value_right_align = Config.screen.width - 10
+  local char_width = 4
   for i, control in ipairs(ConfigurationWindow.controls) do
     local current_y = y_start + (i - 1) * 12
     local color = Config.colors.green
@@ -32,16 +30,13 @@ function ConfigurationWindow.draw()
       local label_text = control.label
       local value_text = string.format(control.format, value)
 
-      -- Calculate x position for right-aligned value
-      local value_x = x_value_right_align - (#value_text * char_width)
+            local value_x = x_value_right_align - (#value_text * char_width)
 
       if i == ConfigurationWindow.selected_control then
         color = Config.colors.item
         Print.text("<", x_start -8, current_y, color)
-        Print.text(label_text, x_start, current_y, color) -- Shift label due to '<'
-        Print.text(value_text, value_x, current_y, color)
-        Print.text(">", x_value_right_align + 4, current_y, color) -- Print '>' after value
-      else
+        Print.text(label_text, x_start, current_y, color)         Print.text(value_text, value_x, current_y, color)
+        Print.text(">", x_value_right_align + 4, current_y, color)       else
         Print.text(label_text, x_start, current_y, color)
         Print.text(value_text, value_x, current_y, color)
       end
@@ -82,11 +77,9 @@ function ConfigurationWindow.update()
   if control then
     if control.type == "numeric_stepper" then
       local current_value = control.get()
-      if btnp(2) then -- Left
-        local new_value = math.max(control.min, current_value - control.step)
+      if btnp(2) then         local new_value = math.max(control.min, current_value - control.step)
         control.set(new_value)
-      elseif btnp(3) then -- Right
-        local new_value = math.min(control.max, current_value + control.step)
+      elseif btnp(3) then         local new_value = math.min(control.max, current_value + control.step)
         control.set(new_value)
       end
     elseif control.type == "desition_item" then

@@ -1,5 +1,3 @@
-MapManager = {}
-
 local _maps = {}
 
 function MapManager.get_maps_array()
