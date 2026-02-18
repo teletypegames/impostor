@@ -16,6 +16,9 @@ ASSETS_LUA = inc/meta/meta.assets.lua
 ASSETS_DIR = assets
 ASSET_TYPES = tiles sprites sfx music
 
+LINT_TMP_LUA  := /tmp/_lint_combined.lua
+LINT_TMP_MAP   := /tmp/_lint_map.txt
+
 # CI/CD variables
 VERSION_FILE = .version
 GAME_LANG ?= lua
@@ -76,6 +79,59 @@ define f_export_asset_awk
 	cat $(2) | awk '/-- <$(1)>/,/<\/$(1)>/' >> $(3)
 endef
 
+lint:
+	@echo "==> Merging..."
+	@rm -f $(LINT_TMP_LUA) $(LINT_TMP_MAP)
+	@touch $(LINT_TMP_LUA)
+	@line=1; \
+	while IFS= read -r f || [ -n "$$f" ]; do \
+	    [ -z "$$f" ] && continue; \
+	    before=$$(wc -l < $(LINT_TMP_LUA)); \
+	    cat "$(SRC_DIR)/$$f" >> $(LINT_TMP_LUA); \
+	    printf '\n' >> $(LINT_TMP_LUA); \
+	    after=$$(wc -l < $(LINT_TMP_LUA)); \
+	    linecount=$$((after - before)); \
+	    echo "$$line $$linecount $(SRC_DIR)/$$f" >> $(LINT_TMP_MAP); \
+	    line=$$((line + linecount)); \
+	done < $(ORDER)
+	@echo "==> luacheck..."
+	@luacheck --no-max-line-length $(LINT_TMP_LUA) 2>&1 | awk -v map=$(LINT_TMP_MAP) ' \
+	BEGIN { \
+	    NR_map = 0; \
+	    while ((getline line < map) > 0) { \
+	        n = split(line, a, " "); \
+	        start[NR_map] = a[1]+0; \
+	        count[NR_map] = a[2]+0; \
+	        fname[NR_map] = a[3]; \
+	        NR_map++; \
+	    } \
+	} \
+	/^[^:]+:[0-9]+:[0-9]+:/ { \
+	    colon1 = index($$0, ":"); \
+	    rest1  = substr($$0, colon1+1); \
+	    colon2 = index(rest1, ":"); \
+	    absline = substr(rest1, 1, colon2-1) + 0; \
+	    rest2  = substr(rest1, colon2+1); \
+	    colon3 = index(rest2, ":"); \
+	    col    = substr(rest2, 1, colon3-1); \
+	    rest   = substr(rest2, colon3); \
+	    found  = 0; \
+	    for (i = 0; i < NR_map; i++) { \
+	        end_line = start[i] + count[i] -1; \
+	        if (absline >= start[i] && absline <= end_line) { \
+	            relline = absline - start[i] + 1; \
+	            print fname[i] ":" relline ":" col ":" rest; \
+	            found = 1; \
+	            break; \
+	        } \
+	    } \
+	    if (!found) print $$0; \
+	    next; \
+	} \
+	{ print } \
+	'; true
+	@rm -f $(LINT_TMP_LUA) $(LINT_TMP_MAP)
+
 export_assets:
 # $(OUTPUT) would be a circular dependency
 	@test -e $(OUTPUT)
@@ -95,7 +151,7 @@ clean:
 
 # CI/CD Targets
 ci-version:
-	@VERSION=$$(sed -n "s/^-- version: //p" inc-meta-meta.header.lua | head -n 1 | tr -d "[:space:]"); \
+	@VERSION=$$(sed -n "s/^-- version: //p" inc/meta/meta.header.lua | head -n 1 | tr -d "[:space:]"); \
 	BRANCH=$${CI_COMMIT_BRANCH:-$${WOODPECKER_BRANCH}}; \
 	BRANCH=$$(echo "$$BRANCH" | tr '/' '-'); \
 	if [ "$$BRANCH" != "main" ] && [ "$$BRANCH" != "master" ] && [ -n "$$BRANCH" ]; then \
@@ -125,7 +181,7 @@ ci-update:
 	echo "==> Triggering update for version $$VERSION"; \
 	curl "$(UPDATE_SERVER)/update?secret=$(UPDATE_SECRET)&name=$(PROJECT)&platform=tic80&version=$$VERSION"
 
-.PHONY: all build export watch import_assets export_assets clean ci-version ci-export ci-upload ci-update
+.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update
 
 #-- <WAVES>
 #-- 000:224578acdeeeeddcba95434567653100

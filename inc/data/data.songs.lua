@@ -8,7 +8,6 @@ Songs = {
     bpm = 120, -- Beats per minute (for reference)
     fps = 60, -- Frames per second (TIC-80 default)
     end_frame = 570, -- Frame when song ends (last note)
-    
     -- Arrow spawn pattern
     -- Each entry defines when (in frames) and which direction arrow spawns
     -- Formula: frame = (beat / bpm) * 60 * fps
@@ -19,13 +18,11 @@ Songs = {
       {frame = 60, dir = "down"},
       {frame = 90, dir = "up"},
       {frame = 120, dir = "right"},
-      
       -- Beat 5-8 (faster)
       {frame = 135, dir = "left"},
       {frame = 150, dir = "right"},
       {frame = 165, dir = "left"},
       {frame = 180, dir = "right"},
-      
       -- Beat 9-12 (complex pattern)
       {frame = 210, dir = "left"},
       {frame = 210, dir = "right"}, -- simultaneous
@@ -33,7 +30,6 @@ Songs = {
       {frame = 240, dir = "down"}, -- simultaneous
       {frame = 270, dir = "left"},
       {frame = 300, dir = "right"},
-      
       -- Beat 13-16 (rapid sequence)
       {frame = 330, dir = "left"},
       {frame = 345, dir = "down"},
@@ -43,7 +39,6 @@ Songs = {
       {frame = 405, dir = "down"},
       {frame = 420, dir = "up"},
       {frame = 435, dir = "right"},
-      
       -- Beat 17-20 (finale)
       {frame = 465, dir = "up"},
       {frame = 465, dir = "down"},
@@ -60,7 +55,6 @@ Songs = {
     bpm = 120, -- Beats per minute (for reference)
     fps = 60, -- Frames per second (TIC-80 default)
     end_frame = 570, -- Frame when song ends (last note)
-    
     -- Arrow spawn pattern
     -- Each entry defines when (in frames) and which direction arrow spawns
     -- Formula: frame = (beat / bpm) * 60 * fps
@@ -71,13 +65,11 @@ Songs = {
       {frame = 60, dir = "down"},
       {frame = 90, dir = "up"},
       {frame = 120, dir = "right"},
-      
       -- Beat 5-8 (faster)
       {frame = 135, dir = "left"},
       {frame = 150, dir = "right"},
       {frame = 165, dir = "left"},
       {frame = 180, dir = "right"},
-      
       -- Beat 9-12 (complex pattern)
       {frame = 210, dir = "left"},
       {frame = 210, dir = "right"}, -- simultaneous
@@ -85,7 +77,6 @@ Songs = {
       {frame = 240, dir = "down"}, -- simultaneous
       {frame = 270, dir = "left"},
       {frame = 300, dir = "right"},
-      
       -- Beat 13-16 (rapid sequence)
       {frame = 330, dir = "left"},
       {frame = 345, dir = "down"},
@@ -95,7 +86,6 @@ Songs = {
       {frame = 405, dir = "down"},
       {frame = 420, dir = "up"},
       {frame = 435, dir = "right"},
-      
       -- Beat 17-20 (finale)
       {frame = 465, dir = "up"},
       {frame = 465, dir = "down"},

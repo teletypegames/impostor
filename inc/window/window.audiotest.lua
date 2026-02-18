@@ -58,7 +58,9 @@ function AudioTestWindow.init()
     AudioTestWindow.index_menu = 1
     AudioTestWindow.index_func = 1
     AudioTestWindow.list_func = AudioTestWindow.generate_listfunc()
-    AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(AudioTestWindow.list_func, AudioTestWindow.index_func)
+    AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(
+        AudioTestWindow.list_func, AudioTestWindow.index_func
+    )
 end
 
 function AudioTestWindow.draw()
@@ -72,11 +74,21 @@ function AudioTestWindow.update()
     elseif Input.down() then
         AudioTestWindow.index_menu = Util.safeindex(AudioTestWindow.menuitems, AudioTestWindow.index_menu + 1)
     elseif Input.left() then
-        AudioTestWindow.index_func = Util.safeindex(AudioTestWindow.list_func, AudioTestWindow.index_func - 1)
-        AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(AudioTestWindow.list_func, AudioTestWindow.index_func)
+        AudioTestWindow.index_func = Util.safeindex(
+            AudioTestWindow.list_func,
+            AudioTestWindow.index_func - 1
+        )
+        AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(
+            AudioTestWindow.list_func, AudioTestWindow.index_func
+        )
     elseif Input.right() then
-        AudioTestWindow.index_func = Util.safeindex(AudioTestWindow.list_func, AudioTestWindow.index_func + 1)
-        AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(AudioTestWindow.list_func, AudioTestWindow.index_func)
+        AudioTestWindow.index_func = Util.safeindex(
+            AudioTestWindow.list_func,
+            AudioTestWindow.index_func + 1
+        )
+        AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(
+            AudioTestWindow.list_func, AudioTestWindow.index_func
+        )
     elseif Input.menu_confirm() then
         AudioTestWindow.menuitems[AudioTestWindow.index_menu].desition()
     elseif Input.menu_back() then

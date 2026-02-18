@@ -16,7 +16,7 @@ end
 function ScreenManager.register(screen_data)
   if _screens[screen_data.id] then
     -- Optional: warning if overwriting an existing screen
-    -- trace("Warning: Overwriting screen with id: " .. screen_data.id)
+    trace("Warning: Overwriting screen with id: " .. screen_data.id)
   end
   _screens[screen_data.id] = screen_data
 end

@@ -4,7 +4,6 @@ function MinigameDDRWindow.init()
   local arrow_spacing = 30
   local total_width = (4 * arrow_size) + (3 * arrow_spacing)
   local start_x = (Config.screen.width - total_width) / 2
-  
   Context.minigame_ddr = {
     -- Progress bar (matching button mash style)
     bar_fill = 0, -- 0 to 100
@@ -15,14 +14,12 @@ function MinigameDDRWindow.init()
     bar_y = 10,
     bar_width = 200,
     bar_height = 12,
-    
     -- Arrow settings
     arrow_size = arrow_size,
     arrow_spawn_timer = 0,
     arrow_spawn_interval = 45, -- Frames between arrow spawns (for random mode)
     arrow_fall_speed = 1.5, -- Pixels per frame
     arrows = {}, -- Active falling arrows {dir, x, y}
-    
     -- Target arrows at bottom (evenly spaced, centered on screen)
     target_y = 115, -- Y position of target arrows
     target_arrows = {
@@ -31,12 +28,10 @@ function MinigameDDRWindow.init()
       {dir = "up", x = start_x + (arrow_size + arrow_spacing) * 2},
       {dir = "right", x = start_x + (arrow_size + arrow_spacing) * 3}
     },
-    
     -- Hit detection
     hit_threshold = 8, -- Pixels of tolerance for perfect hit
     button_pressed_timers = {}, -- Visual feedback per arrow
     button_press_duration = 8,
-    
     -- Input cooldown per direction
     input_cooldowns = {
       left = 0,
@@ -45,13 +40,11 @@ function MinigameDDRWindow.init()
       right = 0
     },
     input_cooldown_duration = 10,
-    
     -- Song/Pattern system
     frame_counter = 0, -- Tracks frames since start
     current_song = nil, -- Current song data
     pattern_index = 1, -- Current position in pattern
     use_pattern = false, -- If true, use song pattern; if false, use random spawning
-    
     return_window = WINDOW_GAME
   }
 end
@@ -59,10 +52,8 @@ end
 function MinigameDDRWindow.start(return_window, song_key)
   MinigameDDRWindow.init()
   Context.minigame_ddr.return_window = return_window or WINDOW_GAME
-  
   -- Debug: Store song_key for display
   Context.minigame_ddr.debug_song_key = song_key
-  
   -- Load song pattern if specified
   if song_key and Songs and Songs[song_key] then
     Context.minigame_ddr.current_song = Songs[song_key]
@@ -78,7 +69,6 @@ function MinigameDDRWindow.start(return_window, song_key)
       Context.minigame_ddr.debug_status = "Random mode"
     end
   end
-  
   Context.active_window = WINDOW_MINIGAME_DDR
 end
 
@@ -126,7 +116,6 @@ end
 local function draw_arrow(x, y, direction, color)
   local size = 12
   local half = size / 2
-  
   -- Draw arrow shape based on direction
   if direction == "left" then
     -- Triangle pointing left
@@ -149,16 +138,13 @@ end
 
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
-  
   -- Check for completion (bar filled to 100%)
   if mg.bar_fill >= mg.max_fill then
     Context.active_window = mg.return_window
     return
   end
-  
   -- Increment frame counter
   mg.frame_counter = mg.frame_counter + 1
-  
   -- Check if song has ended (pattern mode only)
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     -- Song has ended if we've passed the end frame AND all arrows are cleared
@@ -168,16 +154,13 @@ function MinigameDDRWindow.update()
       return
     end
   end
-  
   -- Spawn arrows based on mode (pattern or random)
   if mg.use_pattern and mg.current_song and mg.current_song.pattern then
     -- Pattern-based spawning (synced to song)
     local pattern = mg.current_song.pattern
-    
     -- Check if current frame matches any pattern entry
     while mg.pattern_index <= #pattern do
       local spawn_entry = pattern[mg.pattern_index]
-      
       if mg.frame_counter >= spawn_entry.frame then
         -- Time to spawn this arrow!
         spawn_arrow_dir(spawn_entry.dir)
@@ -195,12 +178,10 @@ function MinigameDDRWindow.update()
       mg.arrow_spawn_timer = 0
     end
   end
-  
   -- Update falling arrows
   local arrows_to_remove = {}
   for i, arrow in ipairs(mg.arrows) do
     arrow.y = arrow.y + mg.arrow_fall_speed
-    
     -- Check if arrow went off-screen (miss)
     if check_miss(arrow) then
       table.insert(arrows_to_remove, i)
@@ -211,26 +192,22 @@ function MinigameDDRWindow.update()
       end
     end
   end
-  
   -- Remove off-screen arrows (iterate backwards to avoid index issues)
   for i = #arrows_to_remove, 1, -1 do
     table.remove(mg.arrows, arrows_to_remove[i])
   end
-  
   -- Update input cooldowns
   for dir, _ in pairs(mg.input_cooldowns) do
     if mg.input_cooldowns[dir] > 0 then
       mg.input_cooldowns[dir] = mg.input_cooldowns[dir] - 1
     end
   end
-  
   -- Update button press timers
   for dir, _ in pairs(mg.button_pressed_timers) do
     if mg.button_pressed_timers[dir] > 0 then
       mg.button_pressed_timers[dir] = mg.button_pressed_timers[dir] - 1
     end
   end
-  
   -- Check for arrow key inputs
   local input_map = {
     left = Input.left(),
@@ -238,12 +215,10 @@ function MinigameDDRWindow.update()
     up = Input.up(),
     right = Input.right()
   }
-  
   for dir, pressed in pairs(input_map) do
     if pressed and mg.input_cooldowns[dir] == 0 then
       mg.input_cooldowns[dir] = mg.input_cooldown_duration
       mg.button_pressed_timers[dir] = mg.button_press_duration
-      
       -- Check if any arrow matches this direction and is in hit range
       local hit = false
       for i, arrow in ipairs(mg.arrows) do
@@ -258,7 +233,6 @@ function MinigameDDRWindow.update()
           break
         end
       end
-      
       -- If pressed but no arrow to hit, apply small penalty
       if not hit then
         mg.bar_fill = mg.bar_fill - 2
@@ -272,7 +246,6 @@ end
 
 function MinigameDDRWindow.draw()
   local mg = Context.minigame_ddr
-  
   -- Safety check
   if not mg then
     cls(0)
@@ -283,19 +256,15 @@ function MinigameDDRWindow.draw()
     end
     return
   end
-  
   -- Draw the underlying window first (for overlay effect)
   if mg.return_window == WINDOW_GAME then
     GameWindow.draw()
   end
-  
   -- Draw semi-transparent overlay background
   rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
-  
   -- Draw progress bar background
   rect(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.light_grey)
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
-  
   -- Draw progress bar fill
   local fill_width = (mg.bar_fill / mg.max_fill) * mg.bar_width
   if fill_width > 0 then
@@ -306,14 +275,11 @@ function MinigameDDRWindow.draw()
     elseif mg.bar_fill > 33 then
       bar_color = Config.colors.bar
     end
-    
     rect(mg.bar_x, mg.bar_y, fill_width, mg.bar_height, bar_color)
   end
-  
   -- Draw progress percentage
   local percentage = math.floor((mg.bar_fill / mg.max_fill) * 100)
   Print.text_center(percentage .. "%", mg.bar_x + mg.bar_width / 2, mg.bar_y + 2, Config.colors.black)
-  
   -- Draw target arrows at bottom (light grey when not pressed)
   if mg.target_arrows then
     for _, target in ipairs(mg.target_arrows) do
@@ -322,17 +288,14 @@ function MinigameDDRWindow.draw()
       draw_arrow(target.x, mg.target_y, target.dir, color)
     end
   end
-  
   -- Draw falling arrows (blue)
   if mg.arrows then
     for _, arrow in ipairs(mg.arrows) do
       draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.bar) -- blue color
     end
   end
-  
   -- Draw instruction text
   Print.text_center("Hit the arrows!", Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
-  
   -- Debug info (large and visible)
   local debug_y = 60
   if mg.debug_status then
@@ -340,9 +303,19 @@ function MinigameDDRWindow.draw()
     debug_y = debug_y + 10
   end
   if mg.use_pattern then
-    Print.text_center("PATTERN MODE - Frame:" .. mg.frame_counter, Config.screen.width / 2, debug_y, Config.colors.green)
+    Print.text_center(
+      "PATTERN MODE - Frame:" .. mg.frame_counter,
+      Config.screen.width / 2,
+      debug_y,
+      Config.colors.green
+    )
     if mg.current_song and mg.current_song.pattern then
-      Print.text_center("Pattern Len:" .. #mg.current_song.pattern .. " Index:" .. mg.pattern_index, Config.screen.width / 2, debug_y + 10, Config.colors.green)
+      Print.text_center(
+        "Pattern Len:" .. #mg.current_song.pattern .. " Index:" .. mg.pattern_index,
+        Config.screen.width / 2,
+        debug_y + 10,
+        Config.colors.green
+      )
     end
   else
     Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.bar)
