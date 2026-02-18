@@ -9,6 +9,7 @@ local MinigameButtonMashWindow = {}
 local MinigameRhythmWindow = {}
 local MinigameDDRWindow = {}
 Util = {}
+Meters = {}
 Minigames = {}
 DecisionManager = {}
 ScreenManager = {}

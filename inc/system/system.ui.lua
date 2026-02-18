@@ -97,6 +97,38 @@ function UI.draw_decision_selector(decisions, selected_decision_index)
         Print.text(decision_label, text_x, text_y, Config.colors.item)         Print.text(">", Config.screen.width - 6, text_y, Config.colors.green)   end
 end
 
+function UI.draw_meters()
+  if not Context or not Context.game_in_progress or not Context.meters then return end
+  if Context.meters.hidden then return end
+
+  local m = Context.meters
+  local max = Meters.get_max()
+  local bar_w = 44
+  local bar_h = 2
+  local bar_x = 182
+  local label_x = 228
+  local line_h = 5
+  local start_y = 11
+  local bar_offset = math.floor((line_h - bar_h) / 2)
+
+  local meter_list = {
+    { key = "wpm", label = "WPM", color = Meters.COLOR_WPM, row = 0 },
+    { key = "ism", label = "ISM", color = Meters.COLOR_ISM, row = 1 },
+    { key = "bm", label = "BM", color = Meters.COLOR_BM, row = 2 },
+  }
+
+  for _, meter in ipairs(meter_list) do
+    local label_y = start_y + meter.row * line_h
+    local bar_y = label_y + bar_offset
+    local fill_w = math.max(0, math.floor((m[meter.key] / max) * bar_w))
+    rect(bar_x, bar_y, bar_w, bar_h, Meters.COLOR_BG)
+    if fill_w > 0 then
+      rect(bar_x, bar_y, fill_w, bar_h, meter.color)
+    end
+    print(meter.label, label_x, label_y, meter.color, false, 1, true)
+  end
+end
+
 function UI.update_decision_selector(decisions, selected_decision_index)
   if Input.left() then
     Audio.sfx_beep()

@@ -2,6 +2,7 @@ meta/meta.header.lua
 init/init.modules.lua
 init/init.config.lua
 init/init.minigames.lua
+init/init.meters.lua
 system/system.util.lua
 init/init.windows.lua
 decision/decision.manager.lua

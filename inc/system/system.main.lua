@@ -58,4 +58,8 @@ function TIC()
   if handler then
     handler()
   end
+  Meters.update()
+  if Context.game_in_progress then
+    UI.draw_meters()
+  end
 end
