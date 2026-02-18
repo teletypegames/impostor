@@ -1,35 +1,9 @@
-function MinigameRhythmWindow.init()
-  Context.minigame_rhythm = {
-    line_position = 0, -- Normalized position (0 to 1)
-    line_speed = 0.015, -- Movement speed per frame
-    line_direction = 1, -- 1 for left-to-right, -1 for right-to-left
-    target_center = 0.5, -- Center of target area (middle of bar)
-    target_width = 0.3, -- Width of target area (normalized)
-    initial_target_width = 0.3,
-    min_target_width = 0.08, -- Minimum width to keep game possible
-    target_shrink_rate = 0.9, -- Multiplier per successful hit (0.9 = 10% shrink)
-    score = 0,
-    max_score = 10,
-    button_pressed_timer = 0,
-    button_press_duration = 10,
-    return_window = WINDOW_GAME,
-    -- Visual layout (match button mash minigame dimensions)
-    bar_x = 20,
-    bar_y = 10,
-    bar_width = 200,
-    bar_height = 12,
-    -- Button indicator
-    button_x = 210,
-    button_y = 110,
-    button_size = 10,
-    -- Cooldown to prevent multiple presses in one frame
-    press_cooldown = 0,
-    press_cooldown_duration = 15
-  }
+function MinigameRhythmWindow.init(params)
+  Context.minigame_rhythm = Minigames.configure_rhythm(params)
 end
 
-function MinigameRhythmWindow.start(return_window)
-  MinigameRhythmWindow.init()
+function MinigameRhythmWindow.start(return_window, params)
+  MinigameRhythmWindow.init(params)
   Context.minigame_rhythm.return_window = return_window or WINDOW_GAME
   Context.active_window = WINDOW_MINIGAME_RHYTHM
 end

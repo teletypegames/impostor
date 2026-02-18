@@ -1,56 +1,9 @@
-function MinigameDDRWindow.init()
-  -- Calculate evenly spaced arrow positions
-  local arrow_size = 12
-  local arrow_spacing = 30
-  local total_width = (4 * arrow_size) + (3 * arrow_spacing)
-  local start_x = (Config.screen.width - total_width) / 2
-  Context.minigame_ddr = {
-    -- Progress bar (matching button mash style)
-    bar_fill = 0, -- 0 to 100
-    max_fill = 100,
-    fill_per_hit = 10, -- Points gained per perfect hit
-    miss_penalty = 5, -- Points lost per miss
-    bar_x = 20,
-    bar_y = 10,
-    bar_width = 200,
-    bar_height = 12,
-    -- Arrow settings
-    arrow_size = arrow_size,
-    arrow_spawn_timer = 0,
-    arrow_spawn_interval = 45, -- Frames between arrow spawns (for random mode)
-    arrow_fall_speed = 1.5, -- Pixels per frame
-    arrows = {}, -- Active falling arrows {dir, x, y}
-    -- Target arrows at bottom (evenly spaced, centered on screen)
-    target_y = 115, -- Y position of target arrows
-    target_arrows = {
-      {dir = "left", x = start_x},
-      {dir = "down", x = start_x + arrow_size + arrow_spacing},
-      {dir = "up", x = start_x + (arrow_size + arrow_spacing) * 2},
-      {dir = "right", x = start_x + (arrow_size + arrow_spacing) * 3}
-    },
-    -- Hit detection
-    hit_threshold = 8, -- Pixels of tolerance for perfect hit
-    button_pressed_timers = {}, -- Visual feedback per arrow
-    button_press_duration = 8,
-    -- Input cooldown per direction
-    input_cooldowns = {
-      left = 0,
-      down = 0,
-      up = 0,
-      right = 0
-    },
-    input_cooldown_duration = 10,
-    -- Song/Pattern system
-    frame_counter = 0, -- Tracks frames since start
-    current_song = nil, -- Current song data
-    pattern_index = 1, -- Current position in pattern
-    use_pattern = false, -- If true, use song pattern; if false, use random spawning
-    return_window = WINDOW_GAME
-  }
+function MinigameDDRWindow.init(params)
+  Context.minigame_ddr = Minigames.configure_ddr(params)
 end
 
-function MinigameDDRWindow.start(return_window, song_key)
-  MinigameDDRWindow.init()
+function MinigameDDRWindow.start(return_window, song_key, params)
+  MinigameDDRWindow.init(params)
   Context.minigame_ddr.return_window = return_window or WINDOW_GAME
   -- Debug: Store song_key for display
   Context.minigame_ddr.debug_song_key = song_key
@@ -273,7 +226,7 @@ function MinigameDDRWindow.draw()
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item -- yellow
     elseif mg.bar_fill > 33 then
-      bar_color = Config.colors.bar
+      bar_color = Config.colors.blue
     end
     rect(mg.bar_x, mg.bar_y, fill_width, mg.bar_height, bar_color)
   end
@@ -291,7 +244,7 @@ function MinigameDDRWindow.draw()
   -- Draw falling arrows (blue)
   if mg.arrows then
     for _, arrow in ipairs(mg.arrows) do
-      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.bar) -- blue color
+      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.blue) -- blue color
     end
   end
   -- Draw instruction text
@@ -318,6 +271,6 @@ function MinigameDDRWindow.draw()
       )
     end
   else
-    Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.bar)
+    Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.blue)
   end
 end

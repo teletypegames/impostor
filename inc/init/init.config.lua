@@ -8,6 +8,7 @@ local DEFAULT_CONFIG = {
     light_grey = 13,
     dark_grey = 14,
     green = 6,
+    blue = 9,
     item = 12
   },
   player = {

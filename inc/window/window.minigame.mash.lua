@@ -1,25 +1,9 @@
-function MinigameButtonMashWindow.init()
-  Context.minigame_button_mash = {
-    bar_fill = 0, -- 0 to 100
-    max_fill = 100,
-    fill_per_press = 8,
-    base_degradation = 0.15, -- Base degradation per frame
-    degradation_multiplier = 0.006, -- Increases with bar fill
-    button_pressed_timer = 0, -- Visual feedback timer
-    button_press_duration = 8, -- Frames to show button press
-    return_window = WINDOW_GAME, -- Window to return to after completion
-    bar_x = 20,
-    bar_y = 10,
-    bar_width = 200,
-    bar_height = 12,
-    button_x = 20,
-    button_y = 110,
-    button_size = 12
-  }
+function MinigameButtonMashWindow.init(params)
+  Context.minigame_button_mash = Minigames.configure_button_mash(params)
 end
 
-function MinigameButtonMashWindow.start(return_window)
-  MinigameButtonMashWindow.init()
+function MinigameButtonMashWindow.start(return_window, params)
+  MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash.return_window = return_window or WINDOW_GAME
   Context.active_window = WINDOW_MINIGAME_BUTTON_MASH
 end
@@ -73,7 +57,7 @@ function MinigameButtonMashWindow.draw()
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item -- yellow
     elseif mg.bar_fill > 33 then
-      bar_color = Config.colors.bar -- medium color
+      bar_color = Config.colors.blue
     end
     rect(mg.bar_x, mg.bar_y, fill_width, bar_color)
   end
