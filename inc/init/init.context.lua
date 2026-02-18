@@ -39,9 +39,12 @@ on than meets the eye.]]
     },
     menu_items = {},
     selected_menu_item = 1,
-    selected_desition_index = 1,
+    selected_decision_index = 1,
     game_in_progress = false,
-    screens = {}
+    screens = {},
+    minigame_ddr = Minigames.get_default_ddr(),
+    minigame_button_mash = Minigames.get_default_button_mash(),
+    minigame_rhythm = Minigames.get_default_rhythm()
   }
 end
 
@@ -66,7 +69,8 @@ local function reset_context_to_initial_state()
     local screen_data = ScreenManager.get_by_id(screen_id)
     if screen_data then
       table.insert(Context.screens, screen_data)
-      Context.screen_indices_by_id[screen_id] = i     else
+      Context.screen_indices_by_id[screen_id] = i
+    else
       PopupWindow.show({"Error: Screen '" .. screen_id .. "' not registered!"})
     end
   end

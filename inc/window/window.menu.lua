@@ -8,9 +8,9 @@ function MenuWindow.update()
 
   if Input.menu_confirm() then
     local selected_item = Context.menu_items[Context.selected_menu_item]
-    if selected_item and selected_item.desition then
+    if selected_item and selected_item.decision then
       Audio.sfx_select()
-      selected_item.desition()
+      selected_item.decision()
     end
   end
 end
@@ -47,14 +47,14 @@ end
 function MenuWindow.refresh_menu_items()
   Context.menu_items = {}
   if Context.game_in_progress then
-    table.insert(Context.menu_items, {label = "Resume Game", desition = MenuWindow.resume_game})
-    table.insert(Context.menu_items, {label = "Save Game", desition = MenuWindow.save_game})
+    table.insert(Context.menu_items, {label = "Resume Game", decision = MenuWindow.resume_game})
+    table.insert(Context.menu_items, {label = "Save Game", decision = MenuWindow.save_game})
   end
 
-  table.insert(Context.menu_items, {label = "New Game", desition = MenuWindow.new_game})
-  table.insert(Context.menu_items, {label = "Load Game", desition = MenuWindow.load_game})
-  table.insert(Context.menu_items, {label = "Configuration", desition = MenuWindow.configuration})
-  table.insert(Context.menu_items, {label = "Audio Test", desition = MenuWindow.audio_test})
-  table.insert(Context.menu_items, {label = "Exit", desition = MenuWindow.exit})
+  table.insert(Context.menu_items, {label = "New Game", decision = MenuWindow.new_game})
+  table.insert(Context.menu_items, {label = "Load Game", decision = MenuWindow.load_game})
+  table.insert(Context.menu_items, {label = "Configuration", decision = MenuWindow.configuration})
+  table.insert(Context.menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})
+  table.insert(Context.menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   Context.selected_menu_item = 1 end

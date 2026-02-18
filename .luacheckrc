@@ -3,7 +3,7 @@
 
 globals = {
   "Util",
-  "DesitionManager",
+  "DecisionManager",
   "ScreenManager",
   "UI",
   "Print",
