@@ -31,6 +31,7 @@ function Situation.apply(id)
     return
   end
 
+  Context.current_situation = id
   situation.handle()
 end
 

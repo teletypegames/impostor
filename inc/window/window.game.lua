@@ -14,6 +14,7 @@ function GameWindow.draw()
       UI.draw_decision_selector(available_decisions, Context.selected_decision_index)
     end
   end
+  Sprite.draw()
 end
 
 function GameWindow.update()
