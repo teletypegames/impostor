@@ -22,7 +22,8 @@ local DEFAULT_CONFIG = {
   }
 }
 
-local Config = {
+-- Game configuration settings.
+Config = {
   screen = DEFAULT_CONFIG.screen,
   colors = DEFAULT_CONFIG.colors,
   player = DEFAULT_CONFIG.player,
@@ -34,10 +35,12 @@ local CONFIG_MAGIC_VALUE_ADDRESS = 2
 local CONFIG_SPLASH_DURATION_ADDRESS = 3
 local CONFIG_MAGIC_VALUE = 0xDE
 
+--- Saves the current configuration.
 function Config.save()
   mset(CONFIG_MAGIC_VALUE, CONFIG_MAGIC_VALUE_ADDRESS, CONFIG_SAVE_BANK)
 end
 
+--- Loads saved configuration.
 function Config.load()
   if mget(CONFIG_MAGIC_VALUE_ADDRESS, CONFIG_SAVE_BANK) == CONFIG_MAGIC_VALUE then
     Config.timing.splash_duration = mget(CONFIG_SPLASH_DURATION_ADDRESS, CONFIG_SAVE_BANK)
@@ -46,6 +49,7 @@ function Config.load()
   end
 end
 
+--- Restores default configuration settings.
 function Config.restore_defaults()
   Config.timing.splash_duration = DEFAULT_CONFIG.timing.splash_duration
 end

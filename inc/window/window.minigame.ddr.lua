@@ -1,7 +1,13 @@
+--- Initializes DDR minigame state.
+-- @param params table Optional parameters for configuration.
 function MinigameDDRWindow.init(params)
   Context.minigame_ddr = Minigames.configure_ddr(params)
 end
 
+--- Starts the DDR minigame.
+-- @param return_window number The window ID to return to after the minigame.
+-- @param[opt] song_key string The key of the song to play.
+-- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
   Context.minigame_ddr.return_window = return_window or WINDOW_GAME
@@ -22,6 +28,7 @@ function MinigameDDRWindow.start(return_window, song_key, params)
   Context.active_window = WINDOW_MINIGAME_DDR
 end
 
+--- Spawns a random arrow.
 local function spawn_arrow()
   local mg = Context.minigame_ddr
   local target = mg.target_arrows[math.random(1, 4)]
@@ -32,6 +39,8 @@ local function spawn_arrow()
   })
 end
 
+--- Spawns an arrow in a specific direction.
+-- @param direction string The direction of the arrow ("left", "down", "up", "right").
 local function spawn_arrow_dir(direction)
   local mg = Context.minigame_ddr
   for _, target in ipairs(mg.target_arrows) do
@@ -46,17 +55,28 @@ local function spawn_arrow_dir(direction)
   end
 end
 
+--- Checks if an arrow is hit.
+-- @param arrow table The arrow data.
+-- @return boolean True if the arrow is hit, false otherwise.
 local function check_hit(arrow)
   local mg = Context.minigame_ddr
   local distance = math.abs(arrow.y - mg.target_y)
   return distance <= mg.hit_threshold
 end
 
+--- Checks if an arrow is missed.
+-- @param arrow table The arrow data.
+-- @return boolean True if the arrow is missed, false otherwise.
 local function check_miss(arrow)
   local mg = Context.minigame_ddr
   return arrow.y > mg.target_y + mg.hit_threshold
 end
 
+--- Draws an arrow.
+-- @param x number The x-coordinate.
+-- @param y number The y-coordinate.
+-- @param direction string The direction of the arrow.
+-- @param color number The color of the arrow.
 local function draw_arrow(x, y, direction, color)
   local size = 12
   local half = size / 2
@@ -75,6 +95,7 @@ local function draw_arrow(x, y, direction, color)
   end
 end
 
+--- Updates DDR minigame logic.
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
   if mg.bar_fill >= mg.max_fill then
@@ -167,6 +188,7 @@ function MinigameDDRWindow.update()
   end
 end
 
+--- Draws DDR minigame.
 function MinigameDDRWindow.draw()
   local mg = Context.minigame_ddr
   if not mg then

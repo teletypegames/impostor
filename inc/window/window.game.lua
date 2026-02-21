@@ -1,3 +1,4 @@
+--- Draws the game window.
 function GameWindow.draw()
   local screen = Context.screens[Context.current_screen]
   Map.draw(screen.background)
@@ -17,6 +18,7 @@ function GameWindow.draw()
   Sprite.draw()
 end
 
+--- Updates the game window logic.
 function GameWindow.update()
   local previous_screen_index = Context.current_screen
 
@@ -79,6 +81,8 @@ function GameWindow.update()
   end
 end
 
+--- Sets the active window.
+-- @param new_state number The ID of the new active window.
 function GameWindow.set_state(new_state)
   Context.active_window = new_state
-  end
+end

@@ -1,8 +1,10 @@
+--- Draws the intro window.
 function IntroWindow.draw()
   local x = (Config.screen.width - 132) / 2
   Print.text(Context.intro.text, x, Context.intro.y, Config.colors.green)
 end
 
+--- Updates the intro window logic.
 function IntroWindow.update()
   Context.intro.y = Context.intro.y - Context.intro.speed
 

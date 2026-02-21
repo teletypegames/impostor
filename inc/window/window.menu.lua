@@ -1,8 +1,10 @@
+--- Draws the menu window.
 function MenuWindow.draw()
   UI.draw_top_bar("Main Menu")
   UI.draw_menu(Context.menu_items, Context.selected_menu_item, 108, 70)
 end
 
+--- Updates the menu window logic.
 function MenuWindow.update()
   Context.selected_menu_item = UI.update_menu(Context.menu_items, Context.selected_menu_item)
 
@@ -15,35 +17,43 @@ function MenuWindow.update()
   end
 end
 
+--- Starts a new game from the menu.
 function MenuWindow.new_game()
   Context.new_game()   GameWindow.set_state(WINDOW_GAME)
 end
 
+--- Loads a game from the menu.
 function MenuWindow.load_game()
   Context.load_game()   GameWindow.set_state(WINDOW_GAME)
 end
 
+--- Saves the current game from the menu.
 function MenuWindow.save_game()
   Context.save_game() end
 
+--- Resumes the game from the menu.
 function MenuWindow.resume_game()
   GameWindow.set_state(WINDOW_GAME)
 end
 
+--- Exits the game.
 function MenuWindow.exit()
   exit()
 end
 
+--- Opens the configuration menu.
 function MenuWindow.configuration()
   ConfigurationWindow.init()
   GameWindow.set_state(WINDOW_CONFIGURATION)
 end
 
+--- Opens the audio test menu.
 function MenuWindow.audio_test()
   AudioTestWindow.init()
   GameWindow.set_state(WINDOW_AUDIOTEST)
 end
 
+--- Refreshes menu items.
 function MenuWindow.refresh_menu_items()
   Context.menu_items = {}
   if Context.game_in_progress then

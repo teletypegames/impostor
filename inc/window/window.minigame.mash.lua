@@ -1,13 +1,19 @@
+--- Initializes button mash minigame state.
+-- @param params table Optional parameters for configuration.
 function MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash = Minigames.configure_button_mash(params)
 end
 
+--- Starts the button mash minigame.
+-- @param return_window number The window ID to return to after the minigame.
+-- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameButtonMashWindow.start(return_window, params)
   MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash.return_window = return_window or WINDOW_GAME
   Context.active_window = WINDOW_MINIGAME_BUTTON_MASH
 end
 
+--- Updates button mash minigame logic.
 function MinigameButtonMashWindow.update()
   local mg = Context.minigame_button_mash
   if Input.select() then
@@ -33,6 +39,7 @@ function MinigameButtonMashWindow.update()
   end
 end
 
+--- Draws button mash minigame.
 function MinigameButtonMashWindow.draw()
   local mg = Context.minigame_button_mash
   if mg.return_window == WINDOW_GAME then

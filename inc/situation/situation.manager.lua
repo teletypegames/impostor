@@ -1,5 +1,7 @@
 local _situations = {}
 
+--- Registers a situation definition.
+-- @param situation table The situation data table.
 function Situation.register(situation)
   if not situation or not situation.id then
     PopupWindow.show({"Error: Invalid situation object registered (missing id)!"})
@@ -17,10 +19,15 @@ function Situation.register(situation)
   _situations[situation.id] = situation
 end
 
+--- Gets a situation by ID.
+-- @param id string The situation ID.
+-- @return table The situation table or nil.
 function Situation.get(id)
   return _situations[id]
 end
 
+--- Applies a situation.
+-- @param id string The situation ID to apply.
 function Situation.apply(id)
   local situation = Situation.get(id)
   if not situation then
@@ -37,4 +44,3 @@ function Situation.apply(id)
   Context.current_situation = id
   situation.handle()
 end
-

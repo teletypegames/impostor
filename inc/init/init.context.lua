@@ -4,6 +4,8 @@ local SAVE_GAME_MAGIC_VALUE = 0xCA
 
 local SAVE_GAME_CURRENT_SCREEN_ADDRESS = 6
 
+--- Gets initial data for Context.
+-- @return table Initial context data.
 local function get_initial_data()
   return {
     active_window = WINDOW_SPLASH,
@@ -46,13 +48,17 @@ on than meets the eye.]]
     minigame_button_mash = Minigames.get_default_button_mash(),
     minigame_rhythm = Minigames.get_default_rhythm(),
     meters = Meters.get_initial(),
+    --- Active sprites.
     sprites = {},
+    --- Current situation ID.
     current_situation = nil,
   }
 end
 
+--- Global game context.
 Context = {}
 
+--- Resets game context to initial state.
 local function reset_context_to_initial_state()
   local initial_data = get_initial_data()
 
@@ -81,6 +87,7 @@ end
 
 reset_context_to_initial_state()
 
+--- Starts a new game.
 function Context.new_game()
   reset_context_to_initial_state()
   Context.game_in_progress = true
@@ -88,6 +95,7 @@ function Context.new_game()
   Context.screens[Context.current_screen].init()
 end
 
+--- Saves the current game state.
 function Context.save_game()
   if not Context.game_in_progress then return end
 
@@ -95,6 +103,7 @@ function Context.save_game()
   mset(Context.current_screen, SAVE_GAME_CURRENT_SCREEN_ADDRESS, SAVE_GAME_BANK)
 end
 
+--- Loads a saved game state.
 function Context.load_game()
   if mget(SAVE_GAME_MAGIC_VALUE_ADDRESS, SAVE_GAME_BANK) ~= SAVE_GAME_MAGIC_VALUE then
         Context.new_game()

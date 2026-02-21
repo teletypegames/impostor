@@ -44,6 +44,7 @@ local STATE_HANDLERS = {
 
 local initialized_game = false
 
+--- Initializes game state.
 local function init_game()
   if initialized_game then return end
 
@@ -51,6 +52,7 @@ local function init_game()
   initialized_game = true
 end
 
+--- Main game loop (TIC-80 callback).
 function TIC()
   init_game()
   cls(Config.colors.black)
