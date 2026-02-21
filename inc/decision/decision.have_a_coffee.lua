@@ -4,5 +4,4 @@ Decision.register({
   handle = function()
     Situation.apply("drink_coffee")
   end,
-  condition = function() return true end
 })

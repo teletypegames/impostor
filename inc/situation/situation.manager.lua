@@ -8,6 +8,9 @@ function Situation.register(situation)
   if not situation.handle then
     situation.handle = function() end
   end
+  if not situation.update then
+    situation.update = function() end
+  end
   if _situations[situation.id] then
     trace("Warning: Overwriting situation with id: " .. situation.id)
   end

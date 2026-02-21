@@ -4,5 +4,4 @@ Decision.register({
   handle = function()
     Util.go_to_screen_by_id("office")
   end,
-  condition = function() return true end
 })

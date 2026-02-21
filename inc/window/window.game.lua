@@ -18,6 +18,8 @@ function GameWindow.draw()
 end
 
 function GameWindow.update()
+  local previous_screen_index = Context.current_screen
+
   if Input.menu_back() then
     Context.active_window = WINDOW_MENU
     MenuWindow.refresh_menu_items()
@@ -37,6 +39,19 @@ function GameWindow.update()
     Context.selected_decision_index = 1   end
 
   local screen = Context.screens[Context.current_screen]
+  screen.update()
+
+  if previous_screen_index ~= Context.current_screen then
+    screen.init()
+  end
+
+  if Context.current_situation then
+    local current_situation_obj = Situation.get(Context.current_situation)
+    if current_situation_obj and current_situation_obj.update then
+      current_situation_obj.update()
+    end
+  end
+
   if screen and screen.decisions and #screen.decisions > 0 then
     local available_decisions = {}
     for _, decision_id in ipairs(screen.decisions) do

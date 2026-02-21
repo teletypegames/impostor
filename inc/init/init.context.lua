@@ -85,6 +85,7 @@ function Context.new_game()
   reset_context_to_initial_state()
   Context.game_in_progress = true
   MenuWindow.refresh_menu_items()
+  Context.screens[Context.current_screen].init()
 end
 
 function Context.save_game()
@@ -105,4 +106,5 @@ function Context.load_game()
 
   Context.game_in_progress = true
   MenuWindow.refresh_menu_items()
+  Context.screens[Context.current_screen].init()
 end

@@ -4,5 +4,4 @@ Decision.register({
   handle = function()
     Util.go_to_screen_by_id("walking_to_office")
   end,
-  condition = function() return true end
 })

@@ -4,5 +4,4 @@ Decision.register({
   handle = function()
     Util.go_to_screen_by_id("toilet")
   end,
-  condition = function() return true end
 })
