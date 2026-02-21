@@ -1,5 +1,10 @@
+-- Manages minigame configurations and initial states.
 Minigames = {}
 
+--- Applies parameters to defaults.
+-- @param defaults table The default configuration table.
+-- @param params table The parameters to apply.
+-- @return table The updated configuration table.
 local function apply_params(defaults, params)
   if not params then return defaults end
   for k, v in pairs(params) do
@@ -8,6 +13,8 @@ local function apply_params(defaults, params)
   return defaults
 end
 
+--- Gets default DDR minigame configuration.
+-- @return table The default DDR minigame configuration.
 function Minigames.get_default_ddr()
   local arrow_size = 12
   local arrow_spacing = 30
@@ -47,6 +54,8 @@ function Minigames.get_default_ddr()
   }
 end
 
+--- Gets default button mash minigame configuration.
+-- @return table The default button mash minigame configuration.
 function Minigames.get_default_button_mash()
   return {
     bar_fill = 0,
@@ -67,6 +76,8 @@ function Minigames.get_default_button_mash()
   }
 end
 
+--- Gets default rhythm minigame configuration.
+-- @return table The default rhythm minigame configuration.
 function Minigames.get_default_rhythm()
   return {
     line_position = 0,
@@ -94,14 +105,23 @@ function Minigames.get_default_rhythm()
   }
 end
 
+--- Configures DDR minigame.
+-- @param params table Optional parameters to override defaults.
+-- @return table The configured DDR minigame state.
 function Minigames.configure_ddr(params)
   return apply_params(Minigames.get_default_ddr(), params)
 end
 
+--- Configures button mash minigame.
+-- @param params table Optional parameters to override defaults.
+-- @return table The configured button mash minigame state.
 function Minigames.configure_button_mash(params)
   return apply_params(Minigames.get_default_button_mash(), params)
 end
 
+--- Configures rhythm minigame.
+-- @param params table Optional parameters to override defaults.
+-- @return table The configured rhythm minigame state.
 function Minigames.configure_rhythm(params)
   return apply_params(Minigames.get_default_rhythm(), params)
 end

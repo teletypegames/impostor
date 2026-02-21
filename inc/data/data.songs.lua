@@ -107,8 +107,11 @@ Songs = {
   }
 }
 
--- Helper function to calculate frame from beat
--- Usage: frame_from_beat(beat_number, bpm, fps)
+--- Converts beats to frames.
+-- @param beat number The beat number.
+-- @param bpm number Beats per minute.
+-- @param[opt] fps number Frames per second (default: 60).
+-- @return number The corresponding frame number.
 function frame_from_beat(beat, bpm, fps)
   fps = fps or 60
   local seconds_per_beat = 60 / bpm
@@ -116,8 +119,11 @@ function frame_from_beat(beat, bpm, fps)
   return math.floor(beat * frames_per_beat)
 end
 
--- Helper function to convert simple beat notation to frame pattern
--- Usage: beats_to_pattern({{1, "left"}, {2, "down"}}, 120)
+--- Converts beat notation to frame pattern.
+-- @param beats table A table of beat data, e.g., {{1, "left"}, {2, "down"}}.
+-- @param bpm number Beats per minute.
+-- @param[opt] fps number Frames per second (default: 60).
+-- @return table The generated pattern.
 function beats_to_pattern(beats, bpm, fps)
   fps = fps or 60
   local pattern = {}

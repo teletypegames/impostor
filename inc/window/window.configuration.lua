@@ -3,6 +3,7 @@ ConfigurationWindow = {
   selected_control = 1,
 }
 
+--- Initializes configuration window.
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
     UI.create_decision_item(
@@ -16,6 +17,7 @@ function ConfigurationWindow.init()
   }
 end
 
+--- Draws configuration window.
 function ConfigurationWindow.draw()
   UI.draw_top_bar("Configuration")
 
@@ -55,6 +57,7 @@ function ConfigurationWindow.draw()
   Print.text("Press B to go back", x_start, 120, Config.colors.light_grey)
 end
 
+--- Updates configuration window logic.
 function ConfigurationWindow.update()
   if Input.menu_back() then
     GameWindow.set_state(WINDOW_MENU)

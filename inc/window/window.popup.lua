@@ -5,14 +5,18 @@ local POPUP_HEIGHT = 80
 local TEXT_MARGIN_X = POPUP_X + 10
 local TEXT_MARGIN_Y = POPUP_Y + 10
 local LINE_HEIGHT = 8
+--- Displays a popup window.
+-- @param content_strings table A table of strings to display in the popup.
 function PopupWindow.show(content_strings)
   Context.popup.show = true
   Context.popup.content = content_strings or {}   GameWindow.set_state(WINDOW_POPUP) end
 
+--- Hides the popup window.
 function PopupWindow.hide()
   Context.popup.show = false
   Context.popup.content = {}   GameWindow.set_state(WINDOW_GAME) end
 
+--- Updates popup window logic.
 function PopupWindow.update()
   if Context.popup.show then
     if Input.menu_confirm() or Input.menu_back() then       PopupWindow.hide()
@@ -20,6 +24,7 @@ function PopupWindow.update()
   end
 end
 
+--- Draws the popup window.
 function PopupWindow.draw()
   if Context.popup.show then
     rect(POPUP_X, POPUP_Y, POPUP_WIDTH, POPUP_HEIGHT, Config.colors.black)

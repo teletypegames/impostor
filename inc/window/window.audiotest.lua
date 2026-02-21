@@ -6,6 +6,10 @@ AudioTestWindow = {
     last_pressed = false
 }
 
+--- Generates menu items for audio test.
+-- @param list_func table List of audio functions.
+-- @param index_func number Current index of selected function.
+-- @return table Generated menu items.
 function AudioTestWindow.generate_menuitems(list_func, index_func)
     return {
         {
@@ -34,6 +38,8 @@ function AudioTestWindow.generate_menuitems(list_func, index_func)
     }
 end
 
+--- Generates list of audio functions.
+-- @return table A sorted list of audio function names.
 function AudioTestWindow.generate_listfunc()
     local result = {}
 
@@ -48,11 +54,13 @@ function AudioTestWindow.generate_listfunc()
     return result
 end
 
+--- Navigates back from audio test window.
 function AudioTestWindow.back()
     Audio.sfx_deselect()
     GameWindow.set_state(WINDOW_MENU)
 end
 
+--- Initializes audio test window.
 function AudioTestWindow.init()
     AudioTestWindow.last_pressed = false
     AudioTestWindow.index_menu = 1
@@ -63,11 +71,13 @@ function AudioTestWindow.init()
     )
 end
 
+--- Draws audio test window.
 function AudioTestWindow.draw()
     UI.draw_top_bar("Audio test")
     UI.draw_menu(AudioTestWindow.menuitems, AudioTestWindow.index_menu, 20, 50)
 end
 
+--- Updates audio test window logic.
 function AudioTestWindow.update()
     if Input.up() then
         AudioTestWindow.index_menu = Util.safeindex(AudioTestWindow.menuitems, AudioTestWindow.index_menu - 1)

@@ -1,3 +1,4 @@
+--- Draws the splash window.
 function SplashWindow.draw()
   local txt = "Definitely not an Impostor"
   local w = #txt * 6
@@ -6,6 +7,7 @@ function SplashWindow.draw()
   print(txt, x, y, 12)
 end
 
+--- Updates the splash window logic.
 function SplashWindow.update()
   Context.splash_timer = Context.splash_timer - 1
   if Context.splash_timer <= 0 or Input.menu_confirm() then

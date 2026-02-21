@@ -11,6 +11,7 @@ globals = {
   "Print",
   "Input",
   "Audio",
+  "Config",
   "Context",
   "Meters",
   "Minigames",
