@@ -1,4 +1,4 @@
-ScreenManager.register({
+Screen.register({
   id = "walking_to_home",
   name = "Walking to home",
   decisions = {

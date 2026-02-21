@@ -67,7 +67,7 @@ local function reset_context_to_initial_state()
   Context.screen_indices_by_id = {}
   local screen_order = {"home", "toilet", "walking_to_office", "office", "walking_to_home"}
   for i, screen_id in ipairs(screen_order) do
-    local screen_data = ScreenManager.get_by_id(screen_id)
+    local screen_data = Screen.get_by_id(screen_id)
     if screen_data then
       table.insert(Context.screens, screen_data)
       Context.screen_indices_by_id[screen_id] = i

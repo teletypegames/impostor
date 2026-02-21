@@ -1,11 +1,11 @@
 function GameWindow.draw()
   local screen = Context.screens[Context.current_screen]
-  MapManager.draw(screen.background)
+  Map.draw(screen.background)
   UI.draw_top_bar(screen.name)
   if screen and screen.decisions and #screen.decisions > 0 then
     local available_decisions = {}
     for _, decision_id in ipairs(screen.decisions) do
-      local decision = DecisionManager.get(decision_id)
+      local decision = Decision.get(decision_id)
       if decision and decision.condition() then
         table.insert(available_decisions, decision)
       end
@@ -39,7 +39,7 @@ function GameWindow.update()
   if screen and screen.decisions and #screen.decisions > 0 then
     local available_decisions = {}
     for _, decision_id in ipairs(screen.decisions) do
-      local decision = DecisionManager.get(decision_id)
+      local decision = Decision.get(decision_id)
       if decision and decision.condition() then         table.insert(available_decisions, decision)
       end
     end

@@ -1,6 +1,6 @@
 local _decisions = {}
 
-function DecisionManager.register(decision)
+function Decision.register(decision)
   if not decision or not decision.id then
     PopupWindow.show({"Error: Invalid decision object registered (missing id)!"})
     return
@@ -22,10 +22,10 @@ function DecisionManager.register(decision)
   _decisions[decision.id] = decision
 end
 
-function DecisionManager.get(id)
+function Decision.get(id)
   return _decisions[id]
 end
 
-function DecisionManager.get_all()
+function Decision.get_all()
   return _decisions
 end

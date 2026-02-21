@@ -1,4 +1,4 @@
-MapManager.register({
+Map.register({
   id = "bedroom",
   from_x =  0,
   from_y =  0,
