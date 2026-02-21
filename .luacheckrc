@@ -3,13 +3,15 @@
 
 globals = {
   "Util",
-  "DecisionManager",
-  "ScreenManager",
+  "Decision",
+  "Screen",
   "UI",
   "Print",
   "Input",
   "Audio",
   "Context",
+  "Meters",
+  "Minigames",
   "mset",
   "mget",
   "btnp",
@@ -30,7 +32,7 @@ globals = {
   "exit",
   "trace",
   "index_menu",
-  "MapManager",
+  "Map",
   "map",
 }
 
