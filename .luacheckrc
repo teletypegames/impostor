@@ -4,6 +4,7 @@
 globals = {
   "Util",
   "Decision",
+  "Situation",
   "Screen",
   "UI",
   "Print",

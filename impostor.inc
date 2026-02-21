@@ -5,7 +5,10 @@ init/init.minigames.lua
 init/init.meters.lua
 system/system.util.lua
 init/init.windows.lua
+situation/situation.manager.lua
+situation/situation.drink_coffee.lua
 decision/decision.manager.lua
+decision/decision.have_a_coffee.lua
 decision/decision.go_to_home.lua
 decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
