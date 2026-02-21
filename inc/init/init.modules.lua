@@ -12,6 +12,7 @@ Util = {}
 Meters = {}
 Minigames = {}
 Decision = {}
+Situation = {}
 Screen = {}
 Map = {}
 UI = {}

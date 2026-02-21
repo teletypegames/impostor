@@ -1,16 +1,11 @@
 local _screens = {}
 
-function Screen.get_screens_array()
-  local screens_array = {}
-  for _, screen_data in pairs(_screens) do
-    table.insert(screens_array, screen_data)
-  end
-  return screens_array
-end
-
 function Screen.register(screen_data)
   if _screens[screen_data.id] then
     trace("Warning: Overwriting screen with id: " .. screen_data.id)
+  end
+  if not screen_data.situations then
+    screen_data.situations = {}
   end
   _screens[screen_data.id] = screen_data
 end
