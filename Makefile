@@ -204,7 +204,22 @@ install_precommit_hook:
 	@chmod +x .git/hooks/pre-commit
 	@echo "Pre-commit hook installed successfully."
 
-.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook
+docs: build
+	@echo "==> Checking for ldoc..."
+	@if ! command -v ldoc &> /dev/null; then \
+		echo "ldoc not found, attempting to install with luarocks..."; \
+		if command -v luarocks &> /dev/null; then \
+			luarocks install ldoc; \
+		else \
+			echo "Error: luarocks not found. Please install luarocks and then ldoc manually."; \
+			exit 1; \
+		fi; \
+	fi
+	@echo "==> Running ldoc..."
+	@ldoc ${OUTPUT} -d docs
+	@echo "==> Documentation generated."
+
+.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
 
 #-- <WAVES>
 #-- 000:224578acdeeeeddcba95434567653100
