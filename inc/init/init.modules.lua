@@ -18,5 +18,5 @@ Map = {}
 UI = {}
 Print = {}
 Input = {}
-
+Sprite = {}
 Audio = {}

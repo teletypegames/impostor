@@ -5,6 +5,8 @@ init/init.minigames.lua
 init/init.meters.lua
 system/system.util.lua
 init/init.windows.lua
+sprite/sprite.manager.lua
+sprite/sprite.norman.lua
 situation/situation.manager.lua
 situation/situation.drink_coffee.lua
 decision/decision.manager.lua

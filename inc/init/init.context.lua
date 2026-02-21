@@ -45,7 +45,9 @@ on than meets the eye.]]
     minigame_ddr = Minigames.get_default_ddr(),
     minigame_button_mash = Minigames.get_default_button_mash(),
     minigame_rhythm = Minigames.get_default_rhythm(),
-    meters = Meters.get_initial()
+    meters = Meters.get_initial(),
+    sprites = {},
+    current_situation = nil,
   }
 end
 
