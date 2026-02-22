@@ -34,6 +34,7 @@ screen/screen.walking_to_office.lua
 screen/screen.office.lua
 screen/screen.walking_to_home.lua
 window/window.manager.lua
+window/window.register.lua
 window/window.splash.lua
 window/window.intro.lua
 window/window.menu.lua

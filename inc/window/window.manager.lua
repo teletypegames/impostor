@@ -41,24 +41,3 @@ function Window.get_current_handler()
     return function() trace("Error: No handler for window: " .. tostring(Context.current_window)) end
   end
 end
-SplashWindow = {}
-IntroWindow = {}
-MenuWindow = {}
-GameWindow = {}
-PopupWindow = {}
-ConfigurationWindow = {}
-AudioTestWindow = {}
-MinigameButtonMashWindow = {}
-MinigameRhythmWindow = {}
-MinigameDDRWindow = {}
--- Registration of all window modules
-Window.register("splash", SplashWindow)
-Window.register("intro", IntroWindow)
-Window.register("menu", MenuWindow)
-Window.register("game", GameWindow)
-Window.register("popup", PopupWindow)
-Window.register("configuration", ConfigurationWindow)
-Window.register("audiotest", AudioTestWindow)
-Window.register("minigame_button_mash", MinigameButtonMashWindow)
-Window.register("minigame_rhythm", MinigameRhythmWindow)
-Window.register("minigame_ddr", MinigameDDRWindow)
