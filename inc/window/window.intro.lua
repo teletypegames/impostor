@@ -1,23 +1,38 @@
+IntroWindow.y = Config.screen.height
+IntroWindow.speed = 0.5
+IntroWindow.text = [[
+Norman Reds’ everyday life
+seems ordinary: work,
+meetings, coffee, and
+endless notifications.
+But beneath him, or around
+him — something is
+constantly building, and
+it soon becomes clear
+that there is more going
+on than meets the eye.
+]]
+
 --- Draws the intro window.
 function IntroWindow.draw()
   local x = (Config.screen.width - 132) / 2
-  Print.text(Context.intro.text, x, Context.intro.y, Config.colors.green)
+  Print.text(IntroWindow.text, x, IntroWindow.y, Config.colors.green)
 end
 
 --- Updates the intro window logic.
 function IntroWindow.update()
-  Context.intro.y = Context.intro.y - Context.intro.speed
+  IntroWindow.y = IntroWindow.y - IntroWindow.speed
 
     local lines = 1
-  for _ in string.gmatch(Context.intro.text, "\n") do
+  for _ in string.gmatch(IntroWindow.text, "\n") do
     lines = lines + 1
   end
 
-    if Context.intro.y < -lines * 8 then
-    GameWindow.set_state(WINDOW_MENU)
+    if IntroWindow.y < -lines * 8 then
+    GameWindow.set_state("menu")
   end
 
     if Input.menu_confirm() then
-    GameWindow.set_state(WINDOW_MENU)
+    GameWindow.set_state("menu")
   end
 end

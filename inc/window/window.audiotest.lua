@@ -57,7 +57,7 @@ end
 --- Navigates back from audio test window.
 function AudioTestWindow.back()
     Audio.sfx_deselect()
-    GameWindow.set_state(WINDOW_MENU)
+    GameWindow.set_state("menu")
 end
 
 --- Initializes audio test window.

@@ -60,7 +60,7 @@ end
 --- Updates configuration window logic.
 function ConfigurationWindow.update()
   if Input.menu_back() then
-    GameWindow.set_state(WINDOW_MENU)
+    GameWindow.set_state("menu")
     return
   end
 

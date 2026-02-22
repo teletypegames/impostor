@@ -9,12 +9,12 @@ local LINE_HEIGHT = 8
 -- @param content_strings table A table of strings to display in the popup.
 function PopupWindow.show(content_strings)
   Context.popup.show = true
-  Context.popup.content = content_strings or {}   GameWindow.set_state(WINDOW_POPUP) end
+  Context.popup.content = content_strings or {}   GameWindow.set_state("popup") end
 
 --- Hides the popup window.
 function PopupWindow.hide()
   Context.popup.show = false
-  Context.popup.content = {}   GameWindow.set_state(WINDOW_GAME) end
+  Context.popup.content = {}   GameWindow.set_state("game") end
 
 --- Updates popup window logic.
 function PopupWindow.update()

@@ -15,6 +15,7 @@ globals = {
   "Context",
   "Meter",
   "Minigame",
+  "Window",
   "SplashWindow",
   "IntroWindow",
   "MenuWindow",

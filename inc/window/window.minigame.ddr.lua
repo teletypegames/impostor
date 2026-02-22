@@ -10,7 +10,7 @@ end
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
-  Context.minigame_ddr.return_window = return_window or WINDOW_GAME
+  Context.minigame_ddr.return_window = return_window or "game"
   Context.minigame_ddr.debug_song_key = song_key
   if song_key and Songs and Songs[song_key] then
     Context.minigame_ddr.current_song = Songs[song_key]
@@ -25,7 +25,7 @@ function MinigameDDRWindow.start(return_window, song_key, params)
       Context.minigame_ddr.debug_status = "Random mode"
     end
   end
-  Context.active_window = WINDOW_MINIGAME_DDR
+  Context.current_window = "minigame_ddr"
 end
 
 --- Spawns a random arrow.
@@ -101,7 +101,7 @@ function MinigameDDRWindow.update()
   if mg.bar_fill >= mg.max_fill then
     Meter.on_minigame_complete()
     Meter.show()
-    Context.active_window = mg.return_window
+    Context.current_window = mg.return_window
     return
   end
   mg.frame_counter = mg.frame_counter + 1
@@ -109,7 +109,7 @@ function MinigameDDRWindow.update()
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
       Meter.on_minigame_complete()
       Meter.show()
-      Context.active_window = mg.return_window
+      Context.current_window = mg.return_window
       return
     end
   end
@@ -196,11 +196,11 @@ function MinigameDDRWindow.draw()
     print("DDR ERROR: Context not initialized", 10, 10, 12)
     print("Press Z to return", 10, 20, 12)
     if Input.select() then
-      Context.active_window = WINDOW_GAME
+      Context.current_window = "game"
     end
     return
   end
-  if mg.return_window == WINDOW_GAME then
+  if mg.return_window == "game" then
     GameWindow.draw()
   end
   rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)

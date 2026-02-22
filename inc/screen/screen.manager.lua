@@ -24,3 +24,9 @@ end
 function Screen.get_by_id(screen_id)
   return _screens[screen_id]
 end
+
+--- Gets all registered screens.
+-- @return table A table containing all registered screen data, indexed by their IDs.
+function Screen.get_all()
+  return _screens
+end

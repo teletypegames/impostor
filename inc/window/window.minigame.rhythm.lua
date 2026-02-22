@@ -9,8 +9,8 @@ end
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameRhythmWindow.start(return_window, params)
   MinigameRhythmWindow.init(params)
-  Context.minigame_rhythm.return_window = return_window or WINDOW_GAME
-  Context.active_window = WINDOW_MINIGAME_RHYTHM
+  Context.minigame_rhythm.return_window = return_window or "game"
+  Context.current_window = "minigame_rhythm"
 end
 
 --- Updates rhythm minigame logic.
@@ -48,7 +48,7 @@ function MinigameRhythmWindow.update()
   if mg.score >= mg.max_score then
     Meter.on_minigame_complete()
     Meter.show()
-    Context.active_window = mg.return_window
+    Context.current_window = mg.return_window
     return
   end
   if mg.button_pressed_timer > 0 then
@@ -59,7 +59,7 @@ end
 --- Draws rhythm minigame.
 function MinigameRhythmWindow.draw()
   local mg = Context.minigame_rhythm
-  if mg.return_window == WINDOW_GAME then
+  if mg.return_window == "game" then
     GameWindow.draw()
   end
   rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)

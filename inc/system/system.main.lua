@@ -1,53 +1,10 @@
-local STATE_HANDLERS = {
-  [WINDOW_SPLASH] = function()
-    SplashWindow.update()
-    SplashWindow.draw()
-  end,
-  [WINDOW_INTRO] = function()
-    IntroWindow.update()
-    IntroWindow.draw()
-  end,
-  [WINDOW_MENU] = function()
-    MenuWindow.update()
-    MenuWindow.draw()
-  end,
-  [WINDOW_GAME] = function()
-    GameWindow.update()
-    GameWindow.draw()
-  end,
-  [WINDOW_POPUP] = function()
-    GameWindow.draw()
-    PopupWindow.update()
-    PopupWindow.draw()
-  end,
-  [WINDOW_CONFIGURATION] = function()
-    ConfigurationWindow.update()
-    ConfigurationWindow.draw()
-  end,
-  [WINDOW_AUDIOTEST] = function()
-    AudioTestWindow.update()
-    AudioTestWindow.draw()
-  end,
-  [WINDOW_MINIGAME_BUTTON_MASH] = function()
-    MinigameButtonMashWindow.update()
-    MinigameButtonMashWindow.draw()
-  end,
-  [WINDOW_MINIGAME_RHYTHM] = function()
-    MinigameRhythmWindow.update()
-    MinigameRhythmWindow.draw()
-  end,
-  [WINDOW_MINIGAME_DDR] = function()
-    MinigameDDRWindow.update()
-    MinigameDDRWindow.draw()
-  end,
-}
-
 local initialized_game = false
 
 --- Initializes game state.
 local function init_game()
   if initialized_game then return end
-
+  Context.reset()
+  Window.set_current("splash") -- Set initial window using new manager
   MenuWindow.refresh_menu_items()
   initialized_game = true
 end
@@ -56,7 +13,7 @@ end
 function TIC()
   init_game()
   cls(Config.colors.black)
-  local handler = STATE_HANDLERS[Context.active_window]
+  local handler = Window.get_current_handler() -- Get handler from Window manager
   if handler then
     handler()
   end

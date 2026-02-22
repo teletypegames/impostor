@@ -1,0 +1,13 @@
+Window = {}
+Util = {}
+Meter = {}
+Minigame = {}
+Decision = {}
+Situation = {}
+Screen = {}
+Map = {}
+UI = {}
+Print = {}
+Input = {}
+Sprite = {}
+Audio = {}
