@@ -7,11 +7,11 @@ function Config.initial_data()
       height = 136
     },
     colors = {
-      black = 0,
+      black = 2,
       light_grey = 13,
       dark_grey = 14,
-      red = 2,
-      green = 6,
+      red = 0,
+      green = 7,
       blue = 9,
       white = 12,
       item = 12,
