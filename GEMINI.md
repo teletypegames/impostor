@@ -55,7 +55,7 @@ Based on the analysis of `impostor.lua`, the following regularities and conventi
 
 ---
 
-# Impostor Minigames Documentation
+# Impostor Minigame Documentation
 
 This document provides comprehensive documentation for all three minigames implemented in the Impostor game: Button Mash, Rhythm, and DDR (Dance Dance Revolution).
 
@@ -74,7 +74,7 @@ This document provides comprehensive documentation for all three minigames imple
 
 The Impostor game includes three interactive minigames that can be triggered during gameplay. Each minigame presents a unique challenge that the player must complete to progress. All minigames feature:
 
-- **Overlay rendering** - Minigames render over the current game window
+- **Overlay rendering** - Minigame render over the current game window
 - **Progress tracking** - Visual indicators show completion status
 - **Return mechanism** - Automatic return to the calling window upon completion
 - **Visual feedback** - Button presses and hits are visually indicated

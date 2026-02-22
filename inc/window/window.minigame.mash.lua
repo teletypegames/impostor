@@ -1,7 +1,7 @@
 --- Initializes button mash minigame state.
 -- @param params table Optional parameters for configuration.
 function MinigameButtonMashWindow.init(params)
-  Context.minigame_button_mash = Minigames.configure_button_mash(params)
+  Context.minigame_button_mash = Minigame.configure_button_mash(params)
 end
 
 --- Starts the button mash minigame.
@@ -24,8 +24,8 @@ function MinigameButtonMashWindow.update()
     end
   end
   if mg.bar_fill >= mg.max_fill then
-    Meters.on_minigame_complete()
-    Meters.show()
+    Meter.on_minigame_complete()
+    Meter.show()
     Context.active_window = mg.return_window
     return
   end

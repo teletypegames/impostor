@@ -1,7 +1,7 @@
 --- Initializes rhythm minigame state.
 -- @param params table Optional parameters for configuration.
 function MinigameRhythmWindow.init(params)
-  Context.minigame_rhythm = Minigames.configure_rhythm(params)
+  Context.minigame_rhythm = Minigame.configure_rhythm(params)
 end
 
 --- Starts the rhythm minigame.
@@ -46,8 +46,8 @@ function MinigameRhythmWindow.update()
     end
   end
   if mg.score >= mg.max_score then
-    Meters.on_minigame_complete()
-    Meters.show()
+    Meter.on_minigame_complete()
+    Meter.show()
     Context.active_window = mg.return_window
     return
   end

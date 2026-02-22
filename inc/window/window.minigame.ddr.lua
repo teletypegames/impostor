@@ -1,7 +1,7 @@
 --- Initializes DDR minigame state.
 -- @param params table Optional parameters for configuration.
 function MinigameDDRWindow.init(params)
-  Context.minigame_ddr = Minigames.configure_ddr(params)
+  Context.minigame_ddr = Minigame.configure_ddr(params)
 end
 
 --- Starts the DDR minigame.
@@ -99,16 +99,16 @@ end
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
   if mg.bar_fill >= mg.max_fill then
-    Meters.on_minigame_complete()
-    Meters.show()
+    Meter.on_minigame_complete()
+    Meter.show()
     Context.active_window = mg.return_window
     return
   end
   mg.frame_counter = mg.frame_counter + 1
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
-      Meters.on_minigame_complete()
-      Meters.show()
+      Meter.on_minigame_complete()
+      Meter.show()
       Context.active_window = mg.return_window
       return
     end

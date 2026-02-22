@@ -44,10 +44,10 @@ on than meets the eye.]]
     selected_decision_index = 1,
     game_in_progress = false,
     screens = {},
-    minigame_ddr = Minigames.get_default_ddr(),
-    minigame_button_mash = Minigames.get_default_button_mash(),
-    minigame_rhythm = Minigames.get_default_rhythm(),
-    meters = Meters.get_initial(),
+    minigame_ddr = Minigame.get_default_ddr(),
+    minigame_button_mash = Minigame.get_default_button_mash(),
+    minigame_rhythm = Minigame.get_default_rhythm(),
+    meters = Meter.get_initial(),
     --- Active sprites.
     sprites = {},
     --- Current situation ID.
