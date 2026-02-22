@@ -1,5 +1,5 @@
 -- Manages minigame configurations and initial states.
-Minigames = {}
+Minigame = {}
 
 --- Applies parameters to defaults.
 -- @param defaults table The default configuration table.
@@ -15,7 +15,7 @@ end
 
 --- Gets default DDR minigame configuration.
 -- @return table The default DDR minigame configuration.
-function Minigames.get_default_ddr()
+function Minigame.get_default_ddr()
   local arrow_size = 12
   local arrow_spacing = 30
   local total_width = (4 * arrow_size) + (3 * arrow_spacing)
@@ -56,7 +56,7 @@ end
 
 --- Gets default button mash minigame configuration.
 -- @return table The default button mash minigame configuration.
-function Minigames.get_default_button_mash()
+function Minigame.get_default_button_mash()
   return {
     bar_fill = 0,
     max_fill = 100,
@@ -78,7 +78,7 @@ end
 
 --- Gets default rhythm minigame configuration.
 -- @return table The default rhythm minigame configuration.
-function Minigames.get_default_rhythm()
+function Minigame.get_default_rhythm()
   return {
     line_position = 0,
     line_speed = 0.015,
@@ -108,20 +108,20 @@ end
 --- Configures DDR minigame.
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured DDR minigame state.
-function Minigames.configure_ddr(params)
-  return apply_params(Minigames.get_default_ddr(), params)
+function Minigame.configure_ddr(params)
+  return apply_params(Minigame.get_default_ddr(), params)
 end
 
 --- Configures button mash minigame.
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured button mash minigame state.
-function Minigames.configure_button_mash(params)
-  return apply_params(Minigames.get_default_button_mash(), params)
+function Minigame.configure_button_mash(params)
+  return apply_params(Minigame.get_default_button_mash(), params)
 end
 
 --- Configures rhythm minigame.
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured rhythm minigame state.
-function Minigames.configure_rhythm(params)
-  return apply_params(Minigames.get_default_rhythm(), params)
+function Minigame.configure_rhythm(params)
+  return apply_params(Minigame.get_default_rhythm(), params)
 end

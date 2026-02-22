@@ -22,25 +22,44 @@ end
 --- Gets a situation by ID.
 -- @param id string The situation ID.
 -- @return table The situation table or nil.
-function Situation.get(id)
+function Situation.get_by_id(id)
   return _situations[id]
 end
 
---- Applies a situation.
+--- Gets all registered situations, optionally filtered by screen ID.
+-- @param screen_id string Optional. If provided, returns situations associated with this screen ID.
+-- @return table A table containing all registered situation data, indexed by their IDs, or filtered by screen_id.
+function Situation.get_all(screen_id)
+  if screen_id then
+    local filtered_situations = {}
+    for _, situation in pairs(_situations) do
+      if situation.screen_id == screen_id then
+        table.insert(filtered_situations, situation)
+      end
+    end
+    return filtered_situations
+  end
+  return _situations
+end
+
+--- Applies a situation, checking screen compatibility and returning the new situation ID if successful.
 -- @param id string The situation ID to apply.
-function Situation.apply(id)
-  local situation = Situation.get(id)
+-- @param current_screen_id string The ID of the currently active screen.
+-- @return string|nil The ID of the applied situation if successful, otherwise nil.
+function Situation.apply(id, current_screen_id)
+  local situation = Situation.get_by_id(id)
+  local screen = Screen.get_by_id(current_screen_id)
+
   if not situation then
     trace("Error: No situation found with id: " .. id)
-    return
+    return nil
   end
 
-  local current_screen_obj = Screen.get_by_id(Context.current_screen)
-  if current_screen_obj and not current_screen_obj.situations[id] then
-    trace("Info: Situation " .. id .. " cannot be applied to current screen (id: " .. Context.current_screen .. ").")
-    return
+  if Util.contains(screen.situations, id) then
+    situation.handle()
+    return id
+  else
+    trace("Info: Situation " .. id .. " cannot be applied to current screen (id: " .. current_screen_id .. ").")
+    return nil
   end
-
-  Context.current_situation = id
-  situation.handle()
 end

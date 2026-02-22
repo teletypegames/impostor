@@ -1,4 +1,5 @@
 local _sprites = {}
+local _active_sprites = {}
 
 --- Registers a sprite definition.
 -- @param sprite_data table A table containing the sprite definition.
@@ -28,7 +29,7 @@ function Sprite.show(id, x, y, colorkey, scale, flip_x, flip_y, rot)
     return
   end
 
-  Context.sprites[id] = {
+  _active_sprites[id] = {
     id = id,
     x = x,
     y = y,
@@ -43,16 +44,16 @@ end
 --- Hides a displayed sprite.
 -- @param id string The unique identifier of the sprite.
 function Sprite.hide(id)
-  Context.sprites[id] = nil
+  _active_sprites[id] = nil
 end
 
 --- Draws all scheduled sprites.
 function Sprite.draw()
-  for id, params in pairs(Context.sprites) do
+  for id, params in pairs(_active_sprites) do
     local sprite_data = _sprites[id]
     if not sprite_data then
-      trace("Error: Sprite id " .. id .. " in Context.sprites is not registered.")
-      Context.sprites[id] = nil
+      trace("Error: Sprite id " .. id .. " in _active_sprites is not registered.")
+      _active_sprites[id] = nil
     end
 
     local colorkey = params.colorkey or sprite_data.colorkey or 0
