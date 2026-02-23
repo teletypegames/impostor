@@ -5,12 +5,12 @@ function MinigameRhythmWindow.init(params)
 end
 
 --- Starts the rhythm minigame.
--- @param return_window number The window ID to return to after the minigame.
+-- @param return_window string The window ID to return to after the minigame.
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameRhythmWindow.start(return_window, params)
   MinigameRhythmWindow.init(params)
   Context.minigame_rhythm.return_window = return_window or "game"
-  Context.current_window = "minigame_rhythm"
+  Window.set_current("minigame_rhythm")
 end
 
 --- Updates rhythm minigame logic.
@@ -48,7 +48,7 @@ function MinigameRhythmWindow.update()
   if mg.score >= mg.max_score then
     Meter.on_minigame_complete()
     Meter.show()
-    Context.current_window = mg.return_window
+    Window.set_current(mg.return_window)
     return
   end
   if mg.button_pressed_timer > 0 then

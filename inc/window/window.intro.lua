@@ -23,16 +23,16 @@ end
 function IntroWindow.update()
   IntroWindow.y = IntroWindow.y - IntroWindow.speed
 
-    local lines = 1
+  local lines = 1
   for _ in string.gmatch(IntroWindow.text, "\n") do
     lines = lines + 1
   end
 
-    if IntroWindow.y < -lines * 8 then
-    GameWindow.set_state("menu")
+  if IntroWindow.y < -lines * 8 then
+    Window.set_current("menu")
   end
 
-    if Input.menu_confirm() then
-    GameWindow.set_state("menu")
+  if Input.menu_confirm() then
+    Window.set_current("menu")
   end
 end

@@ -3,7 +3,6 @@ init/init.module.lua
 init/init.config.lua
 init/init.minigame.lua
 init/init.meter.lua
-init/init.window.lua
 init/init.context.lua
 system/system.util.lua
 system/system.print.lua

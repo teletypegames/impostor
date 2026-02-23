@@ -6,13 +6,13 @@ ConfigurationWindow = {
 --- Initializes configuration window.
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
-    UI.create_decision_item(
+    UI.create_action_item(
       "Save",
       function() Config.save() end
     ),
-    UI.create_decision_item(
+    UI.create_action_item(
       "Restore Defaults",
-      function() Config.restore_defaults() end
+      function() Config.reset() end
     ),
   }
 end
@@ -21,7 +21,8 @@ end
 function ConfigurationWindow.draw()
   UI.draw_top_bar("Configuration")
 
-  local x_start = 10   local y_start = 40
+  local x_start = 10
+  local y_start = 40
   local x_value_right_align = Config.screen.width - 10
   local char_width = 4
   for i, control in ipairs(ConfigurationWindow.controls) do
@@ -31,22 +32,23 @@ function ConfigurationWindow.draw()
       local value = control.get()
       local label_text = control.label
       local value_text = string.format(control.format, value)
-
-            local value_x = x_value_right_align - (#value_text * char_width)
+      local value_x = x_value_right_align - (#value_text * char_width)
 
       if i == ConfigurationWindow.selected_control then
         color = Config.colors.item
-        Print.text("<", x_start -8, current_y, color)
-        Print.text(label_text, x_start, current_y, color)         Print.text(value_text, value_x, current_y, color)
-        Print.text(">", x_value_right_align + 4, current_y, color)       else
+        Print.text("<", x_start - 8, current_y, color)
+        Print.text(label_text, x_start, current_y, color)
+        Print.text(value_text, value_x, current_y, color)
+        Print.text(">", x_value_right_align + 4, current_y, color)
+      else
         Print.text(label_text, x_start, current_y, color)
         Print.text(value_text, value_x, current_y, color)
       end
-    elseif control.type == "decision_item" then
+    elseif control.type == "action_item" then
       local label_text = control.label
       if i == ConfigurationWindow.selected_control then
         color = Config.colors.item
-        Print.text("<", x_start -8, current_y, color)
+        Print.text("<", x_start - 8, current_y, color)
         Print.text(label_text, x_start, current_y, color)
         Print.text(">", x_start + 8 + (#label_text * char_width) + 4, current_y, color)
       else
@@ -80,14 +82,16 @@ function ConfigurationWindow.update()
   if control then
     if control.type == "numeric_stepper" then
       local current_value = control.get()
-      if btnp(2) then         local new_value = math.max(control.min, current_value - control.step)
+      if Input.left() then
+        local new_value = math.max(control.min, current_value - control.step)
         control.set(new_value)
-      elseif btnp(3) then         local new_value = math.min(control.max, current_value + control.step)
+      elseif Input.right() then
+        local new_value = math.min(control.max, current_value + control.step)
         control.set(new_value)
       end
-    elseif control.type == "decision_item" then
+    elseif control.type == "action_item" then
       if Input.menu_confirm() then
-        control.decision()
+        control.action()
       end
     end
   end

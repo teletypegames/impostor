@@ -27,13 +27,13 @@ end
 --- Gets a decision by ID.
 -- @param id string The ID of the decision.
 -- @return table The decision table or nil.
-function Decision.get(id)
+function Decision.get_by_id(id)
   return _decisions[id]
 end
 
 --- Gets all registered decisions.
 -- @return table A table of all registered decisions.
-function Decision.get_all_registered()
+function Decision.get_all()
   return _decisions
 end
 
@@ -47,7 +47,7 @@ function Decision.get_for_screen(screen_data)
 
   local screen_decisions = {}
   for _, decision_id in ipairs(screen_data.decisions) do
-    local decision = Decision.get(decision_id)
+    local decision = Decision.get_by_id(decision_id)
     if decision then
       table.insert(screen_decisions, decision)
     end

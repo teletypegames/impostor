@@ -123,10 +123,13 @@ function UI.draw_decision_selector(decisions, selected_decision_index)
   if #decisions > 0 then
     local selected_decision = decisions[selected_decision_index]
     local decision_label = selected_decision.label
-    local text_width = #decision_label * 4     local text_y = bar_y + 4
-        local text_x = (Config.screen.width - text_width) / 2
-        Print.text("<", 2, text_y, Config.colors.green)
-        Print.text(decision_label, text_x, text_y, Config.colors.item)         Print.text(">", Config.screen.width - 6, text_y, Config.colors.green)   end
+    local text_width = #decision_label * 4
+    local text_y = bar_y + 4
+    local text_x = (Config.screen.width - text_width) / 2
+    Print.text("<", 2, text_y, Config.colors.green)
+    Print.text(decision_label, text_x, text_y, Config.colors.item)
+    Print.text(">", Config.screen.width - 6, text_y, Config.colors.green)
+  end
 end
 
 --- Draws meters.

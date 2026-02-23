@@ -19,7 +19,7 @@ function AudioTestWindow.generate_menuitems(list_func, index_func)
                 if current_func then
                     current_func()
                 else
-                    trace("Invalid Audio function: " .. list_func[index_menu])
+                    trace("Invalid Audio function: " .. list_func[index_func])
                 end
             end
         },

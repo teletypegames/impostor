@@ -5,12 +5,12 @@ function MinigameButtonMashWindow.init(params)
 end
 
 --- Starts the button mash minigame.
--- @param return_window number The window ID to return to after the minigame.
+-- @param return_window string The window ID to return to after the minigame.
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameButtonMashWindow.start(return_window, params)
   MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash.return_window = return_window or "game"
-  Context.current_window = "minigame_button_mash"
+  Window.set_current("minigame_button_mash")
 end
 
 --- Updates button mash minigame logic.
@@ -26,7 +26,7 @@ function MinigameButtonMashWindow.update()
   if mg.bar_fill >= mg.max_fill then
     Meter.on_minigame_complete()
     Meter.show()
-    Context.current_window = mg.return_window
+    Window.set_current(mg.return_window)
     return
   end
   local degradation = mg.base_degradation + (mg.bar_fill * mg.degradation_multiplier)

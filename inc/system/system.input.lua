@@ -2,7 +2,9 @@ local INPUT_KEY_UP = 0
 local INPUT_KEY_DOWN = 1
 local INPUT_KEY_LEFT = 2
 local INPUT_KEY_RIGHT = 3
-local INPUT_KEY_A = 4 local INPUT_KEY_B = 5 local INPUT_KEY_Y = 7
+local INPUT_KEY_A = 4
+local INPUT_KEY_B = 5
+local INPUT_KEY_Y = 7
 local INPUT_KEY_SPACE = 48
 local INPUT_KEY_BACKSPACE = 51
 local INPUT_KEY_ENTER = 50
