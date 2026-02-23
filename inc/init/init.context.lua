@@ -31,7 +31,8 @@ end
 function Context.reset()
   local initial_data = Context.initial_data()
   for k in pairs(Context) do
-    if type(Context[k]) ~= "function" then       Context[k] = nil
+    if type(Context[k]) ~= "function" then
+      Context[k] = nil
     end
   end
 
@@ -57,7 +58,7 @@ end
 --- Loads a saved game state.
 function Context.load_game()
   if mget(SAVE_GAME_MAGIC_VALUE_ADDRESS, SAVE_GAME_BANK) ~= SAVE_GAME_MAGIC_VALUE then
-        Context.new_game()
+    Context.new_game()
     return
   end
   Context.reset()

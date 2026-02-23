@@ -4,7 +4,7 @@ local _selected_decision_index = 1
 --- Draws the game window.
 function GameWindow.draw()
   local screen = Screen.get_by_id(Context.game.current_screen)
-  Map.draw(screen.background)
+  if screen.background then Map.draw(screen.background) end
   UI.draw_top_bar(screen.name)
   if #_available_decisions > 0 then
     UI.draw_decision_selector(_available_decisions, _selected_decision_index)
@@ -15,7 +15,7 @@ end
 --- Updates the game window logic.
 function GameWindow.update()
   if Input.menu_back() then
-    Context.current_window = "menu"
+    Window.set_current("menu")
     MenuWindow.refresh_menu_items()
     return
   end
@@ -23,7 +23,7 @@ function GameWindow.update()
   local screen = Screen.get_by_id(Context.game.current_screen)
   screen.update()
 
-  -- Handle situations (Context.game.current_situation is still present)
+  -- Handle current situation updates
   if Context.game.current_situation then
     local current_situation_obj = Situation.get_by_id(Context.game.current_situation)
     if current_situation_obj and current_situation_obj.update then
@@ -36,6 +36,10 @@ function GameWindow.update()
   _available_decisions = Decision.filter_available(all_decisions_for_screen)
 
   if #_available_decisions == 0 then return end
+
+  if _selected_decision_index > #_available_decisions then
+    _selected_decision_index = 1
+  end
 
   local new_selected_decision_index = UI.update_decision_selector(
     _available_decisions,
@@ -56,7 +60,7 @@ function GameWindow.update()
 end
 
 --- Sets the active window.
--- @param new_state number The ID of the new active window.
+-- @param new_state string The ID of the new active window.
 function GameWindow.set_state(new_state)
-  Context.current_window = new_state
+  Window.set_current(new_state)
 end

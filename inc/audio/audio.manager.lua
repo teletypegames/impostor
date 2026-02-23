@@ -11,6 +11,7 @@ function Audio.music_play_room_street_1() end
 --- Plays room street 2 music.
 function Audio.music_play_room_street_2() end
 --- Plays room music.
+-- TODO: function name is incomplete, determine the correct room identifier
 function Audio.music_play_room_() end
 --- Plays room work music.
 function Audio.music_play_room_work() end

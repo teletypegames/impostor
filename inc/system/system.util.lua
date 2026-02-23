@@ -1,5 +1,3 @@
---- Utility functions.
-Util = {}
 
 --- Safely wraps an index for an array.
 -- @param array table The array to index.
@@ -15,16 +13,13 @@ function Util.go_to_screen_by_id(screen_id)
   local screen = Screen.get_by_id(screen_id)
   if screen then
     Context.game.current_screen = screen_id
-    local all_decisions_for_screen = Decision.get_for_screen(screen)
-    Context.game.decisions = Decision.filter_available(all_decisions_for_screen)
-    Context.game.selected_decision_index = 1
-    screen.init() -- Initialize the new screen
+    screen.init()
   else
     PopupWindow.show({"Error: Screen '" .. screen_id .. "' not found!"})
   end
 end
 
--- Checks if a table contains a specific value.
+--- Checks if a table contains a specific value.
 -- @param t table The table to check.
 -- @param value any The value to look for.
 function Util.contains(t, value)

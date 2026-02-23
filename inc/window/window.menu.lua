@@ -21,17 +21,20 @@ end
 
 --- Starts a new game from the menu.
 function MenuWindow.new_game()
-  Context.new_game()   GameWindow.set_state("game")
+  Context.new_game()
+  GameWindow.set_state("game")
 end
 
 --- Loads a game from the menu.
 function MenuWindow.load_game()
-  Context.load_game()   GameWindow.set_state("game")
+  Context.load_game()
+  GameWindow.set_state("game")
 end
 
 --- Saves the current game from the menu.
 function MenuWindow.save_game()
-  Context.save_game() end
+  Context.save_game()
+end
 
 --- Resumes the game from the menu.
 function MenuWindow.resume_game()

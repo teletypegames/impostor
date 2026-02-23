@@ -58,8 +58,8 @@ export: build
 	@ls -lh $(PROJECT)-$(VERSION).* $(PROJECT).tic $(PROJECT).html.zip 2>/dev/null || true
 
 watch:
-	make build
-	fswatch -o $(SRC_DIR) $(ORDER) assets | while read; do make build; done
+	$(MAKE) build
+	fswatch -o $(SRC_DIR) $(ORDER) assets | while read; do $(MAKE) build; done
 
 import_assets: $(OUTPUT)
 	@TIC_CMD="load $(OUTPUT) &"; \
@@ -221,10 +221,3 @@ docs: build
 
 .PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
 
-#-- <WAVES>
-#-- 000:224578acdeeeeddcba95434567653100
-#-- </WAVES>
-#
-#-- <SFX>
-#-- 000:000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000500000000000
-#-- </SFX>

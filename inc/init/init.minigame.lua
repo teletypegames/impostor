@@ -1,5 +1,4 @@
 -- Manages minigame configurations and initial states.
-Minigame = {}
 
 --- Applies parameters to defaults.
 -- @param defaults table The default configuration table.

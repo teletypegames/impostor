@@ -5,7 +5,7 @@ function MinigameDDRWindow.init(params)
 end
 
 --- Starts the DDR minigame.
--- @param return_window number The window ID to return to after the minigame.
+-- @param return_window string The window ID to return to after the minigame.
 -- @param[opt] song_key string The key of the song to play.
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameDDRWindow.start(return_window, song_key, params)
@@ -25,7 +25,7 @@ function MinigameDDRWindow.start(return_window, song_key, params)
       Context.minigame_ddr.debug_status = "Random mode"
     end
   end
-  Context.current_window = "minigame_ddr"
+  Window.set_current("minigame_ddr")
 end
 
 --- Spawns a random arrow.
@@ -101,7 +101,7 @@ function MinigameDDRWindow.update()
   if mg.bar_fill >= mg.max_fill then
     Meter.on_minigame_complete()
     Meter.show()
-    Context.current_window = mg.return_window
+    Window.set_current(mg.return_window)
     return
   end
   mg.frame_counter = mg.frame_counter + 1
@@ -109,7 +109,7 @@ function MinigameDDRWindow.update()
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
       Meter.on_minigame_complete()
       Meter.show()
-      Context.current_window = mg.return_window
+      Window.set_current(mg.return_window)
       return
     end
   end
@@ -196,7 +196,7 @@ function MinigameDDRWindow.draw()
     print("DDR ERROR: Context not initialized", 10, 10, 12)
     print("Press Z to return", 10, 20, 12)
     if Input.select() then
-      Context.current_window = "game"
+      Window.set_current("game")
     end
     return
   end
