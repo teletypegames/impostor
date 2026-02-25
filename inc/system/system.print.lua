@@ -1,4 +1,7 @@
+--- @section Print
+
 --- Prints text with shadow.
+--- @within Print
 -- @param text string The text to print.
 -- @param x number The x-coordinate.
 -- @param y number The y-coordinate.
@@ -14,6 +17,7 @@ function Print.text(text, x, y, color, fixed, scale)
 end
 
 --- Prints centered text with shadow.
+--- @within Print
 -- @param text string The text to print.
 -- @param x number The x-coordinate for centering.
 -- @param y number The y-coordinate.

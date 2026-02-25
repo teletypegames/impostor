@@ -1,6 +1,7 @@
+--- @section Songs
+
 -- DDR Arrow Spawn Patterns
 -- Each song defines when arrows should spawn, synced to music beats
-
 Songs = {
   -- Example song pattern
   test_song = {
@@ -108,6 +109,7 @@ Songs = {
 }
 
 --- Converts beats to frames.
+--- @within Songs
 -- @param beat number The beat number.
 -- @param bpm number Beats per minute.
 -- @param[opt] fps number Frames per second (default: 60).
@@ -120,6 +122,7 @@ function frame_from_beat(beat, bpm, fps)
 end
 
 --- Converts beat notation to frame pattern.
+--- @within Songs
 -- @param beats table A table of beat data, e.g., {{1, "left"}, {2, "down"}}.
 -- @param bpm number Beats per minute.
 -- @param[opt] fps number Frames per second (default: 60).

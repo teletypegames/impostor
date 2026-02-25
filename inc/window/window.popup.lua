@@ -1,3 +1,4 @@
+--- @section PopupWindow
 local POPUP_X = 40
 local POPUP_Y = 40
 local POPUP_WIDTH = 160
@@ -7,6 +8,7 @@ local TEXT_MARGIN_Y = POPUP_Y + 10
 local LINE_HEIGHT = 8
 
 --- Displays a popup window.
+--- @within PopupWindow
 -- @param content_strings table A table of strings to display in the popup.
 function PopupWindow.show(content_strings)
   Context.popup.show = true
@@ -15,6 +17,7 @@ function PopupWindow.show(content_strings)
 end
 
 --- Hides the popup window.
+--- @within PopupWindow
 function PopupWindow.hide()
   Context.popup.show = false
   Context.popup.content = {}
@@ -22,6 +25,7 @@ function PopupWindow.hide()
 end
 
 --- Updates popup window logic.
+--- @within PopupWindow
 function PopupWindow.update()
   if Context.popup.show then
     if Input.menu_confirm() or Input.menu_back() then
@@ -31,6 +35,7 @@ function PopupWindow.update()
 end
 
 --- Draws the popup window.
+--- @within PopupWindow
 function PopupWindow.draw()
   if Context.popup.show then
     rect(POPUP_X, POPUP_Y, POPUP_WIDTH, POPUP_HEIGHT, Config.colors.black)

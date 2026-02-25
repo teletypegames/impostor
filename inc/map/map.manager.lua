@@ -1,8 +1,11 @@
 -- Manages game maps.
+--- @section Map
+
 
 local _maps = {}
 
 --- Gets all registered maps as an array.
+--- @within Map
 -- @return table An array of registered map data.
 function Map.get_maps_array()
   local maps_array = {}
@@ -13,6 +16,7 @@ function Map.get_maps_array()
 end
 
 --- Registers a map definition.
+--- @within Map
 -- @param map_data table The map data table.
 function Map.register(map_data)
   if _maps[map_data.id] then
@@ -22,6 +26,7 @@ function Map.register(map_data)
 end
 
 --- Gets a map by ID.
+--- @within Map
 -- @param map_id string The ID of the map.
 -- @return table The map data table or nil.
 function Map.get_by_id(map_id)
@@ -29,6 +34,7 @@ function Map.get_by_id(map_id)
 end
 
 --- Draws a map.
+--- @within Map
 -- @param map_id string The ID of the map to draw.
 function Map.draw(map_id)
   local map_data = Map.get_by_id(map_id)

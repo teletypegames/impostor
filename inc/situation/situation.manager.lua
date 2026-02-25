@@ -1,6 +1,8 @@
+--- @section Situation
 local _situations = {}
 
 --- Registers a situation definition.
+--- @within Situation
 -- @param situation table The situation data table.
 function Situation.register(situation)
   if not situation or not situation.id then
@@ -20,6 +22,7 @@ function Situation.register(situation)
 end
 
 --- Gets a situation by ID.
+--- @within Situation
 -- @param id string The situation ID.
 -- @return table The situation table or nil.
 function Situation.get_by_id(id)
@@ -27,6 +30,7 @@ function Situation.get_by_id(id)
 end
 
 --- Gets all registered situations, optionally filtered by screen ID.
+--- @within Situation
 -- @param screen_id string Optional. If provided, returns situations associated with this screen ID.
 -- @return table A table containing all registered situation data, indexed by their IDs, or filtered by screen_id.
 function Situation.get_all(screen_id)
@@ -43,6 +47,7 @@ function Situation.get_all(screen_id)
 end
 
 --- Applies a situation, checking screen compatibility and returning the new situation ID if successful.
+--- @within Situation
 -- @param id string The situation ID to apply.
 -- @param current_screen_id string The ID of the currently active screen.
 -- @return string|nil The ID of the applied situation if successful, otherwise nil.

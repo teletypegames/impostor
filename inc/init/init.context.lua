@@ -3,9 +3,11 @@ local SAVE_GAME_MAGIC_VALUE_ADDRESS = 0
 local SAVE_GAME_MAGIC_VALUE = 0xCA
 
 --- Global game context.
+--- @section Context
 Context = {}
 
 --- Gets initial data for Context.
+--- @within Context
 -- @return table Initial context data.
 function Context.initial_data()
   return {
@@ -28,6 +30,7 @@ function Context.initial_data()
 end
 
 --- Resets game context to initial state.
+--- @within Context
 function Context.reset()
   local initial_data = Context.initial_data()
   for k in pairs(Context) do
@@ -42,6 +45,7 @@ function Context.reset()
 end
 
 --- Starts a new game.
+--- @within Context
 function Context.new_game()
   Context.reset()
   Context.game_in_progress = true
@@ -50,12 +54,14 @@ function Context.new_game()
 end
 
 --- Saves the current game state.
+--- @within Context
 function Context.save_game()
   if not Context.game_in_progress then return end
   mset(SAVE_GAME_MAGIC_VALUE, SAVE_GAME_MAGIC_VALUE_ADDRESS, SAVE_GAME_BANK)
 end
 
 --- Loads a saved game state.
+--- @within Context
 function Context.load_game()
   if mget(SAVE_GAME_MAGIC_VALUE_ADDRESS, SAVE_GAME_BANK) ~= SAVE_GAME_MAGIC_VALUE then
     Context.new_game()

@@ -1,10 +1,14 @@
+--- @section MinigameRhythmWindow
+
 --- Initializes rhythm minigame state.
+--- @within MinigameRhythmWindow
 -- @param params table Optional parameters for configuration.
 function MinigameRhythmWindow.init(params)
   Context.minigame_rhythm = Minigame.configure_rhythm(params)
 end
 
 --- Starts the rhythm minigame.
+--- @within MinigameRhythmWindow
 -- @param return_window string The window ID to return to after the minigame.
 -- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameRhythmWindow.start(return_window, params)
@@ -14,6 +18,7 @@ function MinigameRhythmWindow.start(return_window, params)
 end
 
 --- Updates rhythm minigame logic.
+--- @within MinigameRhythmWindow
 function MinigameRhythmWindow.update()
   local mg = Context.minigame_rhythm
   mg.line_position = mg.line_position + (mg.line_speed * mg.line_direction)
@@ -57,6 +62,7 @@ function MinigameRhythmWindow.update()
 end
 
 --- Draws rhythm minigame.
+--- @within MinigameRhythmWindow
 function MinigameRhythmWindow.draw()
   local mg = Context.minigame_rhythm
   if mg.return_window == "game" then

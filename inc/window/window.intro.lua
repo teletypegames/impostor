@@ -1,3 +1,4 @@
+--- @section IntroWindow
 IntroWindow.y = Config.screen.height
 IntroWindow.speed = 0.5
 IntroWindow.text = [[
@@ -14,12 +15,14 @@ on than meets the eye.
 ]]
 
 --- Draws the intro window.
+--- @within IntroWindow
 function IntroWindow.draw()
   local x = (Config.screen.width - 132) / 2
   Print.text(IntroWindow.text, x, IntroWindow.y, Config.colors.green)
 end
 
 --- Updates the intro window logic.
+--- @within IntroWindow
 function IntroWindow.update()
   IntroWindow.y = IntroWindow.y - IntroWindow.speed
 

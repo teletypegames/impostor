@@ -1,10 +1,14 @@
+--- @section MinigameDDRWindow
+
 --- Initializes DDR minigame state.
+--- @within MinigameDDRWindow
 -- @param params table Optional parameters for configuration.
 function MinigameDDRWindow.init(params)
   Context.minigame_ddr = Minigame.configure_ddr(params)
 end
 
 --- Starts the DDR minigame.
+--- @within MinigameDDRWindow
 -- @param return_window string The window ID to return to after the minigame.
 -- @param[opt] song_key string The key of the song to play.
 -- @param[opt] params table Optional parameters for minigame configuration.
@@ -29,6 +33,7 @@ function MinigameDDRWindow.start(return_window, song_key, params)
 end
 
 --- Spawns a random arrow.
+--- @within MinigameDDRWindow
 local function spawn_arrow()
   local mg = Context.minigame_ddr
   local target = mg.target_arrows[math.random(1, 4)]
@@ -40,6 +45,7 @@ local function spawn_arrow()
 end
 
 --- Spawns an arrow in a specific direction.
+--- @within MinigameDDRWindow
 -- @param direction string The direction of the arrow ("left", "down", "up", "right").
 local function spawn_arrow_dir(direction)
   local mg = Context.minigame_ddr
@@ -56,6 +62,7 @@ local function spawn_arrow_dir(direction)
 end
 
 --- Checks if an arrow is hit.
+--- @within MinigameDDRWindow
 -- @param arrow table The arrow data.
 -- @return boolean True if the arrow is hit, false otherwise.
 local function check_hit(arrow)
@@ -65,6 +72,7 @@ local function check_hit(arrow)
 end
 
 --- Checks if an arrow is missed.
+--- @within MinigameDDRWindow
 -- @param arrow table The arrow data.
 -- @return boolean True if the arrow is missed, false otherwise.
 local function check_miss(arrow)
@@ -73,6 +81,7 @@ local function check_miss(arrow)
 end
 
 --- Draws an arrow.
+--- @within MinigameDDRWindow
 -- @param x number The x-coordinate.
 -- @param y number The y-coordinate.
 -- @param direction string The direction of the arrow.
@@ -96,6 +105,7 @@ local function draw_arrow(x, y, direction, color)
 end
 
 --- Updates DDR minigame logic.
+--- @within MinigameDDRWindow
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
   if mg.bar_fill >= mg.max_fill then
@@ -189,6 +199,7 @@ function MinigameDDRWindow.update()
 end
 
 --- Draws DDR minigame.
+--- @within MinigameDDRWindow
 function MinigameDDRWindow.draw()
   local mg = Context.minigame_ddr
   if not mg then

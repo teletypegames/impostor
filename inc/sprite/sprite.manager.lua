@@ -1,7 +1,9 @@
+--- @section Sprite
 local _sprites = {}
 local _active_sprites = {}
 
 --- Registers a sprite definition.
+--- @within Sprite
 -- @param sprite_data table A table containing the sprite definition.
 function Sprite.register(sprite_data)
   if not sprite_data or not sprite_data.id then
@@ -15,6 +17,7 @@ function Sprite.register(sprite_data)
 end
 
 --- Schedules a sprite for drawing.
+--- @within Sprite
 -- @param id string The unique identifier of the sprite.
 -- @param x number The x-coordinate.
 -- @param y number The y-coordinate.
@@ -42,12 +45,14 @@ function Sprite.show(id, x, y, colorkey, scale, flip_x, flip_y, rot)
 end
 
 --- Hides a displayed sprite.
+--- @within Sprite
 -- @param id string The unique identifier of the sprite.
 function Sprite.hide(id)
   _active_sprites[id] = nil
 end
 
 --- Draws all scheduled sprites.
+--- @within Sprite
 function Sprite.draw()
   for id, params in pairs(_active_sprites) do
     local sprite_data = _sprites[id]

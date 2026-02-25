@@ -1,6 +1,8 @@
+--- @section Decision
 local _decisions = {}
 
 --- Registers a decision definition.
+--- @within Decision
 -- @param decision table The decision data table.
 function Decision.register(decision)
   if not decision or not decision.id then
@@ -25,6 +27,7 @@ function Decision.register(decision)
 end
 
 --- Gets a decision by ID.
+--- @within Decision
 -- @param id string The ID of the decision.
 -- @return table The decision table or nil.
 function Decision.get_by_id(id)
@@ -32,12 +35,14 @@ function Decision.get_by_id(id)
 end
 
 --- Gets all registered decisions.
+--- @within Decision
 -- @return table A table of all registered decisions.
 function Decision.get_all()
   return _decisions
 end
 
 --- Gets decision objects based on a screen's data.
+--- @within Decision
 -- @param screen_data table The data for the screen, containing a 'decisions' field (list of decision IDs).
 -- @return table A table containing decision objects relevant to the screen.
 function Decision.get_for_screen(screen_data)
@@ -56,6 +61,7 @@ function Decision.get_for_screen(screen_data)
 end
 
 --- Filters a list of decision objects based on their condition function.
+--- @within Decision
 -- @param decisions_list table A table of decision objects.
 -- @return table A new table containing only the decisions for which condition() is true.
 function Decision.filter_available(decisions_list)

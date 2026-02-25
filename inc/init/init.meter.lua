@@ -1,3 +1,4 @@
+--- @section Meter
 local METER_MAX = 1000
 local METER_DEFAULT = 500
 local METER_DECAY_PER_FRAME = 0.02
@@ -13,6 +14,7 @@ Meter.COLOR_BM = Config.colors.black
 Meter.COLOR_BG = Config.colors.meter_bg
 
 --- Gets initial meter values.
+--- @within Meter
 -- @return table A table of initial meter values.
 function Meter.get_initial()
   return {
@@ -26,22 +28,26 @@ function Meter.get_initial()
 end
 
 --- Hides meters.
+--- @within Meter
 function Meter.hide()
   if Context and Context.meters then Context.meters.hidden = true end
 end
 
 --- Shows meters.
+--- @within Meter
 function Meter.show()
   if Context and Context.meters then Context.meters.hidden = false end
 end
 
 --- Gets max meter value.
+--- @within Meter
 -- @return number The maximum meter value.
 function Meter.get_max()
   return METER_MAX
 end
 
 --- Gets combo multiplier.
+--- @within Meter
 -- @return number The current combo multiplier.
 function Meter.get_combo_multiplier()
   if not Context or not Context.meters then return 1 end
@@ -51,6 +57,7 @@ function Meter.get_combo_multiplier()
 end
 
 --- Updates all meters.
+--- @within Meter
 function Meter.update()
   if not Context or not Context.game_in_progress or not Context.meters then return end
   local m = Context.meters
@@ -67,6 +74,7 @@ function Meter.update()
 end
 
 --- Adds amount to a meter.
+--- @within Meter
 -- @param key string The meter key (e.g., "wpm", "ism", "bm").
 -- @param amount number The amount to add.
 function Meter.add(key, amount)
@@ -78,6 +86,7 @@ function Meter.add(key, amount)
 end
 
 --- Called on minigame completion.
+--- @within Meter
 function Meter.on_minigame_complete()
   local m = Context.meters
   local gain = math.floor(METER_GAIN_PER_CHORE * Meter.get_combo_multiplier())
