@@ -1,9 +1,11 @@
+--- @section ConfigurationWindow
 ConfigurationWindow = {
   controls = {},
   selected_control = 1,
 }
 
 --- Initializes configuration window.
+--- @within ConfigurationWindow
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
     UI.create_action_item(
@@ -18,6 +20,7 @@ function ConfigurationWindow.init()
 end
 
 --- Draws configuration window.
+--- @within ConfigurationWindow
 function ConfigurationWindow.draw()
   UI.draw_top_bar("Configuration")
 
@@ -60,6 +63,7 @@ function ConfigurationWindow.draw()
 end
 
 --- Updates configuration window logic.
+--- @within ConfigurationWindow
 function ConfigurationWindow.update()
   if Input.menu_back() then
     GameWindow.set_state("menu")

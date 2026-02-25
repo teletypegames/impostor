@@ -1,6 +1,8 @@
+--- @section Main
 local initialized_game = false
 
 --- Initializes game state.
+--- @within Main
 local function init_game()
   if initialized_game then return end
   Context.reset()
@@ -10,6 +12,7 @@ local function init_game()
 end
 
 --- Main game loop (TIC-80 callback).
+--- @within Main
 function TIC()
   init_game()
   cls(Config.colors.black)

@@ -1,6 +1,8 @@
 -- Manages minigame configurations and initial states.
+--- @section Minigame
 
---- Applies parameters to defaults.
+--- Applies parameters to defaults
+--- @within Minigame
 -- @param defaults table The default configuration table.
 -- @param params table The parameters to apply.
 -- @return table The updated configuration table.
@@ -13,6 +15,7 @@ local function apply_params(defaults, params)
 end
 
 --- Gets default DDR minigame configuration.
+--- @within Minigame
 -- @return table The default DDR minigame configuration.
 function Minigame.get_default_ddr()
   local arrow_size = 12
@@ -54,6 +57,7 @@ function Minigame.get_default_ddr()
 end
 
 --- Gets default button mash minigame configuration.
+--- @within Minigame
 -- @return table The default button mash minigame configuration.
 function Minigame.get_default_button_mash()
   return {
@@ -76,6 +80,7 @@ function Minigame.get_default_button_mash()
 end
 
 --- Gets default rhythm minigame configuration.
+--- @within Minigame
 -- @return table The default rhythm minigame configuration.
 function Minigame.get_default_rhythm()
   return {
@@ -105,6 +110,7 @@ function Minigame.get_default_rhythm()
 end
 
 --- Configures DDR minigame.
+--- @within Minigame
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured DDR minigame state.
 function Minigame.configure_ddr(params)
@@ -112,6 +118,7 @@ function Minigame.configure_ddr(params)
 end
 
 --- Configures button mash minigame.
+--- @within Minigame
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured button mash minigame state.
 function Minigame.configure_button_mash(params)
@@ -119,6 +126,7 @@ function Minigame.configure_button_mash(params)
 end
 
 --- Configures rhythm minigame.
+--- @within Minigame
 -- @param params table Optional parameters to override defaults.
 -- @return table The configured rhythm minigame state.
 function Minigame.configure_rhythm(params)

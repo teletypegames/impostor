@@ -1,7 +1,9 @@
+--- @section GameWindow
 local _available_decisions = {}
 local _selected_decision_index = 1
 
 --- Draws the game window.
+--- @within GameWindow
 function GameWindow.draw()
   local screen = Screen.get_by_id(Context.game.current_screen)
   if screen.background then Map.draw(screen.background) end
@@ -13,6 +15,7 @@ function GameWindow.draw()
 end
 
 --- Updates the game window logic.
+--- @within GameWindow
 function GameWindow.update()
   if Input.menu_back() then
     Window.set_current("menu")
@@ -60,6 +63,7 @@ function GameWindow.update()
 end
 
 --- Sets the active window.
+--- @within GameWindow
 -- @param new_state string The ID of the new active window.
 function GameWindow.set_state(new_state)
   Window.set_current(new_state)

@@ -1,4 +1,7 @@
+--- @section UI
+
 --- Draws the top bar.
+--- @within UI
 -- @param title string The title text to display.
 function UI.draw_top_bar(title)
   rect(0, 0, Config.screen.width, 10, Config.colors.dark_grey)
@@ -6,11 +9,13 @@ function UI.draw_top_bar(title)
 end
 
 --- Draws dialog window.
+--- @within UI
 function UI.draw_dialog()
   PopupWindow.draw()
 end
 
 --- Draws a menu.
+--- @within UI
 -- @param items table A table of menu items.
 -- @param selected_item number The index of the currently selected item.
 -- @param x number The x-coordinate for the menu.
@@ -26,6 +31,7 @@ function UI.draw_menu(items, selected_item, x, y)
 end
 
 --- Updates menu selection.
+--- @within UI
 -- @param items table A table of menu items.
 -- @param selected_item number The current index of the selected item.
 -- @return number The updated index of the selected item.
@@ -47,6 +53,7 @@ function UI.update_menu(items, selected_item)
 end
 
 --- Wraps text.
+--- @within UI
 -- @param text string The text to wrap.
 -- @param max_chars_per_line number The maximum characters per line.
 -- @return table A table of wrapped lines.
@@ -80,6 +87,7 @@ function UI.word_wrap(text, max_chars_per_line)
 end
 
 --- Creates a numeric stepper.
+--- @within UI
 -- @param label string The label for the stepper.
 -- @param value_getter function Function to get the current value.
 -- @param value_setter function Function to set the current value.
@@ -102,6 +110,7 @@ function UI.create_numeric_stepper(label, value_getter, value_setter, min, max, 
 end
 
 --- Creates an action item.
+--- @within UI
 -- @param label string The label for the action item.
 -- @param action function The function to execute when the item is selected.
 -- @return table An action item control definition.
@@ -114,6 +123,7 @@ function UI.create_action_item(label, action)
 end
 
 --- Draws decision selector.
+--- @within UI
 -- @param decisions table A table of decision items.
 -- @param selected_decision_index number The index of the selected decision.
 function UI.draw_decision_selector(decisions, selected_decision_index)
@@ -133,6 +143,7 @@ function UI.draw_decision_selector(decisions, selected_decision_index)
 end
 
 --- Draws meters.
+--- @within UI
 function UI.draw_meters()
   if not Context or not Context.game_in_progress or not Context.meters then return end
   if Context.meters.hidden then return end
@@ -166,6 +177,7 @@ function UI.draw_meters()
 end
 
 --- Updates decision selector.
+--- @within UI
 -- @param decisions table A table of decision items.
 -- @param selected_decision_index number The current index of the selected decision.
 -- @return number The updated index of the selected decision.
