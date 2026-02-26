@@ -18,7 +18,7 @@ on than meets the eye.
 --- @within IntroWindow
 function IntroWindow.draw()
   local x = (Config.screen.width - 132) / 2
-  Print.text(IntroWindow.text, x, IntroWindow.y, Config.colors.green)
+  Print.text(IntroWindow.text, x, IntroWindow.y, Config.colors.light_blue)
 end
 
 --- Updates the intro window logic.

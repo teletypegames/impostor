@@ -7,11 +7,29 @@ local COMBO_BASE_BONUS = 0.02
 local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
 
+-- 1800 frames = 30 seconds (1800 ÷ 60 = 30)
+local meter_timer_duration = 1800
+local meter_timer_decay_per_revolution = 20
+
 -- Internal meters for tracking game progress and player stats.
 Meter.COLOR_ISM = Config.colors.red
 Meter.COLOR_WPM = Config.colors.blue
 Meter.COLOR_BM = Config.colors.black
 Meter.COLOR_BG = Config.colors.meter_bg
+
+--- Sets the number of frames for one full timer revolution.
+--- @within Meter
+--- @param frames number Frames per revolution (controls degradation speed).
+function Meter.set_timer_duration(frames)
+  meter_timer_duration = frames
+end
+
+--- Sets the degradation amount applied to all meters per revolution.
+--- @within Meter
+--- @param amount number Amount to subtract from each meter per revolution.
+function Meter.set_timer_decay(amount)
+  meter_timer_decay_per_revolution = amount
+end
 
 --- Gets initial meter values.
 --- @within Meter
@@ -22,6 +40,7 @@ Meter.COLOR_BG = Config.colors.meter_bg
 --- @return result.combo number Current combo count.
 --- @return result.combo_timer number Frames since last combo action.
 --- @return result.hidden boolean Whether meters are hidden.
+--- @return result.timer_progress number Clock timer revolution progress (0 to 1).
 function Meter.get_initial()
   return {
     ism = METER_DEFAULT,
@@ -30,6 +49,7 @@ function Meter.get_initial()
     combo = 0,
     combo_timer = 0,
     hidden = false,
+    timer_progress = 0,
   }
 end
 
@@ -67,14 +87,24 @@ end
 function Meter.update()
   if not Context or not Context.game_in_progress or not Context.meters then return end
   local m = Context.meters
-  m.ism = math.max(0, m.ism - METER_DECAY_PER_FRAME)
-  m.wpm = math.max(0, m.wpm - METER_DECAY_PER_FRAME)
-  m.bm = math.max(0, m.bm - METER_DECAY_PER_FRAME)
-  if m.combo > 0 then
-    m.combo_timer = m.combo_timer + 1
-    if m.combo_timer >= COMBO_TIMEOUT_FRAMES then
-      m.combo = 0
-      m.combo_timer = 0
+  local in_minigame = string.find(Window.get_current_id(), "^minigame_") ~= nil
+  if not in_minigame then
+    m.ism = math.max(0, m.ism - METER_DECAY_PER_FRAME)
+    m.wpm = math.max(0, m.wpm - METER_DECAY_PER_FRAME)
+    m.bm = math.max(0, m.bm - METER_DECAY_PER_FRAME)
+    if m.combo > 0 then
+      m.combo_timer = m.combo_timer + 1
+      if m.combo_timer >= COMBO_TIMEOUT_FRAMES then
+        m.combo = 0
+        m.combo_timer = 0
+      end
+    end
+    m.timer_progress = m.timer_progress + (1 / meter_timer_duration)
+    if m.timer_progress >= 1 then
+      m.timer_progress = m.timer_progress - 1
+      m.ism = math.max(0, m.ism - meter_timer_decay_per_revolution)
+      m.wpm = math.max(0, m.wpm - meter_timer_decay_per_revolution)
+      m.bm = math.max(0, m.bm - meter_timer_decay_per_revolution)
     end
   end
 end

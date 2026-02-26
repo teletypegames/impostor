@@ -39,7 +39,7 @@ end
 function PopupWindow.draw()
   if Context.popup.show then
     rect(POPUP_X, POPUP_Y, POPUP_WIDTH, POPUP_HEIGHT, Config.colors.black)
-    rectb(POPUP_X, POPUP_Y, POPUP_WIDTH, POPUP_HEIGHT, Config.colors.green)
+    rectb(POPUP_X, POPUP_Y, POPUP_WIDTH, POPUP_HEIGHT, Config.colors.light_blue)
 
     local current_y = TEXT_MARGIN_Y
     for _, line in ipairs(Context.popup.content) do
@@ -47,6 +47,6 @@ function PopupWindow.draw()
       current_y = current_y + LINE_HEIGHT
     end
 
-    Print.text("[A] Close", TEXT_MARGIN_X, POPUP_Y + POPUP_HEIGHT - LINE_HEIGHT - 2, Config.colors.green)
+    Print.text("[A] Close", TEXT_MARGIN_X, POPUP_Y + POPUP_HEIGHT - LINE_HEIGHT - 2, Config.colors.light_blue)
   end
 end

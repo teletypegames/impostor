@@ -23,5 +23,6 @@ function TIC()
   Meter.update()
   if Context.game_in_progress then
     UI.draw_meters()
+    UI.draw_timer()
   end
 end
