@@ -14,7 +14,10 @@
     "inc/?.lua"
   ],
   "Lua.diagnostics.disable": [
-    "undefined-global"
+    "undefined-global",
+    "undefined-doc-param",
+    "undefined-doc-name",
+    "luadoc-miss-param-name"
   ],
   "python.autoComplete.extraPaths": [
     "${workspaceFolder}/sources/poky/bitbake/lib",

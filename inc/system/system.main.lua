@@ -3,6 +3,7 @@ local initialized_game = false
 
 --- Initializes game state.
 --- @within Main
+--- @return boolean initialized_game True if game has been initialized, false otherwise.
 local function init_game()
   if initialized_game then return end
   Context.reset()

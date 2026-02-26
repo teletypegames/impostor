@@ -2,16 +2,16 @@
 
 --- Initializes DDR minigame state.
 --- @within MinigameDDRWindow
---- @param params table Optional parameters for configuration.
+--- @param params table Optional parameters for configuration.<br/>
 function MinigameDDRWindow.init(params)
   Context.minigame_ddr = Minigame.configure_ddr(params)
 end
 
 --- Starts the DDR minigame.
 --- @within MinigameDDRWindow
---- @param return_window string The window ID to return to after the minigame.
---- @param[opt] song_key string The key of the song to play.
---- @param[opt] params table Optional parameters for minigame configuration.
+--- @param return_window string The window ID to return to after the minigame.</br>
+--- @param[opt] song_key string The key of the song to play.</br>
+--- @param[opt] params table Optional parameters for minigame configuration.</br>
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
   Context.minigame_ddr.return_window = return_window or "game"

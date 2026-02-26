@@ -75,7 +75,7 @@ end
 
 --- Sets the active window.
 --- @within GameWindow
---- @param new_state string The ID of the new active window.
+--- @param new_state string The ID of the new active window.</br>
 function GameWindow.set_state(new_state)
   Window.set_current(new_state)
 end

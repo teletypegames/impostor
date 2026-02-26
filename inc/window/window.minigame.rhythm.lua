@@ -2,15 +2,15 @@
 
 --- Initializes rhythm minigame state.
 --- @within MinigameRhythmWindow
---- @param params table Optional parameters for configuration.
+--- @param params table Optional parameters for configuration.<br/>
 function MinigameRhythmWindow.init(params)
   Context.minigame_rhythm = Minigame.configure_rhythm(params)
 end
 
 --- Starts the rhythm minigame.
 --- @within MinigameRhythmWindow
---- @param return_window string The window ID to return to after the minigame.
---- @param[opt] params table Optional parameters for minigame configuration.
+--- @param return_window string The window ID to return to after the minigame.<br/>
+--- @param[opt] params table Optional parameters for minigame configuration.<br/>
 function MinigameRhythmWindow.start(return_window, params)
   MinigameRhythmWindow.init(params)
   local mg = Context.minigame_rhythm

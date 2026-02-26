@@ -33,22 +33,24 @@ end
 --- Gets a decision by ID.
 --- @within Decision
 --- @param id string The ID of the decision.
---- @return result table The decision table or nil.
---- @return result.id string Unique decision identifier.
---- @return result.label string Display text for the decision.
---- @return result.condition function Returns true if decision is available.
---- @return result.handle function Called when the decision is selected.
+--- @return table|nil result The decision table or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique decision identifier.<br/>
+--- * label (string) Display text for the decision.<br/>
+--- * condition (function) Returns true if decision is available.<br/>
+--- * handle (function) Called when the decision is selected.
 function Decision.get_by_id(id)
   return _decisions[id]
 end
 
 --- Gets all registered decisions.
 --- @within Decision
---- @return result table A table of all registered decisions, indexed by their IDs.
---- @return result.id string Unique decision identifier.
---- @return result.label string Display text for the decision.
---- @return result.condition function Returns true if decision is available.
---- @return result.handle function Called when the decision is selected.
+--- @return result table A table of all registered decisions, indexed by their IDs. </br>
+--- Fields: </br>
+--- * id (string) Unique decision identifier.<br/>
+--- * label (string) Display text for the decision.<br/>
+--- * condition (function) Returns true if decision is available.<br/>
+--- * handle (function) Called when the decision is selected.
 function Decision.get_all()
   return _decisions
 end
@@ -57,11 +59,12 @@ end
 --- @within Decision
 --- @param screen_data table The data for the screen.
 --- @param screen_data.decisions table Array of decision ID strings.
---- @return result table An array of decision objects relevant to the screen.
---- @return result.id string Unique decision identifier.
---- @return result.label string Display text for the decision.
---- @return result.condition function Returns true if decision is available.
---- @return result.handle function Called when the decision is selected.
+--- @return result table An array of decision objects relevant to the screen or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique decision identifier.<br/>
+--- * label (string) Display text for the decision.<br/>
+--- * condition (function) Returns true if decision is available.<br/>
+--- * handle (function) Called when the decision is selected.<br/>
 function Decision.get_for_screen(screen_data)
   if not screen_data or not screen_data.decisions then
     return {}
@@ -80,11 +83,12 @@ end
 --- Filters a list of decision objects based on their condition function.
 --- @within Decision
 --- @param decisions_list table A table of decision objects.
---- @return result table An array of decisions for which condition() is true.
---- @return result.id string Unique decision identifier.
---- @return result.label string Display text for the decision.
---- @return result.condition function Returns true if decision is available.
---- @return result.handle function Called when the decision is selected.
+--- @return result table An array of decisions for which condition() is true or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique decision identifier.<br/>
+--- * label (string) Display text for the decision.<br/>
+--- * condition (function) Returns true if decision is available.<br/>
+--- * handle (function) Called when the decision is selected.<br/>
 function Decision.filter_available(decisions_list)
   local available = {}
   for _, decision in ipairs(decisions_list) do

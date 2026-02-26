@@ -16,32 +16,33 @@ end
 
 --- Gets default DDR minigame configuration.
 --- @within Minigame
---- @return result table The default DDR minigame configuration.
---- @return result.bar_fill number Current fill level of the progress bar.
---- @return result.max_fill number Maximum fill value to win.
---- @return result.fill_per_hit number Fill gained per successful hit.
---- @return result.miss_penalty number Fill lost per miss.
---- @return result.bar_x number Progress bar X position.
---- @return result.bar_y number Progress bar Y position.
---- @return result.bar_width number Progress bar width.
---- @return result.bar_height number Progress bar height.
---- @return result.arrow_size number Size of arrow sprites.
---- @return result.arrow_spawn_timer number Timer for arrow spawning.
---- @return result.arrow_spawn_interval number Frames between arrow spawns.
---- @return result.arrow_fall_speed number Speed of falling arrows.
---- @return result.arrows table Array of active arrow objects.
---- @return result.target_y number Y position of the target line.
---- @return result.target_arrows table Array of target arrow positions. Each entry has: `dir` (string) arrow direction, `x` (number) X position.
---- @return result.hit_threshold number Pixel distance for a valid hit.
---- @return result.button_pressed_timers table Per-button press animation timers.
---- @return result.button_press_duration number Duration of button press animation.
---- @return result.input_cooldowns table Per-direction cooldown timers (left, down, up, right).
---- @return result.input_cooldown_duration number Frames of input cooldown.
---- @return result.frame_counter number Global frame counter.
---- @return result.current_song table Currently playing song data.
---- @return result.pattern_index number Current index in song pattern.
---- @return result.use_pattern boolean Whether to use song pattern for spawning.
---- @return result.return_window string Window ID to return to after minigame.
+--- @return result table The default DDR minigame configuration. </br>
+--- Fields: </br>
+--- * bar_fill (number) Current fill level of the progress bar.<br/>
+--- * max_fill (number) Maximum fill value to win.<br/>
+--- * fill_per_hit (number) Fill gained per successful hit.<br/>
+--- * miss_penalty (number) Fill lost per miss.<br/>
+--- * bar_x (number) Progress bar X position.<br/>
+--- * bar_y (number) Progress bar Y position.<br/>
+--- * bar_width (number) Progress bar width.<br/>
+--- * bar_height (number) Progress bar height.<br/>
+--- * arrow_size (number) Size of arrow sprites.<br/>
+--- * arrow_spawn_timer (number) Timer for arrow spawning.<br/>
+--- * arrow_spawn_interval (number) Frames between arrow spawns.<br/>
+--- * arrow_fall_speed (number) Speed of falling arrows.<br/>
+--- * arrows (table) Array of active arrow objects.<br/>
+--- * target_y (number) Y position of the target line.<br/>
+--- * target_arrows (table) Array of target arrow positions. Each entry has: `dir` (string) arrow direction, `x` (number) X position.<br/>
+--- * hit_threshold (number) Pixel distance for a valid hit.<br/>
+--- * button_pressed_timers (table) Per-button press animation timers.<br/>
+--- * button_press_duration (number) Duration of button press animation.<br/>
+--- * input_cooldowns (table) Per-direction cooldown timers (left, down, up, right).<br/>
+--- * input_cooldown_duration (number) Frames of input cooldown.<br/>
+--- * frame_counter (number) Global frame counter.<br/>
+--- * current_song (table) Currently playing song data.<br/>
+--- * pattern_index (number) Current index in song pattern.<br/>
+--- * use_pattern (boolean) Whether to use song pattern for spawning.<br/>
+--- * return_window (string) Window ID to return to after minigame.
 function Minigame.get_default_ddr()
   local arrow_size = 12
   local arrow_spacing = 30
@@ -83,22 +84,23 @@ end
 
 --- Gets default button mash minigame configuration.
 --- @within Minigame
---- @return result table The default button mash minigame configuration.
---- @return result.bar_fill number Current fill level of the progress bar.
---- @return result.max_fill number Maximum fill value to win.
---- @return result.fill_per_press number Fill gained per button press.
---- @return result.base_degradation number Base rate of bar degradation per frame.
---- @return result.degradation_multiplier number Multiplier for degradation scaling.
---- @return result.button_pressed_timer number Button press animation timer.
---- @return result.button_press_duration number Duration of button press animation.
---- @return result.return_window string Window ID to return to after minigame.
---- @return result.bar_x number Progress bar X position.
---- @return result.bar_y number Progress bar Y position.
---- @return result.bar_width number Progress bar width.
---- @return result.bar_height number Progress bar height.
---- @return result.button_x number Button indicator X position.
---- @return result.button_y number Button indicator Y position.
---- @return result.button_size number Button indicator size.
+--- @return result table The default button mash minigame configuration. </br>
+--- Fields: </br>
+--- * bar_fill (number) Current fill level of the progress bar.<br/>
+--- * max_fill (number) Maximum fill value to win.<br/>
+--- * fill_per_press (number) Fill gained per button press.<br/>
+--- * base_degradation (number) Base rate of bar degradation per frame.<br/>
+--- * degradation_multiplier (number) Multiplier for degradation scaling.<br/>
+--- * button_pressed_timer (number) Button press animation timer.<br/>
+--- * button_press_duration (number) Duration of button press animation.<br/>
+--- * return_window (string) Window ID to return to after minigame.<br/>
+--- * bar_x (number) Progress bar X position.<br/>
+--- * bar_y (number) Progress bar Y position.<br/>
+--- * bar_width (number) Progress bar width.<br/>
+--- * bar_height (number) Progress bar height.<br/>
+--- * button_x (number) Button indicator X position.<br/>
+--- * button_y (number) Button indicator Y position.<br/>
+--- * button_size (number) Button indicator size.<br/>
 function Minigame.get_default_button_mash()
   return {
     bar_fill = 0,
@@ -124,29 +126,30 @@ end
 
 --- Gets default rhythm minigame configuration.
 --- @within Minigame
---- @return result table The default rhythm minigame configuration.
---- @return result.line_position number Current position of the moving line (0-1).
---- @return result.line_speed number Speed of the moving line per frame.
---- @return result.line_direction number Direction of line movement (1 or -1).
---- @return result.target_center number Center of the target zone (0-1).
---- @return result.target_width number Current width of the target zone.
---- @return result.initial_target_width number Starting width of the target zone.
---- @return result.min_target_width number Minimum width the target zone can shrink to.
---- @return result.target_shrink_rate number Multiplier applied to target width after each hit.
---- @return result.score number Current score.
---- @return result.max_score number Score needed to win.
---- @return result.button_pressed_timer number Button press animation timer.
---- @return result.button_press_duration number Duration of button press animation.
---- @return result.return_window string Window ID to return to after minigame.
---- @return result.bar_x number Progress bar X position.
---- @return result.bar_y number Progress bar Y position.
---- @return result.bar_width number Progress bar width.
---- @return result.bar_height number Progress bar height.
---- @return result.button_x number Button indicator X position.
---- @return result.button_y number Button indicator Y position.
---- @return result.button_size number Button indicator size.
---- @return result.press_cooldown number Current cooldown timer.
---- @return result.press_cooldown_duration number Frames of press cooldown.
+--- @return result table The default rhythm minigame configuration. </br>
+--- Fields: </br>
+--- * line_position (number) Current position of the moving line (0-1).<br/>
+--- * line_speed (number) Speed of the moving line per frame.<br/>
+--- * line_direction (number) Direction of line movement (1 or -1).<br/>
+--- * target_center (number) Center of the target zone (0-1).<br/>
+--- * target_width (number) Current width of the target zone.<br/>
+--- * initial_target_width (number) Starting width of the target zone.<br/>
+--- * min_target_width (number) Minimum width the target zone can shrink to.<br/>
+--- * target_shrink_rate (number) Multiplier applied to target width after each hit.<br/>
+--- * score (number) Current score.<br/>
+--- * max_score (number) Score needed to win.<br/>
+--- * button_pressed_timer (number) Button press animation timer.<br/>
+--- * button_press_duration (number) Duration of button press animation.<br/>
+--- * return_window (string) Window ID to return to after minigame.<br/>
+--- * bar_x (number) Progress bar X position.<br/>
+--- * bar_y (number) Progress bar Y position.<br/>
+--- * bar_width (number) Progress bar width.<br/>
+--- * bar_height (number) Progress bar height.<br/>
+--- * button_x (number) Button indicator X position.<br/>
+--- * button_y (number) Button indicator Y position.<br/>
+--- * button_size (number) Button indicator size.<br/>
+--- * press_cooldown (number) Current cooldown timer.<br/>
+--- * press_cooldown_duration (number) Frames of press cooldown.<br/>
 function Minigame.get_default_rhythm()
   return {
     line_position = 0,
