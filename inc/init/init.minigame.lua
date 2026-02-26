@@ -115,7 +115,10 @@ function Minigame.get_default_button_mash()
     bar_height = 12,
     button_x = 20,
     button_y = 110,
-    button_size = 12
+    button_size = 12,
+    focus_center_x = nil,
+    focus_center_y = nil,
+    focus_initial_radius = 0
   }
 end
 
@@ -167,7 +170,10 @@ function Minigame.get_default_rhythm()
     button_y = 110,
     button_size = 10,
     press_cooldown = 0,
-    press_cooldown_duration = 15
+    press_cooldown_duration = 15,
+    focus_center_x = nil,
+    focus_center_y = nil,
+    focus_initial_radius = 0
   }
 end
 

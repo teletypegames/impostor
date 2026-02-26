@@ -11,3 +11,4 @@ Print = {}
 Input = {}
 Sprite = {}
 Audio = {}
+Focus = {}

@@ -6,17 +6,23 @@ local _selected_decision_index = 1
 --- @within GameWindow
 function GameWindow.draw()
   local screen = Screen.get_by_id(Context.game.current_screen)
-  if screen.background then Map.draw(screen.background) end
+  if screen.background then
+    Map.draw(screen.background)
+  elseif screen.background_color then
+    rect(0, 0, Config.screen.width, Config.screen.height, screen.background_color)
+  end
   UI.draw_top_bar(screen.name)
   if #_available_decisions > 0 then
     UI.draw_decision_selector(_available_decisions, _selected_decision_index)
   end
   Sprite.draw()
+  Focus.draw()
 end
 
 --- Updates the game window logic.
 --- @within GameWindow
 function GameWindow.update()
+  Focus.update()
   if Input.menu_back() then
     Window.set_current("menu")
     MenuWindow.refresh_menu_items()
@@ -60,6 +66,8 @@ function GameWindow.update()
       selected_decision.handle()
     end
   end
+
+
 end
 
 --- Sets the active window.
