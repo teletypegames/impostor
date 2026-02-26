@@ -3,11 +3,11 @@ local _decisions = {}
 
 --- Registers a decision definition.
 --- @within Decision
--- @param decision table The decision data table.
--- @param decision.id string Unique decision identifier.
--- @param decision.label string Display text for the decision.
--- @param[opt] decision.condition function Returns true if decision is available. Defaults to always true.
--- @param[opt] decision.handle function Called when the decision is selected. Defaults to noop.
+--- @param decision table The decision data table.
+--- @param decision.id string Unique decision identifier.
+--- @param decision.label string Display text for the decision.
+--- @param[opt] decision.condition function Returns true if decision is available. Defaults to always true.
+--- @param[opt] decision.handle function Called when the decision is selected. Defaults to noop.
 function Decision.register(decision)
   if not decision or not decision.id then
     PopupWindow.show({"Error: Invalid decision object registered (missing id)!"})
@@ -32,24 +32,36 @@ end
 
 --- Gets a decision by ID.
 --- @within Decision
--- @param id string The ID of the decision.
--- @return table The decision table or nil.
+--- @param id string The ID of the decision.
+--- @return result table The decision table or nil.
+--- @return result.id string Unique decision identifier.
+--- @return result.label string Display text for the decision.
+--- @return result.condition function Returns true if decision is available.
+--- @return result.handle function Called when the decision is selected.
 function Decision.get_by_id(id)
   return _decisions[id]
 end
 
 --- Gets all registered decisions.
 --- @within Decision
--- @return table A table of all registered decisions.
+--- @return result table A table of all registered decisions, indexed by their IDs.
+--- @return result.id string Unique decision identifier.
+--- @return result.label string Display text for the decision.
+--- @return result.condition function Returns true if decision is available.
+--- @return result.handle function Called when the decision is selected.
 function Decision.get_all()
   return _decisions
 end
 
 --- Gets decision objects based on a screen's data.
 --- @within Decision
--- @param screen_data table The data for the screen.
--- @param screen_data.decisions table Array of decision ID strings.
--- @return table A table containing decision objects relevant to the screen.
+--- @param screen_data table The data for the screen.
+--- @param screen_data.decisions table Array of decision ID strings.
+--- @return result table An array of decision objects relevant to the screen.
+--- @return result.id string Unique decision identifier.
+--- @return result.label string Display text for the decision.
+--- @return result.condition function Returns true if decision is available.
+--- @return result.handle function Called when the decision is selected.
 function Decision.get_for_screen(screen_data)
   if not screen_data or not screen_data.decisions then
     return {}
@@ -67,8 +79,12 @@ end
 
 --- Filters a list of decision objects based on their condition function.
 --- @within Decision
--- @param decisions_list table A table of decision objects.
--- @return table A new table containing only the decisions for which condition() is true.
+--- @param decisions_list table A table of decision objects.
+--- @return result table An array of decisions for which condition() is true.
+--- @return result.id string Unique decision identifier.
+--- @return result.label string Display text for the decision.
+--- @return result.condition function Returns true if decision is available.
+--- @return result.handle function Called when the decision is selected.
 function Decision.filter_available(decisions_list)
   local available = {}
   for _, decision in ipairs(decisions_list) do

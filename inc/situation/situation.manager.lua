@@ -3,11 +3,11 @@ local _situations = {}
 
 --- Registers a situation definition.
 --- @within Situation
--- @param situation table The situation data table.
--- @param situation.id string Unique situation identifier.
--- @param[opt] situation.screen_id string ID of the screen this situation belongs to.
--- @param[opt] situation.handle function Called when the situation is applied. Defaults to noop.
--- @param[opt] situation.update function Called each frame while situation is active. Defaults to noop.
+--- @param situation table The situation data table.
+--- @param situation.id string Unique situation identifier.
+--- @param[opt] situation.screen_id string ID of the screen this situation belongs to.
+--- @param[opt] situation.handle function Called when the situation is applied. Defaults to noop.
+--- @param[opt] situation.update function Called each frame while situation is active. Defaults to noop.
 function Situation.register(situation)
   if not situation or not situation.id then
     PopupWindow.show({"Error: Invalid situation object registered (missing id)!"})
@@ -27,16 +27,24 @@ end
 
 --- Gets a situation by ID.
 --- @within Situation
--- @param id string The situation ID.
--- @return table The situation table or nil.
+--- @param id string The situation ID.
+--- @return result table The situation table or nil.
+--- @return result.id string Unique situation identifier.
+--- @return result.screen_id string ID of the screen this situation belongs to.
+--- @return result.handle function Called when the situation is applied.
+--- @return result.update function Called each frame while situation is active.
 function Situation.get_by_id(id)
   return _situations[id]
 end
 
 --- Gets all registered situations, optionally filtered by screen ID.
 --- @within Situation
--- @param screen_id string Optional. If provided, returns situations associated with this screen ID.
--- @return table A table containing all registered situation data, indexed by their IDs, or filtered by screen_id.
+--- @param screen_id string Optional. If provided, returns situations associated with this screen ID.
+--- @return result table A table containing all registered situation data, indexed by their IDs, or an array filtered by screen_id.
+--- @return result.id string Unique situation identifier.
+--- @return result.screen_id string ID of the screen this situation belongs to.
+--- @return result.handle function Called when the situation is applied.
+--- @return result.update function Called each frame while situation is active.
 function Situation.get_all(screen_id)
   if screen_id then
     local filtered_situations = {}
@@ -52,9 +60,9 @@ end
 
 --- Applies a situation, checking screen compatibility and returning the new situation ID if successful.
 --- @within Situation
--- @param id string The situation ID to apply.
--- @param current_screen_id string The ID of the currently active screen.
--- @return string|nil The ID of the applied situation if successful, otherwise nil.
+--- @param id string The situation ID to apply.
+--- @param current_screen_id string The ID of the currently active screen.
+--- @return string|nil The ID of the applied situation if successful, otherwise nil.
 function Situation.apply(id, current_screen_id)
   local situation = Situation.get_by_id(id)
   local screen = Screen.get_by_id(current_screen_id)

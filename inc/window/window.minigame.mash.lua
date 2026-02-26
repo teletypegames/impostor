@@ -2,15 +2,15 @@
 
 --- Initializes button mash minigame state.
 --- @within MinigameButtonMashWindow
--- @param params table Optional parameters for configuration.
+--- @param params table Optional parameters for configuration.
 function MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash = Minigame.configure_button_mash(params)
 end
 
 --- Starts the button mash minigame.
 --- @within MinigameButtonMashWindow
--- @param return_window string The window ID to return to after the minigame.
--- @param[opt] params table Optional parameters for minigame configuration.
+--- @param return_window string The window ID to return to after the minigame.
+--- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameButtonMashWindow.start(return_window, params)
   MinigameButtonMashWindow.init(params)
   Context.minigame_button_mash.return_window = return_window or "game"

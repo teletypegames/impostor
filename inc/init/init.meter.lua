@@ -15,7 +15,13 @@ Meter.COLOR_BG = Config.colors.meter_bg
 
 --- Gets initial meter values.
 --- @within Meter
--- @return table A table of initial meter values.
+--- @return result table A table of initial meter values.
+--- @return result.ism number Initial ISM meter value.
+--- @return result.wpm number Initial WPM meter value.
+--- @return result.bm number Initial BM meter value.
+--- @return result.combo number Current combo count.
+--- @return result.combo_timer number Frames since last combo action.
+--- @return result.hidden boolean Whether meters are hidden.
 function Meter.get_initial()
   return {
     ism = METER_DEFAULT,
@@ -41,14 +47,14 @@ end
 
 --- Gets max meter value.
 --- @within Meter
--- @return number The maximum meter value.
+--- @return number The maximum meter value.
 function Meter.get_max()
   return METER_MAX
 end
 
 --- Gets combo multiplier.
 --- @within Meter
--- @return number The current combo multiplier.
+--- @return number The current combo multiplier.
 function Meter.get_combo_multiplier()
   if not Context or not Context.meters then return 1 end
   local combo = Context.meters.combo
@@ -75,8 +81,8 @@ end
 
 --- Adds amount to a meter.
 --- @within Meter
--- @param key string The meter key (e.g., "wpm", "ism", "bm").
--- @param amount number The amount to add.
+--- @param key string The meter key (e.g., "wpm", "ism", "bm").
+--- @param amount number The amount to add.
 function Meter.add(key, amount)
   if not Context or not Context.meters then return end
   local m = Context.meters

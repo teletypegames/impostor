@@ -9,9 +9,11 @@ AudioTestWindow = {
 
 --- Generates menu items for audio test.
 --- @within AudioTestWindow
--- @param list_func table List of audio functions.
--- @param index_func number Current index of selected function.
--- @return table Generated menu items.
+--- @param list_func table List of audio functions.
+--- @param index_func number Current index of selected function.
+--- @return result table Generated menu items, an array of menu item tables.
+--- @return result.label string Display text for the menu item.
+--- @return result.decision function Called when the menu item is selected.
 function AudioTestWindow.generate_menuitems(list_func, index_func)
     return {
         {
@@ -42,7 +44,7 @@ end
 
 --- Generates list of audio functions.
 --- @within AudioTestWindow
--- @return table A sorted list of audio function names.
+--- @return table A sorted list of audio function names.
 function AudioTestWindow.generate_listfunc()
     local result = {}
 

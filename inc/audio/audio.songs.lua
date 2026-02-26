@@ -110,10 +110,10 @@ Songs = {
 
 --- Converts beats to frames.
 --- @within Songs
--- @param beat number The beat number.
--- @param bpm number Beats per minute.
--- @param[opt] fps number Frames per second (default: 60).
--- @return number The corresponding frame number.
+--- @param beat number The beat number.
+--- @param bpm number Beats per minute.
+--- @param[opt] fps number Frames per second (default: 60).
+--- @return number The corresponding frame number.
 function frame_from_beat(beat, bpm, fps)
   fps = fps or 60
   local seconds_per_beat = 60 / bpm
@@ -123,12 +123,14 @@ end
 
 --- Converts beat notation to frame pattern.
 --- @within Songs
--- @param beats table A table of beat data, e.g., {{1, "left"}, {2, "down"}}.
--- @param beats.1 number The beat number.
--- @param beats.2 string Arrow direction ("left", "down", "up", or "right").
--- @param bpm number Beats per minute.
--- @param[opt] fps number Frames per second (default: 60).
--- @return table The generated pattern.
+--- @param beats table A table of beat data, e.g., {{1, "left"}, {2, "down"}}.
+--- @param beats.1 number The beat number.
+--- @param beats.2 string Arrow direction ("left", "down", "up", or "right").
+--- @param bpm number Beats per minute.
+--- @param[opt] fps number Frames per second (default: 60).
+--- @return result table The generated pattern, an array of arrow spawn entries.
+--- @return result.frame number The frame number when the arrow should spawn.
+--- @return result.dir string Arrow direction ("left", "down", "up", or "right").
 function beats_to_pattern(beats, bpm, fps)
   fps = fps or 60
   local pattern = {}

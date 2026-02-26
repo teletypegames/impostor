@@ -2,16 +2,16 @@
 
 --- Initializes DDR minigame state.
 --- @within MinigameDDRWindow
--- @param params table Optional parameters for configuration.
+--- @param params table Optional parameters for configuration.
 function MinigameDDRWindow.init(params)
   Context.minigame_ddr = Minigame.configure_ddr(params)
 end
 
 --- Starts the DDR minigame.
 --- @within MinigameDDRWindow
--- @param return_window string The window ID to return to after the minigame.
--- @param[opt] song_key string The key of the song to play.
--- @param[opt] params table Optional parameters for minigame configuration.
+--- @param return_window string The window ID to return to after the minigame.
+--- @param[opt] song_key string The key of the song to play.
+--- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
   Context.minigame_ddr.return_window = return_window or "game"
@@ -46,7 +46,7 @@ end
 
 --- Spawns an arrow in a specific direction.
 --- @within MinigameDDRWindow
--- @param direction string The direction of the arrow ("left", "down", "up", "right").
+--- @param direction string The direction of the arrow ("left", "down", "up", "right").
 local function spawn_arrow_dir(direction)
   local mg = Context.minigame_ddr
   for _, target in ipairs(mg.target_arrows) do
@@ -63,8 +63,8 @@ end
 
 --- Checks if an arrow is hit.
 --- @within MinigameDDRWindow
--- @param arrow table The arrow data.
--- @return boolean True if the arrow is hit, false otherwise.
+--- @param arrow table The arrow data.
+--- @return boolean True if the arrow is hit, false otherwise.
 local function check_hit(arrow)
   local mg = Context.minigame_ddr
   local distance = math.abs(arrow.y - mg.target_y)
@@ -73,8 +73,8 @@ end
 
 --- Checks if an arrow is missed.
 --- @within MinigameDDRWindow
--- @param arrow table The arrow data.
--- @return boolean True if the arrow is missed, false otherwise.
+--- @param arrow table The arrow data.
+--- @return boolean True if the arrow is missed, false otherwise.
 local function check_miss(arrow)
   local mg = Context.minigame_ddr
   return arrow.y > mg.target_y + mg.hit_threshold
@@ -82,10 +82,10 @@ end
 
 --- Draws an arrow.
 --- @within MinigameDDRWindow
--- @param x number The x-coordinate.
--- @param y number The y-coordinate.
--- @param direction string The direction of the arrow.
--- @param color number The color of the arrow.
+--- @param x number The x-coordinate.
+--- @param y number The y-coordinate.
+--- @param direction string The direction of the arrow.
+--- @param color number The color of the arrow.
 local function draw_arrow(x, y, direction, color)
   local size = 12
   local half = size / 2
