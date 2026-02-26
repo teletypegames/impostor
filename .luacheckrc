@@ -39,6 +39,8 @@ globals = {
   "circb",
   "cls",
   "tri",
+  "pix",
+  "line",
   "Songs",
   "frame_from_beat",
   "beats_to_pattern",

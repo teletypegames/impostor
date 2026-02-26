@@ -13,7 +13,7 @@ function Config.initial_data()
       light_grey = 13,
       dark_grey = 14,
       red = 0,
-      green = 7,
+      light_blue = 7,
       blue = 9,
       white = 12,
       item = 12,

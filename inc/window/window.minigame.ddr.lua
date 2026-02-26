@@ -219,7 +219,7 @@ function MinigameDDRWindow.draw()
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
   local fill_width = (mg.bar_fill / mg.max_fill) * mg.bar_width
   if fill_width > 0 then
-    local bar_color = Config.colors.green
+    local bar_color = Config.colors.light_blue
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item
     elseif mg.bar_fill > 33 then
@@ -232,7 +232,7 @@ function MinigameDDRWindow.draw()
   if mg.target_arrows then
     for _, target in ipairs(mg.target_arrows) do
       local is_pressed = mg.button_pressed_timers[target.dir] and mg.button_pressed_timers[target.dir] > 0
-      local color = is_pressed and Config.colors.green or Config.colors.light_grey
+      local color = is_pressed and Config.colors.light_blue or Config.colors.light_grey
       draw_arrow(target.x, mg.target_y, target.dir, color)
     end
   end
@@ -252,14 +252,14 @@ function MinigameDDRWindow.draw()
       "PATTERN MODE - Frame:" .. mg.frame_counter,
       Config.screen.width / 2,
       debug_y,
-      Config.colors.green
+      Config.colors.light_blue
     )
     if mg.current_song and mg.current_song.pattern then
       Print.text_center(
         "Pattern Len:" .. #mg.current_song.pattern .. " Index:" .. mg.pattern_index,
         Config.screen.width / 2,
         debug_y + 10,
-        Config.colors.green
+        Config.colors.light_blue
       )
     end
   else

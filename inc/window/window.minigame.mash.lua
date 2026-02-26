@@ -68,7 +68,7 @@ function MinigameButtonMashWindow.draw()
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
   local fill_width = (mg.bar_fill / mg.max_fill) * mg.bar_width
   if fill_width > 0 then
-    local bar_color = Config.colors.green
+    local bar_color = Config.colors.light_blue
     if mg.bar_fill > 66 then
       bar_color = Config.colors.item
     elseif mg.bar_fill > 33 then
@@ -78,7 +78,7 @@ function MinigameButtonMashWindow.draw()
   end
   local button_color = Config.colors.light_grey
   if mg.button_pressed_timer > 0 then
-    button_color = Config.colors.green
+    button_color = Config.colors.light_blue
   end
   circb(mg.button_x, mg.button_y, mg.button_size, button_color)
   if mg.button_pressed_timer > 0 then

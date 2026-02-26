@@ -30,7 +30,7 @@ function ConfigurationWindow.draw()
   local char_width = 4
   for i, control in ipairs(ConfigurationWindow.controls) do
     local current_y = y_start + (i - 1) * 12
-    local color = Config.colors.green
+    local color = Config.colors.light_blue
     if control.type == "numeric_stepper" then
       local value = control.get()
       local label_text = control.label

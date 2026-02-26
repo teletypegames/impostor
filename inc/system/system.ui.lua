@@ -5,7 +5,7 @@
 --- @param title string The title text to display.
 function UI.draw_top_bar(title)
   rect(0, 0, Config.screen.width, 10, Config.colors.dark_grey)
-  Print.text(title, 3, 2, Config.colors.green)
+  Print.text(title, 3, 2, Config.colors.light_blue)
 end
 
 --- Draws dialog window.
@@ -24,9 +24,9 @@ function UI.draw_menu(items, selected_item, x, y)
   for i, item in ipairs(items) do
     local current_y = y + (i-1)*10
     if i == selected_item then
-      Print.text(">", x - 8, current_y, Config.colors.green)
+      Print.text(">", x - 8, current_y, Config.colors.light_blue)
     end
-    Print.text(item.label, x, current_y, Config.colors.green)
+    Print.text(item.label, x, current_y, Config.colors.light_blue)
   end
 end
 
@@ -147,10 +147,65 @@ function UI.draw_decision_selector(decisions, selected_decision_index)
     local text_width = #decision_label * 4
     local text_y = bar_y + 4
     local text_x = (Config.screen.width - text_width) / 2
-    Print.text("<", 2, text_y, Config.colors.green)
+    Print.text("<", 2, text_y, Config.colors.light_blue)
     Print.text(decision_label, text_x, text_y, Config.colors.item)
-    Print.text(">", Config.screen.width - 6, text_y, Config.colors.green)
+    Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
   end
+end
+
+--- Draws the clock timer indicator as a circular progress bar in the top-left area.
+--- Color transitions: white (0-50%), yellow (50-75%), red (75-100%).
+--- Only visible when meters are visible.
+--- @within UI
+function UI.draw_timer()
+  if not Context or not Context.game_in_progress or not Context.meters then return end
+  if Context.meters.hidden then return end
+
+  local m = Context.meters
+  local cx = 10
+  local cy = 20
+  local r_outer = 5
+  local r_inner = 3
+  local progress = m.timer_progress
+
+  local fg_color
+  if progress <= 0.25 then
+    fg_color = Config.colors.white
+  elseif progress <= 0.5 then
+    fg_color = Config.colors.light_blue
+  elseif progress <= 0.75 then
+    fg_color = Config.colors.blue
+  elseif progress <= 1 then
+    fg_color = Config.colors.red
+  end
+
+
+  local bg_color = Config.colors.dark_grey
+  local start_angle = -math.pi * 0.5
+  local progress_angle = progress * 2 * math.pi
+  local r_outer_sq = r_outer * r_outer
+  local r_inner_sq = r_inner * r_inner
+
+  for dy = -r_outer, r_outer do
+    for dx = -r_outer, r_outer do
+      local dist_sq = dx * dx + dy * dy
+      if dist_sq <= r_outer_sq and dist_sq > r_inner_sq then
+        local angle = math.atan(dy, dx)
+        local relative = angle - start_angle
+        if relative < 0 then relative = relative + 2 * math.pi end
+        if relative <= progress_angle then
+          pix(cx + dx, cy + dy, fg_color)
+        else
+          pix(cx + dx, cy + dy, bg_color)
+        end
+      end
+    end
+  end
+
+  local hand_angle = start_angle + progress_angle
+  local hand_x = math.floor(cx + math.cos(hand_angle) * (r_inner - 1) + 0.5)
+  local hand_y = math.floor(cy + math.sin(hand_angle) * (r_inner - 1) + 0.5)
+  line(cx, cy, hand_x, hand_y, Config.colors.black)
 end
 
 --- Draws meters.
