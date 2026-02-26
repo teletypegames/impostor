@@ -55,7 +55,7 @@ $(OUTPUT_ORIGINAL): $(SRC) $(ORDER) $(MINIFY)
 	@cp $(OUTPUT) $(OUTPUT_ORIGINAL)
 	@lua $(MINIFY) minify $(OUTPUT_ORIGINAL) > $(OUTPUT)
 
-export: build
+export: build minify
 	@if [ -z "$(VERSION)" ]; then \
 		echo "ERROR: VERSION not set!"; \
 		exit 1; \
