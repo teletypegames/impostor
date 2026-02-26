@@ -6,12 +6,12 @@ PROJECT = impostor
 
 ORDER      = $(PROJECT).inc
 OUTPUT     = $(PROJECT).lua
-OUTPUT_MIN   = $(PROJECT).min.lua
-OUTPUT_UNMIN = $(PROJECT).unmin.lua
+OUTPUT_ORIGINAL   = $(PROJECT).original.lua
 OUTPUT_ZIP = $(PROJECT).html.zip
 OUTPUT_TIC = $(PROJECT).tic
 
 MINIFY     = minify.lua
+MINIFY_URL = https://raw.githubusercontent.com/ztimar31/lua-minify-tic80/refs/heads/master/minify.lua
 
 SRC_DIR    = inc
 SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
@@ -43,17 +43,17 @@ $(OUTPUT): $(SRC) $(ORDER)
 		echo "" >> $(OUTPUT); \
 	done
 
-minify: $(OUTPUT_MIN)
+$(MINIFY):
+	@echo "==> Downloading $(MINIFY)"
+	@curl -fsSL $(MINIFY_URL) -o $(MINIFY)
 
-$(OUTPUT_MIN): $(OUTPUT) $(MINIFY)
-	@echo "==> Minifying $(OUTPUT) -> $(OUTPUT_MIN)"
-	@lua $(MINIFY) minify $(OUTPUT) > $(OUTPUT_MIN)
+minify: $(OUTPUT_ORIGINAL)
 
-unminify: $(OUTPUT_UNMIN)
-
-$(OUTPUT_UNMIN): $(OUTPUT) $(MINIFY)
-	@echo "==> Unminifying $(OUTPUT) -> $(OUTPUT_UNMIN)"
-	@lua $(MINIFY) unminify $(OUTPUT) > $(OUTPUT_UNMIN)
+$(OUTPUT_ORIGINAL): $(SRC) $(ORDER) $(MINIFY)
+	@$(MAKE) build
+	@echo "==> Minifying $(OUTPUT)"
+	@cp $(OUTPUT) $(OUTPUT_ORIGINAL)
+	@lua $(MINIFY) minify $(OUTPUT_ORIGINAL) > $(OUTPUT)
 
 export: build
 	@if [ -z "$(VERSION)" ]; then \
@@ -172,7 +172,7 @@ export_assets:
 	@$(call f_export_asset_awk,WAVES,$(OUTPUT),$(ASSETS_LUA))
 
 clean:
-	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT) $(OUTPUT_MIN) $(OUTPUT_UNMIN)
+	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT) $(OUTPUT_MIN) $(PROJECT).original.lua
 	@echo "==> Cleaned build artifacts"
 
 # CI/CD Targets
@@ -235,5 +235,4 @@ docs: build
 	@ldoc ${OUTPUT} -d docs
 	@echo "==> Documentation generated."
 
-.PHONY: all build minify unminify export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
-
+.PHONY: all build minify export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs

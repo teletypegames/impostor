@@ -1,6 +1,6 @@
 .local
 impostor.lua
-impostor.min.lua
-impostor.unmin.lua
+impostor.original.lua
 prompts
 docs
+minify.lua
