@@ -11,6 +11,7 @@ local _screens = {}
 --- @param[opt] screen_data.situations table Array of situation ID strings. Defaults to {}.
 --- @param[opt] screen_data.init function Called when the screen is entered. Defaults to noop.
 --- @param[opt] screen_data.update function Called each frame while screen is active. Defaults to noop.
+--- @param[opt] screen_data.draw function Called after the focus overlay to draw screen-specific overlays. Defaults to noop.
 function Screen.register(screen_data)
   if _screens[screen_data.id] then
     trace("Warning: Overwriting screen with id: " .. screen_data.id)
@@ -23,6 +24,9 @@ function Screen.register(screen_data)
   end
   if not screen_data.update then
     screen_data.update = function() end
+  end
+  if not screen_data.draw then
+    screen_data.draw = function() end
   end
   _screens[screen_data.id] = screen_data
 end

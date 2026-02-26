@@ -17,6 +17,7 @@ Context = {}
 --- @return result.minigame_button_mash table Button mash minigame state (see Minigame.get_default_button_mash).
 --- @return result.minigame_rhythm table Rhythm minigame state (see Minigame.get_default_rhythm).
 --- @return result.meters table Meter values (see Meter.get_initial).
+--- @return result.stat_screen_active boolean Whether the stat screen overlay is currently shown.
 --- @return result.game table Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.
 function Context.initial_data()
   return {
@@ -27,6 +28,7 @@ function Context.initial_data()
       content = {}
     },
     game_in_progress = false,
+    stat_screen_active = false,
     minigame_ddr = Minigame.get_default_ddr(),
     minigame_button_mash = Minigame.get_default_button_mash(),
     minigame_rhythm = Minigame.get_default_rhythm(),

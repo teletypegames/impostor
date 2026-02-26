@@ -89,9 +89,6 @@ function Meter.update()
   local m = Context.meters
   local in_minigame = string.find(Window.get_current_id(), "^minigame_") ~= nil
   if not in_minigame then
-    m.ism = math.max(0, m.ism - METER_DECAY_PER_FRAME)
-    m.wpm = math.max(0, m.wpm - METER_DECAY_PER_FRAME)
-    m.bm = math.max(0, m.bm - METER_DECAY_PER_FRAME)
     if m.combo > 0 then
       m.combo_timer = m.combo_timer + 1
       if m.combo_timer >= COMBO_TIMEOUT_FRAMES then
@@ -119,6 +116,13 @@ function Meter.add(key, amount)
   if m[key] ~= nil then
     m[key] = math.min(METER_MAX, m[key] + amount)
   end
+end
+
+--- Gets the timer decay as a percentage of the max meter value.
+--- @within Meter
+--- @return number The decay percentage per revolution (e.g. 2 means -2%).
+function Meter.get_timer_decay_percentage()
+  return math.floor(meter_timer_decay_per_revolution / METER_MAX * 100)
 end
 
 --- Called on minigame completion.
