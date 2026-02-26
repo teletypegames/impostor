@@ -2,7 +2,7 @@
 
 --- Draws the top bar.
 --- @within UI
---- @param title string The title text to display.
+--- @param title string The title text to display.<br/>
 function UI.draw_top_bar(title)
   rect(0, 0, Config.screen.width, 10, Config.colors.dark_grey)
   Print.text(title, 3, 2, Config.colors.light_blue)
@@ -16,10 +16,10 @@ end
 
 --- Draws a menu.
 --- @within UI
---- @param items table A table of menu items.
---- @param selected_item number The index of the currently selected item.
---- @param x number The x-coordinate for the menu.
---- @param y number The y-coordinate for the menu.
+--- @param items table A table of menu items.<br/>
+--- @param selected_item number The index of the currently selected item.<br/>
+--- @param x number The x-coordinate for the menu.<br/>
+--- @param y number The y-coordinate for the menu.<br/>
 function UI.draw_menu(items, selected_item, x, y)
   for i, item in ipairs(items) do
     local current_y = y + (i-1)*10
@@ -32,9 +32,9 @@ end
 
 --- Updates menu selection.
 --- @within UI
---- @param items table A table of menu items.
---- @param selected_item number The current index of the selected item.
---- @return number The updated index of the selected item.
+--- @param items table A table of menu items.<br/>
+--- @param selected_item number The current index of the selected item.<br/>
+--- @return number selected_item The updated index of the selected item.
 function UI.update_menu(items, selected_item)
   if Input.up() then
     Audio.sfx_beep()
@@ -54,9 +54,9 @@ end
 
 --- Wraps text.
 --- @within UI
---- @param text string The text to wrap.
---- @param max_chars_per_line number The maximum characters per line.
---- @return table A table of wrapped lines.
+--- @param text string The text to wrap.<br/>
+--- @param max_chars_per_line number The maximum characters per line.<br/>
+--- @return result table A table of wrapped lines.
 function UI.word_wrap(text, max_chars_per_line)
     if text == nil then return {""} end
     local lines = {}
@@ -88,22 +88,23 @@ end
 
 --- Creates a numeric stepper.
 --- @within UI
---- @param label string The label for the stepper.
---- @param value_getter function Function to get the current value.
---- @param value_setter function Function to set the current value.
---- @param min number The minimum value.
---- @param max number The maximum value.
---- @param step number The step increment.
---- @param[opt] format string The format string for displaying the value.
---- @return result table A numeric stepper control definition.
---- @return result.label string The label for the stepper.
---- @return result.get function Function to get the current value.
---- @return result.set function Function to set the current value.
---- @return result.min number The minimum value.
---- @return result.max number The maximum value.
---- @return result.step number The step increment.
---- @return result.format string The format string for displaying the value.
---- @return result.type string Control type identifier ("numeric_stepper").
+--- @param label string The label for the stepper.<br/>
+--- @param value_getter function Function to get the current value.<br/>
+--- @param value_setter function Function to set the current value.<br/>
+--- @param min number The minimum value.<br/>
+--- @param max number The maximum value.<br/>
+--- @param step number The step increment.<br/>
+--- @param[opt] format string The format string for displaying the value.<br/>
+--- @return result table A numeric stepper control definition or nil. </br>
+--- Fields: </br>
+--- * label (string) The label for the stepper.<br/>
+--- * get (function) Function to get the current value.<br/>
+--- * set (function) Function to set the current value.<br/>
+--- * min (number) The minimum value.<br/>
+--- * max (number) The maximum value.<br/>
+--- * step (number) The step increment.<br/>
+--- * format (string) The format string for displaying the value.<br/>
+--- * type (string) Control type identifier ("numeric_stepper").<br/>
 function UI.create_numeric_stepper(label, value_getter, value_setter, min, max, step, format)
   return {
     label = label,
@@ -119,12 +120,13 @@ end
 
 --- Creates an action item.
 --- @within UI
---- @param label string The label for the action item.
---- @param action function The function to execute when the item is selected.
---- @return result table An action item control definition.
---- @return result.label string The label for the action item.
---- @return result.action function The function to execute when the item is selected.
---- @return result.type string Control type identifier ("action_item").
+--- @param label string The label for the action item.<br/>
+--- @param action function The function to execute when the item is selected.<br/>
+--- @return result table An action item control definition or nil. </br>
+--- Fields: </br>
+--- * label (string) The label for the action item.<br/>
+--- * action (function) The function to execute when the item is selected.<br/>
+--- * type (string) Control type identifier ("action_item").<br/>
 function UI.create_action_item(label, action)
   return {
     label = label,
@@ -135,8 +137,8 @@ end
 
 --- Draws decision selector.
 --- @within UI
---- @param decisions table A table of decision items.
---- @param selected_decision_index number The index of the selected decision.
+--- @param decisions table A table of decision items.<br/>
+--- @param selected_decision_index number The index of the selected decision.<br/>
 function UI.draw_decision_selector(decisions, selected_decision_index)
   local bar_height = 16
   local bar_y = Config.screen.height - bar_height
@@ -244,9 +246,9 @@ end
 
 --- Updates decision selector.
 --- @within UI
---- @param decisions table A table of decision items.
---- @param selected_decision_index number The current index of the selected decision.
---- @return number The updated index of the selected decision.
+--- @param decisions table A table of decision items.<br/>
+--- @param selected_decision_index number The current index of the selected decision.<br/>
+--- @return number selected_decision_index The updated index of the selected decision.
 function UI.update_decision_selector(decisions, selected_decision_index)
   if Input.left() then
     Audio.sfx_beep()

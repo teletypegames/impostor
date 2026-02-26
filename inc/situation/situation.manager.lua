@@ -4,10 +4,10 @@ local _situations = {}
 --- Registers a situation definition.
 --- @within Situation
 --- @param situation table The situation data table.
---- @param situation.id string Unique situation identifier.
---- @param[opt] situation.screen_id string ID of the screen this situation belongs to.
---- @param[opt] situation.handle function Called when the situation is applied. Defaults to noop.
---- @param[opt] situation.update function Called each frame while situation is active. Defaults to noop.
+--- @param situation.id string Unique situation identifier.<br/>
+--- @param[opt] situation.screen_id string ID of the screen this situation belongs to.<br/>
+--- @param[opt] situation.handle function Called when the situation is applied. Defaults to noop.<br/>
+--- @param[opt] situation.update function Called each frame while situation is active. Defaults to noop.<br/>
 function Situation.register(situation)
   if not situation or not situation.id then
     PopupWindow.show({"Error: Invalid situation object registered (missing id)!"})
@@ -28,11 +28,12 @@ end
 --- Gets a situation by ID.
 --- @within Situation
 --- @param id string The situation ID.
---- @return result table The situation table or nil.
---- @return result.id string Unique situation identifier.
---- @return result.screen_id string ID of the screen this situation belongs to.
---- @return result.handle function Called when the situation is applied.
---- @return result.update function Called each frame while situation is active.
+--- @return result table The situation table or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique situation identifier.<br/>
+--- * screen_id (string) ID of the screen this situation belongs to.<br/>
+--- * handle (function) Called when the situation is applied.<br/>
+--- * update (function) Called each frame while situation is active.<br/>
 function Situation.get_by_id(id)
   return _situations[id]
 end
@@ -40,11 +41,12 @@ end
 --- Gets all registered situations, optionally filtered by screen ID.
 --- @within Situation
 --- @param screen_id string Optional. If provided, returns situations associated with this screen ID.
---- @return result table A table containing all registered situation data, indexed by their IDs, or an array filtered by screen_id.
---- @return result.id string Unique situation identifier.
---- @return result.screen_id string ID of the screen this situation belongs to.
---- @return result.handle function Called when the situation is applied.
---- @return result.update function Called each frame while situation is active.
+--- @return result table A table containing all registered situation data, indexed by their IDs, or an array filtered by screen_id. </br>
+--- Fields: </br>
+--- * id (string) Unique situation identifier.<br/>
+--- * screen_id (string) ID of the screen this situation belongs to.<br/>
+--- * handle (function) Called when the situation is applied.<br/>
+--- * update (function) Called each frame while situation is active.<br/>
 function Situation.get_all(screen_id)
   if screen_id then
     local filtered_situations = {}

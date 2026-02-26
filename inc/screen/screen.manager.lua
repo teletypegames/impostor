@@ -30,28 +30,30 @@ end
 --- Gets a screen by ID.
 --- @within Screen
 --- @param screen_id string The ID of the screen.
---- @return result table The screen table or nil.
---- @return result.id string Unique screen identifier.
---- @return result.name string Display name of the screen.
---- @return result.decisions table Array of decision ID strings available on this screen.
---- @return result.background string Map ID used as background.
---- @return result.situations table Array of situation ID strings.
---- @return result.init function Called when the screen is entered.
---- @return result.update function Called each frame while screen is active.
+--- @return table|nil screen The screen table or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique screen identifier.<br/>
+--- * name (string) Display name.<br/>
+--- * decisions (table) Array of decision ID strings.<br/>
+--- * background (string) Map ID used as background.<br/>
+--- * situations (table) Array of situation ID strings.<br/>
+--- * init (function) Called when the screen is entered.<br/>
+--- * update (function) Called each frame while screen is active.
 function Screen.get_by_id(screen_id)
   return _screens[screen_id]
 end
 
 --- Gets all registered screens.
 --- @within Screen
---- @return result table A table containing all registered screen data, indexed by their IDs.
---- @return result.id string Unique screen identifier.
---- @return result.name string Display name of the screen.
---- @return result.decisions table Array of decision ID strings available on this screen.
---- @return result.background string Map ID used as background.
---- @return result.situations table Array of situation ID strings.
---- @return result.init function Called when the screen is entered.
---- @return result.update function Called each frame while screen is active.
+--- @return result table A table containing all registered screen data, indexed by their IDs or nil. </br>
+--- Fields: </br>
+--- * id (string) Unique screen identifier.<br/>
+--- * name (string) Display name of the screen.<br/>
+--- * decisions (table) Array of decision ID strings available on this screen.<br/>
+--- * background (string) Map ID used as background.<br/>
+--- * situations (table) Array of situation ID strings.<br/>
+--- * init (function) Called when the screen is entered.<br/>
+--- * update (function) Called each frame while screen is active.<br/>
 function Screen.get_all()
   return _screens
 end

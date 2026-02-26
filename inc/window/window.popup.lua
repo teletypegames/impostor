@@ -9,7 +9,7 @@ local LINE_HEIGHT = 8
 
 --- Displays a popup window.
 --- @within PopupWindow
---- @param content_strings table A table of strings to display in the popup.
+--- @param content_strings table A table of strings to display in the popup.</br>
 function PopupWindow.show(content_strings)
   Context.popup.show = true
   Context.popup.content = content_strings or {}

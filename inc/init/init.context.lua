@@ -8,16 +8,17 @@ Context = {}
 
 --- Gets initial data for Context.
 --- @within Context
---- @return result table Initial context data.
---- @return result.current_menu_item number Index of the currently selected menu item.
---- @return result.splash_timer number Remaining frames for the splash screen timer.
---- @return result.popup table Popup window state. Contains: `show` (boolean) whether popup is visible, `content` (table) array of strings to display.
---- @return result.game_in_progress boolean Whether a game is currently active.
---- @return result.minigame_ddr table DDR minigame state (see Minigame.get_default_ddr).
---- @return result.minigame_button_mash table Button mash minigame state (see Minigame.get_default_button_mash).
---- @return result.minigame_rhythm table Rhythm minigame state (see Minigame.get_default_rhythm).
---- @return result.meters table Meter values (see Meter.get_initial).
---- @return result.game table Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.
+--- @return result table Initial context data. </br>
+--- Fields: </br>
+--- * current_menu_item (number) Index of the currently selected menu item.<br/>
+--- * splash_timer (number) Remaining frames for the splash screen timer.<br/>
+--- * popup (table) Popup window state. Contains: `show` (boolean) whether popup is visible, `content` (table) array of strings to display.<br/>
+--- * game_in_progress (boolean) Whether a game is currently active.<br/>
+--- * minigame_ddr (table) DDR minigame state (see Minigame.get_default_ddr).<br/>
+--- * minigame_button_mash (table) Button mash minigame state (see Minigame.get_default_button_mash).<br/>
+--- * minigame_rhythm (table) Rhythm minigame state (see Minigame.get_default_rhythm).<br/>
+--- * meters (table) Meter values (see Meter.get_initial).<br/>
+--- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.
 function Context.initial_data()
   return {
     current_menu_item = 1,

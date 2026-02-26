@@ -1,5 +1,3 @@
---- @section SplashWindow
-
 --- Draws the splash window.
 --- @within SplashWindow
 function SplashWindow.draw()

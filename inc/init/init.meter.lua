@@ -33,14 +33,15 @@ end
 
 --- Gets initial meter values.
 --- @within Meter
---- @return result table A table of initial meter values.
---- @return result.ism number Initial ISM meter value.
---- @return result.wpm number Initial WPM meter value.
---- @return result.bm number Initial BM meter value.
---- @return result.combo number Current combo count.
---- @return result.combo_timer number Frames since last combo action.
---- @return result.hidden boolean Whether meters are hidden.
---- @return result.timer_progress number Clock timer revolution progress (0 to 1).
+--- @return result table Initial meter values. </br>
+--- Fields: </br>
+--- * ism (number) Initial ISM meter value.<br/>
+--- * wpm (number) Initial WPM meter value.<br/>
+--- * bm (number) Initial BM meter value.<br/>
+--- * combo (number) Current combo count.<br/>
+--- * combo_timer (number) Frames since last combo action.<br/>
+--- * hidden (boolean) Whether meters are hidden.<br/>
+--- * timer_progress (number) Clock timer revolution progress (0 to 1).
 function Meter.get_initial()
   return {
     ism = METER_DEFAULT,
