@@ -12,11 +12,12 @@ function GameWindow.draw()
     rect(0, 0, Config.screen.width, Config.screen.height, screen.background_color)
   end
   UI.draw_top_bar(screen.name)
-  if #_available_decisions > 0 then
+  if not Context.stat_screen_active and #_available_decisions > 0 then
     UI.draw_decision_selector(_available_decisions, _selected_decision_index)
   end
   Sprite.draw()
   Focus.draw()
+  screen.draw()
 end
 
 --- Updates the game window logic.
@@ -39,6 +40,8 @@ function GameWindow.update()
       current_situation_obj.update()
     end
   end
+
+  if Context.stat_screen_active then return end
 
   -- Fetch and filter decisions locally
   local all_decisions_for_screen = Decision.get_for_screen(screen)

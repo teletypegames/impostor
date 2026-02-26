@@ -8,7 +8,7 @@ Context = {}
 
 --- Gets initial data for Context.
 --- @within Context
---- @return result table Initial context data. </br>
+--- @return result table Initial context data or nil. </br>
 --- Fields: </br>
 --- * current_menu_item (number) Index of the currently selected menu item.<br/>
 --- * splash_timer (number) Remaining frames for the splash screen timer.<br/>
@@ -18,7 +18,8 @@ Context = {}
 --- * minigame_button_mash (table) Button mash minigame state (see Minigame.get_default_button_mash).<br/>
 --- * minigame_rhythm (table) Rhythm minigame state (see Minigame.get_default_rhythm).<br/>
 --- * meters (table) Meter values (see Meter.get_initial).<br/>
---- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.
+--- * stat_screen_active (boolean) Whether the stat screen overlay is currently shown.<br/>
+--- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.<br/>
 function Context.initial_data()
   return {
     current_menu_item = 1,
@@ -28,6 +29,7 @@ function Context.initial_data()
       content = {}
     },
     game_in_progress = false,
+    stat_screen_active = false,
     minigame_ddr = Minigame.get_default_ddr(),
     minigame_button_mash = Minigame.get_default_button_mash(),
     minigame_rhythm = Minigame.get_default_rhythm(),

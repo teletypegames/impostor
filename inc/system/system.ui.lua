@@ -157,11 +157,10 @@ end
 
 --- Draws the clock timer indicator as a circular progress bar in the top-left area.
 --- Color transitions: white (0-50%), yellow (50-75%), red (75-100%).
---- Only visible when meters are visible.
 --- @within UI
 function UI.draw_timer()
   if not Context or not Context.game_in_progress or not Context.meters then return end
-  if Context.meters.hidden then return end
+  if Context.meters.hidden and not Context.stat_screen_active then return end
 
   local m = Context.meters
   local cx = 10
@@ -207,7 +206,7 @@ function UI.draw_timer()
   local hand_angle = start_angle + progress_angle
   local hand_x = math.floor(cx + math.cos(hand_angle) * (r_inner - 1) + 0.5)
   local hand_y = math.floor(cy + math.sin(hand_angle) * (r_inner - 1) + 0.5)
-  line(cx, cy, hand_x, hand_y, Config.colors.black)
+  line(cx, cy, hand_x, hand_y, Config.colors.white)
 end
 
 --- Draws meters.
