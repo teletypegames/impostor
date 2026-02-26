@@ -6,8 +6,12 @@ PROJECT = impostor
 
 ORDER      = $(PROJECT).inc
 OUTPUT     = $(PROJECT).lua
+OUTPUT_MIN   = $(PROJECT).min.lua
+OUTPUT_UNMIN = $(PROJECT).unmin.lua
 OUTPUT_ZIP = $(PROJECT).html.zip
 OUTPUT_TIC = $(PROJECT).tic
+
+MINIFY     = minify.lua
 
 SRC_DIR    = inc
 SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
@@ -38,6 +42,18 @@ $(OUTPUT): $(SRC) $(ORDER)
 		cat "$(SRC_DIR)/$$f" >> $(OUTPUT); \
 		echo "" >> $(OUTPUT); \
 	done
+
+minify: $(OUTPUT_MIN)
+
+$(OUTPUT_MIN): $(OUTPUT) $(MINIFY)
+	@echo "==> Minifying $(OUTPUT) -> $(OUTPUT_MIN)"
+	@lua $(MINIFY) minify $(OUTPUT) > $(OUTPUT_MIN)
+
+unminify: $(OUTPUT_UNMIN)
+
+$(OUTPUT_UNMIN): $(OUTPUT) $(MINIFY)
+	@echo "==> Unminifying $(OUTPUT) -> $(OUTPUT_UNMIN)"
+	@lua $(MINIFY) unminify $(OUTPUT) > $(OUTPUT_UNMIN)
 
 export: build
 	@if [ -z "$(VERSION)" ]; then \
@@ -156,7 +172,7 @@ export_assets:
 	@$(call f_export_asset_awk,WAVES,$(OUTPUT),$(ASSETS_LUA))
 
 clean:
-	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT)
+	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT) $(OUTPUT_MIN) $(OUTPUT_UNMIN)
 	@echo "==> Cleaned build artifacts"
 
 # CI/CD Targets
@@ -219,5 +235,5 @@ docs: build
 	@ldoc ${OUTPUT} -d docs
 	@echo "==> Documentation generated."
 
-.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
+.PHONY: all build minify unminify export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
 
