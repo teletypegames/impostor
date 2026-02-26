@@ -6,8 +6,12 @@ PROJECT = impostor
 
 ORDER      = $(PROJECT).inc
 OUTPUT     = $(PROJECT).lua
+OUTPUT_ORIGINAL   = $(PROJECT).original.lua
 OUTPUT_ZIP = $(PROJECT).html.zip
 OUTPUT_TIC = $(PROJECT).tic
+
+MINIFY     = minify.lua
+MINIFY_URL = https://raw.githubusercontent.com/ztimar31/lua-minify-tic80/refs/heads/master/minify.lua
 
 SRC_DIR    = inc
 SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
@@ -39,7 +43,19 @@ $(OUTPUT): $(SRC) $(ORDER)
 		echo "" >> $(OUTPUT); \
 	done
 
-export: build
+$(MINIFY):
+	@echo "==> Downloading $(MINIFY)"
+	@curl -fsSL $(MINIFY_URL) -o $(MINIFY)
+
+minify: $(OUTPUT_ORIGINAL)
+
+$(OUTPUT_ORIGINAL): $(SRC) $(ORDER) $(MINIFY)
+	@$(MAKE) build
+	@echo "==> Minifying $(OUTPUT)"
+	@cp $(OUTPUT) $(OUTPUT_ORIGINAL)
+	@lua $(MINIFY) minify $(OUTPUT_ORIGINAL) > $(OUTPUT)
+
+export: build minify
 	@if [ -z "$(VERSION)" ]; then \
 		echo "ERROR: VERSION not set!"; \
 		exit 1; \
@@ -156,7 +172,7 @@ export_assets:
 	@$(call f_export_asset_awk,WAVES,$(OUTPUT),$(ASSETS_LUA))
 
 clean:
-	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT)
+	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(OUTPUT) $(OUTPUT_MIN) $(PROJECT).original.lua
 	@echo "==> Cleaned build artifacts"
 
 # CI/CD Targets
@@ -219,5 +235,4 @@ docs: build
 	@ldoc ${OUTPUT} -d docs
 	@echo "==> Documentation generated."
 
-.PHONY: all build export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
-
+.PHONY: all build minify export watch import_assets export_assets clean lint ci-version ci-export ci-upload ci-update install_precommit_hook docs
