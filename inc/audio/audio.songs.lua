@@ -124,6 +124,8 @@ end
 --- Converts beat notation to frame pattern.
 --- @within Songs
 -- @param beats table A table of beat data, e.g., {{1, "left"}, {2, "down"}}.
+-- @param beats.1 number The beat number.
+-- @param beats.2 string Arrow direction ("left", "down", "up", or "right").
 -- @param bpm number Beats per minute.
 -- @param[opt] fps number Frames per second (default: 60).
 -- @return table The generated pattern.

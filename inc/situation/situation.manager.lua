@@ -4,6 +4,10 @@ local _situations = {}
 --- Registers a situation definition.
 --- @within Situation
 -- @param situation table The situation data table.
+-- @param situation.id string Unique situation identifier.
+-- @param[opt] situation.screen_id string ID of the screen this situation belongs to.
+-- @param[opt] situation.handle function Called when the situation is applied. Defaults to noop.
+-- @param[opt] situation.update function Called each frame while situation is active. Defaults to noop.
 function Situation.register(situation)
   if not situation or not situation.id then
     PopupWindow.show({"Error: Invalid situation object registered (missing id)!"})

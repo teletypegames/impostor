@@ -5,6 +5,14 @@ local _active_sprites = {}
 --- Registers a sprite definition.
 --- @within Sprite
 -- @param sprite_data table A table containing the sprite definition.
+-- @param sprite_data.id string Unique sprite identifier.
+-- @param[opt] sprite_data.s number Sprite index for single-sprite mode.
+-- @param[opt] sprite_data.colorkey number Default color index for transparency.
+-- @param[opt] sprite_data.scale number Default scaling factor.
+-- @param[opt] sprite_data.flip_x number Set to 1 to flip horizontally by default.
+-- @param[opt] sprite_data.flip_y number Set to 1 to flip vertically by default.
+-- @param[opt] sprite_data.rot number Default rotation in degrees.
+-- @param[opt] sprite_data.sprites table Array of sub-sprite tables for composite sprites. Each entry has: `s` (number) sprite index, `x_offset` (number) horizontal offset, `y_offset` (number) vertical offset, and optional `colorkey`, `scale`, `flip_x`, `flip_y`, `rot` overrides.
 function Sprite.register(sprite_data)
   if not sprite_data or not sprite_data.id then
     trace("Error: Invalid sprite object registered (missing id)!")

@@ -4,6 +4,10 @@ local _decisions = {}
 --- Registers a decision definition.
 --- @within Decision
 -- @param decision table The decision data table.
+-- @param decision.id string Unique decision identifier.
+-- @param decision.label string Display text for the decision.
+-- @param[opt] decision.condition function Returns true if decision is available. Defaults to always true.
+-- @param[opt] decision.handle function Called when the decision is selected. Defaults to noop.
 function Decision.register(decision)
   if not decision or not decision.id then
     PopupWindow.show({"Error: Invalid decision object registered (missing id)!"})
@@ -43,7 +47,8 @@ end
 
 --- Gets decision objects based on a screen's data.
 --- @within Decision
--- @param screen_data table The data for the screen, containing a 'decisions' field (list of decision IDs).
+-- @param screen_data table The data for the screen.
+-- @param screen_data.decisions table Array of decision ID strings.
 -- @return table A table containing decision objects relevant to the screen.
 function Decision.get_for_screen(screen_data)
   if not screen_data or not screen_data.decisions then

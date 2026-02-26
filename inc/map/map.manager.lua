@@ -18,6 +18,13 @@ end
 --- Registers a map definition.
 --- @within Map
 -- @param map_data table The map data table.
+-- @param map_data.id string Unique map identifier.
+-- @param map_data.from_x number Source tile X coordinate in the map sheet.
+-- @param map_data.from_y number Source tile Y coordinate in the map sheet.
+-- @param map_data.width number Width in tiles.
+-- @param map_data.height number Height in tiles.
+-- @param map_data.to_x number Destination X coordinate on screen.
+-- @param map_data.to_y number Destination Y coordinate on screen.
 function Map.register(map_data)
   if _maps[map_data.id] then
     trace("Warning: Overwriting map with id: " .. map_data.id)
