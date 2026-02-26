@@ -13,7 +13,13 @@ end
 --- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameButtonMashWindow.start(return_window, params)
   MinigameButtonMashWindow.init(params)
-  Context.minigame_button_mash.return_window = return_window or "game"
+  local mg = Context.minigame_button_mash
+  mg.return_window = return_window or "game"
+  if mg.focus_center_x then
+    Focus.start_driven(mg.focus_center_x, mg.focus_center_y, {
+      initial_radius = mg.focus_initial_radius
+    })
+  end
   Window.set_current("minigame_button_mash")
 end
 
@@ -31,6 +37,7 @@ function MinigameButtonMashWindow.update()
   if mg.bar_fill >= mg.max_fill then
     Meter.on_minigame_complete()
     Meter.show()
+    if mg.focus_center_x then Focus.stop() end
     Window.set_current(mg.return_window)
     return
   end
@@ -42,6 +49,9 @@ function MinigameButtonMashWindow.update()
   if mg.button_pressed_timer > 0 then
     mg.button_pressed_timer = mg.button_pressed_timer - 1
   end
+  if mg.focus_center_x then
+    Focus.set_percentage(mg.bar_fill / mg.max_fill)
+  end
 end
 
 --- Draws button mash minigame.
@@ -51,7 +61,9 @@ function MinigameButtonMashWindow.draw()
   if mg.return_window == "game" then
     GameWindow.draw()
   end
-  rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
+  if not mg.focus_center_x then
+    rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
+  end
   rect(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.light_grey)
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
   local fill_width = (mg.bar_fill / mg.max_fill) * mg.bar_width

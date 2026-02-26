@@ -1,6 +1,7 @@
 Screen.register({
   id = "office",
   name = "Office",
+  background_color = Config.colors.dark_grey,
   decisions = {
     "play_button_mash",
     "play_rhythm",

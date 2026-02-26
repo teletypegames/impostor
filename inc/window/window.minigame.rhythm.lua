@@ -13,7 +13,13 @@ end
 --- @param[opt] params table Optional parameters for minigame configuration.
 function MinigameRhythmWindow.start(return_window, params)
   MinigameRhythmWindow.init(params)
-  Context.minigame_rhythm.return_window = return_window or "game"
+  local mg = Context.minigame_rhythm
+  mg.return_window = return_window or "game"
+  if mg.focus_center_x then
+    Focus.start_driven(mg.focus_center_x, mg.focus_center_y, {
+      initial_radius = mg.focus_initial_radius
+    })
+  end
   Window.set_current("minigame_rhythm")
 end
 
@@ -53,11 +59,15 @@ function MinigameRhythmWindow.update()
   if mg.score >= mg.max_score then
     Meter.on_minigame_complete()
     Meter.show()
+    if mg.focus_center_x then Focus.stop() end
     Window.set_current(mg.return_window)
     return
   end
   if mg.button_pressed_timer > 0 then
     mg.button_pressed_timer = mg.button_pressed_timer - 1
+  end
+  if mg.focus_center_x then
+    Focus.set_percentage(1 - mg.score / mg.max_score)
   end
 end
 
@@ -68,7 +78,9 @@ function MinigameRhythmWindow.draw()
   if mg.return_window == "game" then
     GameWindow.draw()
   end
-  rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
+  if not mg.focus_center_x then
+    rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
+  end
   rect(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.light_grey)
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
   rect(mg.bar_x, mg.bar_y, mg.bar_width, mg.bar_height, Config.colors.dark_grey)
