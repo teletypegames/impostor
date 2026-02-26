@@ -21,8 +21,8 @@ end
 
 --- Starts a focus overlay that reveals content through an expanding circle.
 --- @within Focus
---- @param center_x number The x-coordinate of the circle center.
---- @param center_y number The y-coordinate of the circle center.
+--- @param cx number The x-coordinate of the circle center.
+--- @param cy number The y-coordinate of the circle center.
 --- @param[opt] params table Optional parameters: `speed` (number) expansion rate in pixels/frame, `initial_radius` (number) starting radius in pixels (default 0), `on_complete` (function) callback when overlay disperses.
 function Focus.start(cx, cy, params)
   params = params or {}
@@ -38,8 +38,8 @@ end
 
 --- Starts a closing focus overlay that hides content by shrinking the visible circle.
 --- @within Focus
---- @param center_x number The x-coordinate of the circle center.
---- @param center_y number The y-coordinate of the circle center.
+--- @param cx number The x-coordinate of the circle center.
+--- @param cy number The y-coordinate of the circle center.
 --- @param[opt] params table Optional parameters: `speed` (number) shrink rate in pixels/frame, `on_complete` (function) callback when screen is fully covered.
 function Focus.close(cx, cy, params)
   params = params or {}
@@ -56,8 +56,8 @@ end
 --- Starts a driven focus overlay whose radius is controlled externally via Focus.set_percentage().
 --- The radius maps linearly from initial_radius (at 0%) to the screen corner distance (at 100%).
 --- @within Focus
---- @param center_x number The x-coordinate of the circle center.
---- @param center_y number The y-coordinate of the circle center.
+--- @param cx number The x-coordinate of the circle center.
+--- @param cy number The y-coordinate of the circle center.
 --- @param[opt] params table Optional parameters: `initial_radius` (number) radius at 0% (default 0).
 function Focus.start_driven(cx, cy, params)
   params = params or {}

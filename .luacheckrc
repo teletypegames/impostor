@@ -2,6 +2,7 @@
 -- Configuration for luacheck
 
 globals = {
+  "Focus",
   "Util",
   "Decision",
   "Situation",
