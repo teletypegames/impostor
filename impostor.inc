@@ -27,6 +27,7 @@ decision/decision.play_rhythm.lua
 decision/decision.play_ddr.lua
 map/map.manager.lua
 map/map.bedroom.lua
+map/map.street.lua
 screen/screen.manager.lua
 screen/screen.home.lua
 screen/screen.toilet.lua
