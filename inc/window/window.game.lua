@@ -13,7 +13,7 @@ function GameWindow.draw()
   end
   UI.draw_top_bar(screen.name)
   if not Context.stat_screen_active and #_available_decisions > 0 then
-    UI.draw_decision_selector(_available_decisions, _selected_decision_index)
+    Decision.draw(_available_decisions, _selected_decision_index)
   end
   Sprite.draw()
   Focus.draw()
@@ -53,7 +53,7 @@ function GameWindow.update()
     _selected_decision_index = 1
   end
 
-  local new_selected_decision_index = UI.update_decision_selector(
+  local new_selected_decision_index = Decision.update(
     _available_decisions,
     _selected_decision_index
   )

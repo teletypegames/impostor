@@ -80,26 +80,6 @@ function UI.word_wrap(text, max_chars_per_line)
     return lines
 end
 
---- Draws decision selector.
---- @within UI
---- @param decisions table A table of decision items.<br/>
---- @param selected_decision_index number The index of the selected decision.<br/>
-function UI.draw_decision_selector(decisions, selected_decision_index)
-  local bar_height = 16
-  local bar_y = Config.screen.height - bar_height
-  rect(0, bar_y, Config.screen.width, bar_height, Config.colors.dark_grey)
-  if #decisions > 0 then
-    local selected_decision = decisions[selected_decision_index]
-    local decision_label = selected_decision.label
-    local text_width = #decision_label * 4
-    local text_y = bar_y + 4
-    local text_x = (Config.screen.width - text_width) / 2
-    Print.text("<", 2, text_y, Config.colors.light_blue)
-    Print.text(decision_label, text_x, text_y, Config.colors.item)
-    Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
-  end
-end
-
 --- Draws meters.
 --- @within UI
 function UI.draw_meters()
@@ -132,20 +112,4 @@ function UI.draw_meters()
     end
     print(meter.label, label_x, label_y, meter.color, false, 1, true)
   end
-end
-
---- Updates decision selector.
---- @within UI
---- @param decisions table A table of decision items.<br/>
---- @param selected_decision_index number The current index of the selected decision.<br/>
---- @return number selected_decision_index The updated index of the selected decision.
-function UI.update_decision_selector(decisions, selected_decision_index)
-  if Input.left() then
-    Audio.sfx_beep()
-    selected_decision_index = Util.safeindex(decisions, selected_decision_index - 1)
-  elseif Input.right() then
-    Audio.sfx_beep()
-    selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
-  end
-  return selected_decision_index
 end
