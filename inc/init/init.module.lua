@@ -12,3 +12,5 @@ Input = {}
 Sprite = {}
 Audio = {}
 Focus = {}
+Day = {}
+Timer = {}

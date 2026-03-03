@@ -30,8 +30,7 @@ Screen.register({
     local bar_x = math.floor((sw - bar_w) / 2)
     local bar_h = 4
 
-    -- TODO: Add day counter
-    Print.text_center("day 1", cx, 10, Config.colors.white)
+    Print.text_center("day " .. Context.day_count, cx, 10, Config.colors.white)
 
     local narrative = "reflecting on my past and present\n...\nboth eventually flushed."
     local wrapped = UI.word_wrap(narrative, 38)
@@ -43,7 +42,7 @@ Screen.register({
 
     local m = Context.meters
     local max_val = Meter.get_max()
-    local decay_pct = Meter.get_timer_decay_percentage()
+    local decay_pct = Timer.get_decay_percentage()
     local decay_text = string.format("-%d%%", decay_pct)
     local combo_mult = Meter.get_combo_multiplier()
     local combo_pct = math.floor((combo_mult - 1) * 100)

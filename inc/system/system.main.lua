@@ -19,11 +19,12 @@ function TIC()
   cls(Config.colors.black)
   local handler = Window.get_current_handler() -- Get handler from Window manager
   if handler then
-    handler()
+   handler()
   end
   Meter.update()
+  Timer.update()
   if Context.game_in_progress then
-    UI.draw_meters()
-    UI.draw_timer()
+   UI.draw_meters()
+   Timer.draw()
   end
-end
+  end

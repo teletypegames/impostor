@@ -3,6 +3,8 @@
 
 globals = {
   "Focus",
+  "Day",
+  "Timer",
   "Util",
   "Decision",
   "Situation",

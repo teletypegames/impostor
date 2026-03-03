@@ -6,29 +6,11 @@ local COMBO_BASE_BONUS = 0.02
 local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
 
--- 1800 frames = 30 seconds (1800 ÷ 60 = 30)
-local meter_timer_duration = 1800
-local meter_timer_decay_per_revolution = 20
-
 -- Internal meters for tracking game progress and player stats.
 Meter.COLOR_ISM = Config.colors.red
 Meter.COLOR_WPM = Config.colors.blue
 Meter.COLOR_BM = Config.colors.black
 Meter.COLOR_BG = Config.colors.meter_bg
-
---- Sets the number of frames for one full timer revolution.
---- @within Meter
---- @param frames number Frames per revolution (controls degradation speed).
-function Meter.set_timer_duration(frames)
-  meter_timer_duration = frames
-end
-
---- Sets the degradation amount applied to all meters per revolution.
---- @within Meter
---- @param amount number Amount to subtract from each meter per revolution.
-function Meter.set_timer_decay(amount)
-  meter_timer_decay_per_revolution = amount
-end
 
 --- Gets initial meter values.
 --- @within Meter
@@ -39,8 +21,7 @@ end
 --- * bm (number) Initial BM meter value.<br/>
 --- * combo (number) Current combo count.<br/>
 --- * combo_timer (number) Frames since last combo action.<br/>
---- * hidden (boolean) Whether meters are hidden.<br/>
---- * timer_progress (number) Clock timer revolution progress (0 to 1).
+--- * hidden (boolean) Whether meters are hidden.
 function Meter.get_initial()
   return {
     ism = METER_DEFAULT,
@@ -49,7 +30,6 @@ function Meter.get_initial()
     combo = 0,
     combo_timer = 0,
     hidden = false,
-    timer_progress = 0,
   }
 end
 
@@ -96,13 +76,6 @@ function Meter.update()
         m.combo_timer = 0
       end
     end
-    m.timer_progress = m.timer_progress + (1 / meter_timer_duration)
-    if m.timer_progress >= 1 then
-      m.timer_progress = m.timer_progress - 1
-      m.ism = math.max(0, m.ism - meter_timer_decay_per_revolution)
-      m.wpm = math.max(0, m.wpm - meter_timer_decay_per_revolution)
-      m.bm = math.max(0, m.bm - meter_timer_decay_per_revolution)
-    end
   end
 end
 
@@ -116,13 +89,6 @@ function Meter.add(key, amount)
   if m[key] ~= nil then
     m[key] = math.min(METER_MAX, m[key] + amount)
   end
-end
-
---- Gets the timer decay as a percentage of the max meter value.
---- @within Meter
---- @return number The decay percentage per revolution (e.g. 2 means -2%).
-function Meter.get_timer_decay_percentage()
-  return math.floor(meter_timer_decay_per_revolution / METER_MAX * 100)
 end
 
 --- Called on minigame completion.

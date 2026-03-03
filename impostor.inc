@@ -8,6 +8,8 @@ system/system.util.lua
 system/system.print.lua
 system/system.input.lua
 system/system.focus.lua
+system/system.day.lua
+system/system.timer.lua
 system/system.ui.lua
 audio/audio.manager.lua
 audio/audio.songs.lua

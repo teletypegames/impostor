@@ -34,10 +34,12 @@ function Context.initial_data()
     minigame_button_mash = Minigame.get_default_button_mash(),
     minigame_rhythm = Minigame.get_default_rhythm(),
     meters = Meter.get_initial(),
+    timer = Timer.get_initial(),
     game = {
       current_screen = "home",
       current_situation = nil,
-    }
+    },
+    day_count = 1,
   }
 end
 
