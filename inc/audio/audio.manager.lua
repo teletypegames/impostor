@@ -23,7 +23,7 @@ function Audio.music_play_room_street_2() end
 function Audio.music_play_room_() end
 --- Plays room work music.
 --- @within Audio
-function Audio.music_play_room_work() end
+function Audio.music_play_room_work() music(0) end
 
 --- Plays select sound effect.
 ---  @within Audio

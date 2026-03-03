@@ -1,8 +1,6 @@
 --- @section ConfigurationWindow
-ConfigurationWindow = {
-  controls = {},
-  selected_control = 1,
-}
+ConfigurationWindow.controls = {}
+ConfigurationWindow.selected_control = 1
 
 --- Initializes configuration window.
 --- @within ConfigurationWindow

@@ -164,6 +164,8 @@ export_assets:
 	@$(call f_export_asset_awk,MAP,$(OUTPUT),$(ASSETS_LUA))
 	@$(call f_export_asset_awk,SFX,$(OUTPUT),$(ASSETS_LUA))
 	@$(call f_export_asset_awk,WAVES,$(OUTPUT),$(ASSETS_LUA))
+	@$(call f_export_asset_awk,PATTERNS,$(OUTPUT),$(ASSETS_LUA))
+	@$(call f_export_asset_awk,TRACKS,$(OUTPUT),$(ASSETS_LUA))
 
 clean:
 	@rm -f $(PROJECT)-*.tic $(PROJECT)-*.html.zip $(PROJECT)-*-docs.zip $(PROJECT)-docs.zip $(OUTPUT) $(OUTPUT_ORIGINAL)

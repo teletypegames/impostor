@@ -1,11 +1,9 @@
 --- @section AudioTestWindow
-AudioTestWindow = {
-    index_menu = 1,
-    index_func = 1,
-    list_func = {},
-    menuitems = {},
-    last_pressed = false
-}
+AudioTestWindow.index_menu = 1
+AudioTestWindow.index_func = 1
+AudioTestWindow.list_func = {}
+AudioTestWindow.menuitems = {}
+AudioTestWindow.last_pressed = false
 
 --- Generates menu items for audio test.
 --- @within AudioTestWindow
