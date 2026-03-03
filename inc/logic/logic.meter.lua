@@ -117,3 +117,37 @@ function Meter.on_minigame_complete()
   m.combo = m.combo + 1
   m.combo_timer = 0
 end
+
+--- Draws meters.
+--- @within Meter
+function Meter.draw()
+  if not Context or not Context.game_in_progress or not Context.meters then return end
+  if Context.meters.hidden then return end
+
+  local m = Context.meters
+  local max = Meter.get_max()
+  local bar_w = 44
+  local bar_h = 2
+  local bar_x = 182
+  local label_x = 228
+  local line_h = 5
+  local start_y = 11
+  local bar_offset = math.floor((line_h - bar_h) / 2)
+
+  local meter_list = {
+    { key = "wpm", label = "WPM", color = Meter.COLOR_WPM, row = 0 },
+    { key = "ism", label = "ISM", color = Meter.COLOR_ISM, row = 1 },
+    { key = "bm", label = "BM", color = Meter.COLOR_BM, row = 2 },
+  }
+
+  for _, meter in ipairs(meter_list) do
+    local label_y = start_y + meter.row * line_h
+    local bar_y = label_y + bar_offset
+    local fill_w = math.max(0, math.floor((m[meter.key] / max) * bar_w))
+    rect(bar_x, bar_y, bar_w, bar_h, Meter.COLOR_BG)
+    if fill_w > 0 then
+      rect(bar_x, bar_y, fill_w, bar_h, meter.color)
+    end
+    print(meter.label, label_x, label_y, meter.color, false, 1, true)
+  end
+end
