@@ -9,15 +9,15 @@ function Config.initial_data()
       height = 136
     },
     colors = {
-      black = 2,
-      light_grey = 13,
-      dark_grey = 14,
-      red = 0,
-      light_blue = 7,
-      blue = 9,
-      white = 12,
-      item = 12,
-      meter_bg = 12
+      black = 0,
+      light_grey = 2,
+      dark_grey = 1,
+      red = 13,
+      light_blue = 9,
+      blue = 3,
+      white = 4,
+      item = 7,
+      meter_bg = 1
     },
     timing = {
       splash_duration = 120
