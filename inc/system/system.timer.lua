@@ -1,7 +1,6 @@
 --- @section Timer
 
 local timer_duration = 1800
-local timer_decay_per_revolution = 20
 
 --- Gets initial timer values.
 --- @within Timer
@@ -21,25 +20,10 @@ function Timer.set_duration(frames)
   timer_duration = frames
 end
 
---- Sets the decay amount applied to all meters per revolution.
---- @within Timer
---- @param amount number Amount to subtract from each meter.
-function Timer.set_decay(amount)
-  timer_decay_per_revolution = amount
-end
-
---- Gets the timer decay as a percentage of the max meter value.
---- @within Timer
---- @return number The decay percentage per revolution.
-function Timer.get_decay_percentage()
-  return math.floor(timer_decay_per_revolution / Meter.get_max() * 100)
-end
-
 --- Updates the timer and handles revolution events.
 --- @within Timer
 function Timer.update()
   if not Context or not Context.game_in_progress or not Context.meters or not Context.timer then return end
-  local m = Context.meters
   local t = Context.timer
   local in_minigame = string.find(Window.get_current_id(), "^minigame_") ~= nil
 
@@ -48,9 +32,6 @@ function Timer.update()
     if t.progress >= 1 then
       Day.increase()
       t.progress = t.progress - 1
-      m.ism = math.max(0, m.ism - timer_decay_per_revolution)
-      m.wpm = math.max(0, m.wpm - timer_decay_per_revolution)
-      m.bm = math.max(0, m.bm - timer_decay_per_revolution)
     end
   end
 end

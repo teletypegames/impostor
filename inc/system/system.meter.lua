@@ -2,6 +2,7 @@
 local METER_MAX = 1000
 local METER_DEFAULT = 500
 local METER_GAIN_PER_CHORE = 100
+local METER_DECAY_PER_DAY = 20
 local COMBO_BASE_BONUS = 0.02
 local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
@@ -50,6 +51,20 @@ end
 --- @return number The maximum meter value.
 function Meter.get_max()
   return METER_MAX
+end
+
+--- Sets the decay amount applied to all meters per day.
+--- @within Meter
+--- @param amount number Amount to subtract from each meter.
+function Meter.set_decay(amount)
+  METER_DECAY_PER_DAY = amount
+end
+
+--- Gets the meter decay as a percentage of the max meter value.
+--- @within Meter
+--- @return number The decay percentage per day.
+function Meter.get_decay_percentage()
+  return math.floor(METER_DECAY_PER_DAY / METER_MAX * 100)
 end
 
 --- Gets combo multiplier.

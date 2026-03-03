@@ -42,7 +42,7 @@ Screen.register({
 
     local m = Context.meters
     local max_val = Meter.get_max()
-    local decay_pct = Timer.get_decay_percentage()
+    local decay_pct = Meter.get_decay_percentage()
     local decay_text = string.format("-%d%%", decay_pct)
     local combo_mult = Meter.get_combo_multiplier()
     local combo_pct = math.floor((combo_mult - 1) * 100)
