@@ -19,7 +19,6 @@ function Audio.music_play_room_street_1() end
 --- @within Audio
 function Audio.music_play_room_street_2() end
 --- Plays room music.
--- TODO: function name is incomplete, determine the correct room identifier
 --- @within Audio
 function Audio.music_play_room_() end
 --- Plays room work music.

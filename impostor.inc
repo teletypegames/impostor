@@ -2,12 +2,14 @@ meta/meta.header.lua
 init/init.module.lua
 init/init.config.lua
 init/init.minigame.lua
-init/init.meter.lua
 init/init.context.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
-system/system.focus.lua
+logic/logic.meter.lua
+logic/logic.focus.lua
+logic/logic.day.lua
+logic/logic.timer.lua
 system/system.ui.lua
 audio/audio.manager.lua
 audio/audio.songs.lua

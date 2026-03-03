@@ -2,33 +2,16 @@
 local METER_MAX = 1000
 local METER_DEFAULT = 500
 local METER_GAIN_PER_CHORE = 100
+local METER_DECAY_PER_DAY = 20
 local COMBO_BASE_BONUS = 0.02
 local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
-
--- 1800 frames = 30 seconds (1800 ÷ 60 = 30)
-local meter_timer_duration = 1800
-local meter_timer_decay_per_revolution = 20
 
 -- Internal meters for tracking game progress and player stats.
 Meter.COLOR_ISM = Config.colors.red
 Meter.COLOR_WPM = Config.colors.blue
 Meter.COLOR_BM = Config.colors.black
 Meter.COLOR_BG = Config.colors.meter_bg
-
---- Sets the number of frames for one full timer revolution.
---- @within Meter
---- @param frames number Frames per revolution (controls degradation speed).
-function Meter.set_timer_duration(frames)
-  meter_timer_duration = frames
-end
-
---- Sets the degradation amount applied to all meters per revolution.
---- @within Meter
---- @param amount number Amount to subtract from each meter per revolution.
-function Meter.set_timer_decay(amount)
-  meter_timer_decay_per_revolution = amount
-end
 
 --- Gets initial meter values.
 --- @within Meter
@@ -39,8 +22,7 @@ end
 --- * bm (number) Initial BM meter value.<br/>
 --- * combo (number) Current combo count.<br/>
 --- * combo_timer (number) Frames since last combo action.<br/>
---- * hidden (boolean) Whether meters are hidden.<br/>
---- * timer_progress (number) Clock timer revolution progress (0 to 1).
+--- * hidden (boolean) Whether meters are hidden.
 function Meter.get_initial()
   return {
     ism = METER_DEFAULT,
@@ -49,7 +31,6 @@ function Meter.get_initial()
     combo = 0,
     combo_timer = 0,
     hidden = false,
-    timer_progress = 0,
   }
 end
 
@@ -70,6 +51,20 @@ end
 --- @return number The maximum meter value.
 function Meter.get_max()
   return METER_MAX
+end
+
+--- Sets the decay amount applied to all meters per day.
+--- @within Meter
+--- @param amount number Amount to subtract from each meter.
+function Meter.set_decay(amount)
+  METER_DECAY_PER_DAY = amount
+end
+
+--- Gets the meter decay as a percentage of the max meter value.
+--- @within Meter
+--- @return number The decay percentage per day.
+function Meter.get_decay_percentage()
+  return math.floor(METER_DECAY_PER_DAY / METER_MAX * 100)
 end
 
 --- Gets combo multiplier.
@@ -96,13 +91,6 @@ function Meter.update()
         m.combo_timer = 0
       end
     end
-    m.timer_progress = m.timer_progress + (1 / meter_timer_duration)
-    if m.timer_progress >= 1 then
-      m.timer_progress = m.timer_progress - 1
-      m.ism = math.max(0, m.ism - meter_timer_decay_per_revolution)
-      m.wpm = math.max(0, m.wpm - meter_timer_decay_per_revolution)
-      m.bm = math.max(0, m.bm - meter_timer_decay_per_revolution)
-    end
   end
 end
 
@@ -118,13 +106,6 @@ function Meter.add(key, amount)
   end
 end
 
---- Gets the timer decay as a percentage of the max meter value.
---- @within Meter
---- @return number The decay percentage per revolution (e.g. 2 means -2%).
-function Meter.get_timer_decay_percentage()
-  return math.floor(meter_timer_decay_per_revolution / METER_MAX * 100)
-end
-
 --- Called on minigame completion.
 --- @within Meter
 function Meter.on_minigame_complete()
@@ -135,4 +116,38 @@ function Meter.on_minigame_complete()
   Meter.add("bm", gain)
   m.combo = m.combo + 1
   m.combo_timer = 0
+end
+
+--- Draws meters.
+--- @within Meter
+function Meter.draw()
+  if not Context or not Context.game_in_progress or not Context.meters then return end
+  if Context.meters.hidden then return end
+
+  local m = Context.meters
+  local max = Meter.get_max()
+  local bar_w = 44
+  local bar_h = 2
+  local bar_x = 182
+  local label_x = 228
+  local line_h = 5
+  local start_y = 11
+  local bar_offset = math.floor((line_h - bar_h) / 2)
+
+  local meter_list = {
+    { key = "wpm", label = "WPM", color = Meter.COLOR_WPM, row = 0 },
+    { key = "ism", label = "ISM", color = Meter.COLOR_ISM, row = 1 },
+    { key = "bm", label = "BM", color = Meter.COLOR_BM, row = 2 },
+  }
+
+  for _, meter in ipairs(meter_list) do
+    local label_y = start_y + meter.row * line_h
+    local bar_y = label_y + bar_offset
+    local fill_w = math.max(0, math.floor((m[meter.key] / max) * bar_w))
+    rect(bar_x, bar_y, bar_w, bar_h, Meter.COLOR_BG)
+    if fill_w > 0 then
+      rect(bar_x, bar_y, fill_w, bar_h, meter.color)
+    end
+    print(meter.label, label_x, label_y, meter.color, false, 1, true)
+  end
 end
