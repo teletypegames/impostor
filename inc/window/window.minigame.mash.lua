@@ -25,6 +25,18 @@ end
 --- @within MinigameButtonMashWindow
 function MinigameButtonMashWindow.update()
   local mg = Context.minigame_button_mash
+
+  if mg.win_timer > 0 then
+    mg.win_timer = mg.win_timer - 1
+    if mg.win_timer == 0 then
+      Meter.on_minigame_complete()
+      Meter.show()
+      if mg.focus_center_x then Focus.stop() end
+      Window.set_current(mg.return_window)
+    end
+    return
+  end
+
   if Input.select() then
     mg.bar_fill = mg.bar_fill + mg.fill_per_press
     mg.button_pressed_timer = mg.button_press_duration
@@ -33,10 +45,7 @@ function MinigameButtonMashWindow.update()
     end
   end
   if mg.bar_fill >= mg.max_fill then
-    Meter.on_minigame_complete()
-    Meter.show()
-    if mg.focus_center_x then Focus.stop() end
-    Window.set_current(mg.return_window)
+    mg.win_timer = Config.timing.minigame_win_duration
     return
   end
   local degradation = mg.base_degradation + (mg.bar_fill * mg.degradation_multiplier)
@@ -86,4 +95,8 @@ function MinigameButtonMashWindow.draw()
   Print.text_center("MASH Z!", Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
   local percentage = math.floor((mg.bar_fill / mg.max_fill) * 100)
   Print.text_center(percentage .. "%", mg.bar_x + mg.bar_width / 2, mg.bar_y + 2, Config.colors.black)
+
+  if mg.win_timer > 0 then
+    Minigame.draw_win_overlay()
+  end
 end

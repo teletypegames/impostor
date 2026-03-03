@@ -20,7 +20,8 @@ function Config.initial_data()
       meter_bg = 1
     },
     timing = {
-      splash_duration = 120
+      splash_duration = 120,
+      minigame_win_duration = 180
     }
   }
 end
