@@ -27,6 +27,18 @@ end
 --- @within MinigameRhythmWindow
 function MinigameRhythmWindow.update()
   local mg = Context.minigame_rhythm
+
+  if mg.win_timer > 0 then
+    mg.win_timer = mg.win_timer - 1
+    if mg.win_timer == 0 then
+      Meter.on_minigame_complete()
+      Meter.show()
+      if mg.focus_center_x then Focus.stop() end
+      Window.set_current(mg.return_window)
+    end
+    return
+  end
+
   mg.line_position = mg.line_position + (mg.line_speed * mg.line_direction)
   if mg.line_position > 1 then
     mg.line_position = 1
@@ -57,10 +69,7 @@ function MinigameRhythmWindow.update()
     end
   end
   if mg.score >= mg.max_score then
-    Meter.on_minigame_complete()
-    Meter.show()
-    if mg.focus_center_x then Focus.stop() end
-    Window.set_current(mg.return_window)
+    mg.win_timer = Config.timing.minigame_win_duration
     return
   end
   if mg.button_pressed_timer > 0 then
@@ -107,4 +116,8 @@ function MinigameRhythmWindow.draw()
     circ(mg.button_x, mg.button_y, mg.button_size - 2, button_color)
   end
   Print.text_center("Z", mg.button_x - 2, mg.button_y - 3, button_color)
+
+  if mg.win_timer > 0 then
+    Minigame.draw_win_overlay()
+  end
 end

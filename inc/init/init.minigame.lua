@@ -78,7 +78,8 @@ function Minigame.get_default_ddr()
     current_song = nil,
     pattern_index = 1,
     use_pattern = false,
-    return_window = nil
+    return_window = nil,
+    win_timer = 0
   }
 end
 
@@ -101,6 +102,7 @@ end
 --- * button_x (number) Button indicator X position.<br/>
 --- * button_y (number) Button indicator Y position.<br/>
 --- * button_size (number) Button indicator size.<br/>
+--- * win_timer (number) Timer for the win message overlay.<br/>
 function Minigame.get_default_button_mash()
   return {
     bar_fill = 0,
@@ -120,7 +122,8 @@ function Minigame.get_default_button_mash()
     button_size = 12,
     focus_center_x = nil,
     focus_center_y = nil,
-    focus_initial_radius = 0
+    focus_initial_radius = 0,
+    win_timer = 0
   }
 end
 
@@ -150,6 +153,7 @@ end
 --- * button_size (number) Button indicator size.<br/>
 --- * press_cooldown (number) Current cooldown timer.<br/>
 --- * press_cooldown_duration (number) Frames of press cooldown.<br/>
+--- * win_timer (number) Timer for the win message overlay.<br/>
 function Minigame.get_default_rhythm()
   return {
     line_position = 0,
@@ -176,8 +180,26 @@ function Minigame.get_default_rhythm()
     press_cooldown_duration = 15,
     focus_center_x = nil,
     focus_center_y = nil,
-    focus_initial_radius = 0
+    focus_initial_radius = 0,
+    win_timer = 0
   }
+end
+
+--- Draws a unified win message overlay.
+--- @within Minigame
+function Minigame.draw_win_overlay()
+  local text = "WELL DONE!"
+  local tw = #text * 4
+  local th = 6
+  local padding = 4
+  local box_w = tw + padding * 2
+  local box_h = th + padding * 2
+  local box_x = (Config.screen.width - box_w) / 2
+  local box_y = (Config.screen.height - box_h) / 2
+
+  rect(box_x, box_y, box_w, box_h, Config.colors.dark_grey)
+  rectb(box_x, box_y, box_w, box_h, Config.colors.white)
+  Print.text_center(text, Config.screen.width / 2, box_y + padding, Config.colors.white)
 end
 
 --- Configures DDR minigame.
