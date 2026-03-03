@@ -108,18 +108,25 @@ end
 --- @within MinigameDDRWindow
 function MinigameDDRWindow.update()
   local mg = Context.minigame_ddr
+
+  if mg.win_timer > 0 then
+    mg.win_timer = mg.win_timer - 1
+    if mg.win_timer == 0 then
+      Meter.on_minigame_complete()
+      Meter.show()
+      Window.set_current(mg.return_window)
+    end
+    return
+  end
+
   if mg.bar_fill >= mg.max_fill then
-    Meter.on_minigame_complete()
-    Meter.show()
-    Window.set_current(mg.return_window)
+    mg.win_timer = Config.timing.minigame_win_duration
     return
   end
   mg.frame_counter = mg.frame_counter + 1
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
-      Meter.on_minigame_complete()
-      Meter.show()
-      Window.set_current(mg.return_window)
+      mg.win_timer = Config.timing.minigame_win_duration
       return
     end
   end
@@ -265,4 +272,7 @@ function MinigameDDRWindow.draw()
   else
     Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.blue)
   end
+if mg.win_timer > 0 then
+  Minigame.draw_win_overlay()
+end
 end
