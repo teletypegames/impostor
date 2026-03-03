@@ -8,12 +8,6 @@ function UI.draw_top_bar(title)
   Print.text(title, 3, 2, Config.colors.light_blue)
 end
 
---- Draws dialog window.
---- @within UI
-function UI.draw_dialog()
-  PopupWindow.draw()
-end
-
 --- Draws a menu.
 --- @within UI
 --- @param items table A table of menu items.<br/>
@@ -84,55 +78,6 @@ function UI.word_wrap(text, max_chars_per_line)
         return {""}
     end
     return lines
-end
-
---- Creates a numeric stepper.
---- @within UI
---- @param label string The label for the stepper.<br/>
---- @param value_getter function Function to get the current value.<br/>
---- @param value_setter function Function to set the current value.<br/>
---- @param min number The minimum value.<br/>
---- @param max number The maximum value.<br/>
---- @param step number The step increment.<br/>
---- @param[opt] format string The format string for displaying the value.<br/>
---- @return result table A numeric stepper control definition or nil. </br>
---- Fields: </br>
---- * label (string) The label for the stepper.<br/>
---- * get (function) Function to get the current value.<br/>
---- * set (function) Function to set the current value.<br/>
---- * min (number) The minimum value.<br/>
---- * max (number) The maximum value.<br/>
---- * step (number) The step increment.<br/>
---- * format (string) The format string for displaying the value.<br/>
---- * type (string) Control type identifier ("numeric_stepper").<br/>
-function UI.create_numeric_stepper(label, value_getter, value_setter, min, max, step, format)
-  return {
-    label = label,
-    get = value_getter,
-    set = value_setter,
-    min = min,
-    max = max,
-    step = step,
-    format = format or "%.1f",
-    type = "numeric_stepper"
-  }
-end
-
---- Creates an action item.
---- @within UI
---- @param label string The label for the action item.<br/>
---- @param action function The function to execute when the item is selected.<br/>
---- @return result table An action item control definition or nil. </br>
---- Fields: </br>
---- * label (string) The label for the action item.<br/>
---- * action (function) The function to execute when the item is selected.<br/>
---- * type (string) Control type identifier ("action_item").<br/>
-function UI.create_action_item(label, action)
-  return {
-    label = label,
-    action = action,
-    type = "action_item"
-  }
 end
 
 --- Draws decision selector.

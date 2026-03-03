@@ -8,14 +8,16 @@ ConfigurationWindow = {
 --- @within ConfigurationWindow
 function ConfigurationWindow.init()
   ConfigurationWindow.controls = {
-    UI.create_action_item(
-      "Save",
-      function() Config.save() end
-    ),
-    UI.create_action_item(
-      "Restore Defaults",
-      function() Config.reset() end
-    ),
+    {
+      label = "Save",
+      action = function() Config.save() end,
+      type = "action_item"
+    },
+    {
+      label = "Restore Defaults",
+      action = function() Config.reset() end,
+      type = "action_item"
+    },
   }
 end
 
