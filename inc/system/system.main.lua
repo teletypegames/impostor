@@ -23,6 +23,7 @@ function TIC()
   end
   Meter.update()
   Timer.update()
+  Trigger.update()
   if Context.game_in_progress then
     Meter.draw()
     Timer.draw()
