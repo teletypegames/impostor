@@ -9,6 +9,7 @@ logic/logic.meter.lua
 logic/logic.focus.lua
 logic/logic.day.lua
 logic/logic.timer.lua
+logic/logic.trigger.lua
 logic/logic.minigame.lua
 system/system.ui.lua
 audio/audio.manager.lua

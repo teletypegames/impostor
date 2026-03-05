@@ -18,6 +18,7 @@ Context = {}
 --- * minigame_button_mash (table) Button mash minigame state (see Minigame.get_default_button_mash).<br/>
 --- * minigame_rhythm (table) Rhythm minigame state (see Minigame.get_default_rhythm).<br/>
 --- * meters (table) Meter values (see Meter.get_initial).<br/>
+--- * triggers (table) Active trigger runtime state, keyed by trigger ID.<br/>
 --- * stat_screen_active (boolean) Whether the stat screen overlay is currently shown.<br/>
 --- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.<br/>
 function Context.initial_data()
@@ -35,6 +36,7 @@ function Context.initial_data()
     minigame_rhythm = {},
     meters = Meter.get_initial(),
     timer = Timer.get_initial(),
+    triggers = {},
     game = {
       current_screen = "home",
       current_situation = nil,

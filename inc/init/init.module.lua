@@ -14,3 +14,4 @@ Audio = {}
 Focus = {}
 Day = {}
 Timer = {}
+Trigger = {}
