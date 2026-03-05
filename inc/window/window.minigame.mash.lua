@@ -1,8 +1,41 @@
+--- Gets initial button mash minigame configuration.
+--- @within MinigameButtonMashWindow
+--- @return result table The default button mash minigame configuration.
+function MinigameButtonMashWindow.init_context()
+  return {
+    bar_fill = 0,
+    max_fill = 100,
+    fill_per_press = 8,
+    base_degradation = 0.15,
+    degradation_multiplier = 0.006,
+    button_pressed_timer = 0,
+    button_press_duration = 8,
+    return_window = nil,
+    bar_x = 20,
+    bar_y = 10,
+    bar_width = 200,
+    bar_height = 12,
+    button_x = 20,
+    button_y = 110,
+    button_size = 12,
+    focus_center_x = nil,
+    focus_center_y = nil,
+    focus_initial_radius = 0,
+    win_timer = 0
+  }
+end
+
 --- Initializes button mash minigame state.
 --- @within MinigameButtonMashWindow
 --- @param params table Optional parameters for configuration.<br/>
 function MinigameButtonMashWindow.init(params)
-  Context.minigame_button_mash = Minigame.configure_button_mash(params)
+  local defaults = MinigameButtonMashWindow.init_context()
+  if params then
+    for k, v in pairs(params) do
+      defaults[k] = v
+    end
+  end
+  Context.minigame_button_mash = defaults
 end
 
 --- Starts the button mash minigame.

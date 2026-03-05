@@ -1,10 +1,59 @@
 --- @section MinigameDDRWindow
 
+--- Gets initial DDR minigame configuration.
+--- @within MinigameDDRWindow
+--- @return result table The default DDR minigame configuration.
+function MinigameDDRWindow.init_context()
+  local arrow_size = 12
+  local arrow_spacing = 30
+  local total_width = (4 * arrow_size) + (3 * arrow_spacing)
+  local start_x = (Config.screen.width - total_width) / 2
+  return {
+    bar_fill = 0,
+    max_fill = 100,
+    fill_per_hit = 10,
+    miss_penalty = 5,
+    bar_x = 20,
+    bar_y = 10,
+    bar_width = 200,
+    bar_height = 12,
+    arrow_size = arrow_size,
+    arrow_spawn_timer = 0,
+    arrow_spawn_interval = 45,
+    arrow_fall_speed = 1.5,
+    arrows = {},
+    target_y = 115,
+    target_arrows = {
+      { dir = "left", x = start_x },
+      { dir = "down", x = start_x + arrow_size + arrow_spacing },
+      { dir = "up", x = start_x + (arrow_size + arrow_spacing) * 2 },
+      { dir = "right", x = start_x + (arrow_size + arrow_spacing) * 3 }
+    },
+    hit_threshold = 8,
+    button_pressed_timers = {},
+    button_press_duration = 8,
+    input_cooldowns = { left = 0, down = 0, up = 0, right = 0 },
+    input_cooldown_duration = 10,
+    frame_counter = 0,
+    current_song = nil,
+    pattern_index = 1,
+    use_pattern = false,
+    return_window = nil,
+    win_timer = 0
+  }
+end
+
 --- Initializes DDR minigame state.
 --- @within MinigameDDRWindow
 --- @param params table Optional parameters for configuration.<br/>
 function MinigameDDRWindow.init(params)
-  Context.minigame_ddr = Minigame.configure_ddr(params)
+  local defaults = MinigameDDRWindow.init_context()
+  if params then
+    for k, v in pairs(params) do
+      defaults[k] = v
+    end
+  end
+  Context.minigame_ddr = defaults
 end
 
 --- Starts the DDR minigame.
