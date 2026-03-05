@@ -1,10 +1,50 @@
 --- @section MinigameRhythmWindow
 
+--- Gets initial rhythm minigame configuration.
+--- @within MinigameRhythmWindow
+--- @return result table The default rhythm minigame configuration.
+function MinigameRhythmWindow.init_context()
+  return {
+    line_position = 0,
+    line_speed = 0.015,
+    line_direction = 1,
+    target_center = 0.5,
+    target_width = 0.3,
+    initial_target_width = 0.3,
+    min_target_width = 0.08,
+    target_shrink_rate = 0.9,
+    score = 0,
+    max_score = 10,
+    button_pressed_timer = 0,
+    button_press_duration = 10,
+    return_window = nil,
+    bar_x = 20,
+    bar_y = 10,
+    bar_width = 200,
+    bar_height = 12,
+    button_x = 210,
+    button_y = 110,
+    button_size = 10,
+    press_cooldown = 0,
+    press_cooldown_duration = 15,
+    focus_center_x = nil,
+    focus_center_y = nil,
+    focus_initial_radius = 0,
+    win_timer = 0
+  }
+end
+
 --- Initializes rhythm minigame state.
 --- @within MinigameRhythmWindow
 --- @param params table Optional parameters for configuration.<br/>
 function MinigameRhythmWindow.init(params)
-  Context.minigame_rhythm = Minigame.configure_rhythm(params)
+  local defaults = MinigameRhythmWindow.init_context()
+  if params then
+    for k, v in pairs(params) do
+      defaults[k] = v
+    end
+  end
+  Context.minigame_rhythm = defaults
 end
 
 --- Starts the rhythm minigame.

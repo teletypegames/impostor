@@ -30,9 +30,9 @@ function Context.initial_data()
     },
     game_in_progress = false,
     stat_screen_active = false,
-    minigame_ddr = Minigame.get_default_ddr(),
-    minigame_button_mash = Minigame.get_default_button_mash(),
-    minigame_rhythm = Minigame.get_default_rhythm(),
+    minigame_ddr = {},
+    minigame_button_mash = {},
+    minigame_rhythm = {},
     meters = Meter.get_initial(),
     timer = Timer.get_initial(),
     game = {
