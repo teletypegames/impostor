@@ -30,6 +30,7 @@ globals = {
   "MinigameButtonMashWindow",
   "MinigameRhythmWindow",
   "MinigameDDRWindow",
+  "MysteriousManWindow",
   "mset",
   "mget",
   "btnp",
