@@ -39,7 +39,8 @@ function MinigameDDRWindow.init_context()
     pattern_index = 1,
     use_pattern = false,
     return_window = nil,
-    win_timer = 0
+    win_timer = 0,
+    on_win = nil
   }
 end
 
@@ -162,8 +163,12 @@ function MinigameDDRWindow.update()
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
       Meter.on_minigame_complete()
-      Meter.show()
-      Window.set_current(mg.return_window)
+      if mg.on_win then
+        mg.on_win()
+      else
+        Meter.show()
+        Window.set_current(mg.return_window)
+      end
     end
     return
   end

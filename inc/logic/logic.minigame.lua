@@ -4,7 +4,7 @@
 --- Draws a unified win message overlay.
 --- @within Minigame
 function Minigame.draw_win_overlay()
-  local text = "WELL DONE!"
+  local text = "SUCCESS"
   local tw = #text * 4
   local th = 6
   local padding = 4
