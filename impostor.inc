@@ -25,9 +25,8 @@ decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
 decision/decision.go_to_office.lua
 decision/decision.go_to_walking_to_home.lua
-decision/decision.play_button_mash.lua
-decision/decision.play_rhythm.lua
-decision/decision.play_ddr.lua
+decision/decision.go_to_sleep.lua
+decision/decision.do_work.lua
 map/map.manager.lua
 map/map.bedroom.lua
 map/map.street.lua
@@ -38,6 +37,7 @@ screen/screen.toilet.lua
 screen/screen.walking_to_office.lua
 screen/screen.office.lua
 screen/screen.walking_to_home.lua
+screen/screen.work.lua
 window/window.manager.lua
 window/window.register.lua
 window/window.splash.lua
@@ -49,6 +49,7 @@ window/window.popup.lua
 window/window.minigame.mash.lua
 window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
+window/window.mysterious_man.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

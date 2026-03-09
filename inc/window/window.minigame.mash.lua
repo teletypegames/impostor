@@ -21,7 +21,8 @@ function MinigameButtonMashWindow.init_context()
     focus_center_x = nil,
     focus_center_y = nil,
     focus_initial_radius = 0,
-    win_timer = 0
+    win_timer = 0,
+    on_win = nil
   }
 end
 
@@ -63,9 +64,13 @@ function MinigameButtonMashWindow.update()
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
       Meter.on_minigame_complete()
-      Meter.show()
       if mg.focus_center_x then Focus.stop() end
-      Window.set_current(mg.return_window)
+      if mg.on_win then
+        mg.on_win()
+      else
+        Meter.show()
+        Window.set_current(mg.return_window)
+      end
     end
     return
   end

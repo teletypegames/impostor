@@ -4,6 +4,7 @@ Screen.register({
   decisions = {
     "go_to_toilet",
     "go_to_walking_to_office",
+    "go_to_sleep",
   },
   background = "bedroom"
 })

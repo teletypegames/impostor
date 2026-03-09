@@ -50,7 +50,7 @@ function Timer.draw()
 
   local fg_color
   if progress <= 0.25 then
-    fg_color = Config.colors.white
+    fg_color = Config.colors.dark_grey
   elseif progress <= 0.5 then
     fg_color = Config.colors.light_blue
   elseif progress <= 0.75 then
@@ -59,7 +59,7 @@ function Timer.draw()
     fg_color = Config.colors.red
   end
 
-  local bg_color = Config.colors.dark_grey
+  local bg_color = Config.colors.white
   local start_angle = -math.pi * 0.5
   local progress_angle = progress * 2 * math.pi
   local r_outer_sq = r_outer * r_outer
