@@ -10,11 +10,11 @@ local _decisions = {}
 --- @param[opt] decision.handle function Called when the decision is selected. Defaults to noop.
 function Decision.register(decision)
   if not decision or not decision.id then
-    PopupWindow.show({"Error: Invalid decision object registered (missing id)!"})
+    trace("Error: Invalid decision object registered (missing id)!")
     return
   end
   if not decision.label then
-    PopupWindow.show({"Error: Invalid decision object registered (missing label)!"})
+    trace("Error: Invalid decision object registered (missing label)!")
     return
   end
 
@@ -92,7 +92,7 @@ end
 function Decision.filter_available(decisions_list)
   local available = {}
   for _, decision in ipairs(decisions_list) do
-    if decision and decision.condition() then
+    if decision and (not decision.condition or decision.condition()) then
       table.insert(available, decision)
     end
   end
