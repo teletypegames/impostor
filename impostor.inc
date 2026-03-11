@@ -24,6 +24,7 @@ decision/decision.go_to_home.lua
 decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
 decision/decision.go_to_office.lua
+decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
@@ -40,6 +41,7 @@ screen/screen.walking_to_home.lua
 screen/screen.work.lua
 window/window.manager.lua
 window/window.register.lua
+window/window.end.lua
 window/window.splash.lua
 window/window.intro.lua
 window/window.menu.lua

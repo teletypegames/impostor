@@ -30,3 +30,6 @@ Window.register("minigame_ddr", MinigameDDRWindow)
 
 MysteriousManWindow = {}
 Window.register("mysterious_man", MysteriousManWindow)
+
+EndWindow = {}
+Window.register("end", EndWindow)

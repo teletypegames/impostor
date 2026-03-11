@@ -43,7 +43,7 @@ function Timer.draw()
   if Context.meters.hidden and not Context.stat_screen_active then return end
 
   local cx = 10
-  local cy = 20
+  local cy = 8
   local r_outer = 5
   local r_inner = 3
   local progress = Context.timer.progress

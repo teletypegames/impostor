@@ -42,6 +42,10 @@ function Context.initial_data()
       current_situation = nil,
     },
     day_count = 1,
+    _end = {
+      state = "choice",
+      selection = 1,
+    },
   }
 end
 
