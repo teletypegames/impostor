@@ -11,6 +11,7 @@ logic/logic.day.lua
 logic/logic.timer.lua
 logic/logic.trigger.lua
 logic/logic.minigame.lua
+logic/logic.glitch.lua
 system/system.ui.lua
 audio/audio.manager.lua
 audio/audio.songs.lua

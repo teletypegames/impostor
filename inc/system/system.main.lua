@@ -27,5 +27,6 @@ function TIC()
   if Context.game_in_progress then
     Meter.draw()
     Timer.draw()
+    Glitch.draw()
   end
 end
