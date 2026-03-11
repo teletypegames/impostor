@@ -42,6 +42,11 @@ function Context.initial_data()
       current_situation = nil,
     },
     day_count = 1,
+    glitch = {
+      enabled = false,
+      state = "active",
+      timer = 0,
+    },
     _end = {
       state = "choice",
       selection = 1,
