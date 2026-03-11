@@ -1,11 +1,18 @@
+--- @section Day
 local _day_increase_handlers = {}
 
+--- Increases the day count and triggers registered handlers.
+--- @within Day
 function Day.increase()
     Context.day_count = Context.day_count + 1
     for _, handler in ipairs(_day_increase_handlers) do
         handler()
     end
 end
+
+--- Registers a handler to be called when the day increases.
+--- @within Day
+--- @param handler function The function to call when the day increases.
 function Day.register_handler(handler)
     table.insert(_day_increase_handlers, handler)
 end
