@@ -6,12 +6,12 @@ local _selected_decision_index = 1
 --- @within GameWindow
 function GameWindow.draw()
   local screen = Screen.get_by_id(Context.game.current_screen)
+  if not screen then return end
   if screen.background then
     Map.draw(screen.background)
   elseif screen.background_color then
     rect(0, 0, Config.screen.width, Config.screen.height, screen.background_color)
   end
-  UI.draw_top_bar(screen.name)
   if not Context.stat_screen_active and #_available_decisions > 0 then
     Decision.draw(_available_decisions, _selected_decision_index)
   end

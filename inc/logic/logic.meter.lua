@@ -131,7 +131,9 @@ function Meter.draw()
   local bar_x = 182
   local label_x = 228
   local line_h = 5
-  local start_y = 11
+  local start_y = 1
+
+
   local bar_offset = math.floor((line_h - bar_h) / 2)
 
   local meter_list = {
