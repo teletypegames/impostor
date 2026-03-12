@@ -36,7 +36,7 @@ function Glitch.draw()
 
   -- Draw stripes only when active
   if Context.glitch.state == "active" then
-    for i = 1, 15 do
+    for _ = 1, 15 do
       local rx = math.random(0, Config.screen.width - 1)
       local ry = math.random(0, Config.screen.height - 1)
 
