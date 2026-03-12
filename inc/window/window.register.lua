@@ -33,3 +33,6 @@ Window.register("mysterious_man", MysteriousManWindow)
 
 EndWindow = {}
 Window.register("end", EndWindow)
+
+DiscussionWindow = {}
+Window.register("discussion", DiscussionWindow)

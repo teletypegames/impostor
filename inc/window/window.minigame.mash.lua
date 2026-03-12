@@ -129,7 +129,7 @@ function MinigameButtonMashWindow.draw()
   if mg.button_pressed_timer > 0 then
     circ(mg.button_x, mg.button_y, mg.button_size - 2, button_color)
   end
-  Print.text_center(" Z", mg.button_x - 2, mg.button_y - 3, Config.colors.light_grey)
+  Print.text_center("Z", mg.button_x, mg.button_y - 3, button_color)
   Print.text_center("MASH Z!", Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
   local percentage = math.floor((mg.bar_fill / mg.max_fill) * 100)
   Print.text_center(percentage .. "%", mg.bar_x + mg.bar_width / 2, mg.bar_y + 2, Config.colors.black)

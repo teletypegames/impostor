@@ -160,7 +160,7 @@ function MinigameRhythmWindow.draw()
   if mg.button_pressed_timer > 0 then
     circ(mg.button_x, mg.button_y, mg.button_size - 2, button_color)
   end
-  Print.text_center("Z", mg.button_x - 2, mg.button_y - 3, button_color)
+  Print.text_center("Z", mg.button_x, mg.button_y - 3, button_color)
 
   if mg.win_timer > 0 then
     Minigame.draw_win_overlay()

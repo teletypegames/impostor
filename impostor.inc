@@ -12,6 +12,7 @@ logic/logic.timer.lua
 logic/logic.trigger.lua
 logic/logic.minigame.lua
 logic/logic.glitch.lua
+logic/logic.discussion.lua
 system/system.ui.lua
 audio/audio.manager.lua
 audio/audio.songs.lua
@@ -29,6 +30,8 @@ decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
+decision/decision.start_discussion.lua
+discussion/discussion.sumphore.lua
 map/map.manager.lua
 map/map.bedroom.lua
 map/map.street.lua
@@ -53,6 +56,7 @@ window/window.minigame.mash.lua
 window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
 window/window.mysterious_man.lua
+window/window.discussion.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

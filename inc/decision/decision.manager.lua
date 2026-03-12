@@ -5,7 +5,7 @@ local _decisions = {}
 --- @within Decision
 --- @param decision table The decision data table.
 --- @param decision.id string Unique decision identifier.
---- @param decision.label string Display text for the decision.
+--- @param decision.label string|function Display text for the decision, or a function returning it.
 --- @param[opt] decision.condition function Returns true if decision is available. Defaults to always true.
 --- @param[opt] decision.handle function Called when the decision is selected. Defaults to noop.
 function Decision.register(decision)
@@ -28,6 +28,18 @@ function Decision.register(decision)
     trace("Warning: Overwriting decision with id: " .. decision.id)
   end
   _decisions[decision.id] = decision
+end
+
+--- Gets the display label for a decision.
+--- @within Decision
+--- @param decision table The decision data table.
+--- @return string result The resolved decision label.
+function Decision.get_label(decision)
+  if not decision then return "" end
+  if type(decision.label) == "function" then
+    return decision.label() or ""
+  end
+  return decision.label or ""
 end
 
 --- Gets a decision by ID.
@@ -109,12 +121,10 @@ function Decision.draw(decisions, selected_decision_index)
   rect(0, bar_y, Config.screen.width, bar_height, Config.colors.dark_grey)
   if #decisions > 0 then
     local selected_decision = decisions[selected_decision_index]
-    local decision_label = selected_decision.label
-    local text_width = #decision_label * 4
+    local decision_label = Decision.get_label(selected_decision)
     local text_y = bar_y + 4
-    local text_x = (Config.screen.width - text_width) / 2
     Print.text("<", 2, text_y, Config.colors.light_blue)
-    Print.text(decision_label, text_x, text_y, Config.colors.item)
+    Print.text_center(decision_label, Config.screen.width / 2, text_y, Config.colors.item)
     Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
   end
 end
