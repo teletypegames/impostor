@@ -5,7 +5,7 @@ local TEXTBOX_H = math.floor(Config.screen.height * 0.3)
 local TEXTBOX_X = math.floor((Config.screen.width - TEXTBOX_W) / 2)
 local TEXTBOX_Y = math.floor((Config.screen.height - TEXTBOX_H) / 2 - 8)
 local TEXTBOX_MAX_CHARS = 30
-local LINE_HEIGHT = 8
+local DISCUSSION_LINE_HEIGHT = 8
 local PADDING = 4
 local AUTO_SCROLL_DELAY = 12
 local AUTO_SCROLL_STEP = 1
@@ -36,10 +36,10 @@ function DiscussionWindow.draw()
     rect(0, bar_y, Config.screen.width, bar_height, Config.colors.dark_grey)
     local selected = answers[Context.discussion.selected_answer]
     local label = selected.label
-    local text_y = bar_y + 4
-    Print.text("<", 2, text_y, Config.colors.light_blue)
-    Print.text_center(label, Config.screen.width / 2, text_y, Config.colors.item)
-    Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
+    local answer_text_y = bar_y + 4
+    Print.text("<", 2, answer_text_y, Config.colors.light_blue)
+    Print.text_center(label, Config.screen.width / 2, answer_text_y, Config.colors.item)
+    Print.text(">", Config.screen.width - 6, answer_text_y, Config.colors.light_blue)
   end
 end
 
@@ -50,7 +50,7 @@ function DiscussionWindow.update()
   if not step then return end
 
   local lines = UI.word_wrap(step.question, TEXTBOX_MAX_CHARS)
-  local text_height = #lines * LINE_HEIGHT
+  local text_height = #lines * DISCUSSION_LINE_HEIGHT
   local visible_height = TEXTBOX_H - PADDING * 2
   local max_scroll = text_height - visible_height
   if max_scroll < 0 then max_scroll = 0 end
@@ -73,13 +73,13 @@ function DiscussionWindow.update()
 
   if Input.up() then
     Context.discussion.auto_scroll = false
-    Context.discussion.scroll_y = Context.discussion.scroll_y - LINE_HEIGHT
+    Context.discussion.scroll_y = Context.discussion.scroll_y - DISCUSSION_LINE_HEIGHT
     if Context.discussion.scroll_y < 0 then
       Context.discussion.scroll_y = 0
     end
   elseif Input.down() then
     Context.discussion.auto_scroll = false
-    Context.discussion.scroll_y = Context.discussion.scroll_y + LINE_HEIGHT
+    Context.discussion.scroll_y = Context.discussion.scroll_y + DISCUSSION_LINE_HEIGHT
     if Context.discussion.scroll_y > max_scroll then
       Context.discussion.scroll_y = max_scroll
     end
