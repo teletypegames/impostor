@@ -19,5 +19,5 @@ Sprite.register({
     { s = 289, x_offset = 4, y_offset = 4, flip_y = 1 },
     { s = 304, x_offset = -4, y_offset = -4, flip_y = 1 },
     { s = 305, x_offset = -4, y_offset = 4, flip_y = 1 }
-  } 
+  }
 })
