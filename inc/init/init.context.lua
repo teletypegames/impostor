@@ -51,6 +51,16 @@ function Context.initial_data()
       state = "choice",
       selection = 1,
     },
+    discussion = {
+      active = false,
+      id = nil,
+      step = 1,
+      selected_answer = 1,
+      scroll_y = 0,
+      scroll_timer = 0,
+      auto_scroll = true,
+      return_window = nil,
+    },
   }
 end
 
