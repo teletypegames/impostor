@@ -1,8 +1,8 @@
 -- title:   Definitely not an Impostor
 -- name: impostor
 -- author:  Teletype Games
--- desc:    Life of a programmer in the Vector
+-- desc:    Life of a programmer
 -- site:    https://git.teletype.hu/games/impostor
 -- license: MIT License
--- version: 0.1
+-- version: 0.8
 -- script:  lua
