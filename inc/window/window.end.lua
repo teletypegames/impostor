@@ -1,3 +1,5 @@
+--- @section EndWindow
+
 --- Draws the end screen window.
 --- @within EndWindow
 function EndWindow.draw()

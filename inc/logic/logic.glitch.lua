@@ -1,3 +1,4 @@
+--- @section Glitch
 Glitch = {}
 
 --- Shows the glitch effect.
@@ -38,13 +39,13 @@ function Glitch.draw()
     for i = 1, 15 do
       local rx = math.random(0, Config.screen.width - 1)
       local ry = math.random(0, Config.screen.height - 1)
-      
+
       -- Sample color at the random point
       local color = pix(rx, ry)
-      
+
       -- Determine random length for the stripe (2-40)
       local length = math.random(2, 40)
-      
+
       -- Draw the vertical stripe
       for sy = 0, length - 1 do
         local dy = ry + sy
