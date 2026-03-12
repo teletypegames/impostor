@@ -26,7 +26,6 @@ end
 --- @within MenuWindow
 function MenuWindow.new_game()
   Context.new_game()
-  GameWindow.set_state("game")
 end
 
 --- Loads a game from the menu.

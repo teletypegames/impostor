@@ -40,3 +40,6 @@ function Audio.sfx_success() sfx(16, 'C-7', 60) end
 --- Plays bloop sound effect.
 ---  @within Audio
 function Audio.sfx_bloop() sfx(21, 'C-3', 60) end
+--- Plays alarm sound effect.
+---  @within Audio
+function Audio.sfx_alarm() sfx(61) end

@@ -26,9 +26,13 @@ Screen.register({
 
     local sw = Config.screen.width
     local cx = sw / 2
+    local norman_x = math.floor(sw * 0.75)
+    local norman_y = math.floor(Config.screen.height * 0.75)
     local bar_w = math.floor(sw * 0.75)
     local bar_x = math.floor((sw - bar_w) / 2)
     local bar_h = 4
+
+    Sprite.draw_at("norman", norman_x, norman_y)
 
     Print.text_center("day " .. Context.day_count, cx, 10, Config.colors.white)
 

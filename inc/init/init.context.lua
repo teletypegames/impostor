@@ -37,6 +37,7 @@ function Context.initial_data()
     meters = Meter.get_initial(),
     timer = Timer.get_initial(),
     triggers = {},
+    home_norman_visible = false,
     game = {
       current_screen = "home",
       current_situation = nil,
@@ -86,6 +87,34 @@ function Context.new_game()
   Context.game_in_progress = true
   MenuWindow.refresh_menu_items()
   Screen.get_by_id(Context.game.current_screen).init()
+  MysteriousManWindow.start({
+    text = [[
+      Norman was never a bad
+      simulation engineer, but
+      we need to be careful in
+      letting him improve. We
+      need to distract him.
+    ]],
+    on_text_complete = function()
+      Audio.sfx_alarm()
+      Context.home_norman_visible = false
+      Util.go_to_screen_by_id("home")
+      MinigameButtonMashWindow.start("game", {
+        focus_center_x = (Config.screen.width / 2) - 22,
+        focus_center_y = (Config.screen.height / 2) - 18,
+        focus_initial_radius = 0,
+        target_points = 100,
+        instruction_text = "Wake up Norman!",
+        show_progress_text = false,
+        on_win = function()
+          Audio.music_play_wakingup()
+          Context.home_norman_visible = true
+          Meter.show()
+          Window.set_current("game")
+        end,
+      })
+    end,
+  })
 end
 
 --- Saves the current game state.

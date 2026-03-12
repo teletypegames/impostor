@@ -130,7 +130,9 @@ end
 function MinigameRhythmWindow.draw()
   local mg = Context.minigame_rhythm
   if mg.return_window == "game" then
-    GameWindow.draw()
+    GameWindow.draw_with_underlay(function()
+      Sprite.draw_at("sleeping_norman", (Config.screen.width / 2) - 30, (Config.screen.height / 2) - 22)
+    end)
   end
   if not mg.focus_center_x then
     rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
@@ -144,12 +146,10 @@ function MinigameRhythmWindow.draw()
   rect(target_x, mg.bar_y, target_width_pixels, mg.bar_height, Config.colors.light_blue)
   local line_x = mg.bar_x + (mg.line_position * mg.bar_width)
   rect(line_x - 1, mg.bar_y, 2, mg.bar_height, Config.colors.item)
-  local score_text = "SCORE: " .. mg.score .. " / " .. mg.max_score
-  Print.text_center(score_text, Config.screen.width / 2, mg.bar_y + mg.bar_height + 8, Config.colors.light_grey)
   Print.text_center(
-    "Press Z when line is in green!",
+    "Sleep Norman ... Sleep!",
     Config.screen.width / 2,
-    mg.bar_y + mg.bar_height + 20,
+    mg.bar_y + mg.bar_height + 14,
     Config.colors.light_grey
   )
   local button_color = Config.colors.light_grey
