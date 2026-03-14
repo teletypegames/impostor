@@ -24,6 +24,9 @@ function Audio.music_play_room_() end
 --- Plays room work music.
 --- @within Audio
 function Audio.music_play_room_work() music(0) end
+--- Plays activity work music.
+--- @within Audio
+function Audio.music_play_activity_work() music(1) end
 
 --- Plays select sound effect.
 ---  @within Audio
