@@ -5,11 +5,12 @@ local initialized_game = false
 --- @within Main
 --- @return boolean initialized_game True if game has been initialized, false otherwise.
 local function init_game()
-  if initialized_game then return end
+  if initialized_game then return false end
   Context.reset()
-  Window.set_current("splash") -- Set initial window using new manager
+  Window.set_current("intro_title") -- Set initial window using new manager
   MenuWindow.refresh_menu_items()
   initialized_game = true
+  return true
 end
 
 --- Main game loop (TIC-80 callback).
@@ -24,9 +25,9 @@ function TIC()
   Meter.update()
   Timer.update()
   Trigger.update()
+  Glitch.draw()
   if Context.game_in_progress then
     Meter.draw()
     Timer.draw()
-    Glitch.draw()
   end
 end

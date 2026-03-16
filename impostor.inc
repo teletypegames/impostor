@@ -46,8 +46,9 @@ screen/screen.work.lua
 window/window.manager.lua
 window/window.register.lua
 window/window.end.lua
-window/window.splash.lua
-window/window.intro.lua
+window/window.intro.title.lua
+window/window.intro.ttg.lua
+window/window.intro.brief.lua
 window/window.menu.lua
 window/window.configuration.lua
 window/window.audiotest.lua
