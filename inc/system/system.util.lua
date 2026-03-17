@@ -14,10 +14,14 @@ end
 --- @within Util
 --- @param screen_id string The ID of the screen to go to.<br/>
 function Util.go_to_screen_by_id(screen_id)
-  local screen = Screen.get_by_id(screen_id)
-  if screen then
+  local prev_screen = Screen.get_by_id(Context.game.current_screen)
+  local new_screen = Screen.get_by_id(screen_id)
+  if new_screen then
     Context.game.current_screen = screen_id
-    screen.init()
+    if prev_screen and prev_screen.exit then
+      prev_screen.exit()
+    end
+    new_screen.init()
   else
     PopupWindow.show({"Error: Screen '" .. screen_id .. "' not found!"})
   end
