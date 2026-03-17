@@ -22,6 +22,7 @@ globals = {
   "Meter",
   "Minigame",
   "Window",
+  "ContinuedWindow",
   "TTGIntroWindow",
   "BriefIntroWindow",
   "TitleIntroWindow",

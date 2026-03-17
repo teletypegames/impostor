@@ -74,6 +74,13 @@ function MenuWindow.audio_test()
   GameWindow.set_state("audiotest")
 end
 
+--- Opens the continued screen.
+--- @within MenuWindow
+function MenuWindow.continued()
+  ContinuedWindow.timer = 300
+  GameWindow.set_state("continued")
+end
+
 --- Refreshes menu items.
 --- @within MenuWindow
 function MenuWindow.refresh_menu_items()
@@ -87,6 +94,7 @@ function MenuWindow.refresh_menu_items()
   table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
   table.insert(_menu_items, {label = "Configuration", decision = MenuWindow.configuration})
   table.insert(_menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})
+  table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   Context.current_menu_item = 1
