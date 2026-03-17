@@ -22,6 +22,9 @@ function Screen.register(screen_data)
   if not screen_data.init then
     screen_data.init = function() end
   end
+    if not screen_data.exit then
+    screen_data.exit = function() end
+  end
   if not screen_data.update then
     screen_data.update = function() end
   end

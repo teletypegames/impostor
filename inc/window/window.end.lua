@@ -59,7 +59,7 @@ function EndWindow.update()
       else
         -- NO: increment day and go home
         Day.increase()
-        Context.game.current_screen = "home"
+        Util.go_to_screen_by_id("home")
         Window.set_current("game")
         -- Initialize home screen
         local home_screen = Screen.get_by_id("home")
