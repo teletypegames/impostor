@@ -16,3 +16,4 @@ Day = {}
 Timer = {}
 Trigger = {}
 Discussion = {}
+AsciiArt = {}

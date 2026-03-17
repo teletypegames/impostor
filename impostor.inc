@@ -5,6 +5,7 @@ init/init.context.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
+system/system.asciiart.lua
 logic/logic.meter.lua
 logic/logic.focus.lua
 logic/logic.day.lua
@@ -58,6 +59,7 @@ window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
 window/window.mysterious_man.lua
 window/window.discussion.lua
+window/window.continued.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

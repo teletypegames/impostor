@@ -39,3 +39,6 @@ Window.register("end", EndWindow)
 
 DiscussionWindow = {}
 Window.register("discussion", DiscussionWindow)
+
+ContinuedWindow = {}
+Window.register("continued", ContinuedWindow)
