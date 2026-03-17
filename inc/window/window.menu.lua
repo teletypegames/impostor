@@ -4,8 +4,15 @@ local _menu_items = {}
 --- Draws the menu window.
 --- @within MenuWindow
 function MenuWindow.draw()
-  UI.draw_top_bar("Main Menu")
-  UI.draw_menu(_menu_items, Context.current_menu_item, 108, 70)
+  UI.draw_top_bar("Definitely not an Impostor")
+
+  local menu_h = #_menu_items * 10
+  local y = 10 + (Config.screen.height - 10 - 10 - menu_h) / 2
+  UI.draw_menu(_menu_items, Context.current_menu_item, 0, y, true)
+
+  local ttg_text = "TTG"
+  local ttg_w = print(ttg_text, 0, -10, 0, false, 1, false)
+  Print.text(ttg_text, Config.screen.width - ttg_w - 5, Config.screen.height - 10, Config.colors.light_blue)
 end
 
 --- Updates the menu window logic.

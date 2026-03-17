@@ -12,9 +12,19 @@ end
 --- @within UI
 --- @param items table A table of menu items.<br/>
 --- @param selected_item number The index of the currently selected item.<br/>
---- @param x number The x-coordinate for the menu.<br/>
+--- @param x number The x-coordinate for the menu (ignored if centered is true).<br/>
 --- @param y number The y-coordinate for the menu.<br/>
-function UI.draw_menu(items, selected_item, x, y)
+--- @param[opt] centered boolean Whether to center the menu block horizontally. Defaults to false.<br/>
+function UI.draw_menu(items, selected_item, x, y, centered)
+  if centered then
+    local max_w = 0
+    for _, item in ipairs(items) do
+      local w = print(item.label, 0, -10, 0, false, 1, false)
+      if w > max_w then max_w = w end
+    end
+    x = (Config.screen.width - max_w) / 2
+  end
+
   for i, item in ipairs(items) do
     local current_y = y + (i-1)*10
     if i == selected_item then
