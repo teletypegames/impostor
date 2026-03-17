@@ -11,7 +11,6 @@ Context = {}
 --- @return result table Initial context data or nil. </br>
 --- Fields: </br>
 --- * current_menu_item (number) Index of the currently selected menu item.<br/>
---- * splash_timer (number) Remaining frames for the splash screen timer.<br/>
 --- * popup (table) Popup window state. Contains: `show` (boolean) whether popup is visible, `content` (table) array of strings to display.<br/>
 --- * game_in_progress (boolean) Whether a game is currently active.<br/>
 --- * minigame_ddr (table) DDR minigame state (see Minigame.get_default_ddr).<br/>
@@ -24,7 +23,6 @@ Context = {}
 function Context.initial_data()
   return {
     current_menu_item = 1,
-    splash_timer = Config.timing.splash_duration,
     popup = {
       show = false,
       content = {}

@@ -1,8 +1,11 @@
-SplashWindow = {}
-Window.register("splash", SplashWindow)
+TitleIntroWindow = {}
+Window.register("intro_title", TitleIntroWindow)
 
-IntroWindow = {}
-Window.register("intro", IntroWindow)
+TTGIntroWindow = {}
+Window.register("intro_ttg", TTGIntroWindow)
+
+BriefIntroWindow = {}
+Window.register("intro_brief", BriefIntroWindow)
 
 MenuWindow = {}
 Window.register("menu", MenuWindow)

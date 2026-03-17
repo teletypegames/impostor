@@ -4,7 +4,7 @@ local _windows = {}
 --- Registers a window table.
 --- @within Window
 --- @param id string The ID of the window (e.g., "splash", "menu").</br>
---- @param window_table table The actual window module table (e.g., SplashWindow).</br>
+--- @param window_table table The actual window module table (e.g., GameWindow).</br>
 function Window.register(id, window_table)
   _windows[id] = window_table
 end
