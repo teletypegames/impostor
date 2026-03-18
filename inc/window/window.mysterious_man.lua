@@ -140,7 +140,7 @@ end
 --- @within MysteriousManWindow
 function MysteriousManWindow.draw()
   rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
-  draw_the_mysterious_screen()
+  Screen.draw_the_mysterious_screen()
 
   if state == STATE_TEXT then
     local x = (Config.screen.width - 132) / 2
