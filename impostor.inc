@@ -60,6 +60,7 @@ screen/screen.walking_to_office.lua
 screen/screen.office.lua
 screen/screen.walking_to_home.lua
 screen/screen.work.lua
+screen/screen.mysterious_man.lua
 window/window.manager.lua
 window/window.register.lua
 window/window.end.lua
