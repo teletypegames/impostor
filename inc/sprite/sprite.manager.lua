@@ -50,6 +50,29 @@ function Sprite.register(sprite_data)
   _sprites[sprite_data.id] = sprite_data
 end
 
+--- Generates a sprites table for a rectangular composite sprite.
+--- @within Sprite
+--- @param width number The number of sprites wide.<br/>
+--- @param height number The number of sprites tall.<br/>
+--- @param starting_s number The sprite index of the top-left tile.<br/>
+--- @param x_base number The base x-offset for the leftmost column.<br/>
+--- @param y_base number The base y-offset for the topmost row.<br/>
+--- @param x_step number The x-offset increment per column.<br/>
+--- @param y_step number The y-offset increment per row.<br/>
+--- @return table The sprites table array.
+function Sprite.generate_table(width, height, starting_s, x_base, y_base, x_step, y_step)
+  local sprites = {}
+  for row = 0, height - 1 do
+    for col = 0, width - 1 do
+      local s = starting_s + row * 16 + col
+      local x_offset = x_base + col * x_step
+      local y_offset = y_base + row * y_step
+      table.insert(sprites, { s = s, x_offset = x_offset, y_offset = y_offset })
+    end
+  end
+  return sprites
+end
+
 --- Schedules a sprite for drawing.
 --- @within Sprite
 --- @param id string The unique identifier of the sprite.<br/>
