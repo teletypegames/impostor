@@ -81,6 +81,14 @@ function MenuWindow.continued()
   GameWindow.set_state("continued")
 end
 
+--- Opens the minigame ddr test menu.
+--- @within MenuWindow
+function MenuWindow.ddr_test()
+  AudioTestWindow.init()
+  GameWindow.set_state("minigame_ddr")
+  MinigameDDRWindow.start("menu", nil)
+end
+
 --- Refreshes menu items.
 --- @within MenuWindow
 function MenuWindow.refresh_menu_items()
@@ -95,6 +103,7 @@ function MenuWindow.refresh_menu_items()
   table.insert(_menu_items, {label = "Configuration", decision = MenuWindow.configuration})
   table.insert(_menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})
   table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
+  table.insert(_menu_items, {label = "DDR Test", decision = MenuWindow.ddr_test})
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   Context.current_menu_item = 1
