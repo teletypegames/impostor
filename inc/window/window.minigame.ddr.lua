@@ -140,16 +140,16 @@ local function draw_arrow(x, y, direction, color)
   local size = 12
   local half = size / 2
   if direction == "left" then
-    trib(x + half, y, x, y + half, x + half, y + size, color)
+    tri(x + half, y, x, y + half, x + half, y + size, color)
     rectb(x + half, y + half - 2, half, 4, color)
   elseif direction == "right" then
-    trib(x + half, y, x + size, y + half, x + half, y + size, color)
+    tri(x + half, y, x + size, y + half, x + half, y + size, color)
     rectb(x, y + half - 2, half, 4, color)
   elseif direction == "up" then
-    trib(x, y + half, x + half, y, x + size, y + half, color)
+    tri(x, y + half, x + half, y, x + size, y + half, color)
     rectb(x + half - 2, y + half, 4, half, color)
   elseif direction == "down" then
-    trib(x, y + half, x + half, y + size, x + size, y + half, color)
+    tri(x, y + half, x + half, y + size, x + size, y + half, color)
     rectb(x + half - 2, y, 4, half, color)
   end
 end
