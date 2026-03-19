@@ -18,6 +18,7 @@ globals = {
   "Input",
   "Audio",
   "AsciiArt",
+  "Ascension",
   "Config",
   "Context",
   "Meter",

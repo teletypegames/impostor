@@ -1,6 +1,7 @@
 meta/meta.header.lua
 init/init.module.lua
 init/init.config.lua
+init/init.ascension.lua
 init/init.context.lua
 system/system.util.lua
 system/system.print.lua

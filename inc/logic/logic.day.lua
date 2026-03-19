@@ -23,3 +23,9 @@ Day.register_handler(function()
     m.wpm = math.max(0, m.wpm - METER_DECAY_PER_DAY)
     m.bm = math.max(0, m.bm - METER_DECAY_PER_DAY)
 end)
+
+Day.register_handler(function()
+    if Context.day_count == 3 then
+        Ascension.increase()
+    end
+end)

@@ -30,7 +30,6 @@ function Timer.update()
   if not in_minigame then
     t.progress = t.progress + (1 / timer_duration)
     if t.progress >= 1 then
-      Day.increase()
       t.progress = t.progress - 1
     end
   end

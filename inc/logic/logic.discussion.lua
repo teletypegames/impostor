@@ -37,15 +37,18 @@ end
 --- @within Discussion
 --- @param id string The discussion ID to start.
 --- @param return_window string The window ID to return to after the discussion.
-function Discussion.start(id, return_window)
+--- @param[opt] start_step number The step index to start from (defaults to 1).
+function Discussion.start(id, return_window, start_step)
   local discussion = _discussions[id]
   if not discussion then
     trace("Error: Discussion not found: " .. tostring(id))
     return
   end
+  local step = start_step or 1
+  if not discussion.steps[step] then step = 1 end
   Context.discussion.active = true
   Context.discussion.id = id
-  Context.discussion.step = 1
+  Context.discussion.step = step
   Context.discussion.selected_answer = 1
   Context.discussion.scroll_y = 0
   Context.discussion.scroll_timer = 0

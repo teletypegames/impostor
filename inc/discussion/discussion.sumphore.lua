@@ -46,7 +46,9 @@ Discussion.register({
     {
       question = "My name is Sumphore, nice to meet you.",
       answers = {
-        { label = "Nice to meet you, Sumphore.", next_step = 5 },
+        { label = "Nice to meet you, Sumphore.", next_step = 5, on_select = function()
+          Context.have_met_sumphore = true
+        end },
       },
     },
     {

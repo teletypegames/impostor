@@ -17,3 +17,4 @@ Timer = {}
 Trigger = {}
 Discussion = {}
 AsciiArt = {}
+Ascension = {}
