@@ -6,12 +6,17 @@
         {
             "label": "Run TIC80",
             "type": "shell",
-            "command": "tic80 --fs=. impostor.lua"
+            "command": "tic80 --fs=. impostor.lua",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "Build & Run TIC80",
             "type": "shell",
-            "command": "make build && tic80 --fs=. impostor.lua",
+            "command": "make clean && make build && tic80 --fs=. impostor.lua",
             "problemMatcher": []
         },
         {

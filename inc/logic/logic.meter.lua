@@ -152,4 +152,7 @@ function Meter.draw()
     end
     print(meter.label, label_x, label_y, meter.color, false, 1, true)
   end
+
+  local ascension_y = start_y + 3 * line_h + 1
+  Ascension.draw(bar_x, ascension_y, { spacing = 5 })
 end

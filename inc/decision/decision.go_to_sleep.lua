@@ -9,7 +9,8 @@ Decision.register({
       focus_center_y = (Config.screen.height / 2) - 18,
       focus_initial_radius = 0,
       on_win = function()
-        MysteriousManWindow.start()
+        local ascended = Ascension.consume_increase()
+        MysteriousManWindow.start({ skip_text = not ascended })
       end,
     })
   end,

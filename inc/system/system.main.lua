@@ -26,8 +26,10 @@ function TIC()
   Timer.update()
   Trigger.update()
   Glitch.draw()
+  Ascension.update_fade()
   if Context.game_in_progress then
     Meter.draw()
     Timer.draw()
   end
+  Ascension.draw_flash()
 end

@@ -75,5 +75,14 @@ Screen.register({
       Print.text(decay_text, bar_x - decay_w - 4, bar_y, Config.colors.light_blue)
       Print.text(mult_text, bar_x + bar_w + 4, bar_y, Config.colors.light_blue)
     end
+
+    if Ascension.get_level() > 0 then
+      local asc_y = meter_start_y + #meter_list * 20
+      local asc_letter_y = asc_y + 10
+      local asc_spacing = 8
+      local asc_total_w = Ascension.get_level() * asc_spacing
+      local asc_x = math.floor((sw - asc_total_w) / 2)
+      Ascension.draw(asc_x, asc_letter_y, { spacing = asc_spacing })
+    end
   end,
 })
