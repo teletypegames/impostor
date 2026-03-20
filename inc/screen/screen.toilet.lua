@@ -19,6 +19,7 @@ Screen.register({
       Focus.stop()
       Context.stat_screen_active = false
       Meter.show()
+      Util.go_to_screen_by_id("home")
     end
   end,
   draw = function()

@@ -48,8 +48,9 @@ decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
-decision/decision.start_discussion.lua
+decision/decision.sumphore_discussion.lua
 discussion/discussion.sumphore.lua
+discussion/discussion.coworker.lua
 map/map.manager.lua
 map/map.bedroom.lua
 map/map.street.lua
@@ -75,7 +76,6 @@ window/window.popup.lua
 window/window.minigame.mash.lua
 window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
-window/window.mysterious_man.lua
 window/window.discussion.lua
 window/window.continued.lua
 window/window.game.lua

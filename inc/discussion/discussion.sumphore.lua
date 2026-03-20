@@ -1,5 +1,5 @@
 Discussion.register({
-  id = "sumphore_day_3",
+  id = "sumphore_disc_asc_1",
   steps = {
     {
       question = "Are you still seeking the ox?",
@@ -17,6 +17,74 @@ Discussion.register({
   },
 })
 
+Discussion.register({
+  id = "sumphore_disc_asc_2",
+  steps = {
+    {
+      question = "How's work? Your face looks strange",
+      answers = {
+        { label = "I just really need to take a break.", next_step = 2 },
+        { label = "Not sure what you mean.", next_step = nil },
+      },
+    },
+    {
+      question = "Are you seeing things?",
+      answers = {
+        { label = "How did you know ?", next_step = 3 },
+        { label = "I'm not sure what you mean.", next_step = nil },
+      },
+    },
+    {
+      question = "Come have a drink, I could tell you some stories.",
+      answers = {
+        { label = "No, drink makes you stupid and I need to be in top shape.", next_step = 4, on_select = function()
+          Meter.add("ism", 10)
+        end },
+        { label = "I could use a drink.", next_step = nil, on_select = function()
+          Meter.add("bm", 10)
+        end },
+      },
+    },
+    {
+      question = "Always trying to do the right thing, huh? What if you did the left thing instead?",
+        answers = {
+          { label = "I've never thought of that up till now.", next_step = nil, on_select = function()
+            Meter.add("ism", 5)
+          end },
+        { label = "Silly wordgames, I like them.", next_step = nil, on_select = function()
+          Meter.add("wpm", 10)
+        end },
+      },
+    },
+  },
+})
+
+Discussion.register({
+  id = "sumphore_disc_asc_3",
+  steps = {
+    {
+      question = "Do you think it's work you're doing?",
+      answers = {
+        { label = "... that sounds like it's from a movie.", next_step = 2 },
+        { label = "Are you drunk, old man?", next_step = nil },
+      },
+    },
+    {
+      question = "You might just be trying too hard, why dont you just flow for a while?",
+      answers = {
+        { label = "Flow where ?", next_step = 3 },
+        { label = "I'm not sure what you mean.", next_step = nil },
+      },
+    },
+    {
+      question = "Flow carelessly, without any effort",
+      answers = {
+        { label = "Consuming sth other than alcohol ?", next_step = nil },
+        { label = "Deja vu", next_step = nil },
+      },
+    },
+  },
+})
 
 Discussion.register({
   id = "homeless_guy",

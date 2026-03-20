@@ -21,6 +21,8 @@ Context = {}
 --- * triggers (table) Active trigger runtime state, keyed by trigger ID.<br/>
 --- * stat_screen_active (boolean) Whether the stat screen overlay is currently shown.<br/>
 --- * have_met_sumphore (boolean) Whether the player has talked to the homeless guy.<br/>
+--- * have_been_to_office (boolean) Whether the player has been to the office.<br/>
+--- * have_done_work_today (boolean) Whether the player has done work today.<br/>
 --- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.<br/>
 function Context.initial_data()
   return {
@@ -40,6 +42,9 @@ function Context.initial_data()
     timer = Timer.get_initial(),
     triggers = {},
     home_norman_visible = false,
+    have_been_to_office = false,
+    have_done_work_today = false,
+    should_ascend = false,
     have_met_sumphore = false,
     game = {
       current_screen = "home",
@@ -90,13 +95,19 @@ function Context.new_game()
   Context.game_in_progress = true
   MenuWindow.refresh_menu_items()
   Screen.get_by_id(Context.game.current_screen).init()
-  MysteriousManWindow.start({
+  MysteriousManScreen.start({
     text = [[
       Norman was never a bad
-      simulation engineer, but
-      we need to be careful in
-      letting him improve. We
-      need to distract him.
+      ...
+      simulation engineer,
+      ...
+      but
+      ...
+      we need to be careful
+      ...
+      letting him improve.
+      ...
+      We need to distract him.
     ]],
     on_text_complete = function()
       Audio.sfx_alarm()
@@ -111,7 +122,6 @@ function Context.new_game()
         show_progress_text = false,
         on_win = function()
           Audio.music_play_wakingup()
-          Context.home_norman_visible = true
           Meter.show()
           Window.set_current("game")
         end,

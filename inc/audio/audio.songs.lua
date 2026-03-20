@@ -163,21 +163,19 @@ Songs.custom_song = {
 }
 ]]
 
+--[[
 function generate_sequence(model_data, length)
   local order = model.order
   local model_data = model_data.model
 
-  -- random start key
   local model_keys = {}
   for k,_ in pairs(model) do
     model_keys[#model_keys + 1] = k
   end
   local start_key = model_keys[math.ceil(math.random() * #model_keys)]
 
-  -- sequence starts with the start key
   local seq = unmake_key(start_key)
 
-  -- generation loop
   while #seq < length do
     local current_key = table.concat({unpack(seq, #seq - order + 1, #seq)}, "|")
 
@@ -195,10 +193,9 @@ function generate_sequence(model_data, length)
       end
     end
 
---    print(current_key .. " --> " .. chosen)
-
     seq[#seq+1] = chosen
   end
 
   return seq
 end
+]]

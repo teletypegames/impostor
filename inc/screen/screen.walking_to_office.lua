@@ -4,7 +4,7 @@ Screen.register({
   decisions = {
     "go_to_home",
     "go_to_office",
-    "start_discussion",
+    "sumphore_discussion",
   },
   background = "street",
   draw = function()

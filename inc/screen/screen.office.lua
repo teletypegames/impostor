@@ -23,5 +23,6 @@ Screen.register({
       Sprite.draw_at("dev_guru",            22 * 8, 10 * 8 + 4)
       Sprite.draw_at("dev_operator",        27 * 8, 10 * 8 + 4)
     end
+    Context.have_been_to_office = true
   end
 })

@@ -40,7 +40,9 @@ function MinigameDDRWindow.init_context()
     use_pattern = false,
     return_window = nil,
     win_timer = 0,
-    on_win = nil
+    on_win = nil,
+    special_condition_met = false,
+    total_misses = 0,
   }
 end
 
@@ -162,6 +164,7 @@ function MinigameDDRWindow.update()
   if mg.win_timer > 0 then
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
+      mg.special_condition_met = (mg.total_misses == 0)
       Meter.on_minigame_complete()
       if mg.on_win then
         mg.on_win()
@@ -211,6 +214,7 @@ function MinigameDDRWindow.update()
       if mg.bar_fill < 0 then
         mg.bar_fill = 0
       end
+      mg.total_misses = mg.total_misses + 1
     end
   end
   -- iterate backwards to avoid index shift issues
@@ -254,6 +258,7 @@ function MinigameDDRWindow.update()
         if mg.bar_fill < 0 then
           mg.bar_fill = 0
         end
+        mg.total_misses = mg.total_misses + 1
       end
     end
   end
