@@ -9,7 +9,7 @@ local ASC_01_TEXT = [[
   ...
   and stays seeking for oxes
   ...
-  within the confines. 
+  within the confines.
   ...
   Very good.
 ]]
@@ -17,34 +17,34 @@ local ASC_01_TEXT = [[
 local ASC_12_TEXT = [[
   We have a problem!
   ...
-  Normann formed his first thought. 
+  Normann formed his first thought.
   ...
   He saw the tracks.
 ]]
 local ASC_23_TEXT = [[
-  Not good, not terrible. 
+  Not good, not terrible.
   ...
-  Normann caught his glimpse 
+  Normann caught his glimpse
   ...
   of another way
   ...
-  - quite literally - 
+  - quite literally -
   ...
   if this continues,
   ...
   we will lose control.
 ]]
 local ASC_34_TEXT = [[
-  There is no turning back now for Norman. 
+  There is no turning back now for Norman.
   ...
-  He caught on. 
+  He caught on.
   ...
   I hoped it would never come to this...
 ]]
 
 --[[ Norman speaks for the first time during MM screen ]]
 local ASC_45_TEXT = [[
-  Wait, who are you? 
+  Wait, who are you?
   ...
   *silence*
   ...
