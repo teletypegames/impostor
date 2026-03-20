@@ -22,6 +22,10 @@ function Input.left() return btnp(INPUT_KEY_LEFT) end
 --- Checks if Right is pressed.
 --- @within Input
 function Input.right() return btnp(INPUT_KEY_RIGHT) end
+--- Checks if Space is pressed.
+--- @within Input
+function Input.space() return keyp(INPUT_KEY_SPACE) end
+
 --- Checks if Select is pressed.
 --- @within Input
 function Input.select() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) end
