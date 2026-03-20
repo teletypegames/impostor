@@ -5,7 +5,7 @@
 --- @within Minigame
 function Minigame.draw_win_overlay()
   local text = "SUCCESS"
-  local tw = #text * 4
+  local tw = #text * 6
   local th = 6
   local padding = 4
   local box_w = tw + padding * 2
