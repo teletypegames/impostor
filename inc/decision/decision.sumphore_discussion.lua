@@ -1,5 +1,5 @@
 Decision.register({
-  id = "start_discussion",
+  id = "sumphore_discussion",
   label = function()
     if Context.have_met_sumphore then
       return "Talk to Sumphore"
@@ -9,10 +9,15 @@ Decision.register({
   handle = function()
     if not Context.have_met_sumphore then
       Discussion.start("homeless_guy", "game")
-    elseif Ascension.get_level() == 0 then
-      Discussion.start("homeless_guy", "game", 4)
+      return
+    end
+    local level = Ascension.get_level()
+
+    -- TODO: Add more discussions for levels above 3
+    if level >= 1 and level <= 3 then
+      Discussion.start("sumphore_disc_asc_" .. level, "game")
     else
-      Discussion.start("sumphore_asc_1_a", "game")
+      Discussion.start("homeless_guy", "game", 4)
     end
   end,
 })
