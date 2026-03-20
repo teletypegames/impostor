@@ -18,3 +18,4 @@ Trigger = {}
 Discussion = {}
 AsciiArt = {}
 Ascension = {}
+MysteriousManScreen = {}

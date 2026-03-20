@@ -90,7 +90,7 @@ function Context.new_game()
   Context.game_in_progress = true
   MenuWindow.refresh_menu_items()
   Screen.get_by_id(Context.game.current_screen).init()
-  MysteriousManWindow.start({
+  MysteriousManScreen.start({
     text = [[
       Norman was never a bad
       simulation engineer, but

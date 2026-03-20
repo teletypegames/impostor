@@ -10,7 +10,7 @@ Decision.register({
       focus_initial_radius = 0,
       on_win = function()
         local ascended = Ascension.consume_increase()
-        MysteriousManWindow.start({ skip_text = not ascended })
+        MysteriousManScreen.start({ skip_text = not ascended })
       end,
     })
   end,
