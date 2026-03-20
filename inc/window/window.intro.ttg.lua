@@ -1,6 +1,8 @@
 --- @section TTGIntroWindow
 TTGIntroWindow.timer = 180
 TTGIntroWindow.glitch_started = false
+TTGIntroWindow.space_count = 0
+TTGIntroWindow.space_timer = 0
 TTGIntroWindow.text = [[
 ###### ###### ######
   ##     ##   #
@@ -25,8 +27,19 @@ function TTGIntroWindow.update()
     TTGIntroWindow.glitch_started = true
   end
 
+  -- Count menu_back presses during the intro
+  if Input.menu_back() then
+    TTGIntroWindow.space_count = TTGIntroWindow.space_count + 1
+  end
+
   TTGIntroWindow.timer = TTGIntroWindow.timer - 1
-  if TTGIntroWindow.timer <= 0 or Input.select() or Input.menu_confirm() then
+  if TTGIntroWindow.timer <= 0 or Input.menu_confirm() then
+    -- Evaluate exactly 3 presses at the end of the intro
+    if TTGIntroWindow.space_count == 3 then
+      Context.test_mode = true
+      MenuWindow.refresh_menu_items()
+      Audio.sfx_success()
+    end
     Glitch.hide()
     Window.set_current("intro_brief")
   end

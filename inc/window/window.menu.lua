@@ -4,7 +4,11 @@ local _menu_items = {}
 --- Draws the menu window.
 --- @within MenuWindow
 function MenuWindow.draw()
-  UI.draw_top_bar("Definitely not an Impostor")
+  local title = "Definitely not an Impostor"
+  if Context.test_mode then
+    title = title .. " (TEST MODE)"
+  end
+  UI.draw_top_bar(title)
 
   local menu_h = #_menu_items * 10
   local y = 10 + (Config.screen.height - 10 - 10 - menu_h) / 2
@@ -101,9 +105,13 @@ function MenuWindow.refresh_menu_items()
   table.insert(_menu_items, {label = "New Game", decision = MenuWindow.new_game})
   table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
   table.insert(_menu_items, {label = "Configuration", decision = MenuWindow.configuration})
-  table.insert(_menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})
-  table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
-  table.insert(_menu_items, {label = "DDR Test", decision = MenuWindow.ddr_test})
+
+  if Context.test_mode then
+    table.insert(_menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})
+    table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
+    table.insert(_menu_items, {label = "DDR Test", decision = MenuWindow.ddr_test})
+  end
+
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   Context.current_menu_item = 1
