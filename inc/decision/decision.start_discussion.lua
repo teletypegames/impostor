@@ -12,7 +12,7 @@ Decision.register({
     elseif Ascension.get_level() == 0 then
       Discussion.start("homeless_guy", "game", 4)
     else
-      Discussion.start("sumphore_day_3", "game")
+      Discussion.start("sumphore_asc_1_a", "game")
     end
   end,
 })

@@ -1,5 +1,5 @@
 Discussion.register({
-  id = "sumphore_day_3",
+  id = "sumphore_asc_1_a",
   steps = {
     {
       question = "Are you still seeking the ox?",
@@ -12,6 +12,48 @@ Discussion.register({
       question = "Did you never think there would be more to this?",
       answers = {
         { label = "I'm not sure what you mean.", next_step = nil },
+      },
+    },
+  },
+})
+
+Discussion.register({
+  id = "sumphore_asc_1_b",
+  steps = {
+    {
+      question = "How's work? Your face looks strange",
+      answers = {
+        { label = "I just really need to take a break.", next_step = 2 },
+        { label = "Not sure what you mean.", next_step = nil },
+      },
+    },
+    {
+      question = "Are you seeing things?",
+      answers = {
+        { label = "How did you know ?", next_step = 3 },
+        { label = "I'm not sure what you mean.", next_step = nil },
+      },
+    },
+    {
+      question = "Come have a drink, I could tell you some stories.",
+      answers = {
+        { label = "No, drink makes you stupid and I need to be in top shape.", next_step = 4, on_select = function()
+          Meter.add("ism", 10)
+        end },
+        { label = "I could use a drink.", next_step = nil, on_select = function()
+          Meter.add("bm", 10)
+        end },
+      },
+    },
+    {
+      question = "Always trying to do the right thing, huh?",
+      answers = {
+        { label = "I've never thought of that up till now.", next_step = nil, on_select = function()
+          Meter.add("ism", 5)
+        end },
+        { label = "Exactly.", next_step = nil, on_select = function()
+          Meter.add("wpm", 10)
+        end },
       },
     },
   },

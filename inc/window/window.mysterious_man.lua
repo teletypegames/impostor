@@ -4,14 +4,49 @@ local STATE_TEXT = "text"
 local STATE_DAY = "day"
 local STATE_CHOICE = "choice"
 
-local DEFAULT_TEXT = [[
-Misterious man appears
-during your sleep.
+local ASC_01_TEXT = [[
+  Normann seems to be in line,
+  and stays seeking for oxes
+  within the confines. 
+  ...
+  Very good.
+]]
 
-He says nothing.
-He doesn't need to.
+local ASC_12_TEXT = [[
+  We have a problem!
+  ...
+  Normann formed his first thought. 
+  ...
+  He saw the tracks.
+]]
+local ASC_23_TEXT = [[
+  Not good, not terrible. 
+  ...
+  Normann caught his glimpse of another way
+  *quite literally*
+  ...
+  if this continues,
+  ...
+  we will lose control.
+]]
+local ASC_34_TEXT = [[
+  There is no turning back now for Norman. 
+  ...
+  He caught on. 
+  ...
+  I hoped it would never come to this...
+]]
 
-He says nothing.
+--[[ Norman speaks for the first time during MM screen ]]
+local ASC_45_TEXT = [[
+  Wait, who are you? 
+  ...
+  *silence*
+  ...
+  Why am I seeing this?
+  ...
+  *silence*
+  ...
 ]]
 
 local state = STATE_TEXT
@@ -23,7 +58,7 @@ local text_done = false
 local text_done_timer = 0
 local TEXT_DONE_HOLD_FRAMES = 120
 local selected_choice = 1
-local text = DEFAULT_TEXT
+local text = ASC_01_TEXT
 local day_text_override = nil
 local on_text_complete = nil
 local show_mysterious_screen = true
@@ -59,7 +94,7 @@ function MysteriousManWindow.start(options)
   text_done = false
   text_done_timer = 0
   selected_choice = 1
-  text = options.text or DEFAULT_TEXT
+  text = options.text or ASC_01_TEXT
   local line_count = 1
   for _ in string.gmatch(text, "\n") do line_count = line_count + 1 end
   local text_block_h = line_count * 8
