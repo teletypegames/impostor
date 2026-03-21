@@ -6,9 +6,9 @@ Decision.register({
     Util.go_to_screen_by_id("work")
     MinigameDDRWindow.start("game", nil, {
       on_win = function()
-        if (Context.minigame_ddr.special_condition_met and Context.ascension.level == 1) then
+        if (Context.minigame_ddr.special_mode_condition and Context.ascension.level == 1) then
           Context.should_ascend = true
-          Context.minigame_ddr.special_condition_met = false
+          Context.minigame_ddr.special_mode_condition = false
         end
         Meter.show()
         Util.go_to_screen_by_id("office")

@@ -9,7 +9,7 @@ function MinigameDDRWindow.init_context()
   local total_width = (4 * arrow_size) + (3 * arrow_spacing)
   local start_x = (Config.screen.width - total_width) / 2
   return {
-    special_type = "normal", -- "normal", "only_special", "only_left", "only_nothing"
+    special_mode = "normal", -- "normal", "only_special", "only_left", "only_nothing"
     bar_fill = 0,
     max_fill = 100,
     fill_per_hit = 10,
@@ -39,12 +39,88 @@ function MinigameDDRWindow.init_context()
     current_song = nil,
     pattern_index = 1,
     use_pattern = false,
+    generated_length = 60,
     return_window = nil,
     win_timer = 0,
     on_win = nil,
-    special_condition_met = false,
     total_misses = 0,
+    special_mode_condition = true,
+    special_mode_counter = 0
   }
+end
+
+function MinigameDDRWindow.prepareSong(song, generated_length, special_mode)
+    local current_song = Util.deepcopy(song)
+
+
+    if current_song.generated then
+      local pattern = musicator_generate_pattern(generated_length, current_song.bpm, current_song.spd * 4)
+      current_song.pattern = pattern
+      current_song.end_frame = pattern[#pattern].frame
+
+      if special_mode == "only_special" then
+        local cntr = 1
+        for i, v in ipairs(current_song.pattern) do
+          current_song.pattern[i].special = (i % 5 == 0)
+        end
+      elseif special_mode == "" then
+      end
+    end
+
+    return current_song
+end
+
+function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
+  local special_mode = game_context.special_mode
+
+  if special_mode == "normal" then
+    Audio.sfx_arrowhit(arrow.note)
+  elseif special_mode == "only_special" then
+    if arrow.special then
+      Audio.sfx_arrowhit(arrow.note)
+      game_context.special_mode_counter = game_context.special_mode_counter + 1
+    else
+      if game_context.special_mode_condition then Audio.sfx_bloop() end
+      game_context.special_mode_condition = false
+    end
+  elseif special_mode == "only_left" then
+    if arrow.dir == "left" then
+      Audio.sfx_arrowhit(arrow.note)
+      game_context.special_mode_counter = game_context.special_mode_counter + 1
+    else
+      if game_context.special_mode_condition then Audio.sfx_bloop() end
+      game_context.special_mode_condition = false
+    end
+  elseif special_mode == "only_nothing" then
+    if game_context.special_mode_condition then Audio.sfx_bloop() end
+    game_context.special_mode_condition = false
+  end
+end
+
+function MinigameDDRWindow.on_end(game_context)
+  game_context.win_timer = Config.timing.minigame_win_duration
+
+  local num_special = 0
+  for i,v in ipairs(game_context.current_song.pattern) do
+    if game_context.special_mode == "only_left" then
+      num_special = num_special + ((v.dir == "left" and 1) or 0)
+    else
+      num_special = num_special + ((v.special and 1) or 0)
+    end
+  end
+
+  local was_ok = true
+  if game_context.special_mode == "normal" then
+    was_ok = game_context.special_mode_counter == num_special
+  elseif game_context.special_mode == "only_special" then
+    was_ok = game_context.special_mode_counter == num_special
+  elseif game_context.special_mode == "only_left" then
+    was_ok = game_context.special_mode_counter == num_special
+  elseif game_context.special_mode == "only_nothing" then
+    -- nothing to do here :D
+  end
+
+  game_context.special_mode_condition = game_context.special_mode_condition and was_ok
 end
 
 --- Initializes DDR minigame state.
@@ -73,17 +149,16 @@ function MinigameDDRWindow.start(return_window, song_key, params)
   Context.minigame_ddr.return_window = return_window or "game"
   Context.minigame_ddr.debug_song_key = song_key
   if song_key and Songs and Songs[song_key] then
-    local current_song = Songs[song_key]
-    Context.minigame_ddr.current_song = current_song
     Context.minigame_ddr.use_pattern = true
     Context.minigame_ddr.pattern_index = 1
     Context.minigame_ddr.debug_status = "Pattern loaded: " .. song_key
 
-    if current_song.generated then
-      local pattern = musicator_generate_pattern(30, current_song.bpm, current_song.spd * 3)
-      current_song.pattern = pattern
-      current_song.end_frame = pattern[#pattern].frame
-    end
+    Context.minigame_ddr.current_song = MinigameDDRWindow.prepareSong(
+      Songs[song_key],
+      Context.minigame_ddr.generated_length,
+      Context.minigame_ddr.special_mode
+    )
+
   else
     Context.minigame_ddr.use_pattern = false
     if song_key then
@@ -117,7 +192,7 @@ end
 --- Spawns an arrow in a specific direction.
 --- @within MinigameDDRWindow
 --- @param direction string The direction of the arrow ("left", "down", "up", "right").
-local function spawn_arrow_dir(direction, note)
+local function spawn_arrow_dir(direction, note, special)
   local mg = Context.minigame_ddr
   for _, target in ipairs(mg.target_arrows) do
     if target.dir == direction then
@@ -125,7 +200,8 @@ local function spawn_arrow_dir(direction, note)
         dir = direction,
         x = target.x,
         y = mg.bar_y + mg.bar_height + 10,
-        note = note
+        note = note,
+        special = special
       })
       break
     end
@@ -183,7 +259,6 @@ function MinigameDDRWindow.update()
   if mg.win_timer > 0 then
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
-      mg.special_condition_met = (mg.total_misses == 0)
       Audio.music_stop()
       Meter.on_minigame_complete()
       if mg.on_win then
@@ -197,7 +272,7 @@ function MinigameDDRWindow.update()
   end
 
   if mg.bar_fill >= mg.max_fill then
-    mg.win_timer = Config.timing.minigame_win_duration
+    MinigameDDRWindow.on_end(mg)
     return
   end
 
@@ -205,7 +280,7 @@ function MinigameDDRWindow.update()
 
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
-      mg.win_timer = Config.timing.minigame_win_duration
+      MinigameDDRWindow.on_end(mg)
       return
     end
   end
@@ -216,7 +291,7 @@ function MinigameDDRWindow.update()
       local spawn_entry = pattern[mg.pattern_index]
 
       if mg.frame_counter >= spawn_entry.frame then
-        spawn_arrow_dir(spawn_entry.dir, spawn_entry.note)
+        spawn_arrow_dir(spawn_entry.dir, spawn_entry.note, spawn_entry.special)
         mg.pattern_index = mg.pattern_index + 1
       else
         break
@@ -275,7 +350,7 @@ function MinigameDDRWindow.update()
       local hit = false
       for i, arrow in ipairs(mg.arrows) do
         if arrow.dir == dir and check_hit(arrow) then
-          sfx(56, arrow.note)
+          MinigameDDRWindow.on_arrow_hit_special(arrow, mg)
 
           mg.bar_fill = mg.bar_fill + mg.fill_per_hit
           if mg.bar_fill > mg.max_fill then
@@ -337,7 +412,8 @@ function MinigameDDRWindow.draw()
   end
   if mg.arrows then
     for _, arrow in ipairs(mg.arrows) do
-      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.blue)
+      local arrow_color = arrow.special and Config.colors.white or Config.colors.blue
+      draw_arrow(arrow.x, arrow.y, arrow.dir, arrow_color)
     end
   end
   Print.text_center("Hit the arrows!", Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
@@ -365,6 +441,10 @@ function MinigameDDRWindow.draw()
     Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.blue)
   end
 if mg.win_timer > 0 then
-  Minigame.draw_win_overlay()
+  if mg.special_mode_condition then
+    Minigame.draw_win_overlay("SUCCESS...?")
+  else
+    Minigame.draw_win_overlay()
+  end
 end
 end
