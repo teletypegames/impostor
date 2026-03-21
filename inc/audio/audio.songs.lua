@@ -105,6 +105,15 @@ Songs = {
     fps = 60,
     end_frame = nil, -- No end frame for random mode
     pattern = {} -- Empty, will spawn randomly in game
+  },
+  generated = {
+    name = "Markov Mode",
+    bpm = 150,
+    spd = 6,
+    fps = 60,
+    end_frame = nil, -- calculated
+    pattern = {}, -- generated
+    generated = true
   }
 }
 
@@ -161,41 +170,4 @@ Songs.custom_song = {
     {5, "right"}
   }, 130)
 }
-]]
-
---[[
-function generate_sequence(model_data, length)
-  local order = model.order
-  local model_data = model_data.model
-
-  local model_keys = {}
-  for k,_ in pairs(model) do
-    model_keys[#model_keys + 1] = k
-  end
-  local start_key = model_keys[math.ceil(math.random() * #model_keys)]
-
-  local seq = unmake_key(start_key)
-
-  while #seq < length do
-    local current_key = table.concat({unpack(seq, #seq - order + 1, #seq)}, "|")
-
-    local chosen = "..."
-
-    local key_data = model[current_key]
-    if key_data then
-      local r = math.random()
-      local prob_sum = 0.0
-      for new_note, new_prob in pairs(key_data.next) do
-        prob_sum = prob_sum + new_prob
-        if prob_sum < r then
-          chosen = new_note
-        end
-      end
-    end
-
-    seq[#seq+1] = chosen
-  end
-
-  return seq
-end
 ]]

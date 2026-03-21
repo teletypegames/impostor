@@ -1,4 +1,6 @@
-{
+unpack = unpack or table.unpack
+
+musicator_markov_model = {
   model = {
     ["...|..."] = {
       next = {
@@ -640,3 +642,105 @@
   },
   order = 2
 }
+
+local function musicator_unmake_key(k)
+  local result = {}
+  for t in string.gmatch(k, "[^|]+") do
+    result[#result + 1] = t
+  end
+
+  return result
+end
+
+local function musicator_count_notes(sequence)
+  local result = 0
+
+  for i,v in ipairs(sequence) do
+    if not (v == "...") then
+      result = result + 1
+    end
+  end
+
+  return result
+end
+
+function musicator_generate_sequence(model_data, length)
+  local order = model_data.order
+  local model = model_data.model
+
+  -- random start key
+  local model_keys = {}
+  for k,_ in pairs(model) do
+    model_keys[#model_keys + 1] = k
+  end
+  local start_key = model_keys[math.ceil(math.random() * #model_keys)]
+
+  -- sequence starts with the start key
+  local seq = musicator_unmake_key(start_key)
+
+  -- generation loop
+  while musicator_count_notes(seq) < length do
+    local current_key = table.concat({unpack(seq, #seq - order + 1, #seq)}, "|")
+
+    local chosen = "..."
+
+    local key_data = model[current_key]
+    if key_data then
+      local r = math.random()
+      local prob_sum = 0.0
+      for new_note, new_prob in pairs(key_data.next) do
+        prob_sum = prob_sum + new_prob
+        if prob_sum < r then
+          chosen = new_note
+        end
+      end
+    end
+
+--    print(current_key .. " --> " .. chosen)
+
+    seq[#seq+1] = chosen
+  end
+
+  return seq
+end
+
+function musicator_row_to_frame(row, bpm, spd)
+  local frames_per_row = (150 * spd) / bpm
+  return math.floor(row * frames_per_row)
+end
+
+function musicator_note_to_direction(note)
+  local subnote = note:sub(1,1)
+
+  local mapping = {
+    C="left",
+    D="up",
+    E="up",
+    F="right",
+    G="right",
+    A="down"
+  }
+
+  return mapping[subnote] or "up"
+end
+
+-- converts generated sequence to pattern that the ddr minigame can consume
+function musicator_sequence_to_pattern(sequence, bpm, spd)
+  local result = {}
+
+  for i, note in ipairs(sequence) do
+    if not (note == "...") then
+
+      local at_ms = musicator_row_to_frame(i, bpm, spd)
+      local direction = musicator_note_to_direction(note)
+    
+      result[#result + 1] = { frame=at_ms, dir=direction, note=note }
+    end
+  end
+
+  return result
+end
+
+function musicator_generate_pattern(length, bpm, spd)
+  return musicator_sequence_to_pattern(musicator_generate_sequence(musicator_markov_model, length), bpm, spd)
+end

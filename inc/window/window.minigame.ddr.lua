@@ -9,6 +9,7 @@ function MinigameDDRWindow.init_context()
   local total_width = (4 * arrow_size) + (3 * arrow_spacing)
   local start_x = (Config.screen.width - total_width) / 2
   return {
+    special_type = "normal", -- "normal", "only_special", "only_left", "only_nothing"
     bar_fill = 0,
     max_fill = 100,
     fill_per_hit = 10,
@@ -66,13 +67,23 @@ end
 --- @param[opt] params table Optional parameters for minigame configuration.</br>
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
+
+  Audio.music_play_activity_work()
+
   Context.minigame_ddr.return_window = return_window or "game"
   Context.minigame_ddr.debug_song_key = song_key
   if song_key and Songs and Songs[song_key] then
-    Context.minigame_ddr.current_song = Songs[song_key]
+    local current_song = Songs[song_key]
+    Context.minigame_ddr.current_song = current_song
     Context.minigame_ddr.use_pattern = true
     Context.minigame_ddr.pattern_index = 1
     Context.minigame_ddr.debug_status = "Pattern loaded: " .. song_key
+
+    if current_song.generated then
+      local pattern = musicator_generate_pattern(30, current_song.bpm, current_song.spd * 3)
+      current_song.pattern = pattern
+      current_song.end_frame = pattern[#pattern].frame
+    end
   else
     Context.minigame_ddr.use_pattern = false
     if song_key then
@@ -81,12 +92,19 @@ function MinigameDDRWindow.start(return_window, song_key, params)
       Context.minigame_ddr.debug_status = "Random mode"
     end
   end
+
+  if not Context.test_mode then
+    Context.minigame_ddr.debug_status = ""
+  end
+
   Window.set_current("minigame_ddr")
 end
 
 --- Spawns a random arrow.
 --- @within MinigameDDRWindow
 local function spawn_arrow()
+  trace("random arrow")
+
   local mg = Context.minigame_ddr
   local target = mg.target_arrows[math.random(1, 4)]
   table.insert(mg.arrows, {
@@ -99,14 +117,15 @@ end
 --- Spawns an arrow in a specific direction.
 --- @within MinigameDDRWindow
 --- @param direction string The direction of the arrow ("left", "down", "up", "right").
-local function spawn_arrow_dir(direction)
+local function spawn_arrow_dir(direction, note)
   local mg = Context.minigame_ddr
   for _, target in ipairs(mg.target_arrows) do
     if target.dir == direction then
       table.insert(mg.arrows, {
         dir = direction,
         x = target.x,
-        y = mg.bar_y + mg.bar_height + 10
+        y = mg.bar_y + mg.bar_height + 10,
+        note = note
       })
       break
     end
@@ -165,6 +184,7 @@ function MinigameDDRWindow.update()
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
       mg.special_condition_met = (mg.total_misses == 0)
+      Audio.music_stop()
       Meter.on_minigame_complete()
       if mg.on_win then
         mg.on_win()
@@ -180,19 +200,23 @@ function MinigameDDRWindow.update()
     mg.win_timer = Config.timing.minigame_win_duration
     return
   end
+
   mg.frame_counter = mg.frame_counter + 1
+
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
       mg.win_timer = Config.timing.minigame_win_duration
       return
     end
   end
+
   if mg.use_pattern and mg.current_song and mg.current_song.pattern then
     local pattern = mg.current_song.pattern
     while mg.pattern_index <= #pattern do
       local spawn_entry = pattern[mg.pattern_index]
+
       if mg.frame_counter >= spawn_entry.frame then
-        spawn_arrow_dir(spawn_entry.dir)
+        spawn_arrow_dir(spawn_entry.dir, spawn_entry.note)
         mg.pattern_index = mg.pattern_index + 1
       else
         break
@@ -205,6 +229,8 @@ function MinigameDDRWindow.update()
       mg.arrow_spawn_timer = 0
     end
   end
+
+  -- move arrow downwards
   local arrows_to_remove = {}
   for i, arrow in ipairs(mg.arrows) do
     arrow.y = arrow.y + mg.arrow_fall_speed
@@ -217,26 +243,31 @@ function MinigameDDRWindow.update()
       mg.total_misses = mg.total_misses + 1
     end
   end
+
   -- iterate backwards to avoid index shift issues
   for i = #arrows_to_remove, 1, -1 do
     table.remove(mg.arrows, arrows_to_remove[i])
   end
+
   for dir, _ in pairs(mg.input_cooldowns) do
     if mg.input_cooldowns[dir] > 0 then
       mg.input_cooldowns[dir] = mg.input_cooldowns[dir] - 1
     end
   end
+
   for dir, _ in pairs(mg.button_pressed_timers) do
     if mg.button_pressed_timers[dir] > 0 then
       mg.button_pressed_timers[dir] = mg.button_pressed_timers[dir] - 1
     end
   end
+
   local input_map = {
     left = Input.left(),
     down = Input.down(),
     up = Input.up(),
     right = Input.right()
   }
+
   for dir, pressed in pairs(input_map) do
     if pressed and mg.input_cooldowns[dir] == 0 then
       mg.input_cooldowns[dir] = mg.input_cooldown_duration
@@ -244,6 +275,8 @@ function MinigameDDRWindow.update()
       local hit = false
       for i, arrow in ipairs(mg.arrows) do
         if arrow.dir == dir and check_hit(arrow) then
+          sfx(56, arrow.note)
+
           mg.bar_fill = mg.bar_fill + mg.fill_per_hit
           if mg.bar_fill > mg.max_fill then
             mg.bar_fill = mg.max_fill
