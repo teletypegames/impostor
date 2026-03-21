@@ -1,6 +1,4 @@
-unpack = unpack or table.unpack
-
-musicator_markov_model = {
+local musicator_markov_model = {
   model = {
     ["...|..."] = {
       next = {
@@ -655,7 +653,7 @@ end
 local function musicator_count_notes(sequence)
   local result = 0
 
-  for i,v in ipairs(sequence) do
+  for _,v in ipairs(sequence) do
     if not (v == "...") then
       result = result + 1
     end
@@ -664,7 +662,7 @@ local function musicator_count_notes(sequence)
   return result
 end
 
-function musicator_generate_sequence(model_data, length)
+local function musicator_generate_sequence(model_data, length)
   local order = model_data.order
   local model = model_data.model
 
@@ -704,12 +702,12 @@ function musicator_generate_sequence(model_data, length)
   return seq
 end
 
-function musicator_row_to_frame(row, bpm, spd)
+local function musicator_row_to_frame(row, bpm, spd)
   local frames_per_row = (150 * spd) / bpm
   return math.floor(row * frames_per_row)
 end
 
-function musicator_note_to_direction(note)
+local function musicator_note_to_direction(note)
   local subnote = note:sub(1,1)
 
   local mapping = {
@@ -725,7 +723,7 @@ function musicator_note_to_direction(note)
 end
 
 -- converts generated sequence to pattern that the ddr minigame can consume
-function musicator_sequence_to_pattern(sequence, bpm, spd)
+local function musicator_sequence_to_pattern(sequence, bpm, spd)
   local result = {}
 
   for i, note in ipairs(sequence) do
@@ -733,7 +731,7 @@ function musicator_sequence_to_pattern(sequence, bpm, spd)
 
       local at_ms = musicator_row_to_frame(i, bpm, spd)
       local direction = musicator_note_to_direction(note)
-    
+
       result[#result + 1] = { frame=at_ms, dir=direction, note=note }
     end
   end
@@ -741,6 +739,6 @@ function musicator_sequence_to_pattern(sequence, bpm, spd)
   return result
 end
 
-function musicator_generate_pattern(length, bpm, spd)
+local function musicator_generate_pattern(length, bpm, spd)
   return musicator_sequence_to_pattern(musicator_generate_sequence(musicator_markov_model, length), bpm, spd)
 end

@@ -60,11 +60,9 @@ function MinigameDDRWindow.prepareSong(song, generated_length, special_mode)
       current_song.end_frame = pattern[#pattern].frame
 
       if special_mode == "only_special" then
-        local cntr = 1
-        for i, v in ipairs(current_song.pattern) do
+        for i, _ in ipairs(current_song.pattern) do
           current_song.pattern[i].special = (i % 5 == 0)
         end
-      elseif special_mode == "" then
       end
     end
 
@@ -104,7 +102,7 @@ function MinigameDDRWindow.on_end(game_context)
   game_context.win_timer = Config.timing.minigame_win_duration
 
   local num_special = 0
-  for i,v in ipairs(game_context.current_song.pattern) do
+  for _,v in ipairs(game_context.current_song.pattern) do
     if game_context.special_mode == "only_left" then
       num_special = num_special + ((v.dir == "left" and 1) or 0)
     else
@@ -119,8 +117,6 @@ function MinigameDDRWindow.on_end(game_context)
     was_ok = game_context.special_mode_counter == num_special
   elseif game_context.special_mode == "only_left" then
     was_ok = game_context.special_mode_counter == num_special
-  elseif game_context.special_mode == "only_nothing" then
-    -- nothing to do here :D
   end
 
   game_context.special_mode_condition = game_context.special_mode_condition and was_ok
