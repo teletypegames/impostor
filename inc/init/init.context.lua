@@ -27,7 +27,7 @@ Context = {}
 function Context.initial_data()
   return {
     current_menu_item = 1,
-    test_mode = true,
+    test_mode = false,
     popup = {
       show = false,
       content = {}

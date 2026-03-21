@@ -39,11 +39,12 @@ function MinigameDDRWindow.init_context()
     current_song = nil,
     pattern_index = 1,
     use_pattern = false,
-    generated_length = 60,
+    generated_length = 30,
     return_window = nil,
     win_timer = 0,
     on_win = nil,
     total_misses = 0,
+    total_hits = 0,
     special_mode_condition = true,
     special_mode_counter = 0
   }
@@ -98,6 +99,8 @@ function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
 end
 
 function MinigameDDRWindow.on_end(game_context)
+  Audio.sfx_select()
+
   game_context.win_timer = Config.timing.minigame_win_duration
 
   local num_special = 0
@@ -262,7 +265,7 @@ function MinigameDDRWindow.update()
       Audio.music_stop()
       Meter.on_minigame_complete()
       if mg.on_win then
-        mg.on_win()
+        mg.on_win(mg)
       else
         Meter.show()
         Window.set_current(mg.return_window)
@@ -422,7 +425,7 @@ function MinigameDDRWindow.draw()
     Print.text_center(mg.debug_status, Config.screen.width / 2, debug_y, Config.colors.item)
     debug_y = debug_y + 10
   end
-  if mg.use_pattern then
+  if mg.use_pattern and Context.test_mode then
     Print.text_center(
       "PATTERN MODE - Frame:" .. mg.frame_counter,
       Config.screen.width / 2,
@@ -437,12 +440,14 @@ function MinigameDDRWindow.draw()
         Config.colors.light_blue
       )
     end
-  else
+  elseif Context.test_mode then
     Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.blue)
   end
 if mg.win_timer > 0 then
   if mg.special_mode_condition then
     Minigame.draw_win_overlay("SUCCESS...?")
+  elseif mg.total_hits < 10 then
+    Minigame.draw_win_overlay("MEH...")
   else
     Minigame.draw_win_overlay()
   end

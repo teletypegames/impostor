@@ -191,6 +191,12 @@ Screen.register({
   name = "Mysterious Man",
   decisions = {},
   background_color = Config.colors.black,
+  init = function()
+    Audio.music_play_mystery()
+  end,
+  exit = function()
+    Audio.music_stop()
+  end,
   update = function()
     if state == STATE_TEXT then
       if not text_done then
