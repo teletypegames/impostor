@@ -4,3 +4,5 @@ impostor.original.lua
 prompts
 docs
 minify.lua
+*.tic
+*.zip
