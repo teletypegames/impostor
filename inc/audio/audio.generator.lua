@@ -1,4 +1,4 @@
-local unpack = unpack or table.unpack
+local unpack = unpack or table.unpack -- luacheck: ignore
 
 local musicator_markov_model = {
   model = {
