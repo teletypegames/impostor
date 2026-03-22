@@ -6,6 +6,7 @@ Screen.register({
   },
   background = "bedroom",
   init = function()
+    Audio.music_play_mystery()
     Context.stat_screen_active = true
     Meter.hide()
     local cx = Config.screen.width * 0.75
@@ -19,6 +20,7 @@ Screen.register({
       Focus.stop()
       Context.stat_screen_active = false
       Meter.show()
+      Util.go_to_screen_by_id("home")
     end
   end,
   draw = function()

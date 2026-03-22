@@ -4,8 +4,11 @@ Screen.register({
   decisions = {
     "go_to_home",
     "go_to_office",
-    "start_discussion",
+    "sumphore_discussion",
   },
+  init = function()
+    Audio.music_play_room_work()
+  end,
   background = "street",
   draw = function()
     if Window.get_current_id() == "game" then

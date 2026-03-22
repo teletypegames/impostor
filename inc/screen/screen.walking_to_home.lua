@@ -5,6 +5,9 @@ Screen.register({
     "go_to_home",
     "go_to_office",
   },
+  init = function()
+    Audio.music_play_room_work()
+  end,
   background = "street",
   draw = function()
     if Window.get_current_id() == "game" then

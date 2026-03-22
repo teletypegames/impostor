@@ -1,6 +1,6 @@
 --- @section BriefIntroWindow
 BriefIntroWindow.y = Config.screen.height
-BriefIntroWindow.speed = 0.5
+BriefIntroWindow.speed = 30 -- pixels per second
 BriefIntroWindow.text = [[
 Norman Reds’ everyday life
 seems ordinary: work,
@@ -24,7 +24,7 @@ end
 --- Updates the brief intro window logic.
 --- @within BriefIntroWindow
 function BriefIntroWindow.update()
-  BriefIntroWindow.y = BriefIntroWindow.y - BriefIntroWindow.speed
+  BriefIntroWindow.y = BriefIntroWindow.y - (BriefIntroWindow.speed * Context.delta_time)
 
   local lines = 1
   for _ in string.gmatch(BriefIntroWindow.text, "\n") do

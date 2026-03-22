@@ -40,3 +40,30 @@ function Util.contains(t, value)
   end
   return false
 end
+
+--- Deep copies tables
+--- @within Util
+--- @param orig any The value to deep copy.
+--- @param seen any Used for recursive calls to handle loops
+--- @return any any The copied object
+function Util.deepcopy(orig, seen)
+  if type(orig) ~= "table" then
+    return orig
+  end
+
+  if seen and seen[orig] then
+    return seen[orig]  -- handle cycles / shared refs
+  end
+
+  local copy = {}
+  seen = seen or {}
+  seen[orig] = copy
+
+  for k, v in pairs(orig) do
+    local new_k = Util.deepcopy(k, seen)
+    local new_v = Util.deepcopy(v, seen)
+    copy[new_k] = new_v
+  end
+
+  return setmetatable(copy, getmetatable(orig))
+end

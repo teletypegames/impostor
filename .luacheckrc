@@ -36,7 +36,7 @@ globals = {
   "MinigameButtonMashWindow",
   "MinigameRhythmWindow",
   "MinigameDDRWindow",
-  "MysteriousManWindow",
+  "MysteriousManScreen",
   "DiscussionWindow",
   "EndWindow",
   "mset",
@@ -64,6 +64,8 @@ globals = {
   "index_menu",
   "Map",
   "map",
+  "time",
+  "RLE",
 }
 
 

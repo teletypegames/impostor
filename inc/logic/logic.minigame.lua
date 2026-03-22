@@ -3,8 +3,8 @@
 
 --- Draws a unified win message overlay.
 --- @within Minigame
-function Minigame.draw_win_overlay()
-  local text = "SUCCESS"
+function Minigame.draw_win_overlay(win_text)
+  local text = win_text or "SUCCESS"
   local tw = #text * 6
   local th = 6
   local padding = 4

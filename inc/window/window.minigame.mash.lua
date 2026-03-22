@@ -70,6 +70,9 @@ function MinigameButtonMashWindow.update()
     if mg.win_timer == 0 then
       Meter.on_minigame_complete()
       if mg.focus_center_x then Focus.stop() end
+      Context.home_norman_visible = true
+      Context.have_done_work_today = false
+      Context.have_been_to_office = false
       if mg.on_win then
         mg.on_win()
       else
@@ -81,6 +84,8 @@ function MinigameButtonMashWindow.update()
   end
 
   if Input.select() then
+    Audio.sfx_drum_high()
+
     mg.bar_fill = mg.bar_fill + mg.fill_per_press
     mg.button_pressed_timer = mg.button_press_duration
     if mg.bar_fill > mg.target_points then
@@ -88,6 +93,7 @@ function MinigameButtonMashWindow.update()
     end
   end
   if mg.bar_fill >= mg.target_points then
+    Audio.sfx_select()
     mg.win_timer = Config.timing.minigame_win_duration
     return
   end

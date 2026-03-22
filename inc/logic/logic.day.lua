@@ -5,6 +5,9 @@ local _day_increase_handlers = {}
 --- @within Day
 function Day.increase()
     Context.day_count = Context.day_count + 1
+    if Context.day_count == 3 then
+        Context.should_ascend = true
+    end
     for _, handler in ipairs(_day_increase_handlers) do
         handler()
     end
@@ -25,7 +28,8 @@ Day.register_handler(function()
 end)
 
 Day.register_handler(function()
-    if Context.day_count == 3 then
+    if Context.should_ascend then
         Ascension.increase()
     end
+    Context.should_ascend = false
 end)

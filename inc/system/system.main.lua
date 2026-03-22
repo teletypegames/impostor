@@ -17,6 +17,15 @@ end
 --- @within Main
 function TIC()
   init_game()
+
+  local now = time()
+  if Context.last_frame_time == 0 then
+    Context.delta_time = 0
+  else
+    Context.delta_time = (now - Context.last_frame_time) / 1000
+  end
+  Context.last_frame_time = now
+
   cls(Config.colors.black)
   local handler = Window.get_current_handler() -- Get handler from Window manager
   if handler then

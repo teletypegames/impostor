@@ -1,5 +1,15 @@
 --- @section MinigameDDRWindow
 
+--- Background drawing for DDR minigame.
+--- @witin MinigameDDRWindow
+function MinigameDDRWindow.draw_background()
+  local img_values = {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1}
+  local img_runs = {809,40,5,26,178,42,4,7,30,10,127,103,11,1,116,124,116,124,115,18,60,47,115,10,105,10,115,9,108,9,114,9,108,9,114,9,108,9,114,9,33,31,44,9,114,9,34,28,46,9,114,9,108,9,114,9,108,9,114,9,108,9,114,9,108,9,114,9,109,8,114,9,109,8,114,9,109,9,112,10,105,1,3,9,111,11,104,2,3,9,111,11,101,5,3,9,111,11,101,5,3,9,111,9,103,5,3,9,111,9,99,1,2,6,3,9,111,9,99,1,2,8,1,9,111,9,3,1,88,1,3,1,2,11,1,9,111,9,3,1,88,1,3,14,1,9,111,9,3,1,88,1,3,1,2,11,1,9,111,9,3,1,88,1,5,12,1,9,111,9,3,1,88,1,3,14,1,9,111,9,3,1,88,3,1,1,2,11,1,9,111,9,3,1,88,3,1,14,1,9,111,9,3,1,88,3,2,13,2,8,111,9,3,1,88,3,3,12,3,8,110,9,3,1,88,3,3,12,3,9,109,9,3,1,88,3,1,14,3,9,109,9,3,1,90,1,1,7,3,4,3,9,109,9,3,1,90,1,1,5,6,3,3,9,108,10,3,1,44,1,4,1,40,1,1,5,7,2,3,9,108,10,3,1,44,1,4,1,38,3,1,5,7,3,2,9,108,10,3,1,48,1,39,3,1,5,7,2,3,9,108,10,3,1,88,3,1,5,6,3,3,9,108,10,3,1,32,5,4,4,3,2,38,3,1,15,2,9,108,10,3,1,41,5,2,2,2,4,32,3,1,15,2,9,108,10,2,2,41,9,2,5,3,1,3,1,23,3,1,9,1,5,2,9,108,10,2,2,41,12,35,3,1,7,4,4,2,9,108,10,2,2,32,26,30,3,1,5,7,3,2,9,108,10,2,2,36,21,31,9,7,3,2,9,108,10,2,2,35,23,30,10,6,3,2,9,108,10,2,2,35,23,30,11,4,4,2,9,108,10,2,2,34,24,30,19,2,9,108,10,2,2,33,25,30,19,2,9,108,10,2,2,32,28,28,19,2,9,108,10,2,2,32,30,26,19,2,9,108,10,2,2,33,31,24,19,2,9,108,10,2,4,37,17,32,19,2,10,107,10,2,5,85,19,2,10,107,10,2,109,2,10,107,12,1,107,3,10,107,133,107,133,107,133,107,133,107,133,107,133,107,133,118,111,129,6,63,3,28,10,121,13,98,6,142,7,76,6,129,10,13,5,77,15,109,4,31,4,78,4,24,7,75,173,66,176,64,177,62,178,62,178,62,56,31,2,7,2,2,3,2,1,2,1,61,8,62,56,114,8,62,56,114,8,62,56,114,8,62,56,114,8,62,9,8,39,114,9,61,8,9,39,114,9,61,8,9,39,114,9,61,8,9,39,114,9,61,8,9,39,114,9,61,8,9,39,114,9,61,8,9,39,115,8,61,8,8,40,115,8,61,56,115,8,61,13,2,1,1,1,1,16,1,1,2,17,115,8,61,13,2,1,1,1,2,1,1,10,2,1,1,1,2,1,2,7,1,6,115,8,60,14,2,1,1,1,5,9,2,1,1,1,2,1,2,6,2,6,115,8,59,15,2,1,1,1,5,9,2,1,1,1,2,1,2,6,2,6,115,8,59,15,2,1,1,1,6,8,2,1,1,1,2,1,2,14,115,8,59,6,1,11,1,1,7,10,1,1,2,1,2,14,115,8,59,6,1,11,1,1,7,10,1,1,2,1,2,1,1,12,115,9,58,6,1,1,2,10,9,8,1,1,2,1,2,1,1,12,115,9,58,6,1,1,2,8,1,1,9,8,1,1,2,1,2,1,1,11,116,9,58,6,1,1,2,1,2,7,9,8,1,1,2,1,2,1,1,11,116,9,58,6,1,1,2,1,2,7,9,10,2,1,2,1,1,11,116,9,58,57,116,9,58,58,115,9,102,13,116,9,58,48,2,10,1,3,22,84,5,7,58,158,7,5,6,6,75,3,7,2,7,1,7,2,6,1,6,2,6,2,4,4,6,2,6,1,6,2,6,3,6,1,6,5,7,8,7,9,11,1,9,2,50,1,22,1,14,5,3,5,3,4,3,6,3,5,2,16,2,5,3,14,2,6,2,6,5,5,11,4,30,1,50,1,37,6,3,5,3,5,2,6,3,5,3,6,1,7,2,6,2,15,2,6,2,5,6,5,12,1,15,1,106,93,2,8,10,5,2,6,2,5,4,4,100,7,3,13,2,65,3,8,3,5,2,5,4,4,3,5,4,4,100,94,2,5,3,5,4,4,6,5,2,5,105,86,2,13,3,5,4,4,6,5,2,1,1,3,102,4,2,24,2,62,1,1,2,7,3,5,4,5,4,5,2,8,4,2,92,5,2,24,2,61,5,5,7,2,5,6,3,4,3,7,102,88,6,7,12,8,6,1,3,7,103,87,6,7,11,9,6,1,3,7,110,1,9,9,5,1,2,1,3,47,162,1,10,6,27,34,162,1,10,6,27,34,97,3,57,14,2,7,26,66,9,33,5,2,17,223,17,223,18,222,47,193,53,1,3,163,19,1,85,109,14,29,36,151,784}
+  -- pal = {220,220,220,90,90,90}
+  -- pal = dcdcdc5a5a5a
+  RLE.draw(img_values, img_runs)
+end
+
 --- Gets initial DDR minigame configuration.
 --- @within MinigameDDRWindow
 --- @return result table The default DDR minigame configuration.
@@ -9,6 +19,7 @@ function MinigameDDRWindow.init_context()
   local total_width = (4 * arrow_size) + (3 * arrow_spacing)
   local start_x = (Config.screen.width - total_width) / 2
   return {
+    special_mode = "normal", -- "normal", "only_special", "only_left", "only_nothing"
     bar_fill = 0,
     max_fill = 100,
     fill_per_hit = 10,
@@ -38,10 +49,90 @@ function MinigameDDRWindow.init_context()
     current_song = nil,
     pattern_index = 1,
     use_pattern = false,
+    generated_length = 30,
     return_window = nil,
     win_timer = 0,
-    on_win = nil
+    on_win = nil,
+    total_misses = 0,
+    total_hits = 0,
+    special_mode_condition = true,
+    special_mode_counter = 0
   }
+end
+
+function MinigameDDRWindow.prepareSong(song, generated_length, special_mode)
+    local current_song = Util.deepcopy(song)
+
+
+    if current_song.generated then
+      local pattern = musicator_generate_pattern(generated_length, current_song.bpm, current_song.spd * 4)
+      current_song.pattern = pattern
+      current_song.end_frame = pattern[#pattern].frame
+
+      if special_mode == "only_special" then
+        for i, _ in ipairs(current_song.pattern) do
+          current_song.pattern[i].special = (i % 5 == 0)
+        end
+      end
+    end
+
+    return current_song
+end
+
+function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
+  local special_mode = game_context.special_mode
+
+  if special_mode == "normal" then
+    Audio.sfx_arrowhit(arrow.note)
+  elseif special_mode == "only_special" then
+    if arrow.special then
+      Audio.sfx_arrowhit(arrow.note)
+      game_context.special_mode_counter = game_context.special_mode_counter + 1
+    else
+      if game_context.special_mode_condition then Audio.sfx_bloop() end
+      game_context.special_mode_condition = false
+    end
+  elseif special_mode == "only_left" then
+    if arrow.dir == "left" then
+      Audio.sfx_arrowhit(arrow.note)
+      game_context.special_mode_counter = game_context.special_mode_counter + 1
+      if game_context.max_fill <= game_context.bar_fill + game_context.fill_per_hit then
+        game_context.bar_fill = game_context.bar_fill - game_context.fill_per_hit
+      end
+    else
+      if game_context.special_mode_condition then Audio.sfx_bloop() end
+      game_context.special_mode_condition = false
+    end
+  elseif special_mode == "only_nothing" then
+    if game_context.special_mode_condition then Audio.sfx_bloop() end
+    game_context.special_mode_condition = false
+  end
+end
+
+function MinigameDDRWindow.on_end(game_context)
+  Audio.sfx_select()
+
+  game_context.win_timer = Config.timing.minigame_win_duration
+
+  local num_special = 0
+  for _,v in ipairs(game_context.current_song.pattern) do
+    if game_context.special_mode == "only_left" then
+      num_special = num_special + ((v.dir == "left" and 1) or 0)
+    else
+      num_special = num_special + ((v.special and 1) or 0)
+    end
+  end
+
+  local was_ok = true
+  if game_context.special_mode == "normal" then
+    was_ok = game_context.special_mode_counter == num_special
+  elseif game_context.special_mode == "only_special" then
+    was_ok = game_context.special_mode_counter == num_special
+  elseif game_context.special_mode == "only_left" then
+    was_ok = game_context.special_mode_counter == num_special
+  end
+
+  game_context.special_mode_condition = game_context.special_mode_condition and was_ok
 end
 
 --- Initializes DDR minigame state.
@@ -64,13 +155,22 @@ end
 --- @param[opt] params table Optional parameters for minigame configuration.</br>
 function MinigameDDRWindow.start(return_window, song_key, params)
   MinigameDDRWindow.init(params)
+
+  Audio.music_play_activity_work()
+
   Context.minigame_ddr.return_window = return_window or "game"
   Context.minigame_ddr.debug_song_key = song_key
   if song_key and Songs and Songs[song_key] then
-    Context.minigame_ddr.current_song = Songs[song_key]
     Context.minigame_ddr.use_pattern = true
     Context.minigame_ddr.pattern_index = 1
     Context.minigame_ddr.debug_status = "Pattern loaded: " .. song_key
+
+    Context.minigame_ddr.current_song = MinigameDDRWindow.prepareSong(
+      Songs[song_key],
+      Context.minigame_ddr.generated_length,
+      Context.minigame_ddr.special_mode
+    )
+
   else
     Context.minigame_ddr.use_pattern = false
     if song_key then
@@ -79,12 +179,19 @@ function MinigameDDRWindow.start(return_window, song_key, params)
       Context.minigame_ddr.debug_status = "Random mode"
     end
   end
+
+  if not Context.test_mode then
+    Context.minigame_ddr.debug_status = ""
+  end
+
   Window.set_current("minigame_ddr")
 end
 
 --- Spawns a random arrow.
 --- @within MinigameDDRWindow
 local function spawn_arrow()
+  trace("random arrow")
+
   local mg = Context.minigame_ddr
   local target = mg.target_arrows[math.random(1, 4)]
   table.insert(mg.arrows, {
@@ -97,14 +204,16 @@ end
 --- Spawns an arrow in a specific direction.
 --- @within MinigameDDRWindow
 --- @param direction string The direction of the arrow ("left", "down", "up", "right").
-local function spawn_arrow_dir(direction)
+local function spawn_arrow_dir(direction, note, special)
   local mg = Context.minigame_ddr
   for _, target in ipairs(mg.target_arrows) do
     if target.dir == direction then
       table.insert(mg.arrows, {
         dir = direction,
         x = target.x,
-        y = mg.bar_y + mg.bar_height + 10
+        y = mg.bar_y + mg.bar_height + 10,
+        note = note,
+        special = special
       })
       break
     end
@@ -162,9 +271,10 @@ function MinigameDDRWindow.update()
   if mg.win_timer > 0 then
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
+      Audio.music_stop()
       Meter.on_minigame_complete()
       if mg.on_win then
-        mg.on_win()
+        mg.on_win(mg)
       else
         Meter.show()
         Window.set_current(mg.return_window)
@@ -174,22 +284,26 @@ function MinigameDDRWindow.update()
   end
 
   if mg.bar_fill >= mg.max_fill then
-    mg.win_timer = Config.timing.minigame_win_duration
+    MinigameDDRWindow.on_end(mg)
     return
   end
+
   mg.frame_counter = mg.frame_counter + 1
+
   if mg.use_pattern and mg.current_song and mg.current_song.end_frame then
     if mg.frame_counter > mg.current_song.end_frame and #mg.arrows == 0 then
-      mg.win_timer = Config.timing.minigame_win_duration
+      MinigameDDRWindow.on_end(mg)
       return
     end
   end
+
   if mg.use_pattern and mg.current_song and mg.current_song.pattern then
     local pattern = mg.current_song.pattern
     while mg.pattern_index <= #pattern do
       local spawn_entry = pattern[mg.pattern_index]
+
       if mg.frame_counter >= spawn_entry.frame then
-        spawn_arrow_dir(spawn_entry.dir)
+        spawn_arrow_dir(spawn_entry.dir, spawn_entry.note, spawn_entry.special)
         mg.pattern_index = mg.pattern_index + 1
       else
         break
@@ -202,6 +316,8 @@ function MinigameDDRWindow.update()
       mg.arrow_spawn_timer = 0
     end
   end
+
+  -- move arrow downwards
   local arrows_to_remove = {}
   for i, arrow in ipairs(mg.arrows) do
     arrow.y = arrow.y + mg.arrow_fall_speed
@@ -211,28 +327,34 @@ function MinigameDDRWindow.update()
       if mg.bar_fill < 0 then
         mg.bar_fill = 0
       end
+      mg.total_misses = mg.total_misses + 1
     end
   end
+
   -- iterate backwards to avoid index shift issues
   for i = #arrows_to_remove, 1, -1 do
     table.remove(mg.arrows, arrows_to_remove[i])
   end
+
   for dir, _ in pairs(mg.input_cooldowns) do
     if mg.input_cooldowns[dir] > 0 then
       mg.input_cooldowns[dir] = mg.input_cooldowns[dir] - 1
     end
   end
+
   for dir, _ in pairs(mg.button_pressed_timers) do
     if mg.button_pressed_timers[dir] > 0 then
       mg.button_pressed_timers[dir] = mg.button_pressed_timers[dir] - 1
     end
   end
+
   local input_map = {
     left = Input.left(),
     down = Input.down(),
     up = Input.up(),
     right = Input.right()
   }
+
   for dir, pressed in pairs(input_map) do
     if pressed and mg.input_cooldowns[dir] == 0 then
       mg.input_cooldowns[dir] = mg.input_cooldown_duration
@@ -240,6 +362,8 @@ function MinigameDDRWindow.update()
       local hit = false
       for i, arrow in ipairs(mg.arrows) do
         if arrow.dir == dir and check_hit(arrow) then
+          MinigameDDRWindow.on_arrow_hit_special(arrow, mg)
+
           mg.bar_fill = mg.bar_fill + mg.fill_per_hit
           if mg.bar_fill > mg.max_fill then
             mg.bar_fill = mg.max_fill
@@ -254,6 +378,7 @@ function MinigameDDRWindow.update()
         if mg.bar_fill < 0 then
           mg.bar_fill = 0
         end
+        mg.total_misses = mg.total_misses + 1
       end
     end
   end
@@ -272,13 +397,14 @@ function MinigameDDRWindow.draw()
     end
     return
   end
-  if mg.return_window == "game" then
-    GameWindow.draw()
-  end
+  -- if mg.return_window == "game" then
+  --   GameWindow.draw()
+  -- end
   rect(0, 0, Config.screen.width, Config.screen.height, Config.colors.black)
   rect(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.light_grey)
   rectb(mg.bar_x - 2, mg.bar_y - 2, mg.bar_width + 4, mg.bar_height + 4, Config.colors.dark_grey)
   local fill_width = (mg.bar_fill / mg.max_fill) * mg.bar_width
+  MinigameDDRWindow.draw_background()
   if fill_width > 0 then
     local bar_color = Config.colors.light_blue
     if mg.bar_fill > 66 then
@@ -299,7 +425,8 @@ function MinigameDDRWindow.draw()
   end
   if mg.arrows then
     for _, arrow in ipairs(mg.arrows) do
-      draw_arrow(arrow.x, arrow.y, arrow.dir, Config.colors.blue)
+      local arrow_color = arrow.special and Config.colors.white or Config.colors.blue
+      draw_arrow(arrow.x, arrow.y, arrow.dir, arrow_color)
     end
   end
   Print.text_center("Hit the arrows!", Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
@@ -308,7 +435,7 @@ function MinigameDDRWindow.draw()
     Print.text_center(mg.debug_status, Config.screen.width / 2, debug_y, Config.colors.item)
     debug_y = debug_y + 10
   end
-  if mg.use_pattern then
+  if mg.use_pattern and Context.test_mode then
     Print.text_center(
       "PATTERN MODE - Frame:" .. mg.frame_counter,
       Config.screen.width / 2,
@@ -323,10 +450,16 @@ function MinigameDDRWindow.draw()
         Config.colors.light_blue
       )
     end
-  else
+  elseif Context.test_mode then
     Print.text_center("RANDOM MODE", Config.screen.width / 2, debug_y, Config.colors.blue)
   end
 if mg.win_timer > 0 then
-  Minigame.draw_win_overlay()
+  if mg.special_mode_condition then
+    Minigame.draw_win_overlay("SUCCESS...?")
+  elseif mg.total_hits < 10 then
+    Minigame.draw_win_overlay("MEH...")
+  else
+    Minigame.draw_win_overlay()
+  end
 end
 end

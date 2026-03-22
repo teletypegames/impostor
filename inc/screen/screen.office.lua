@@ -9,6 +9,9 @@ Screen.register({
   situations = {
     "drink_coffee",
   },
+  init = function()
+    Audio.music_play_room_work()
+  end,
   background = "office",
   draw = function()
     if Window.get_current_id() == "game" then
@@ -23,5 +26,6 @@ Screen.register({
       Sprite.draw_at("dev_guru",            22 * 8, 10 * 8 + 4)
       Sprite.draw_at("dev_operator",        27 * 8, 10 * 8 + 4)
     end
+    Context.have_been_to_office = true
   end
 })

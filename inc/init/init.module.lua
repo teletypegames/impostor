@@ -16,5 +16,7 @@ Day = {}
 Timer = {}
 Trigger = {}
 Discussion = {}
+RLE = {}
 AsciiArt = {}
 Ascension = {}
+MysteriousManScreen = {}

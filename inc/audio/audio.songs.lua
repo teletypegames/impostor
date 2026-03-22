@@ -105,6 +105,15 @@ Songs = {
     fps = 60,
     end_frame = nil, -- No end frame for random mode
     pattern = {} -- Empty, will spawn randomly in game
+  },
+  generated = {
+    name = "Markov Mode",
+    bpm = 150,
+    spd = 6,
+    fps = 60,
+    end_frame = nil, -- calculated
+    pattern = {}, -- generated
+    generated = true
   }
 }
 

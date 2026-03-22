@@ -90,7 +90,7 @@ end
 function MenuWindow.ddr_test()
   AudioTestWindow.init()
   GameWindow.set_state("minigame_ddr")
-  MinigameDDRWindow.start("menu", nil)
+  MinigameDDRWindow.start("menu", "generated", { special_mode = "only_nothing" })
 end
 
 --- Refreshes menu items.
