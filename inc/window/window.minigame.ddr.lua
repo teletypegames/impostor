@@ -86,6 +86,9 @@ function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
     if arrow.dir == "left" then
       Audio.sfx_arrowhit(arrow.note)
       game_context.special_mode_counter = game_context.special_mode_counter + 1
+      if game_context.max_fill <= game_context.bar_fill + game_context.fill_per_hit then
+        game_context.bar_fill = game_context.bar_fill - game_context.fill_per_hit
+      end
     else
       if game_context.special_mode_condition then Audio.sfx_bloop() end
       game_context.special_mode_condition = false

@@ -1,3 +1,5 @@
+local unpack = unpack or table.unpack
+
 local musicator_markov_model = {
   model = {
     ["...|..."] = {

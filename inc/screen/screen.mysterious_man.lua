@@ -214,6 +214,11 @@ Screen.register({
       else
         text_done_timer = text_done_timer - 1
         if text_done_timer <= 0 then
+          -- to be continued
+          if 4 <= Ascension.get_level() then
+            Window.set_current("continued")
+          end
+
           go_to_day_state()
         end
       end
