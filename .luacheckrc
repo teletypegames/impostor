@@ -65,6 +65,7 @@ globals = {
   "Map",
   "map",
   "time",
+  "RLE",
 }
 
 
