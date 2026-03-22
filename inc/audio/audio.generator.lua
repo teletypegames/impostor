@@ -678,7 +678,7 @@ local function musicator_generate_sequence(model_data, length)
 
   -- generation loop
   while musicator_count_notes(seq) < length do
-    local current_key = table.concat({table.unpack(seq, #seq - order + 1, #seq)}, "|")
+    local current_key = table.concat({table.unpack(seq, #seq - order + 1, #seq)}, "|") -- luacheck: ignore
 
     local chosen = "..."
 
