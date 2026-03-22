@@ -194,6 +194,12 @@ Screen.register({
   name = "Mysterious Man",
   decisions = {},
   background_color = Config.colors.black,
+  init = function()
+    Audio.music_play_mystery()
+  end,
+  exit = function()
+    Audio.music_stop()
+  end,
   update = function()
     if state == STATE_TEXT then
       if not text_done then
@@ -216,6 +222,10 @@ Screen.register({
         text_done_timer = text_done_timer - Context.delta_time
         if text_done_timer <= 0 or Input.select() then
           MysteriousManScreen.go_to_day_state()
+          -- to be continued
+          if 4 <= Ascension.get_level() then
+            Window.set_current("continued")
+          end
         end
       end
     elseif state == STATE_DAY then

@@ -84,6 +84,8 @@ function MinigameButtonMashWindow.update()
   end
 
   if Input.select() then
+    Audio.sfx_drum_high()
+
     mg.bar_fill = mg.bar_fill + mg.fill_per_press
     mg.button_pressed_timer = mg.button_press_duration
     if mg.bar_fill > mg.target_points then
@@ -91,6 +93,7 @@ function MinigameButtonMashWindow.update()
     end
   end
   if mg.bar_fill >= mg.target_points then
+    Audio.sfx_select()
     mg.win_timer = Config.timing.minigame_win_duration
     return
   end

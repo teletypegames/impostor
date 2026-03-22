@@ -9,6 +9,9 @@ Screen.register({
   situations = {
     "drink_coffee",
   },
+  init = function()
+    Audio.music_play_room_work()
+  end,
   background = "office",
   draw = function()
     if Window.get_current_id() == "game" then

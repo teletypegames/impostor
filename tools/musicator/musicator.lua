@@ -87,7 +87,7 @@ function build_markov_model(sequence, order)
 end
 
 function generate_sequence(model_data, length)
-  local order = model.order
+  local order = model_data.order
   local model_data = model_data.model
 
   -- random start key

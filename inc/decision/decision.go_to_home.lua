@@ -1,6 +1,6 @@
 Decision.register({
   id = "go_to_home",
-  label = "Go to Home",
+  label = "Go Home",
   condition = function()
     return Context.have_been_to_office and Context.have_done_work_today
   end,
