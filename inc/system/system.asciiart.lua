@@ -44,7 +44,7 @@ function AsciiArt.draw(text, options)
       for j = 1, #line do
         local char = line:sub(j, j)
         if char == "#" then
-          rect(x_offset + (j - 1) * char_w, current_y, char_w - 1, char_h - 1, color)
+          rect(x_offset + (j - 1) * char_w, current_y, char_w, char_h, color)
         end
       end
       current_y = current_y + char_h + line_gap
