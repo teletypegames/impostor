@@ -1,5 +1,3 @@
-local unpack = unpack or table.unpack -- luacheck: ignore
-
 local musicator_markov_model = {
   model = {
     ["...|..."] = {
@@ -680,7 +678,7 @@ local function musicator_generate_sequence(model_data, length)
 
   -- generation loop
   while musicator_count_notes(seq) < length do
-    local current_key = table.concat({unpack(seq, #seq - order + 1, #seq)}, "|")
+    local current_key = table.concat({table.unpack(seq, #seq - order + 1, #seq)}, "|")
 
     local chosen = "..."
 
