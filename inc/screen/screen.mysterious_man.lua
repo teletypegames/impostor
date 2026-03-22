@@ -68,12 +68,12 @@ end
 
 local state = STATE_TEXT
 local text_y = Config.screen.height
-local text_speed = 0.2
+local text_speed = 12 -- pixels per second
 local day_timer = 0
-local day_display_frames = 120
+local day_display_seconds = 2
 local text_done = false
 local text_done_timer = 0
-local TEXT_DONE_HOLD_FRAMES = 120
+local TEXT_DONE_HOLD_SECONDS = 2
 local selected_choice = 1
 local text = ASC_01_TEXT
 local day_text_override = nil
@@ -118,7 +118,7 @@ local function go_to_day_state()
     return
   end
   state = STATE_DAY
-  day_timer = day_display_frames
+  day_timer = day_display_seconds
 end
 
 local function wake_up()
@@ -146,7 +146,7 @@ end
 local function stay_in_bed()
   Day.increase()
   state = STATE_DAY
-  day_timer = day_display_frames
+  day_timer = day_display_seconds
 end
 
 --- Starts the mysterious man screen.
@@ -171,7 +171,7 @@ function MysteriousManScreen.start(options)
   if options.skip_text then
     show_mysterious_screen = false
     state = STATE_DAY
-    day_timer = day_display_frames
+    day_timer = day_display_seconds
   else
     show_mysterious_screen = true
     state = STATE_TEXT
@@ -194,25 +194,29 @@ Screen.register({
   update = function()
     if state == STATE_TEXT then
       if not text_done then
-        text_y = text_y - text_speed
+        text_y = text_y - (text_speed * Context.delta_time)
 
         local lines = 1
         for _ in string.gmatch(text, "\n") do
           lines = lines + 1
         end
 
-        if text_y < -lines * 8 then
+        if text_y < -lines * 8 or Input.select() then
           text_done = true
-          text_done_timer = TEXT_DONE_HOLD_FRAMES
+          text_done_timer = TEXT_DONE_HOLD_SECONDS
+          -- If skipped by user, go to day state immediately
+          if Input.select() then
+            go_to_day_state()
+          end
         end
       else
-        text_done_timer = text_done_timer - 1
-        if text_done_timer <= 0 then
+        text_done_timer = text_done_timer - Context.delta_time
+        if text_done_timer <= 0 or Input.select() then
           go_to_day_state()
         end
       end
     elseif state == STATE_DAY then
-      day_timer = day_timer - 1
+      day_timer = day_timer - Context.delta_time
 
       if day_timer <= 0 or Input.select() then
         if trigger_flash_on_wake or Ascension.get_level() < 1 then

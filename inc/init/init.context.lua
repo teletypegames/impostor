@@ -51,6 +51,8 @@ function Context.initial_data()
       current_situation = nil,
     },
     day_count = 1,
+    delta_time = 0,
+    last_frame_time = 0,
     glitch = {
       enabled = false,
       state = "active",

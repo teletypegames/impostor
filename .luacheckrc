@@ -64,6 +64,7 @@ globals = {
   "index_menu",
   "Map",
   "map",
+  "time",
 }
 
 
