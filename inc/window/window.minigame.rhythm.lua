@@ -114,6 +114,7 @@ function MinigameRhythmWindow.update()
     end
   end
   if mg.score >= mg.max_score then
+    Audio.sfx_select()
     mg.win_timer = Config.timing.minigame_win_duration
     return
   end

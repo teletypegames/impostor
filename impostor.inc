@@ -18,6 +18,7 @@ logic/logic.glitch.lua
 logic/logic.discussion.lua
 system/system.ui.lua
 audio/audio.manager.lua
+audio/audio.generator.lua
 audio/audio.songs.lua
 sprite/sprite.manager.lua
 sprite/sprite.norman.lua

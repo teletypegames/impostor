@@ -7,6 +7,9 @@ Screen.register({
     "go_to_sleep",
     "go_to_end",
   },
+  init = function()
+    Audio.music_play_room_work()
+  end,
   background = "bedroom",
   draw = function()
     if Context.home_norman_visible and Window.get_current_id() == "game" then
