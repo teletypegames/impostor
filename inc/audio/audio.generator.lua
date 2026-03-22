@@ -656,7 +656,7 @@ local function musicator_count_notes(sequence)
   local result = 0
 
   for _,v in ipairs(sequence) do
-    if not (v == "...") then
+    if v ~= "..." then
       result = result + 1
     end
   end
@@ -729,7 +729,7 @@ local function musicator_sequence_to_pattern(sequence, bpm, spd)
   local result = {}
 
   for i, note in ipairs(sequence) do
-    if not (note == "...") then
+    if not note ~= "..." then
 
       local at_ms = musicator_row_to_frame(i, bpm, spd)
       local direction = musicator_note_to_direction(note)

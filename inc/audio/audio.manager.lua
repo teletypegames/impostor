@@ -13,7 +13,7 @@ end
 
 --- Plays track, doesn't restart if already playing.
 function Audio.music_play(track)
-    if not (Audio.music_playing == track) then
+    if Audio.music_playing ~= track then
         music(track)
         Audio.music_playing = track
     end
