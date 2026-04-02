@@ -3,7 +3,8 @@ local INPUT_KEY_UP = 0
 local INPUT_KEY_DOWN = 1
 local INPUT_KEY_LEFT = 2
 local INPUT_KEY_RIGHT = 3
-local INPUT_KEY_Y = 7
+local INPUT_KEY_A = 4
+local INPUT_KEY_B = 5
 local INPUT_KEY_SPACE = 48
 local INPUT_KEY_BACKSPACE = 51
 
@@ -21,7 +22,7 @@ function Input.left() return btnp(INPUT_KEY_LEFT) end
 function Input.right() return btnp(INPUT_KEY_RIGHT) end
 --- Checks if Select is pressed.
 --- @within Input
-function Input.select() return btnp(INPUT_KEY_Y) or keyp(INPUT_KEY_SPACE) or Mouse.clicked() end
+function Input.select() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) or Mouse.clicked() end
 --- Checks if Back is pressed.
 --- @within Input
-function Input.back() return keyp(INPUT_KEY_BACKSPACE) end
+function Input.back() return btnp(INPUT_KEY_B) or keyp(INPUT_KEY_BACKSPACE) end

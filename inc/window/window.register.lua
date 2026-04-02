@@ -16,6 +16,9 @@ Window.register("game", GameWindow)
 PopupWindow = {}
 Window.register("popup", PopupWindow)
 
+ControlsWindow = {}
+Window.register("controls", ControlsWindow)
+
 AudioTestWindow = {}
 Window.register("audiotest", AudioTestWindow)
 
