@@ -41,3 +41,36 @@ function Mouse.consume() _consumed = true end
 function Mouse.in_rect(x, y, w, h)
   return _mx >= x and _mx < x + w and _my >= y and _my < y + h
 end
+
+--- Returns true if the mouse is within the given circle.
+--- @within Mouse
+--- @param cx number Center x.
+--- @param cy number Center y.
+--- @param r number Radius.
+function Mouse.in_circle(cx, cy, r)
+  local dx = _mx - cx
+  local dy = _my - cy
+  return (dx * dx + dy * dy) <= (r * r)
+end
+
+--- Returns true if the mouse was clicked inside the given rectangle, and consumes the click.
+--- @within Mouse
+--- @param rect table A table with fields: x, y, w, h.
+function Mouse.zone(rect)
+  if Mouse.clicked() and Mouse.in_rect(rect.x, rect.y, rect.w, rect.h) then
+    Mouse.consume()
+    return true
+  end
+  return false
+end
+
+--- Returns true if the mouse was clicked inside the given circle, and consumes the click.
+--- @within Mouse
+--- @param circle table A table with fields: x, y, r.
+function Mouse.zone_circle(circle)
+  if Mouse.clicked() and Mouse.in_circle(circle.x, circle.y, circle.r) then
+    Mouse.consume()
+    return true
+  end
+  return false
+end

@@ -58,9 +58,7 @@ function UI.update_menu(items, selected_item, x, y, centered)
     end
   end
 
-  if x ~= nil and y ~= nil and Mouse.clicked() then
-    local mx = Mouse.x()
-    local my = Mouse.y()
+  if x ~= nil and y ~= nil then
     local menu_x = x
     if centered then
       local max_w = 0
@@ -71,9 +69,7 @@ function UI.update_menu(items, selected_item, x, y, centered)
       menu_x = (Config.screen.width - max_w) / 2
     end
     for i, _ in ipairs(items) do
-      local item_y = y + (i - 1) * 10
-      if my >= item_y and my < item_y + 10 and mx >= menu_x - 8 then
-        Mouse.consume()
+      if Mouse.zone({ x = menu_x - 8, y = y + (i-1) * 10, w = Config.screen.width, h = 10 }) then
         return i, true
       end
     end

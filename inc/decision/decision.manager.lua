@@ -144,25 +144,20 @@ function Decision.update(decisions, selected_decision_index)
     selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
   end
 
-  if Mouse.clicked() then
-    local mx = Mouse.x()
-    local my = Mouse.y()
-    local bar_height = 16
-    local bar_y = Config.screen.height - bar_height
-    if my >= bar_y then
-      if mx < 15 then
-        Audio.sfx_beep()
-        Mouse.consume()
-        selected_decision_index = Util.safeindex(decisions, selected_decision_index - 1)
-      elseif mx > Config.screen.width - 15 then
-        Audio.sfx_beep()
-        Mouse.consume()
-        selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
-      else
-        Mouse.consume()
-        return selected_decision_index, true
-      end
-    end
+  local bar_h = 16
+  local bar_y = Config.screen.height - bar_h
+  local prev_zone    = { x = 0,                      y = bar_y, w = 15,                    h = bar_h }
+  local next_zone    = { x = Config.screen.width-15, y = bar_y, w = 15,                    h = bar_h }
+  local confirm_zone = { x = 15,                     y = bar_y, w = Config.screen.width-30, h = bar_h }
+
+  if Mouse.zone(prev_zone) then
+    Audio.sfx_beep()
+    selected_decision_index = Util.safeindex(decisions, selected_decision_index - 1)
+  elseif Mouse.zone(next_zone) then
+    Audio.sfx_beep()
+    selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
+  elseif Mouse.zone(confirm_zone) then
+    return selected_decision_index, true
   end
 
   return selected_decision_index, false

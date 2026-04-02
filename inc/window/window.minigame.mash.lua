@@ -83,12 +83,7 @@ function MinigameButtonMashWindow.update()
     return
   end
 
-  local mouse_on_button = false
-  if Mouse.clicked() then
-    local dx = Mouse.x() - mg.button_x
-    local dy = Mouse.y() - mg.button_y
-    mouse_on_button = (dx * dx + dy * dy) <= (mg.button_size * mg.button_size)
-  end
+  local mouse_on_button = Mouse.zone_circle({ x = mg.button_x, y = mg.button_y, r = mg.button_size })
 
   if Input.select() or mouse_on_button then
     Audio.sfx_drum_high()
