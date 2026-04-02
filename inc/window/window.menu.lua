@@ -84,13 +84,6 @@ function MenuWindow.exit()
   exit()
 end
 
---- Opens the configuration menu.
---- @within MenuWindow
-function MenuWindow.configuration()
-  ConfigurationWindow.init()
-  GameWindow.set_state("configuration")
-end
-
 --- Opens the audio test menu.
 --- @within MenuWindow
 function MenuWindow.audio_test()
@@ -124,7 +117,6 @@ function MenuWindow.refresh_menu_items()
 
   table.insert(_menu_items, {label = "New Game", decision = MenuWindow.new_game})
   table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
-  table.insert(_menu_items, {label = "Configuration", decision = MenuWindow.configuration})
 
   if Context.test_mode then
     table.insert(_menu_items, {label = "Audio Test", decision = MenuWindow.audio_test})

@@ -70,7 +70,6 @@ window/window.intro.title.lua
 window/window.intro.ttg.lua
 window/window.intro.brief.lua
 window/window.menu.lua
-window/window.configuration.lua
 window/window.audiotest.lua
 window/window.popup.lua
 window/window.minigame.mash.lua

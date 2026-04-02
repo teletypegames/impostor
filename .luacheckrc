@@ -30,7 +30,6 @@ globals = {
   "MenuWindow",
   "GameWindow",
   "PopupWindow",
-  "ConfigurationWindow",
   "AudioTestWindow",
   "MinigameButtonMashWindow",
   "MinigameRhythmWindow",
