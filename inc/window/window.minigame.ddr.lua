@@ -355,6 +355,17 @@ function MinigameDDRWindow.update()
     right = Input.right()
   }
 
+  if Mouse.clicked() then
+    local mx = Mouse.x()
+    local my = Mouse.y()
+    for _, target in ipairs(mg.target_arrows) do
+      if mx >= target.x and mx < target.x + mg.arrow_size and
+         my >= mg.target_y and my < mg.target_y + mg.arrow_size then
+        input_map[target.dir] = true
+      end
+    end
+  end
+
   for dir, pressed in pairs(input_map) do
     if pressed and mg.input_cooldowns[dir] == 0 then
       mg.input_cooldowns[dir] = mg.input_cooldown_duration

@@ -8,6 +8,7 @@ Map = {}
 UI = {}
 Print = {}
 Input = {}
+Mouse = {}
 Sprite = {}
 Audio = {}
 Focus = {}

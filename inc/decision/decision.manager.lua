@@ -134,6 +134,7 @@ end
 --- @param decisions table A table of decision items.<br/>
 --- @param selected_decision_index number The current index of the selected decision.<br/>
 --- @return number selected_decision_index The updated index of the selected decision.
+--- @return boolean mouse_confirmed True if the user clicked the center to confirm.
 function Decision.update(decisions, selected_decision_index)
   if Input.left() then
     Audio.sfx_beep()
@@ -142,5 +143,27 @@ function Decision.update(decisions, selected_decision_index)
     Audio.sfx_beep()
     selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
   end
-  return selected_decision_index
+
+  if Mouse.clicked() then
+    local mx = Mouse.x()
+    local my = Mouse.y()
+    local bar_height = 16
+    local bar_y = Config.screen.height - bar_height
+    if my >= bar_y then
+      if mx < 15 then
+        Audio.sfx_beep()
+        Mouse.consume()
+        selected_decision_index = Util.safeindex(decisions, selected_decision_index - 1)
+      elseif mx > Config.screen.width - 15 then
+        Audio.sfx_beep()
+        Mouse.consume()
+        selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
+      else
+        Mouse.consume()
+        return selected_decision_index, true
+      end
+    end
+  end
+
+  return selected_decision_index, false
 end

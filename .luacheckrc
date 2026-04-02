@@ -65,6 +65,10 @@ globals = {
   "map",
   "time",
   "RLE",
+  "mouse",
+  "Mouse",
+  "print",
+  "musicator_generate_pattern",
 }
 
 

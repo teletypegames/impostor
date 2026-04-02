@@ -28,7 +28,7 @@ end
 --- @within PopupWindow
 function PopupWindow.update()
   if Context.popup.show then
-    if Input.menu_confirm() or Input.menu_back() then
+    if Input.select() or Input.back() then
       PopupWindow.hide()
     end
   end

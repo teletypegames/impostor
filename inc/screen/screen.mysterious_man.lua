@@ -240,9 +240,12 @@ Screen.register({
         end
       end
     elseif state == STATE_CHOICE then
-      selected_choice = UI.update_menu(MysteriousManScreen.choices, selected_choice)
+      local menu_x = (Config.screen.width - 60) / 2
+      local menu_y = (Config.screen.height - 20) / 2
+      local confirmed
+      selected_choice, confirmed = UI.update_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
 
-      if Input.select() then
+      if Input.select() or confirmed then
         Audio.sfx_select()
         if selected_choice == 1 then
           MysteriousManScreen.wake_up()

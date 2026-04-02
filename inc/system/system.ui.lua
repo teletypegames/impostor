@@ -38,8 +38,12 @@ end
 --- @within UI
 --- @param items table A table of menu items.<br/>
 --- @param selected_item number The current index of the selected item.<br/>
+--- @param[opt] x number Menu x position (required for mouse support).<br/>
+--- @param[opt] y number Menu y position (required for mouse support).<br/>
+--- @param[opt] centered boolean Whether the menu is centered horizontally.<br/>
 --- @return number selected_item The updated index of the selected item.
-function UI.update_menu(items, selected_item)
+--- @return boolean mouse_confirmed True if the user clicked on a menu item.
+function UI.update_menu(items, selected_item, x, y, centered)
   if Input.up() then
     Audio.sfx_beep()
     selected_item = selected_item - 1
@@ -53,7 +57,29 @@ function UI.update_menu(items, selected_item)
       selected_item = 1
     end
   end
-  return selected_item
+
+  if x ~= nil and y ~= nil and Mouse.clicked() then
+    local mx = Mouse.x()
+    local my = Mouse.y()
+    local menu_x = x
+    if centered then
+      local max_w = 0
+      for _, item in ipairs(items) do
+        local w = print(item.label, 0, -10, 0, false, 1, false)
+        if w > max_w then max_w = w end
+      end
+      menu_x = (Config.screen.width - max_w) / 2
+    end
+    for i, _ in ipairs(items) do
+      local item_y = y + (i - 1) * 10
+      if my >= item_y and my < item_y + 10 and mx >= menu_x - 8 then
+        Mouse.consume()
+        return i, true
+      end
+    end
+  end
+
+  return selected_item, false
 end
 
 --- Draws a bordered textbox with scrolling text.

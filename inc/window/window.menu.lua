@@ -1,5 +1,6 @@
 --- @section MenuWindow
 local _menu_items = {}
+local _click_timer = 0
 
 --- Draws the menu window.
 --- @within MenuWindow
@@ -22,9 +23,28 @@ end
 --- Updates the menu window logic.
 --- @within MenuWindow
 function MenuWindow.update()
-  Context.current_menu_item = UI.update_menu(_menu_items, Context.current_menu_item)
+  local menu_h = #_menu_items * 10
+  local y = 10 + (Config.screen.height - 10 - 10 - menu_h) / 2
 
-  if Input.menu_confirm() then
+  if _click_timer > 0 then
+    _click_timer = _click_timer - Context.delta_time
+    if _click_timer <= 0 then
+      _click_timer = 0
+      local selected_item = _menu_items[Context.current_menu_item]
+      if selected_item and selected_item.decision then
+        selected_item.decision()
+      end
+    end
+    return
+  end
+
+  local new_item, mouse_confirmed = UI.update_menu(_menu_items, Context.current_menu_item, 0, y, true)
+  Context.current_menu_item = new_item
+
+  if mouse_confirmed then
+    Audio.sfx_select()
+    _click_timer = 0.5
+  elseif Input.select() then
     local selected_item = _menu_items[Context.current_menu_item]
     if selected_item and selected_item.decision then
       Audio.sfx_select()
@@ -115,4 +135,5 @@ function MenuWindow.refresh_menu_items()
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   Context.current_menu_item = 1
+  _click_timer = 0
 end

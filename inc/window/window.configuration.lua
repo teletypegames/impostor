@@ -65,7 +65,7 @@ end
 --- Updates configuration window logic.
 --- @within ConfigurationWindow
 function ConfigurationWindow.update()
-  if Input.menu_back() then
+  if Input.back() then
     GameWindow.set_state("menu")
     return
   end
@@ -94,7 +94,7 @@ function ConfigurationWindow.update()
         control.set(new_value)
       end
     elseif control.type == "action_item" then
-      if Input.menu_confirm() then
+      if Input.select() then
         control.action()
       end
     end

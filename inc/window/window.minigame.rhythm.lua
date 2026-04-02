@@ -95,7 +95,14 @@ function MinigameRhythmWindow.update()
   if mg.press_cooldown > 0 then
     mg.press_cooldown = mg.press_cooldown - 1
   end
-  if Input.select() and mg.press_cooldown == 0 then
+  local mouse_on_button = false
+  if Mouse.clicked() then
+    local dx = Mouse.x() - mg.button_x
+    local dy = Mouse.y() - mg.button_y
+    mouse_on_button = (dx * dx + dy * dy) <= (mg.button_size * mg.button_size)
+  end
+
+  if (Input.select() or mouse_on_button) and mg.press_cooldown == 0 then
     mg.button_pressed_timer = mg.button_press_duration
     mg.press_cooldown = mg.press_cooldown_duration
     local target_left = mg.target_center - (mg.target_width / 2)

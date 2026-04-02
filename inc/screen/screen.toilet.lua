@@ -16,7 +16,7 @@ Screen.register({
   end,
   update = function()
     if not Context.stat_screen_active then return end
-    if Input.select() or Input.player_interact() then
+    if Input.select() or Input.select() then
       Focus.stop()
       Context.stat_screen_active = false
       Meter.show()

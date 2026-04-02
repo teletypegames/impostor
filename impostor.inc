@@ -6,6 +6,7 @@ init/init.context.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
+system/system.mouse.lua
 system/system.asciiart.lua
 system/system.rle.lua
 logic/logic.meter.lua
