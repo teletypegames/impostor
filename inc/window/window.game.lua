@@ -48,14 +48,6 @@ function GameWindow.update()
   if not screen or not screen.update then return end
   screen.update()
 
-  -- Handle current situation updates
-  if Context.game.current_situation then
-    local current_situation_obj = Situation.get_by_id(Context.game.current_situation)
-    if current_situation_obj and type(current_situation_obj.update) == "function" then
-      current_situation_obj.update()
-    end
-  end
-
   if Context.stat_screen_active then return end
 
   -- Fetch and filter decisions locally

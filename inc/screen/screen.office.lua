@@ -6,9 +6,6 @@ Screen.register({
     "go_to_walking_to_home",
     "have_a_coffee",
   },
-  situations = {
-    "drink_coffee",
-  },
   init = function()
     Audio.music_play_room_work()
   end,

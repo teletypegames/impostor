@@ -3,7 +3,6 @@ Util = {}
 Meter = {}
 Minigame = {}
 Decision = {}
-Situation = {}
 Screen = {}
 Map = {}
 UI = {}

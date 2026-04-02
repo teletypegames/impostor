@@ -23,7 +23,7 @@ Context = {}
 --- * have_met_sumphore (boolean) Whether the player has talked to the homeless guy.<br/>
 --- * have_been_to_office (boolean) Whether the player has been to the office.<br/>
 --- * have_done_work_today (boolean) Whether the player has done work today.<br/>
---- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.<br/>
+--- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID<br/>
 function Context.initial_data()
   return {
     current_menu_item = 1,
@@ -48,7 +48,6 @@ function Context.initial_data()
     have_met_sumphore = false,
     game = {
       current_screen = "home",
-      current_situation = nil,
     },
     day_count = 1,
     delta_time = 0,

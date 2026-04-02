@@ -10,7 +10,6 @@ globals = {
   "Discussion",
   "Util",
   "Decision",
-  "Situation",
   "Screen",
   "Sprite",
   "UI",
