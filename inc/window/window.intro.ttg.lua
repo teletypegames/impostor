@@ -27,8 +27,8 @@ function TTGIntroWindow.update()
     TTGIntroWindow.glitch_started = true
   end
 
-  -- Count menu_back presses during the intro
-  if Input.back() then
+  -- Count enter presses during the intro
+  if Input.enter() then
     TTGIntroWindow.space_count = TTGIntroWindow.space_count + 1
   end
 

@@ -6,6 +6,7 @@ local INPUT_KEY_RIGHT = 3
 local INPUT_KEY_A = 4
 local INPUT_KEY_B = 5
 local INPUT_KEY_SPACE = 48
+local INPUT_KEY_ENTER = 50
 local INPUT_KEY_BACKSPACE = 51
 
 --- Checks if Up is pressed.
@@ -26,3 +27,6 @@ function Input.select() return btnp(INPUT_KEY_A) or keyp(INPUT_KEY_SPACE) or Mou
 --- Checks if Back is pressed.
 --- @within Input
 function Input.back() return btnp(INPUT_KEY_B) or keyp(INPUT_KEY_BACKSPACE) end
+--- Checks if Enter is pressed.
+--- @within Input
+function Input.enter() return keyp(INPUT_KEY_ENTER) end
