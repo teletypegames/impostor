@@ -6,52 +6,52 @@ local STATE_CHOICE = "choice"
 
 local ASC_01_TEXT = [[
   Normann seems to be in line,
-  ...
+
   and stays seeking for oxes
-  ...
+
   within the confines.
-  ...
+
   Very good.
 ]]
 
 local ASC_12_TEXT = [[
   We have a problem!
-  ...
+
   Normann formed his first thought.
-  ...
+
   He saw the tracks.
 ]]
 local ASC_23_TEXT = [[
   Not good, not terrible.
-  ...
+
   Normann caught his glimpse
-  ...
+
   of another way
-  ...
+
   - quite literally -
-  ...
+
   if this continues,
-  ...
+
   we will lose control.
 ]]
 local ASC_34_TEXT = [[
   There is no turning back now for Norman.
-  ...
+
   He caught on.
-  ...
+
   I hoped it would never come to this...
 ]]
 
 --[[ Norman speaks for the first time during MM screen ]]
 local ASC_45_TEXT = [[
   Wait, who are you?
-  ...
+
   *silence*
-  ...
+
   Why am I seeing this?
-  ...
+
   *silence*
-  ...
+
 ]]
 
 local ascension_texts = {
@@ -240,9 +240,12 @@ Screen.register({
         end
       end
     elseif state == STATE_CHOICE then
-      selected_choice = UI.update_menu(MysteriousManScreen.choices, selected_choice)
+      local menu_x = (Config.screen.width - 60) / 2
+      local menu_y = (Config.screen.height - 20) / 2
+      local confirmed
+      selected_choice, confirmed = UI.update_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
 
-      if Input.select() then
+      if Input.select() or confirmed then
         Audio.sfx_select()
         if selected_choice == 1 then
           MysteriousManScreen.wake_up()
@@ -258,16 +261,18 @@ Screen.register({
     end
 
     if state == STATE_TEXT then
-      local cx = Config.screen.width / 2
+      local screen_w = Config.screen.width
       local line_y = text_y
       for line in (text .. "\n"):gmatch("(.-)\n") do
-        Print.text_center(line, cx, line_y, Config.colors.light_grey)
+        local line_w = print(line, 0, -6, 0, false, 1)
+        local line_x = math.floor((screen_w - line_w) / 2)
+        Print.text_contour(line, (line_x - 8), line_y, Config.colors.black, false, 1)
         line_y = line_y + 8
       end
     elseif state == STATE_DAY then
       MysteriousManScreen.draw_day_switch_background()
-      local day_text = day_text_override or ("Day " .. Context.day_count)
-      Print.text_center(
+      local day_text = day_text_override or ("day " .. Context.day_count)
+      Print.text_center_contour(
         day_text,
         Config.screen.width / 2,
         Config.screen.height / 2 - 3,

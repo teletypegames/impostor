@@ -123,9 +123,13 @@ function Decision.draw(decisions, selected_decision_index)
     local selected_decision = decisions[selected_decision_index]
     local decision_label = Decision.get_label(selected_decision)
     local text_y = bar_y + 4
-    Print.text("<", 2, text_y, Config.colors.light_blue)
-    Print.text_center(decision_label, Config.screen.width / 2, text_y, Config.colors.item)
-    Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
+    local left_arrow_color = Input.left() and Config.colors.white or Config.colors.orange
+    local right_arrow_color = Input.right() and Config.colors.white or Config.colors.orange
+    local left_arrow_contour_color = Input.left() and Config.colors.white or Config.colors.black
+    local right_arrow_contour_color = Input.right() and Config.colors.white or Config.colors.black
+    Print.text_center_contour("<", 6, text_y, left_arrow_color, false, 1, left_arrow_contour_color)
+    Print.text_center_contour(decision_label, Config.screen.width / 2, text_y, Config.colors.orange)
+    Print.text_center_contour(">", Config.screen.width - 6, text_y, right_arrow_color, false, 1, right_arrow_contour_color)
   end
 end
 
@@ -134,6 +138,7 @@ end
 --- @param decisions table A table of decision items.<br/>
 --- @param selected_decision_index number The current index of the selected decision.<br/>
 --- @return number selected_decision_index The updated index of the selected decision.
+--- @return boolean mouse_confirmed True if the user clicked the center to confirm.
 function Decision.update(decisions, selected_decision_index)
   if Input.left() then
     Audio.sfx_beep()
@@ -142,5 +147,22 @@ function Decision.update(decisions, selected_decision_index)
     Audio.sfx_beep()
     selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
   end
-  return selected_decision_index
+
+  local bar_h = 16
+  local bar_y = Config.screen.height - bar_h
+  local prev_zone    = { x = 0,                      y = bar_y, w = 15,                    h = bar_h }
+  local next_zone    = { x = Config.screen.width-15, y = bar_y, w = 15,                    h = bar_h }
+  local confirm_zone = { x = 15,                     y = bar_y, w = Config.screen.width-30, h = bar_h }
+
+  if Mouse.zone(prev_zone) then
+    Audio.sfx_beep()
+    selected_decision_index = Util.safeindex(decisions, selected_decision_index - 1)
+  elseif Mouse.zone(next_zone) then
+    Audio.sfx_beep()
+    selected_decision_index = Util.safeindex(decisions, selected_decision_index + 1)
+  elseif Mouse.zone(confirm_zone) then
+    return selected_decision_index, true
+  end
+
+  return selected_decision_index, false
 end

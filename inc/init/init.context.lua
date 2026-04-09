@@ -23,11 +23,12 @@ Context = {}
 --- * have_met_sumphore (boolean) Whether the player has talked to the homeless guy.<br/>
 --- * have_been_to_office (boolean) Whether the player has been to the office.<br/>
 --- * have_done_work_today (boolean) Whether the player has done work today.<br/>
---- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID, `current_situation` (string|nil) active situation ID.<br/>
+--- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID<br/>
 function Context.initial_data()
   return {
     current_menu_item = 1,
     test_mode = false,
+    mouse_trace = false,
     popup = {
       show = false,
       content = {}
@@ -46,9 +47,10 @@ function Context.initial_data()
     have_done_work_today = false,
     should_ascend = false,
     have_met_sumphore = false,
+    office_sprites = {},
+    walking_to_office_sprites = {},
     game = {
       current_screen = "home",
-      current_situation = nil,
     },
     day_count = 1,
     delta_time = 0,
@@ -100,15 +102,15 @@ function Context.new_game()
   MysteriousManScreen.start({
     text = [[
       Norman was never a bad
-      ...
+
       simulation engineer,
-      ...
+
       but
-      ...
+
       we need to be careful
-      ...
+
       letting him improve.
-      ...
+
       We need to distract him.
     ]],
     on_text_complete = function()
@@ -123,7 +125,7 @@ function Context.new_game()
         instruction_text = "Wake up Norman!",
         show_progress_text = false,
         on_win = function()
-          Audio.music_play_wakingup()
+          Audio.music_play_room_work()
           Meter.show()
           Window.set_current("game")
         end,

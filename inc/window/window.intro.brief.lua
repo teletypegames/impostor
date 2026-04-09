@@ -31,7 +31,7 @@ function BriefIntroWindow.update()
     lines = lines + 1
   end
 
-  if BriefIntroWindow.y < -lines * 8 or Input.select() or Input.menu_confirm() then
+  if BriefIntroWindow.y < -lines * 8 or Input.select() or Input.select() then
     Window.set_current("menu")
   end
 end

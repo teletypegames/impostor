@@ -10,7 +10,6 @@ globals = {
   "Discussion",
   "Util",
   "Decision",
-  "Situation",
   "Screen",
   "Sprite",
   "UI",
@@ -31,7 +30,7 @@ globals = {
   "MenuWindow",
   "GameWindow",
   "PopupWindow",
-  "ConfigurationWindow",
+  "ControlsWindow",
   "AudioTestWindow",
   "MinigameButtonMashWindow",
   "MinigameRhythmWindow",
@@ -66,6 +65,10 @@ globals = {
   "map",
   "time",
   "RLE",
+  "mouse",
+  "Mouse",
+  "print",
+  "musicator_generate_pattern",
 }
 
 

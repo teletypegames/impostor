@@ -93,7 +93,7 @@ function Ascension.draw(x, y, options)
     else
       color = lit_color
     end
-    print(ch, x + (i - 1) * spacing, y, color, false, 1, true)
+    Print.text_contour(ch, x + (i - 1) * spacing, y, color, false, 1)
   end
 end
 

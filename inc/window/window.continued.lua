@@ -26,7 +26,7 @@ end
 --- @within ContinuedWindow
 function ContinuedWindow.update()
   ContinuedWindow.timer = ContinuedWindow.timer - 1
-  if ContinuedWindow.timer <= 0 or Input.select() or Input.menu_confirm() then
+  if ContinuedWindow.timer <= 0 or Input.select() or Input.select() then
     Window.set_current("menu")
     MenuWindow.refresh_menu_items()
   end

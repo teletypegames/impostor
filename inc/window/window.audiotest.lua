@@ -107,9 +107,9 @@ function AudioTestWindow.update()
         AudioTestWindow.menuitems = AudioTestWindow.generate_menuitems(
             AudioTestWindow.list_func, AudioTestWindow.index_func
         )
-    elseif Input.menu_confirm() then
+    elseif Input.select() then
         AudioTestWindow.menuitems[AudioTestWindow.index_menu].decision()
-    elseif Input.menu_back() then
+    elseif Input.back() then
         AudioTestWindow.back()
     end
 end
