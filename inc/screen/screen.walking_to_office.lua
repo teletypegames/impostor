@@ -8,6 +8,28 @@ Screen.register({
   },
   init = function()
     Audio.music_play_room_work()
+
+    local possible_sprites = {
+      "matrix_trinity",
+      "matrix_neo",
+      {id="matrix_oraculum", y_correct=1 * 8},
+      "matrix_architect"
+    }
+
+    local possible_positions = {
+      {x = 5 * 8, y = 11 * 8},
+      {x = 7 * 8, y = 11 * 8},
+      {x = 9 * 8, y = 11 * 8},
+      {x = 11 * 8, y = 11 * 8},
+      {x = 13 * 8, y = 11 * 8},
+      {x = 15 * 8, y = 11 * 8},
+      {x = 18 * 8, y = 11 * 8},
+      {x = 21 * 8, y = 11 * 8},
+      {x = 24 * 8, y = 11 * 8},
+      {x = 27 * 8, y = 11 * 8},
+    }
+
+    Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
   end,
   background = "street",
   draw = function()
@@ -16,10 +38,8 @@ Screen.register({
       Sprite.draw_at("sumphore",             9 * 8,  2 * 8)
       Sprite.draw_at("pizza_vendor",        19 * 8,  1 * 8)
       Sprite.draw_at("dev_guard",           22 * 8,  2 * 8)
-      Sprite.draw_at("matrix_trinity",       5 * 8, 11 * 8)
-      Sprite.draw_at("matrix_neo",           7 * 8, 11 * 8)
-      Sprite.draw_at("matrix_oraculum",      9 * 8, 12 * 8)
-      Sprite.draw_at("matrix_architect",    11 * 8, 11 * 8)
+
+      Sprite.draw_list(Context.walking_to_office_sprites)
     end
   end
 })

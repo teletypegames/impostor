@@ -28,6 +28,7 @@ function Context.initial_data()
   return {
     current_menu_item = 1,
     test_mode = false,
+    mouse_trace = false,
     popup = {
       show = false,
       content = {}
@@ -46,6 +47,8 @@ function Context.initial_data()
     have_done_work_today = false,
     should_ascend = false,
     have_met_sumphore = false,
+    office_sprites = {},
+    walking_to_office_sprites = {},
     game = {
       current_screen = "home",
     },

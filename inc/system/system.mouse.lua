@@ -10,6 +10,11 @@ function Mouse.update()
   _consumed = false
   local mt = {mouse()}
   _mx, _my, _mleft = mt[1], mt[2], mt[3]
+
+  -- trace mouse position and tile for testing purposes
+  if Context.test_mode and Context.mouse_trace then
+    trace("Mouse: (" .. _mx .. "," .. _my .. "), tile: (" .. math.floor(_mx / 8) .. "," .. math.floor(_my / 8) .. ")")
+  end
 end
 
 --- Returns current mouse X position.
