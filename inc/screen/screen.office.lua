@@ -8,21 +8,43 @@ Screen.register({
   },
   init = function()
     Audio.music_play_room_work()
+    Context.have_been_to_office = true
+
+    local possible_sprites = {
+      "dev_project_manager",
+      "dev_hr_girl",
+      "dev_introvert",
+      "dev_extrovert",
+      "dev_guru",
+      "dev_operator",
+      {id="dev_buddy", y_correct=1 * 8},
+      {id="dev_boy", y_correct=1 * 8},
+      {id="dev_girl", y_correct=1 * 8}
+    }
+
+    local possible_positions = {
+      {x = 6 * 8, y = 4 * 8},
+      {x = 10 * 8, y = 11 * 8 + 4},
+      {x = 12 * 8, y = 4 * 8},
+      {x = 15 * 8, y = 9 * 8},
+      {x = 16 * 8, y = 4 * 8},
+      {x = 17 * 8, y = 8 * 8},
+      {x = 17 * 8, y = 11 * 8},
+      {x = 20 * 8, y = 4 * 8},
+      {x = 23 * 8, y = 5 * 8},
+      {x = 22 * 8, y = 10 * 8 + 4},
+      {x = 27 * 8, y = 10 * 8 + 4},
+      {x = -4 + 5 * 8, y = 9 * 8}
+    }
+
+    Context.office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
   end,
   background = "office",
   draw = function()
     if Window.get_current_id() == "game" then
       Sprite.draw_at("norman",              13 * 8,  9 * 8)
-      Sprite.draw_at("dev_buddy",           15 * 8,  9 * 8)
-      Sprite.draw_at("dev_project_manager",  6 * 8,  4 * 8)
-      Sprite.draw_at("dev_hr_girl",         12 * 8,  4 * 8)
-      Sprite.draw_at("dev_introvert",   -4 + 5 * 8,  9 * 8)
-      Sprite.draw_at("dev_extrovert",       20 * 8,  4 * 8)
-      Sprite.draw_at("dev_girl",            23 * 8,  5 * 8)
-      Sprite.draw_at("dev_boy",             10 * 8, 11 * 8 + 4)
-      Sprite.draw_at("dev_guru",            22 * 8, 10 * 8 + 4)
-      Sprite.draw_at("dev_operator",        27 * 8, 10 * 8 + 4)
+
+      Sprite.draw_list(Context.office_sprites)
     end
-    Context.have_been_to_office = true
   end
 })
