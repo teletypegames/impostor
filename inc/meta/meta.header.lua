@@ -4,5 +4,5 @@
 -- desc:    Life of a programmer
 -- site:    https://git.teletype.hu/games/impostor
 -- license: MIT License
--- version: 1.0-beta2
+-- version: 1.0-beta3
 -- script:  lua
