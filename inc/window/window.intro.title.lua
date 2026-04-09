@@ -30,7 +30,7 @@ end
 --- @within TitleIntroWindow
 function TitleIntroWindow.update()
   TitleIntroWindow.timer = TitleIntroWindow.timer - 1
-  if TitleIntroWindow.timer <= 0 or Input.select() or Input.menu_confirm() then
+  if TitleIntroWindow.timer <= 0 or Input.select() or Input.select() then
     Window.set_current("intro_ttg")
   end
 end

@@ -27,13 +27,13 @@ function TTGIntroWindow.update()
     TTGIntroWindow.glitch_started = true
   end
 
-  -- Count menu_back presses during the intro
-  if Input.menu_back() then
+  -- Count enter presses during the intro
+  if Input.enter() then
     TTGIntroWindow.space_count = TTGIntroWindow.space_count + 1
   end
 
   TTGIntroWindow.timer = TTGIntroWindow.timer - 1
-  if TTGIntroWindow.timer <= 0 or Input.menu_confirm() then
+  if TTGIntroWindow.timer <= 0 or Input.select() then
     -- Evaluate exactly 3 presses at the end of the intro
     if TTGIntroWindow.space_count == 3 then
       Context.test_mode = true

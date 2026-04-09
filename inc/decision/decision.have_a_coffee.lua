@@ -2,7 +2,6 @@ Decision.register({
   id = "have_a_coffee",
   label = "Have a Coffee",
   handle = function()
-    local new_situation_id = Situation.apply("drink_coffee", Context.game.current_screen)
     local level = Ascension.get_level()
     local disc_id = "coworker_disc_0"
     -- TODO: Add more discussions for levels above 3
@@ -11,6 +10,5 @@ Decision.register({
       disc_id = "coworker_disc" .. suffix
     end
     Discussion.start(disc_id, "game")
-    Context.game.current_situation = new_situation_id
   end,
 })

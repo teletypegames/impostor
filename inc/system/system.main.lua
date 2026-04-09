@@ -17,6 +17,7 @@ end
 --- @within Main
 function TIC()
   init_game()
+  Mouse.update()
 
   local now = time()
   if Context.last_frame_time == 0 then

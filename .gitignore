@@ -1,3 +1,4 @@
+.claude
 .local
 impostor.lua
 impostor.original.lua
@@ -6,3 +7,4 @@ docs
 minify.lua
 *.tic
 *.zip
+NOTES_*

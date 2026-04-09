@@ -38,7 +38,7 @@ end
 --- @within GameWindow
 function GameWindow.update()
   Focus.update()
-  if Input.menu_back() then
+  if Input.back() then
     Window.set_current("menu")
     MenuWindow.refresh_menu_items()
     return
@@ -47,14 +47,6 @@ function GameWindow.update()
   local screen = Screen.get_by_id(Context.game.current_screen)
   if not screen or not screen.update then return end
   screen.update()
-
-  -- Handle current situation updates
-  if Context.game.current_situation then
-    local current_situation_obj = Situation.get_by_id(Context.game.current_situation)
-    if current_situation_obj and type(current_situation_obj.update) == "function" then
-      current_situation_obj.update()
-    end
-  end
 
   if Context.stat_screen_active then return end
 
@@ -68,7 +60,7 @@ function GameWindow.update()
     _selected_decision_index = 1
   end
 
-  local new_selected_decision_index = Decision.update(
+  local new_selected_decision_index, mouse_confirmed = Decision.update(
     _available_decisions,
     _selected_decision_index
   )
@@ -77,7 +69,7 @@ function GameWindow.update()
     _selected_decision_index = new_selected_decision_index
   end
 
-  if Input.select() then
+  if Input.select() or mouse_confirmed then
     local selected_decision = _available_decisions[_selected_decision_index]
     if selected_decision and selected_decision.handle then
       Audio.sfx_select()

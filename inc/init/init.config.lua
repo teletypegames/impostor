@@ -17,7 +17,9 @@ function Config.initial_data()
       blue = 3,
       white = 4,
       item = 7,
-      meter_bg = 1
+      meter_bg = 1,
+      transparent = 12,
+      orange = 7
     },
     timing = {
       minigame_win_duration = 180

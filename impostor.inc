@@ -6,6 +6,7 @@ init/init.context.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
+system/system.mouse.lua
 system/system.asciiart.lua
 system/system.rle.lua
 logic/logic.meter.lua
@@ -38,10 +39,7 @@ sprite/sprite.matrix_architect.lua
 sprite/sprite.matrix_neo.lua
 sprite/sprite.matrix_oraculum.lua
 sprite/sprite.matrix_trinity.lua
-situation/situation.manager.lua
-situation/situation.drink_coffee.lua
 decision/decision.manager.lua
-decision/decision.have_a_coffee.lua
 decision/decision.go_to_home.lua
 decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
@@ -50,6 +48,7 @@ decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
+decision/decision.have_a_coffee.lua
 decision/decision.sumphore_discussion.lua
 discussion/discussion.sumphore.lua
 discussion/discussion.coworker.lua
@@ -72,7 +71,7 @@ window/window.intro.title.lua
 window/window.intro.ttg.lua
 window/window.intro.brief.lua
 window/window.menu.lua
-window/window.configuration.lua
+window/window.controls.lua
 window/window.audiotest.lua
 window/window.popup.lua
 window/window.minigame.mash.lua

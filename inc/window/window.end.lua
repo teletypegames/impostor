@@ -52,7 +52,7 @@ function EndWindow.update()
       end
     end
 
-    if Input.menu_confirm() then
+    if Input.select() then
       Audio.sfx_select()
       if Context._end.selection == 1 then
         Context._end.state = "ending"
@@ -69,7 +69,7 @@ function EndWindow.update()
       end
     end
   elseif Context._end.state == "ending" then
-    if Input.menu_confirm() then
+    if Input.select() then
       Window.set_current("menu")
       MenuWindow.refresh_menu_items()
     end
