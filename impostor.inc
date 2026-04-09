@@ -48,6 +48,7 @@ decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
+decision/decision.have_a_coffee.lua
 decision/decision.sumphore_discussion.lua
 discussion/discussion.sumphore.lua
 discussion/discussion.coworker.lua

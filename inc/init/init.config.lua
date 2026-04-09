@@ -17,6 +17,7 @@ function Config.initial_data()
       blue = 3,
       white = 4,
       item = 7,
+      orange = 7,
       meter_bg = 1
     },
     timing = {
