@@ -306,19 +306,19 @@ local arrow_rotations = { down = 0, right = 1, up = 2, left = 3 }
 local function draw_arrow(x, y, direction, color)
   local size = 14
   local half = size / 2
-  local center_x, center_y = x + half, y + half
+  local pivot_x, pivot_y = x + half, y + half
   local steps = arrow_rotations[direction] or 0
 
-  local head_left_x, head_left_y = rotate(x, y + half, center_x, center_y, steps)
-  local head_tip_x, head_tip_y = rotate(x + half, y + size, center_x, center_y, steps)
-  local head_right_x, head_right_y = rotate(x + size, y + half, center_x, center_y, steps)
+  local head_left_x, head_left_y = rotate(x, y + half, pivot_x, pivot_y, steps)
+  local head_tip_x, head_tip_y = rotate(x + half, y + size, pivot_x, pivot_y, steps)
+  local head_right_x, head_right_y = rotate(x + size, y + half, pivot_x, pivot_y, steps)
 
   tri(head_left_x, head_left_y,
       head_tip_x, head_tip_y,
       head_right_x, head_right_y, color)
 
-  local stem_top_x, stem_top_y = rotate(x + half - 3, y, center_x, center_y, steps)
-  local stem_bot_x, stem_bot_y = rotate(x + half + 3, y + half, center_x, center_y, steps)
+  local stem_top_x, stem_top_y = rotate(x + half - 3, y, pivot_x, pivot_y, steps)
+  local stem_bot_x, stem_bot_y = rotate(x + half + 3, y + half, pivot_x, pivot_y, steps)
   local stem_x = math.min(stem_top_x, stem_bot_x)
   local stem_y = math.min(stem_top_y, stem_bot_y)
   local stem_w = math.abs(stem_bot_x - stem_top_x)

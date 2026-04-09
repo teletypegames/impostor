@@ -99,15 +99,15 @@ function Context.new_game()
   MysteriousManScreen.start({
     text = [[
       Norman was never a bad
-      
+
       simulation engineer,
-      
+
       but
-      
+
       we need to be careful
-      
+
       letting him improve.
-      
+
       We need to distract him.
     ]],
     on_text_complete = function()
