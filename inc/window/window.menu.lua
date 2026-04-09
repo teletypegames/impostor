@@ -19,7 +19,7 @@ end
 --- Draws the header with title and separator.
 --- @within MenuWindow
 function MenuWindow.draw_header()
-  rect(0, 0, Config.screen.width, HEADER_H, Config.colors.dark_grey)
+  rect(0, 0, Config.screen.width, HEADER_H, Config.colors.black)
   rect(0, HEADER_H - 2, Config.screen.width, 2, Config.colors.light_blue)
 
   local cx = Config.screen.width / 2
@@ -37,17 +37,19 @@ end
 function MenuWindow.draw_norman()
   local nx = math.floor(Config.screen.width * 0.45 / 2) - 32
   local ny = HEADER_H + math.floor((Config.screen.height - HEADER_H - 96) / 2)
-  spr(272, nx,      ny,      0, 4)
-  spr(273, nx + 32, ny,      0, 4)
-  spr(288, nx,      ny + 32, 0, 4)
-  spr(289, nx + 32, ny + 32, 0, 4)
-  spr(304, nx,      ny + 64, 0, 4)
-  spr(305, nx + 32, ny + 64, 0, 4)
+  spr(272, nx,      ny,      Config.colors.transparent, 4)
+  spr(273, nx + 32, ny,      Config.colors.transparent, 4)
+  spr(288, nx,      ny + 32, Config.colors.transparent, 4)
+  spr(289, nx + 32, ny + 32, Config.colors.transparent, 4)
+  spr(304, nx,      ny + 64, Config.colors.transparent, 4)
+  spr(305, nx + 32, ny + 64, Config.colors.transparent, 4)
 end
 
 --- Draws the menu window.
 --- @within MenuWindow
 function MenuWindow.draw()
+  cls(Config.colors.blue
+)
   MenuWindow.draw_header()
 
   if _anim > 0 then
