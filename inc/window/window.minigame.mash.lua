@@ -49,6 +49,7 @@ end
 --- @param return_window string The window ID to return to after the minigame.<br/>
 --- @param[opt] params table Optional parameters for minigame configuration.<br/>
 function MinigameButtonMashWindow.start(return_window, params)
+  Audio.music_stop()
   MinigameButtonMashWindow.init(params)
   local mg = Context.minigame_button_mash
   mg.return_window = return_window or "game"
@@ -145,7 +146,7 @@ function MinigameButtonMashWindow.draw()
     circ(mg.button_x, mg.button_y, mg.button_size - 2, button_color)
   end
   Print.text_center("Z", mg.button_x, mg.button_y - 3, button_color)
-  Print.text_center(mg.instruction_text, Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_grey)
+  Print.text_center_contour(mg.instruction_text, Config.screen.width / 2, mg.bar_y + mg.bar_height + 10, Config.colors.light_blue)
   if mg.show_progress_text then
     local points_text = math.floor(mg.bar_fill) .. "/" .. mg.target_points
     Print.text_center(points_text, mg.bar_x + mg.bar_width / 2, mg.bar_y + 2, Config.colors.black)

@@ -99,15 +99,15 @@ function Context.new_game()
   MysteriousManScreen.start({
     text = [[
       Norman was never a bad
-      ...
+
       simulation engineer,
-      ...
+
       but
-      ...
+
       we need to be careful
-      ...
+
       letting him improve.
-      ...
+
       We need to distract him.
     ]],
     on_text_complete = function()
@@ -122,7 +122,7 @@ function Context.new_game()
         instruction_text = "Wake up Norman!",
         show_progress_text = false,
         on_win = function()
-          Audio.music_play_wakingup()
+          Audio.music_play_room_work()
           Meter.show()
           Window.set_current("game")
         end,

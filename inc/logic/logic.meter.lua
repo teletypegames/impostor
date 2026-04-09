@@ -8,10 +8,11 @@ local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
 
 -- Internal meters for tracking game progress and player stats.
-Meter.COLOR_ISM = Config.colors.red
+Meter.COLOR_ISM = Config.colors.orange
 Meter.COLOR_WPM = Config.colors.blue
-Meter.COLOR_BM = Config.colors.black
+Meter.COLOR_BM = Config.colors.red
 Meter.COLOR_BG = Config.colors.meter_bg
+Meter.COLOR_CONTOUR = Config.colors.white
 
 --- Gets initial meter values.
 --- @within Meter
@@ -126,15 +127,15 @@ function Meter.draw()
 
   local m = Context.meters
   local max = Meter.get_max()
-  local bar_w = 44
+  local screen_w = Config.screen.width
+  local screen_h = Config.screen.height
+  local bar_w = screen_w * 0.25
   local bar_h = 2
-  local bar_x = 182
-  local label_x = 228
-  local line_h = 5
-  local start_y = 1
+  local edge = math.max(2, math.floor(screen_w * 0.03))
+  local bar_x = screen_w - bar_w - edge
+  local line_h = 3
+  local start_y = screen_h * 0.05
 
-
-  local bar_offset = math.floor((line_h - bar_h) / 2)
 
   local meter_list = {
     { key = "wpm", label = "WPM", color = Meter.COLOR_WPM, row = 0 },
@@ -144,15 +145,16 @@ function Meter.draw()
 
   for _, meter in ipairs(meter_list) do
     local label_y = start_y + meter.row * line_h
-    local bar_y = label_y + bar_offset
+    local bar_y = label_y
     local fill_w = math.max(0, math.floor((m[meter.key] / max) * bar_w))
+    rect(bar_x - 1, bar_y - 1, bar_w + 2, bar_h + 2, Meter.COLOR_CONTOUR)
     rect(bar_x, bar_y, bar_w, bar_h, Meter.COLOR_BG)
     if fill_w > 0 then
       rect(bar_x, bar_y, fill_w, bar_h, meter.color)
     end
-    print(meter.label, label_x, label_y, meter.color, false, 1, true)
+    ---print(meter.label, label_x, label_y, meter.color, false, 1, true)
   end
 
   local ascension_y = start_y + 3 * line_h + 1
-  Ascension.draw(bar_x, ascension_y, { spacing = 5 })
+  Ascension.draw(bar_x, ascension_y, { spacing = 8 })
 end

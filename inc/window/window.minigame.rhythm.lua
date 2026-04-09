@@ -53,6 +53,7 @@ end
 --- @param return_window string The window ID to return to after the minigame.<br/>
 --- @param[opt] params table Optional parameters for minigame configuration.<br/>
 function MinigameRhythmWindow.start(return_window, params)
+  Audio.music_stop()
   MinigameRhythmWindow.init(params)
   local mg = Context.minigame_rhythm
   mg.return_window = return_window or "game"
@@ -146,14 +147,14 @@ function MinigameRhythmWindow.draw()
   local target_left = mg.target_center - (mg.target_width / 2)
   local target_x = mg.bar_x + (target_left * mg.bar_width)
   local target_width_pixels = mg.target_width * mg.bar_width
-  rect(target_x, mg.bar_y, target_width_pixels, mg.bar_height, Config.colors.light_blue)
+  rect(target_x, mg.bar_y, target_width_pixels, mg.bar_height, Config.colors.orange)
   local line_x = mg.bar_x + (mg.line_position * mg.bar_width)
-  rect(line_x - 1, mg.bar_y, 2, mg.bar_height, Config.colors.item)
-  Print.text_center(
+  rect(line_x - 1, mg.bar_y, 2, mg.bar_height, Config.colors.light_blue)
+  Print.text_center_contour(
     "Sleep Norman ... Sleep!",
     Config.screen.width / 2,
     mg.bar_y + mg.bar_height + 14,
-    Config.colors.light_grey
+    Config.colors.light_blue
   )
   local button_color = Config.colors.light_grey
   if mg.button_pressed_timer > 0 then

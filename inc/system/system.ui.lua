@@ -90,12 +90,54 @@ end
 --- @param[opt] bg_color number The background fill color (default: Config.colors.dark_grey).<br/>
 --- @param[opt] border_color number The border color (default: Config.colors.white).<br/>
 --- @param[opt] center_text boolean Whether to center each line inside the box. Defaults to false.<br/>
+local function draw_rounded_rect_fill(x, y, w, h, corner_radius, color)
+  local inner_w = w - corner_radius * 2
+  local inner_h = h - corner_radius * 2
+  if inner_w > 0 and inner_h > 0 then
+    rect(x + corner_radius, y + corner_radius, inner_w, inner_h, color)
+  end
+  if inner_w > 0 and corner_radius > 0 then
+    rect(x + corner_radius, y, inner_w, corner_radius, color)
+    rect(x + corner_radius, y + h - corner_radius, inner_w, corner_radius, color)
+  end
+  if corner_radius > 0 and inner_h > 0 then
+    rect(x, y + corner_radius, corner_radius, inner_h, color)
+    rect(x + w - corner_radius, y + corner_radius, corner_radius, inner_h, color)
+  end
+  for row = 0, corner_radius - 1 do
+    for col = 0, corner_radius - 1 do
+      if col + row >= corner_radius - 1 then
+        pix(x + corner_radius - 1 - col, y + corner_radius - 1 - row, color)
+        pix(x + w - corner_radius + col, y + corner_radius - 1 - row, color)
+        pix(x + corner_radius - 1 - col, y + h - corner_radius + row, color)
+        pix(x + w - corner_radius + col, y + h - corner_radius + row, color)
+      end
+    end
+  end
+end
+
+local function draw_rounded_rect_border(x, y, w, h, corner_radius, color)
+  line(x + corner_radius, y, x + w - corner_radius - 1, y, color)
+  line(x + corner_radius, y + h - 1, x + w - corner_radius - 1, y + h - 1, color)
+  line(x, y + corner_radius, x, y + h - corner_radius - 1, color)
+  line(x + w - 1, y + corner_radius, x + w - 1, y + h - corner_radius - 1, color)
+  pix(x + corner_radius - 1, y + 1, color)
+  pix(x + 1, y + corner_radius - 1, color)
+  pix(x + w - corner_radius, y + 1, color)
+  pix(x + w - 2, y + corner_radius - 1, color)
+  pix(x + corner_radius - 1, y + h - 2, color)
+  pix(x + 1, y + h - corner_radius, color)
+  pix(x + w - corner_radius, y + h - 2, color)
+  pix(x + w - 2, y + h - corner_radius, color)
+end
+
 function UI.draw_textbox(text, box_x, box_y, box_w, box_h, scroll_y, color, bg_color, border_color, center_text)
   color = color or Config.colors.white
-  bg_color = bg_color or Config.colors.dark_grey
+  bg_color = bg_color or Config.colors.black
   border_color = border_color or Config.colors.white
   center_text = center_text or false
 
+  local r = 3
   local padding = 4
   local line_height = 8
   local inner_x = box_x + padding
@@ -110,7 +152,7 @@ function UI.draw_textbox(text, box_x, box_y, box_w, box_h, scroll_y, color, bg_c
     base_y = inner_y + math.floor((visible_height - text_height) / 2)
   end
 
-  rect(box_x, box_y, box_w, box_h, bg_color)
+  draw_rounded_rect_fill(box_x, box_y, box_w, box_h, r, bg_color)
 
   for i, line in ipairs(lines) do
     local ly = base_y + (i - 1) * line_height - scroll_y
@@ -123,7 +165,7 @@ function UI.draw_textbox(text, box_x, box_y, box_w, box_h, scroll_y, color, bg_c
     end
   end
 
-  rectb(box_x, box_y, box_w, box_h, border_color)
+  draw_rounded_rect_border(box_x, box_y, box_w, box_h, r, border_color)
 end
 
 --- Wraps text.

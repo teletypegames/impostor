@@ -40,7 +40,7 @@ Discussion.register({
     {
       question = "Normann you look weird and unfocused. You are usually locked in and not like this, what's up?",
       answers = {
-        { label = "Nothing it's just, I noticed some bugs in the simulation, maybe.", next_step = 2 },
+        { label = "Some bugs I noticed, maybe...", next_step = 2 },
       },
     },
     {

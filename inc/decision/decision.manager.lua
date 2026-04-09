@@ -123,9 +123,13 @@ function Decision.draw(decisions, selected_decision_index)
     local selected_decision = decisions[selected_decision_index]
     local decision_label = Decision.get_label(selected_decision)
     local text_y = bar_y + 4
-    Print.text("<", 2, text_y, Config.colors.light_blue)
-    Print.text_center(decision_label, Config.screen.width / 2, text_y, Config.colors.item)
-    Print.text(">", Config.screen.width - 6, text_y, Config.colors.light_blue)
+    local left_arrow_color = Input.left() and Config.colors.white or Config.colors.orange
+    local right_arrow_color = Input.right() and Config.colors.white or Config.colors.orange
+    local left_arrow_contour_color = Input.left() and Config.colors.white or Config.colors.black
+    local right_arrow_contour_color = Input.right() and Config.colors.white or Config.colors.black
+    Print.text_center_contour("<", 6, text_y, left_arrow_color, false, 1, left_arrow_contour_color)
+    Print.text_center_contour(decision_label, Config.screen.width / 2, text_y, Config.colors.orange)
+    Print.text_center_contour(">", Config.screen.width - 6, text_y, right_arrow_color, false, 1, right_arrow_contour_color)
   end
 end
 
