@@ -7,7 +7,6 @@ local initialized_game = false
 local function init_game()
   if initialized_game then return false end
   Context.reset()
-  poke(0x03FF, 1 << Config.colors.transparent) -- Set the default transparent color in the palette
   Window.set_current("intro_title") -- Set initial window using new manager
   MenuWindow.refresh_menu_items()
   initialized_game = true
