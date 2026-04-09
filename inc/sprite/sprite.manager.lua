@@ -3,7 +3,7 @@ local _sprites = {}
 local _active_sprites = {}
 
 local function draw_sprite_instance(sprite_data, params)
-  local colorkey = params.colorkey or sprite_data.colorkey or 0
+  local colorkey = params.colorkey or sprite_data.colorkey or Config.colors.transparent
   local scale = params.scale or sprite_data.scale or 1
   local flip_x = params.flip_x or sprite_data.flip_x or 0
   local flip_y = params.flip_y or sprite_data.flip_y or 0
