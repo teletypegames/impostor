@@ -36,6 +36,8 @@ Day.register_handler(function()
     Context.toilet_meters_today_evening = false
     Context.coworker_discussion_meter_applied_today = false
     Context.sumphore_discussion_meter_applied_today = false
+    Context.glitch_conversation_done_today = false
+    Context.fast_food_eaten_today = 0
 end)
 
 Day.register_handler(function()

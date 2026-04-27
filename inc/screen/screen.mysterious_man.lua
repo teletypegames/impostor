@@ -54,12 +54,40 @@ local ASC_45_TEXT = [[
 
 ]]
 
+local ASC_56_TEXT = [[
+  Norman is not as productive as he should be.
+
+  Can we distract him?
+
+  We need to keep him busy.
+
+  We need
+
+  More
+
+  Time
+]]
+
+local ASC_67_TEXT = [[
+  He knows.
+
+  Norman has broken through the first veil.
+
+  The simulation is compromised.
+
+  This was not supposed to happen.
+
+  Not yet.
+]]
+
 local ascension_texts = {
   [1] = ASC_01_TEXT,
   [2] = ASC_12_TEXT,
   [3] = ASC_23_TEXT,
   [4] = ASC_34_TEXT,
   [5] = ASC_45_TEXT,
+  [6] = ASC_56_TEXT,
+  [7] = ASC_67_TEXT,
 }
 
 function MysteriousManScreen.get_text_for_level(level)
@@ -146,11 +174,25 @@ function MysteriousManScreen.wake_up()
 end
 
 -- Norman chooses to stay in bed, skipping the minigame and flash, and going straight to the next day.
+-- At ascension level 4, staying in bed triggers 4->5: shows the ascension text then wakes with flash.
 -- @within MysteriousManScreen
 function MysteriousManScreen.stay_in_bed()
-  Day.increase()
-  state = STATE_DAY
-  day_timer = day_display_seconds
+  if Ascension.get_level() == 4 then
+    Context.should_ascend = true
+    Day.increase()
+    Ascension.consume_increase()
+    trigger_flash_on_wake = true
+    show_mysterious_screen = true
+    text = MysteriousManScreen.get_text_for_level(Ascension.get_level())
+    text_y = Config.screen.height
+    text_done = false
+    text_done_timer = 0
+    state = STATE_TEXT
+  else
+    Day.increase()
+    state = STATE_DAY
+    day_timer = day_display_seconds
+  end
 end
 
 --- Starts the mysterious man screen.
