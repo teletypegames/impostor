@@ -38,6 +38,7 @@ globals = {
   "MysteriousManScreen",
   "DiscussionWindow",
   "EndWindow",
+  "GameOverWindow",
   "mset",
   "mget",
   "btnp",

@@ -66,6 +66,7 @@ screen/screen.work.lua
 screen/screen.mysterious_man.lua
 window/window.manager.lua
 window/window.register.lua
+window/window.gameover.lua
 window/window.end.lua
 window/window.intro.title.lua
 window/window.intro.ttg.lua

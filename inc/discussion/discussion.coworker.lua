@@ -1,5 +1,6 @@
 Discussion.register({
   id = "coworker_disc_0",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Good morning Normal, enjoying your coffee as usual, huh?",
@@ -18,6 +19,7 @@ Discussion.register({
 
 Discussion.register({
   id = "coworker_disc_1",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Norman, you look confused, what's up?",
@@ -36,6 +38,7 @@ Discussion.register({
 
 Discussion.register({
   id = "coworker_disc_asc_1",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Normann you look weird and unfocused. You are usually locked in and not like this, what's up?",
@@ -54,6 +57,7 @@ Discussion.register({
 
 Discussion.register({
   id = "coworker_disc_2",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Hey Norman, do you have new socks on? That's a weird color!",
@@ -79,6 +83,7 @@ Discussion.register({
 
 Discussion.register({
   id = "coworker_disc_asc_2",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Normann, are you ok? You were doing weird things while typing?",
@@ -97,6 +102,7 @@ Discussion.register({
 
 Discussion.register({
   id = "coworker_disc_3",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "You look so happy, did you catch a bull or something?",
@@ -120,6 +126,7 @@ Discussion.register({
 })
 Discussion.register({
   id = "coworker_disc_asc_3",
+  on_end = Meter.apply_coworker_discussion_reward,
   steps = {
     {
       question = "Normal, you should take a break, you don't live up to your name today",

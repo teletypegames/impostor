@@ -132,6 +132,7 @@ function MysteriousManScreen.wake_up()
     target_points = 100,
     instruction_text = "Wake up Norman!",
     show_progress_text = false,
+    meter_on_complete = Meter.apply_wakeup_reward,
     on_win = function()
       Audio.music_play_wakingup()
       Meter.show()

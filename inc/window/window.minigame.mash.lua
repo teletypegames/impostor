@@ -1,6 +1,35 @@
+--- @section MinigameButtonMashWindow
+
+---@class MinigameButtonMashState
+---@field bar_fill number
+---@field target_points number
+---@field fill_per_press number
+---@field base_degradation number
+---@field degradation_multiplier number
+---@field button_pressed_timer number
+---@field button_press_duration number
+---@field instruction_text string
+---@field show_progress_text boolean
+---@field return_window string?
+---@field bar_x number
+---@field bar_y number
+---@field bar_width number
+---@field bar_height number
+---@field button_x number
+---@field button_y number
+---@field button_size number
+---@field focus_center_x number?
+---@field focus_center_y number?
+---@field focus_initial_radius number
+---@field win_timer number
+---@field on_win (fun())?
+---@field meter_on_complete (fun(elapsed_sec: number))?
+---@field start_ms number?
+---@field elapsed_sec number?
+
 --- Gets initial button mash minigame configuration.
 --- @within MinigameButtonMashWindow
---- @return result table The default button mash minigame configuration.
+---@return MinigameButtonMashState
 function MinigameButtonMashWindow.init_context()
   return {
     bar_fill = 0,
@@ -24,7 +53,11 @@ function MinigameButtonMashWindow.init_context()
     focus_center_y = nil,
     focus_initial_radius = 0,
     win_timer = 0,
-    on_win = nil
+    on_win = nil,
+    --- If set, called with elapsed_sec instead of Meter.on_minigame_complete()
+    meter_on_complete = nil,
+    start_ms = nil,
+    elapsed_sec = nil,
   }
 end
 
@@ -51,8 +84,10 @@ end
 function MinigameButtonMashWindow.start(return_window, params)
   Audio.music_stop()
   MinigameButtonMashWindow.init(params)
+  ---@type MinigameButtonMashState
   local mg = Context.minigame_button_mash
   mg.return_window = return_window or "game"
+  mg.start_ms = time()
   if mg.focus_center_x then
     Focus.start_driven(mg.focus_center_x, mg.focus_center_y, {
       initial_radius = mg.focus_initial_radius
@@ -64,12 +99,18 @@ end
 --- Updates button mash minigame logic.
 --- @within MinigameButtonMashWindow
 function MinigameButtonMashWindow.update()
+  ---@type MinigameButtonMashState
   local mg = Context.minigame_button_mash
 
   if mg.win_timer > 0 then
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
-      Meter.on_minigame_complete()
+      if mg.meter_on_complete then
+        mg.meter_on_complete(mg.elapsed_sec or 0)
+      else
+        Meter.on_minigame_complete(false)
+      end
+      if not Context.game_in_progress then return end
       if mg.focus_center_x then Focus.stop() end
       Context.home_norman_visible = true
       Context.have_done_work_today = false
@@ -97,6 +138,7 @@ function MinigameButtonMashWindow.update()
   end
   if mg.bar_fill >= mg.target_points then
     Audio.sfx_select()
+    mg.elapsed_sec = (time() - mg.start_ms) / 1000
     mg.win_timer = Config.timing.minigame_win_duration
     return
   end
@@ -116,6 +158,7 @@ end
 --- Draws button mash minigame.
 --- @within MinigameButtonMashWindow
 function MinigameButtonMashWindow.draw()
+  ---@type MinigameButtonMashState
   local mg = Context.minigame_button_mash
   if mg.return_window == "game" then
     GameWindow.draw_with_underlay(function()
