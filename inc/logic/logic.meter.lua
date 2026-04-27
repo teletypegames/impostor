@@ -8,7 +8,7 @@ local METER_DECAY_PER_DAY = 20
 local COMBO_BASE_BONUS = 0.02
 local COMBO_MAX_BONUS = 0.16
 local COMBO_TIMEOUT_FRAMES = 600
-local FLASH_DURATION = 2.0
+local METER_FLASH_DURATION = 2.0
 local FLASH_COLOR = 4
 
 -- Internal meters for tracking game progress and player stats.
@@ -129,7 +129,7 @@ function Meter.add(key, amount)
     local actual_delta = m[key] - old_val
     if actual_delta ~= 0 and _flash[key] then
       _flash[key].delta = actual_delta
-      _flash[key].timer = FLASH_DURATION
+      _flash[key].timer = METER_FLASH_DURATION
     end
     if prev_wpm and prev_wpm > 0 and m.wpm == 0 and Context.game_in_progress
         and Ascension.get_level() == 5 then
