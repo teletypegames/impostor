@@ -24,6 +24,7 @@ globals = {
   "Minigame",
   "Window",
   "ContinuedWindow",
+  "CreditsWindow",
   "TTGIntroWindow",
   "BriefIntroWindow",
   "TitleIntroWindow",
