@@ -80,6 +80,7 @@ window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
 window/window.discussion.lua
 window/window.continued.lua
+window/window.credits.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

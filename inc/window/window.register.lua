@@ -42,3 +42,6 @@ Window.register("discussion", DiscussionWindow)
 
 ContinuedWindow = {}
 Window.register("continued", ContinuedWindow)
+
+CreditsWindow = {}
+Window.register("credits", CreditsWindow)
