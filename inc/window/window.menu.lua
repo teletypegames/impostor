@@ -161,6 +161,13 @@ function MenuWindow.ddr_test()
   MinigameDDRWindow.start("menu", "generated", { special_mode = "only_nothing" })
 end
 
+--- Opens the ASCEND debug start window.
+--- @within MenuWindow
+function MenuWindow.ascend_debug()
+  AscendDebugWindow.init()
+  GameWindow.set_state("ascend_debug")
+end
+
 --- Refreshes the list of menu items based on current game state.
 --- @within MenuWindow
 function MenuWindow.refresh_menu_items()
@@ -178,6 +185,7 @@ function MenuWindow.refresh_menu_items()
     table.insert(_menu_items, {label = "Audio Test",         decision = MenuWindow.audio_test})
     table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
     table.insert(_menu_items, {label = "DDR Test",           decision = MenuWindow.ddr_test})
+    table.insert(_menu_items, {label = "Start at ASCEND N",  decision = MenuWindow.ascend_debug})
   end
 
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})

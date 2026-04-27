@@ -3,6 +3,7 @@ init/init.module.lua
 init/init.config.lua
 init/init.ascension.lua
 init/init.context.lua
+init/init.context_debug.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
@@ -73,6 +74,7 @@ window/window.intro.brief.lua
 window/window.menu.lua
 window/window.controls.lua
 window/window.audiotest.lua
+window/window.ascend_debug.lua
 window/window.popup.lua
 window/window.minigame.mash.lua
 window/window.minigame.rhythm.lua
