@@ -23,6 +23,10 @@ Context = {}
 --- * have_met_sumphore (boolean) Whether the player has talked to the homeless guy.<br/>
 --- * have_been_to_office (boolean) Whether the player has been to the office.<br/>
 --- * have_done_work_today (boolean) Whether the player has done work today.<br/>
+--- * toilet_meters_today_morning (boolean) Whether the home (before work) toilet meter delta was already applied this day.<br/>
+--- * toilet_meters_today_evening (boolean) Whether the home (after work) toilet meter delta was already applied this day.<br/>
+--- * coworker_discussion_meter_applied_today (boolean) Whether the daily coworker discussion meter roll was already applied this day.<br/>
+--- * sumphore_discussion_meter_applied_today (boolean) Whether the daily sumphore discussion meter roll was already applied this day.<br/>
 --- * game (table) Current game progress state. Contains: `current_screen` (string) active screen ID<br/>
 function Context.initial_data()
   return {
@@ -45,6 +49,10 @@ function Context.initial_data()
     home_norman_visible = false,
     have_been_to_office = false,
     have_done_work_today = false,
+    toilet_meters_today_morning = false,
+    toilet_meters_today_evening = false,
+    coworker_discussion_meter_applied_today = false,
+    sumphore_discussion_meter_applied_today = false,
     should_ascend = false,
     have_met_sumphore = false,
     office_sprites = {},
@@ -124,6 +132,7 @@ function Context.new_game()
         target_points = 100,
         instruction_text = "Wake up Norman!",
         show_progress_text = false,
+        meter_on_complete = Meter.apply_wakeup_reward,
         on_win = function()
           Audio.music_play_room_work()
           Meter.show()
