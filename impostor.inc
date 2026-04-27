@@ -6,6 +6,7 @@ init/init.context.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
+system/system.textinput.lua
 system/system.mouse.lua
 system/system.asciiart.lua
 system/system.rle.lua
@@ -16,6 +17,7 @@ logic/logic.timer.lua
 logic/logic.trigger.lua
 logic/logic.minigame.lua
 logic/logic.glitch.lua
+logic/logic.codegenerator.lua
 logic/logic.discussion.lua
 system/system.ui.lua
 audio/audio.manager.lua
@@ -79,6 +81,8 @@ window/window.minigame.rhythm.lua
 window/window.minigame.ddr.lua
 window/window.discussion.lua
 window/window.continued.lua
+window/window.credits.lua
+window/window.player_name.lua
 window/window.game.lua
 system/system.main.lua
 meta/meta.assets.lua

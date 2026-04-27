@@ -30,3 +30,9 @@ function Input.back() return btnp(INPUT_KEY_B) or keyp(INPUT_KEY_BACKSPACE) end
 --- Checks if Enter is pressed.
 --- @within Input
 function Input.enter() return keyp(INPUT_KEY_ENTER) end
+--- Checks if Up is pressed or held (with repeat).
+--- @within Input
+function Input.up_repeat()   return btnp(INPUT_KEY_UP,   20, 4) end
+--- Checks if Down is pressed or held (with repeat).
+--- @within Input
+function Input.down_repeat() return btnp(INPUT_KEY_DOWN, 20, 4) end
