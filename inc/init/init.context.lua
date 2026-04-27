@@ -53,8 +53,12 @@ function Context.initial_data()
     toilet_meters_today_evening = false,
     coworker_discussion_meter_applied_today = false,
     sumphore_discussion_meter_applied_today = false,
+    glitch_conversation_count = 0,
+    glitch_conversation_done_today = false,
     should_ascend = false,
     have_met_sumphore = false,
+    fast_food_approaching = false,
+    fast_food_eaten_today = 0,
     office_sprites = {},
     walking_to_office_sprites = {},
     game = {

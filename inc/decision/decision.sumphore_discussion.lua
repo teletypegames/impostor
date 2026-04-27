@@ -13,9 +13,14 @@ Decision.register({
     end
     local level = Ascension.get_level()
 
-    -- TODO: Add more discussions for levels above 3
-    if level >= 1 and level <= 3 then
+    if level >= 1 and level <= 5 then
       Discussion.start("sumphore_disc_asc_" .. level, "game")
+    elseif level == 6 then
+      if Context.glitch_conversation_count >= 6 then
+        Discussion.start("sumphore_disc_asc_6", "game")
+      else
+        Discussion.start("sumphore_disc_asc_6_waiting", "game")
+      end
     else
       Discussion.start("homeless_guy", "game", 4)
     end

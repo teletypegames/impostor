@@ -50,8 +50,10 @@ decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
 decision/decision.have_a_coffee.lua
 decision/decision.sumphore_discussion.lua
+decision/decision.eating_fast_food.lua
 discussion/discussion.sumphore.lua
 discussion/discussion.coworker.lua
+discussion/discussion.pizza_vendor.lua
 map/map.manager.lua
 map/map.bedroom.lua
 map/map.street.lua

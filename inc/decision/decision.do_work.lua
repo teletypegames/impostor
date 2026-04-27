@@ -10,6 +10,7 @@ Decision.register({
     modes_for_ascension_levels[1] = "only_special"
     modes_for_ascension_levels[2] = "only_left"
     modes_for_ascension_levels[3] = "only_nothing"
+    modes_for_ascension_levels[4] = "normal"
 
     MinigameDDRWindow.start("game", "generated", {
       on_win = function(game_context)
@@ -19,8 +20,6 @@ Decision.register({
           Context.should_ascend = true
         elseif (game_context.special_mode_condition and Context.ascension.level == 3) then
           Context.should_ascend = true
-        elseif (game_context.special_mode_condition and Context.ascension.level == 4) then
-          Context.should_ascend = true
         end
 
         Meter.show()
@@ -28,7 +27,7 @@ Decision.register({
         Window.set_current("game")
         Context.have_done_work_today = true
       end,
-      special_mode = modes_for_ascension_levels[Ascension.get_level()]
+      special_mode = modes_for_ascension_levels[Ascension.get_level()] or "normal"
     })
   end,
 })
