@@ -30,9 +30,15 @@ function EndWindow.draw()
     Print.text(yes_text, centerX - 40, y, yes_color)
     Print.text(no_text, centerX + 10, y, no_color)
   elseif Context._end.state == "ending" then
-    Print.text_center("Game over -- good ending.", Config.screen.width / 2, 50, Config.colors.light_blue)
-    Print.text_center("Congratulations!", Config.screen.width / 2, 70, Config.colors.white)
-    Print.text_center("Press Z to return to menu", Config.screen.width / 2, 110, Config.colors.light_grey)
+    local cx   = Config.screen.width / 2
+    local name = Context.player_name or "AAA"
+    local code = CodeGenerator.encrypt(name)
+    Print.text_center("Game over -- good ending.",          cx, 40, Config.colors.light_blue)
+    Print.text_center("Congrats " .. name .. "!",          cx, 54, Config.colors.white)
+    Print.text_center("Your personal code:",        cx, 72, Config.colors.light_grey)
+    Print.text_center(code,                         cx, 84, Config.colors.white, false, 3)
+    Print.text_center("Write it down!",             cx, 112, Config.colors.item)
+    Print.text_center("Press Z to return to menu",  cx, 126, Config.colors.dark_grey)
   end
 end
 

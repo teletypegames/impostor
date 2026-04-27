@@ -45,3 +45,6 @@ Window.register("continued", ContinuedWindow)
 
 CreditsWindow = {}
 Window.register("credits", CreditsWindow)
+
+PlayerNameWindow = {}
+Window.register("player_name", PlayerNameWindow)
