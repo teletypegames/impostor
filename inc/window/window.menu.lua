@@ -139,6 +139,13 @@ function MenuWindow.controls()
   Window.set_current("controls")
 end
 
+--- Opens the credits screen.
+--- @within MenuWindow
+function MenuWindow.credits()
+  CreditsWindow.init()
+  Window.set_current("credits")
+end
+
 --- Opens the audio test menu.
 --- @within MenuWindow
 function MenuWindow.audio_test()
@@ -173,6 +180,7 @@ function MenuWindow.refresh_menu_items()
   table.insert(_menu_items, {label = "New Game",  decision = MenuWindow.new_game})
   table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
   table.insert(_menu_items, {label = "Controls",  decision = MenuWindow.controls})
+  table.insert(_menu_items, {label = "Credits",   decision = MenuWindow.credits})
 
   if Context.test_mode then
     table.insert(_menu_items, {label = "Audio Test",         decision = MenuWindow.audio_test})
