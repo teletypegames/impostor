@@ -1,5 +1,3 @@
-WalkingToOfficeScreen = {}
-
 Screen.register({
   id = "walking_to_office",
   name = "Walking to office",

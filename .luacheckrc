@@ -48,6 +48,7 @@ globals = {
   "Trigger",
   "UI",
   "Util",
+  "WalkingToOfficeScreen",
   "Window",
   "beats_to_pattern",
   "btnp",

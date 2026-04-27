@@ -59,7 +59,7 @@ local ASC_56_TEXT = [[
 
   Can we distract him?
 
-  We need to keep him busy. 
+  We need to keep him busy.
 
   We need
 
