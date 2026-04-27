@@ -149,7 +149,6 @@ function MenuWindow.credits()
   Window.set_current("credits")
 end
 
-
 --- Opens the audio test menu.
 --- @within MenuWindow
 function MenuWindow.audio_test()

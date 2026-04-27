@@ -1,5 +1,6 @@
 Discussion.register({
   id = "sumphore_disc_asc_1",
+  on_end = Meter.apply_sumphore_discussion_reward,
   steps = {
     {
       question = "Are you still seeking the ox?",
@@ -19,6 +20,7 @@ Discussion.register({
 
 Discussion.register({
   id = "sumphore_disc_asc_2",
+  on_end = Meter.apply_sumphore_discussion_reward,
   steps = {
     {
       question = "How's work? Your face looks strange",
@@ -61,6 +63,7 @@ Discussion.register({
 
 Discussion.register({
   id = "sumphore_disc_asc_3",
+  on_end = Meter.apply_sumphore_discussion_reward,
   steps = {
     {
       question = "Do you think it's work you're doing?",
@@ -88,6 +91,7 @@ Discussion.register({
 
 Discussion.register({
   id = "homeless_guy",
+  on_end = Meter.apply_sumphore_discussion_reward,
   steps = {
     {
       question = "Sup bro, how are you?",

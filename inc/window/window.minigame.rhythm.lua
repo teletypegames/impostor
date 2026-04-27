@@ -73,7 +73,8 @@ function MinigameRhythmWindow.update()
   if mg.win_timer > 0 then
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
-      Meter.on_minigame_complete()
+      Meter.on_minigame_complete(false)
+      if not Context.game_in_progress then return end
       if mg.focus_center_x then Focus.stop() end
       if mg.on_win then
         mg.on_win()
