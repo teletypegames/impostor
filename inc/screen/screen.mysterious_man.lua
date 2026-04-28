@@ -54,12 +54,27 @@ local ASC_45_TEXT = [[
 
 ]]
 
+local ASC_78_TEXT = [[
+  The road has run out
+  of road.
+
+  Norman walked back
+  and forth
+
+  until the street
+  forgot which way it went.
+
+  And then - finally -
+  he stopped walking.
+]]
+
 local ascension_texts = {
   [1] = ASC_01_TEXT,
   [2] = ASC_12_TEXT,
   [3] = ASC_23_TEXT,
   [4] = ASC_34_TEXT,
   [5] = ASC_45_TEXT,
+  [8] = ASC_78_TEXT,
 }
 
 function MysteriousManScreen.get_text_for_level(level)

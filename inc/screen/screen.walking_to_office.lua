@@ -4,11 +4,9 @@ Screen.register({
   decisions = {
     "go_to_home",
     "go_to_office",
-    "sumphore_discussion",
+    "sumphore_discussion"
   },
   init = function()
-    Audio.music_play_room_work()
-
     local possible_sprites = {
       "matrix_trinity",
       "matrix_neo",
@@ -29,6 +27,7 @@ Screen.register({
       {x = 27 * 8, y = 11 * 8},
     }
 
+    Audio.music_play_room_work()
     Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
   end,
   background = "street",

@@ -27,7 +27,7 @@ Context = {}
 function Context.initial_data()
   return {
     current_menu_item = 1,
-    test_mode = false,
+    test_mode = true,
     mouse_trace = false,
     popup = {
       show = false,
@@ -49,12 +49,16 @@ function Context.initial_data()
     have_met_sumphore = false,
     office_sprites = {},
     walking_to_office_sprites = {},
+    walking_to_home_sprites = {},
     game = {
       current_screen = "home",
     },
     day_count = 1,
     delta_time = 0,
     last_frame_time = 0,
+    commute_glitch_level = 0,
+    talked_to_norman_echo = false,
+    talked_to_true_sumphore = false,
     glitch = {
       enabled = false,
       state = "active",

@@ -13,11 +13,13 @@ Decision.register({
     end
     local level = Ascension.get_level()
 
-    -- TODO: Add more discussions for levels above 3
     if level >= 1 and level <= 3 then
       Discussion.start("sumphore_disc_asc_" .. level, "game")
+    elseif level == 7 then
+      local g = math.min(CommuteGlitch.get_level(), 7)
+      Discussion.start("sumphore_disc_cg_" .. g, "game")
     else
-      Discussion.start("homeless_guy", "game", 4)
+      Discussion.start("sumphore_disc_asc_" .. level, "game")
     end
   end,
 })

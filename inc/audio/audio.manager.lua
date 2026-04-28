@@ -1,7 +1,8 @@
 --- @section Audio
 
 Audio = {
-    music_playing = nil
+    music_playing = nil,
+    music_playing_tempo = nil,
 }
 
 --- Stops current music.
@@ -9,13 +10,17 @@ Audio = {
 function Audio.music_stop()
     music()
     Audio.music_playing = nil
+    Audio.music_playing_tempo = nil
 end
 
---- Plays track, doesn't restart if already playing.
-function Audio.music_play(track)
-    if Audio.music_playing ~= track then
-        music(track)
+--- Plays track at optional speed. Doesn't restart if track and speed are unchanged.
+--- @param track number Track index.
+--- @param[opt] speed number TIC-80 music speed override (-1 = default).
+function Audio.music_play(track, speed)
+    if Audio.music_playing ~= track or Audio.music_playing_tempo ~= speed then
+        music(track, -1, -1, true, false, -1, speed or -1)
         Audio.music_playing = track
+        Audio.music_playing_tempo = speed
     end
 end
 
@@ -47,9 +52,11 @@ function Audio.music_play_room_street_2() end
 --- @within Audio
 function Audio.music_play_room_() end
 
---- Plays room work music.
+--- Plays room work music. Speed scales with commute glitch level when active.
 --- @within Audio
-function Audio.music_play_room_work() Audio.music_play(0) end
+function Audio.music_play_room_work(speed)
+    Audio.music_play(0, speed or -1)
+end
 
 --- Plays activity work music.
 --- @within Audio

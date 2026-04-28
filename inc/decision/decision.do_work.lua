@@ -1,6 +1,9 @@
 Decision.register({
   id = "do_work",
   label = "Do Work",
+  condition = function()
+    return (not CommuteGlitch.is_active()) or (CommuteGlitch.is_active() and CommuteGlitch.get_level() <= 7)
+  end,
   handle = function()
     Meter.hide()
     Util.go_to_screen_by_id("work")

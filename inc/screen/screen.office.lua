@@ -5,9 +5,9 @@ Screen.register({
     "do_work",
     "go_to_walking_to_home",
     "have_a_coffee",
+    "go_to_truth",
   },
   init = function()
-    Audio.music_play_room_work()
     Context.have_been_to_office = true
 
     local possible_sprites = {
@@ -37,14 +37,34 @@ Screen.register({
       {x = -4 + 5 * 8, y = 9 * 8}
     }
 
-    Context.office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
+    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+      Audio.music_play_mystery()
+      Context.office_sprites = { "norman_echo" }
+    else
+      Audio.music_play_room_work(CommuteGlitch.music_speed())
+      Context.office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
+      if CommuteGlitch.is_active() then
+        Context.office_sprites = CommuteGlitch.corrupt_sprite_list(Context.office_sprites)
+      end
+    end
   end,
-  background = "office",
+  background = function()
+    return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 and "" or "office"
+  end,
   draw = function()
     if Window.get_current_id() == "game" then
       Sprite.draw_at("norman",              13 * 8,  9 * 8)
 
-      Sprite.draw_list(Context.office_sprites)
+      if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+        Sprite.draw_at("norman_echo",              13 * 8,  9 * 8)
+        CommuteGlitch.draw_background_flicker()
+      else
+        CommuteGlitch.draw_sprite_list(Context.office_sprites)
+      end
+
+      if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 6 then
+        Glitch.draw()
+      end
     end
   end
 })

@@ -6,7 +6,8 @@ local function draw_game_scene(underlay_draw)
   local screen = Screen.get_by_id(Context.game.current_screen)
   if not screen then return end
   if screen.background then
-    Map.draw(screen.background)
+    local actual_background = (type(screen.background) == "function" and screen.background()) or screen.background
+    Map.draw(actual_background)
   elseif screen.background_color then
     rect(0, 0, Config.screen.width, Config.screen.height, screen.background_color)
   end

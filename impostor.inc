@@ -17,6 +17,7 @@ logic/logic.timer.lua
 logic/logic.trigger.lua
 logic/logic.minigame.lua
 logic/logic.glitch.lua
+logic/logic.commute_glitch.lua
 logic/logic.discussion.lua
 system/system.ui.lua
 audio/audio.manager.lua
@@ -24,6 +25,7 @@ audio/audio.generator.lua
 audio/audio.songs.lua
 sprite/sprite.manager.lua
 sprite/sprite.norman.lua
+sprite/sprite.norman_echo.lua
 sprite/sprite.sumphore.lua
 sprite/sprite.pizza_vendor.lua
 sprite/sprite.dev_boy.lua
@@ -45,14 +47,18 @@ decision/decision.go_to_home.lua
 decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
 decision/decision.go_to_office.lua
+decision/decision.go_to_truth.lua
 decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
 decision/decision.have_a_coffee.lua
 decision/decision.sumphore_discussion.lua
+decision/decision.talk_to_truth.lua
 discussion/discussion.sumphore.lua
 discussion/discussion.coworker.lua
+discussion/discussion.commute_glitch.lua
+discussion/discussion.truth.lua
 map/map.manager.lua
 map/map.bedroom.lua
 map/map.street.lua
