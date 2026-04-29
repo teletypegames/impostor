@@ -1,6 +1,9 @@
 Decision.register({
   id = "have_a_coffee",
   label = "Have a Coffee",
+  condition = function()
+    return Ascension.get_level() < 8
+  end,
   handle = function()
     local level = Ascension.get_level()
     local disc_id = "coworker_disc_0"

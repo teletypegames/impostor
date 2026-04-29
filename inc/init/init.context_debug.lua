@@ -30,7 +30,7 @@ end
 --- @return table Debug-patched initial context data.
 function Context.initial_data_debug_asc(level)
   local data = Context.initial_data()
-  data.test_mode        = true
+  data.test_mode        = false
   data.game_in_progress = true
   data.ascension        = { level = level }
   local overrides = _level_overrides[level] or _level_overrides[0]

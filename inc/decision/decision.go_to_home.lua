@@ -2,6 +2,9 @@ Decision.register({
   id = "go_to_home",
   label = "Go Home",
   condition = function()
+    if Ascension.get_level() >= 8 then
+      return Context.have_been_to_office and Context.have_done_work_today
+    end
     if CommuteGlitch.is_active() then
       local g = CommuteGlitch.get_level()
       if g >= 4 and g <= 5 then return false end
@@ -12,6 +15,10 @@ Decision.register({
     return Context.have_been_to_office and Context.have_done_work_today
   end,
   handle = function()
+    if Ascension.get_level() >= 8 then
+      Util.go_to_screen_by_id("home")
+      return
+    end
     if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
       Context.should_ascend = true
       CommuteGlitch.reset()

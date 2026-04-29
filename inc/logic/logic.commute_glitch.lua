@@ -2,9 +2,11 @@
 CommuteGlitch = {}
 
 --- Gets the current commute glitch level.
+--- At ascension level 8+, always returns 7 (max) regardless of stored value.
 --- @within CommuteGlitch
 --- @return number Current glitch level (0-7).
 function CommuteGlitch.get_level()
+  if Ascension.get_level() >= 8 then return 7 end
   return Context and (Context.commute_glitch_level or 0) or 0
 end
 
@@ -34,11 +36,11 @@ function CommuteGlitch.enter_truth()
   Ascension.start_flash()
 end
 
---- Returns true when ascension level is 7 (ASCENSIO step active).
+--- Returns true when ascension level is 7 or 8 (ASCENSIO/N steps active).
 --- @within CommuteGlitch
 --- @return boolean Whether the commute glitch system is active.
 function CommuteGlitch.is_active()
-  return Ascension.get_level() == 7
+  return Ascension.get_level() >= 7
 end
 
 --- Returns the music playback speed for the current glitch level.

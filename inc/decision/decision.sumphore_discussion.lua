@@ -6,6 +6,9 @@ Decision.register({
     end
     return "Talk to the homeless guy"
   end,
+  condition = function()
+    return Ascension.get_level() < 8
+  end,
   handle = function()
     if not Context.have_met_sumphore then
       Discussion.start("homeless_guy", "game")

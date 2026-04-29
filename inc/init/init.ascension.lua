@@ -21,7 +21,7 @@ local FADE_COLORS = nil
 function Ascension.get_initial()
   _increased_this_cycle = false
   return {
-    level = 0, -- FYI: change this to test ascension levels without having to play through them
+    level = 8, -- FYI: change this to test ascension levels without having to play through them
   }
 end
 
@@ -166,4 +166,11 @@ end
 --- @return boolean Whether the flash is playing.
 function Ascension.is_flashing()
   return _flash_active
+end
+
+--- Returns whether the fade-in effect is currently active.
+--- @within Ascension
+--- @return boolean Whether the letter fade-in is playing.
+function Ascension.is_fading()
+  return _fade_active
 end

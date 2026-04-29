@@ -50,7 +50,6 @@ decision/decision.go_to_toilet.lua
 decision/decision.go_to_walking_to_office.lua
 decision/decision.go_to_office.lua
 decision/decision.go_to_truth.lua
-decision/decision.go_to_end.lua
 decision/decision.go_to_walking_to_home.lua
 decision/decision.go_to_sleep.lua
 decision/decision.do_work.lua
