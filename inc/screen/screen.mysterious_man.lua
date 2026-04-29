@@ -94,7 +94,9 @@ local ASC_78_TEXT = [[
 
 local ASC_89_TEXT = [[
   Norman
-  
+
+
+
   you created this simulation 
   
   in the first place.
@@ -109,20 +111,26 @@ local ASC_89_TEXT = [[
   
   have forgoten that.
 
+
+
+
   But 
   
+
+
+
   it doesn't matter anymore.
 
 
 
 
-  You actually are more
+  You are definitely
 
-  than you think you are.
+  not an impostor.
   
 
   
-  so now
+  So now,
 
 
 
@@ -132,17 +140,17 @@ local ASC_89_TEXT = [[
   
   before it takes over
 
-  the world
+  the world.
   
 
 
 
-  also,
+  One more thing:
 
 
 
 
-  you really need to stop
+  You really need to stop
   
   talking to yourself 
   
@@ -332,7 +340,7 @@ Screen.register({
           lines = lines + 1
         end
 
-        local skippable = Ascension.get_level() ~= 8
+        local skippable = Ascension.get_level() < 8
         if text_y < -lines * 8 or (skippable and Input.select()) then
           text_done = true
           text_done_timer = TEXT_DONE_HOLD_SECONDS

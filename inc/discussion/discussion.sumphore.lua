@@ -124,24 +124,25 @@ Discussion.register({
   on_end = Meter.apply_sumphore_discussion_reward,
   steps = {
     {
-      question = "You saw something you weren't supposed to, didn't you.",
+      question = "You saw the seams, didn't you. Good. That means the work is finally wearing thin.",
       answers = {
-        { label = "I don't know what you mean.", next_step = 2 },
+        { label = "Wearing thin how?", next_step = 2 },
         { label = "Maybe.", next_step = 2 },
       },
     },
     {
-      question = "The world around you has seams. Your coworkers slip sometimes. Say things that don't quite fit.",
+      question = "Not your body. The part of you that still keeps score, still tries to be productive. Let that run empty and the world will slip again.",
       answers = {
-        { label = "They seem fine to me.", next_step = nil },
+        { label = "You want me to stop trying?", next_step = 3 },
         { label = "I've noticed something odd.", next_step = 3 },
       },
     },
     {
-      question = "Count those moments. Six of them should be enough to see the whole picture.",
+      question = "Drain the work out of yourself. When that measure hits nothing, you'll see what was waiting behind it.",
       answers = {
-        { label = "Six of what, exactly?", next_step = nil, on_select = function()
+        { label = "The work measure?", next_step = nil, on_select = function()
           Meter.add("ism", 5)
+          Meter.add("wpm", -100)
         end },
         { label = "How would you know any of this?", next_step = nil },
       },
