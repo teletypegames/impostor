@@ -6,7 +6,7 @@ Decision.register({
   end,
   handle = function()
     CommuteGlitch.enter_truth()
-    
+
     Util.go_to_screen_by_id("office")
   end,
 })

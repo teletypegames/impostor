@@ -1,9 +1,7 @@
 meta/meta.header.lua
 init/init.module.lua
 init/init.config.lua
-init/init.ascension.lua
 init/init.context.lua
-init/init.context_debug.lua
 system/system.util.lua
 system/system.print.lua
 system/system.input.lua
@@ -11,6 +9,7 @@ system/system.textinput.lua
 system/system.mouse.lua
 system/system.asciiart.lua
 system/system.rle.lua
+logic/logic.ascension.lua
 logic/logic.meter.lua
 logic/logic.focus.lua
 logic/logic.day.lua
@@ -21,6 +20,7 @@ logic/logic.glitch.lua
 logic/logic.commute_glitch.lua
 logic/logic.codegenerator.lua
 logic/logic.discussion.lua
+system/system.debug.lua
 system/system.ui.lua
 audio/audio.manager.lua
 audio/audio.generator.lua

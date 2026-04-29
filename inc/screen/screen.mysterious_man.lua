@@ -81,8 +81,8 @@ local ASC_67_TEXT = [[
 ]]
 
 local ASC_78_TEXT = [[
-  The situation has reached 
-  
+  The situation has reached
+
   critical levels.
 
   Norman is fully aware...
@@ -102,13 +102,13 @@ local ASC_89_TEXT = [[
   in the first place.
 
   I know,
-  
+
   you don't want to face
-  
+
   the world you left behind.
 
   You, yourself,
-  
+
   have forgoten that.
 
 
@@ -135,9 +135,9 @@ local ASC_89_TEXT = [[
 
 
   you need to wake up
-  
+
   and stop your best creation
-  
+
   before it takes over
 
   the world.

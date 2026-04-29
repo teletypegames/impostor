@@ -15,12 +15,12 @@ end
 
 --- Plays track at optional speed. Doesn't restart if track and speed are unchanged.
 --- @param track number Track index.
---- @param[opt] speed number TIC-80 music speed override (-1 = default).
-function Audio.music_play(track, speed)
-    if Audio.music_playing ~= track or Audio.music_playing_tempo ~= speed then
-        music(track, -1, -1, true, false, -1, speed or -1)
+--- @param[opt] tempo number TIC-80 music speed override (-1 = default).
+function Audio.music_play(track, tempo)
+    if Audio.music_playing ~= track or Audio.music_playing_tempo ~= tempo then
+        music(track, -1, -1, true, false, -1, tempo or -1)
         Audio.music_playing = track
-        Audio.music_playing_tempo = speed
+        Audio.music_playing_tempo = tempo
     end
 end
 
@@ -54,8 +54,8 @@ function Audio.music_play_room_() end
 
 --- Plays room work music. Speed scales with commute glitch level when active.
 --- @within Audio
-function Audio.music_play_room_work(speed)
-    Audio.music_play(0, speed or -1)
+function Audio.music_play_room_work(tempo)
+    Audio.music_play(0, tempo or -1)
 end
 
 --- Plays activity work music.
