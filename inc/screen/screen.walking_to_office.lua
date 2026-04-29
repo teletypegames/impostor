@@ -46,8 +46,11 @@ Screen.register({
     local w = Window.get_current_id()
     if w == "game" or w == "discussion" then
       local norman_x = Context.fast_food_approaching and (19 * 8) or (7 * 8)
+      local show_sumphore = Ascension.get_level() ~= 8
       Sprite.draw_at("norman",               norman_x,  3 * 8)
-      Sprite.draw_at("sumphore",              9 * 8,    2 * 8)
+      if show_sumphore then
+        Sprite.draw_at("sumphore",            9 * 8,    2 * 8)
+      end
 
       if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
         Sprite.draw_at("norman_echo",        norman_x,  3 * 8)

@@ -10,11 +10,21 @@ Decision.register({
     return Ascension.get_level() < 8
   end,
   handle = function()
+    local level = Ascension.get_level()
+
+    if level == 0 then
+      if Context.have_met_sumphore then
+        Discussion.start("homeless_guy", "game", 4)
+      else
+        Discussion.start("homeless_guy", "game")
+      end
+      return
+    end
+
     if not Context.have_met_sumphore then
       Discussion.start("homeless_guy", "game")
       return
     end
-    local level = Ascension.get_level()
 
     if level >= 1 and level <= 5 then
       Discussion.start("sumphore_disc_asc_" .. level, "game")

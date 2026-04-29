@@ -21,7 +21,7 @@ local FADE_COLORS = nil
 function Ascension.get_initial()
   _increased_this_cycle = false
   return {
-    level = 8, -- FYI: change this to test ascension levels without having to play through them
+    level = 0,
   }
 end
 

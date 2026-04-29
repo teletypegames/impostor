@@ -407,7 +407,7 @@ Screen.register({
         spr(304, nx,      ny + 64, Config.colors.transparent, 4)
         spr(305, nx + 32, ny + 64, Config.colors.transparent, 4)
       end
-    elseif show_mysterious_screen then
+    elseif show_mysterious_screen and not break_mode then
       MysteriousManScreen.draw_background()
     end
 
@@ -431,7 +431,7 @@ Screen.register({
       )
     elseif state == STATE_CHOICE then
       if break_mode then
-        if MysteriousManScreen.pending_end then
+        if MysteriousManScreen.pending_end or Ascension.is_fading() or Ascension.is_flashing() then
           Meter.draw_ascension_only()
         else
           local lines = {
