@@ -29,7 +29,7 @@ Screen.register({
       {x = 27 * 8, y = 11 * 8},
     }
 
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Audio.music_play_mystery()
       Context.walking_to_home_sprites = {}
     else
@@ -41,7 +41,7 @@ Screen.register({
     end
   end,
   background = function()
-    return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 and "" or "street"
+    return CommuteGlitch.is_max() and "" or "street"
   end,
   draw = function()
     local w = Window.get_current_id()
@@ -51,13 +51,12 @@ Screen.register({
 
     local show_sumphore = Ascension.get_level() ~= 8
 
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Sprite.draw_at("norman",               7 * 8,  3 * 8)
       if show_sumphore then
         Sprite.draw_at("sumphore",           9 * 8,  2 * 8)
       end
       CommuteGlitch.draw_sprite_list(Context.walking_to_home_sprites)
-      CommuteGlitch.draw_background_flicker()
       Glitch.draw()
     else
       local norman_x = Context.fast_food_approaching and (19 * 8) or (7 * 8)
@@ -73,6 +72,15 @@ Screen.register({
       if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 6 then
         Glitch.draw()
       end
+    end
+
+    if CommuteGlitch.is_max() then
+      CommuteGlitch.draw_background_flicker()
+    end
+
+    if Ascension.get_level() == 8 then
+        CommuteGlitch.draw_background_flicker()
+        Glitch.draw()
     end
   end
 })

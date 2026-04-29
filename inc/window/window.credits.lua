@@ -33,7 +33,7 @@ local RASTER_Y_BOT = 110
 
 local AUTHORS = {
   "Mr. Zero  - Zsolt Tasnadi",
-  "Mr. One   - Balazs Tari",
+  "Mr. One   - Ballz",
   "Mr. Two   - Zoltan Timar",
   "Mr. Three - Bela Mezo",
 }

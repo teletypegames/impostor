@@ -5,7 +5,7 @@ Screen.register({
     "do_work",
     "go_to_walking_to_home",
     "have_a_coffee",
-    "go_to_truth",
+    "talk_to_truth",
   },
   init = function()
     Context.have_been_to_office = true
@@ -37,7 +37,7 @@ Screen.register({
       {x = -4 + 5 * 8, y = 9 * 8}
     }
 
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Audio.music_play_mystery()
       Context.office_sprites = { "norman_echo" }
     else
@@ -49,20 +49,25 @@ Screen.register({
     end
   end,
   background = function()
-    return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 and "" or "office"
+    return CommuteGlitch.is_max() and "" or "office"
   end,
   draw = function()
     if Window.get_current_id() == "game" then
       Sprite.draw_at("norman",              13 * 8,  9 * 8)
 
-      if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
-        Sprite.draw_at("norman_echo",              13 * 8,  9 * 8)
+      if CommuteGlitch.is_max() then
+        Sprite.draw_at("norman_echo",              15 * 8,  9 * 8)
         CommuteGlitch.draw_background_flicker()
       else
         CommuteGlitch.draw_sprite_list(Context.office_sprites)
       end
 
       if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 6 then
+        Glitch.draw()
+      end
+
+      if Ascension.get_level() == 8 then
+        CommuteGlitch.draw_background_flicker()
         Glitch.draw()
       end
     end

@@ -40,7 +40,14 @@ end
 --- @within CommuteGlitch
 --- @return boolean Whether the commute glitch system is active.
 function CommuteGlitch.is_active()
-  return Ascension.get_level() >= 7
+  return Ascension.get_level() == 7
+end
+
+--- Returns true when commute glitch is at max level (7).
+--- @within CommuteGlitch
+--- @return boolean Whether the commute glitch is at max level.
+function CommuteGlitch.is_max()
+  return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7
 end
 
 --- Returns the music playback speed for the current glitch level.

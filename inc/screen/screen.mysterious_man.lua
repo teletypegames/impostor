@@ -81,35 +81,37 @@ local ASC_67_TEXT = [[
 ]]
 
 local ASC_78_TEXT = [[
-  The road has run out
-  of road.
+  The situation has reached 
+  
+  critical levels.
 
-  Norman walked back
-  and forth
+  Norman is fully aware...
 
-  until the street
-  forgot which way it went.
+  We need to stop him.
 
-  And then - finally -
-  he stopped walking.
+  Commence full reset.
 ]]
+
 local ASC_89_TEXT = [[
   Norman
   
   you created this simulation 
   
-  in the first place,
+  in the first place.
+
+  I know,
   
-  because you could never 
+  you don't want to face
   
-  cope with reality.
+  the world you left behind.
 
-
-
-
-  You were never 
+  You, yourself,
   
-  an impostor.
+  have forgoten that.
+
+  But 
+  
+  it doesn't matter anymore.
 
 
 
@@ -119,10 +121,9 @@ local ASC_89_TEXT = [[
   than you think you are.
   
 
+  
+  so now
 
-  
-  now
-  
 
 
   you need to wake up
@@ -141,11 +142,16 @@ local ASC_89_TEXT = [[
 
 
 
-  you have beed talking to 
+  you really need to stop
   
-  yourself 
+  talking to yourself 
   
-  in your sleep
+  in your sleep.
+
+
+
+
+  Damnit.
 ]]
 
 local ascension_texts = {
@@ -339,10 +345,6 @@ Screen.register({
         text_done_timer = text_done_timer - Context.delta_time
         if text_done_timer <= 0 or (Ascension.get_level() ~= 8 and Input.select()) then
           MysteriousManScreen.go_to_day_state()
-          -- to be continued
-          if 4 <= Ascension.get_level() and not break_mode then
-            Window.set_current("continued")
-          end
         end
       end
     elseif state == STATE_DAY then

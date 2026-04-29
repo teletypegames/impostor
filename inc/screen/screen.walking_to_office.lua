@@ -28,7 +28,7 @@ Screen.register({
       {x = 27 * 8, y = 11 * 8},
     }
 
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Audio.music_play_mystery()
       Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
       Context.walking_to_office_sprites = CommuteGlitch.corrupt_sprite_list(Context.walking_to_office_sprites)
@@ -38,7 +38,7 @@ Screen.register({
     end
   end,
   background = function()
-    return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 and "" or "street"
+    return CommuteGlitch.is_max() and "" or "street"
   end,
   update = function()
   end,
@@ -52,18 +52,12 @@ Screen.register({
         Sprite.draw_at("sumphore",            9 * 8,    2 * 8)
       end
 
-      if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
-        Sprite.draw_at("norman_echo",        norman_x,  3 * 8)
-        CommuteGlitch.draw_sprite_list(Context.walking_to_office_sprites)
-        CommuteGlitch.draw_background_flicker()
-        Glitch.draw()
-      else
-        if Context.fast_food_eaten_today < 3 then
-          Sprite.draw_at("pizza_vendor",     19 * 8,    1 * 8)
-        end
-        Sprite.draw_at("dev_guard",          22 * 8,    3 * 8)
-        Sprite.draw_list(Context.walking_to_office_sprites)
+      if Context.fast_food_eaten_today < 3 then
+        Sprite.draw_at("pizza_vendor",     19 * 8,    1 * 8)
       end
+
+      Sprite.draw_at("dev_guard",          22 * 8,    3 * 8)
+      Sprite.draw_list(Context.walking_to_office_sprites)
     end
   end
 })

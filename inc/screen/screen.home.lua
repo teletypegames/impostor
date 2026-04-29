@@ -7,7 +7,7 @@ Screen.register({
     "go_to_sleep",
   },
   init = function()
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Audio.music_play_mystery()
       Glitch.show()
     else
@@ -17,7 +17,7 @@ Screen.register({
   background = "bedroom",
   draw = function()
     if Window.get_current_id() ~= "game" then return end
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() or Ascension.get_level() == 8 then
       CommuteGlitch.draw_background_flicker()
       Glitch.draw()
     end

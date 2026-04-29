@@ -7,7 +7,7 @@ Decision.register({
     end
     if CommuteGlitch.is_active() then
       local g = CommuteGlitch.get_level()
-      if g >= 4 and g <= 5 then return false end
+      if g >= 4 and g <= 6 then return false end
       if g >= 7 then
         return Context.talked_to_norman_echo and Context.talked_to_true_sumphore
       end
@@ -19,7 +19,7 @@ Decision.register({
       Util.go_to_screen_by_id("home")
       return
     end
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if CommuteGlitch.is_max() then
       Context.should_ascend = true
       CommuteGlitch.reset()
       Meter.hide()

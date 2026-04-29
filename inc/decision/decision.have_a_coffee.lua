@@ -2,7 +2,7 @@ Decision.register({
   id = "have_a_coffee",
   label = "Have a Coffee",
   condition = function()
-    return Ascension.get_level() < 8
+    return Ascension.get_level() < 8 and not CommuteGlitch.is_max()
   end,
   handle = function()
     local level = Ascension.get_level()
@@ -22,11 +22,7 @@ Decision.register({
       disc_id = "coworker_disc" .. suffix
     elseif level == 7 then
       local g = CommuteGlitch.get_level()
-      if g >= 7 then
-        disc_id = "coworker_disc_cg_7"
-      else
-        disc_id = "coworker_disc_cg_" .. math.max(3, math.min(g, 6))
-      end
+      disc_id = "coworker_disc_cg_" .. g
     end
     Discussion.start(disc_id, "game")
   end,

@@ -59,7 +59,6 @@ decision/decision.talk_to_truth.lua
 discussion/discussion.sumphore.lua
 discussion/discussion.coworker.lua
 discussion/discussion.commute_glitch.lua
-discussion/discussion.truth.lua
 decision/decision.eating_fast_food.lua
 discussion/discussion.pizza_vendor.lua
 map/map.manager.lua

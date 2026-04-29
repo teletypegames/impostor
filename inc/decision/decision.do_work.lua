@@ -2,7 +2,7 @@ Decision.register({
   id = "do_work",
   label = "Do Work",
   condition = function()
-    return (not CommuteGlitch.is_active()) or (CommuteGlitch.is_active() and CommuteGlitch.get_level() <= 7)
+    return (not CommuteGlitch.is_active()) or (CommuteGlitch.is_active() and CommuteGlitch.get_level() <= 4)
   end,
   handle = function()
     Meter.hide()

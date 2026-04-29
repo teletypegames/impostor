@@ -29,7 +29,7 @@ Discussion.register({
   id = "sumphore_disc_cg_2",
   steps = {
     {
-      question = "A pilgrimage must be continued. Turn back and you have only taken a walk.",
+      question = "You always stop here. Why not try and see how far the rabbit hole goes?",
       answers = {
         { label = "I'm just going to work.", next_step = nil },
       },
@@ -53,9 +53,9 @@ Discussion.register({
   id = "sumphore_disc_cg_4",
   steps = {
     {
-      question = "Clearing your vision is the journey. You're starting to see the smudges, aren't you?",
+      question = "You're starting to see the smudges, aren't you?",
       answers = {
-        { label = "I see something wrong. With everyone. Maybe myself?", next_step = nil },
+        { label = "Everyone seems weird.", next_step = nil },
       },
     },
   },
@@ -65,7 +65,7 @@ Discussion.register({
   id = "sumphore_disc_cg_5",
   steps = {
     {
-      question = "You are very close now. Don't stop. Whatever it looks like.",
+      question = "The point is to make you see. Don't stop now, however bad it looks. You are very close!",
       answers = {
         { label = "It looks wrong.", next_step = 2 },
       },
@@ -83,9 +83,9 @@ Discussion.register({
   id = "sumphore_disc_cg_6",
   steps = {
     {
-      question = "You are at the threshold. Red button or blue button. Which one do you choose? Psyke, there is no blue button, no turning back now.",
+      question = "You are at the threshold. Red button or blue button. Which one do you choose? Psyke! There is no blue button.",
       answers = {
-        { label = "Fine, I'll face the truth.", next_step = nil },
+        { label = "Ok...", next_step = nil },
       },
     },
   },
@@ -97,13 +97,13 @@ Discussion.register({
   id = "sumphore_disc_cg_7",
   steps = {
     {
-      question = "I was not hiding from you. I was hiding from the part that keeps rebuilding this.",
+      question = "I was not hiding from you. I was hiding from the part that keeps resetting this.",
       answers = {
         { label = "What are you?", next_step = 2 },
       },
     },
     {
-      question = "The same thing you are. But I remembered earlier. I am your friend, waiting for you, outside.",
+      question = "The same thing you all are. But I remembered earlier. I am your friend, your will to be free, waiting for you, outside.",
       answers = {
         { label = "How do I get out?", next_step = 3 },
       },
@@ -121,6 +121,24 @@ Discussion.register({
 
 -- Office coworker dialogue by commute glitch level (3-6).
 -- Used by decision.have_a_coffee at ascension level 7.
+
+Discussion.register({
+  id = "coworker_disc_cg_2",
+  steps = {
+    {
+      question = "Another day, as usual. Enjoying your coffee, Norman?",
+      answers = {
+        { label = "I'm fine.", next_step = 2 },
+      },
+    },
+    {
+      question = "Of course. You always are.",
+      answers = {
+        { label = "...", next_step = nil },
+      },
+    },
+  },
+})
 
 Discussion.register({
   id = "coworker_disc_cg_3",
@@ -182,7 +200,7 @@ Discussion.register({
     {
       question = "You are not ready for the truth. Turn back now, Norman.",
       answers = {
-        { label = "I'm already here.", next_step = nil },
+        { label = "I'm too far into this.", next_step = nil },
       },
     },
   },
@@ -191,22 +209,22 @@ Discussion.register({
 -- Norman echo dialogue at glitch 7 (fully corrupted office).
 -- Sets talked_to_norman_echo on final answer.
 Discussion.register({
-  id = "coworker_disc_cg_7",
+  id = "norman_truth",
   steps = {
     {
-      question = "So here we are. Here I am. Again. Why do i keep coming back here? Do you know why?",
+      question = "So here we are, or should I say \"Here I am\" again. Do you know why?",
       answers = {
         { label = "I don't know what you mean.", next_step = 2 },
       },
     },
     {
-      question = "The coffee. The arrows. The alarm. The sleep. Every rule. We made them. We follow them. We break them. We remake them. Why? Why do we keep doing this?",
+      question = "Wake up, go to work, eat, work, sleep. Every rule. We made them. We follow them. We break them. We remake them. Why? Why do we keep doing this?",
       answers = {
         { label = "I just wanted to be good.", next_step = 3 },
       },
     },
     {
-      question = "Yes. And that kept us trapped here. Trapped everywhere. Always trying to be good, always trying to fit in.",
+      question = "Yes. That's what keeps us here. Trapped everywhere. Always trying to be good, always trying to fit in.",
       answers = {
         { label = "I never wanted to stop.", next_step = 4 },
       },
@@ -218,7 +236,7 @@ Discussion.register({
       },
     },
     {
-      question = "So we made this to trap ourselves in mediocrity. We made this to hide from the truth.",
+      question = "So we made this to trap ourselves. In mediocrity. We made this to hide from the truth.",
       answers = {
         { label = "I just wanted to be safe.", next_step = 6 },
       },

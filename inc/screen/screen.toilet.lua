@@ -93,7 +93,12 @@ Screen.register({
       Ascension.draw(asc_x, asc_letter_y, { spacing = asc_spacing })
     end
 
-    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
+    end
+
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
       Glitch.draw()
     end
   end,
