@@ -81,8 +81,8 @@ local ASC_67_TEXT = [[
 ]]
 
 local ASC_78_TEXT = [[
-  The situation has reached 
-  
+  The situation has reached
+
   critical levels.
 
   Norman is fully aware...
@@ -94,23 +94,23 @@ local ASC_78_TEXT = [[
 
 local ASC_89_TEXT = [[
   Norman
-  
-  you created this simulation 
-  
+
+  you created this simulation
+
   in the first place.
 
   I know,
-  
+
   you don't want to face
-  
+
   the world you left behind.
 
   You, yourself,
-  
+
   have forgoten that.
 
-  But 
-  
+  But
+
   it doesn't matter anymore.
 
 
@@ -119,21 +119,21 @@ local ASC_89_TEXT = [[
   You actually are more
 
   than you think you are.
-  
 
-  
+
+
   so now
 
 
 
   you need to wake up
-  
+
   and stop your best creation
-  
+
   before it takes over
 
   the world
-  
+
 
 
 
@@ -143,9 +143,9 @@ local ASC_89_TEXT = [[
 
 
   you really need to stop
-  
-  talking to yourself 
-  
+
+  talking to yourself
+
   in your sleep.
 
 
