@@ -94,7 +94,7 @@ local ASC_78_TEXT = [[
   he stopped walking.
 ]]
 local ASC_89_TEXT = [[
-  Normann
+  Norman
   
   you created this simulation 
   
@@ -107,10 +107,32 @@ local ASC_89_TEXT = [[
 
 
 
-  You were always 
+  You were never 
   
   an impostor.
 
+
+
+
+  You actually are more
+
+  than you think you are.
+  
+
+
+  
+  now
+  
+
+
+  you need to wake up
+  
+  and stop your best creation
+  
+  before it takes over
+
+  the world
+  
 
 
 
@@ -304,17 +326,18 @@ Screen.register({
           lines = lines + 1
         end
 
-        if text_y < -lines * 8 or Input.select() then
+        local skippable = Ascension.get_level() ~= 8
+        if text_y < -lines * 8 or (skippable and Input.select()) then
           text_done = true
           text_done_timer = TEXT_DONE_HOLD_SECONDS
           -- If skipped by user, go to day state immediately
-          if Input.select() then
+          if skippable and Input.select() then
             MysteriousManScreen.go_to_day_state()
           end
         end
       else
         text_done_timer = text_done_timer - Context.delta_time
-        if text_done_timer <= 0 or Input.select() then
+        if text_done_timer <= 0 or (Ascension.get_level() ~= 8 and Input.select()) then
           MysteriousManScreen.go_to_day_state()
           -- to be continued
           if 4 <= Ascension.get_level() and not break_mode then
@@ -325,7 +348,7 @@ Screen.register({
     elseif state == STATE_DAY then
       day_timer = day_timer - Context.delta_time
 
-      if day_timer <= 0 or Input.select() then
+      if day_timer <= 0 or (Ascension.get_level() ~= 8 and Input.select()) then
         if break_mode then
           state = STATE_CHOICE
           selected_choice = 1
