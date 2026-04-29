@@ -13,8 +13,14 @@ Decision.register({
     end
     local level = Ascension.get_level()
 
-    if level >= 1 and level <= 3 then
+    if level >= 1 and level <= 5 then
       Discussion.start("sumphore_disc_asc_" .. level, "game")
+    elseif level == 6 then
+      if Context.glitch_conversation_count >= 6 then
+        Discussion.start("sumphore_disc_asc_6", "game")
+      else
+        Discussion.start("sumphore_disc_asc_6_waiting", "game")
+      end
     elseif level == 7 then
       local g = math.min(CommuteGlitch.get_level(), 7)
       Discussion.start("sumphore_disc_cg_" .. g, "game")

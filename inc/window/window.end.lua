@@ -30,9 +30,25 @@ function EndWindow.draw()
     Print.text(yes_text, centerX - 40, y, yes_color)
     Print.text(no_text, centerX + 10, y, no_color)
   elseif Context._end.state == "ending" then
-    Print.text_center("Game over -- good ending.", Config.screen.width / 2, 50, Config.colors.light_blue)
-    Print.text_center("Congratulations!", Config.screen.width / 2, 70, Config.colors.white)
-    Print.text_center("Press Z to return to menu", Config.screen.width / 2, 110, Config.colors.light_grey)
+    local cx   = Config.screen.width / 2
+    local name = Context.player_name or "AAA"
+    local code = CodeGenerator.encrypt(name)
+
+    Print.text_center("~ GOOD ENDING ~",                     cx,  8, Config.colors.light_blue)
+    Print.text_center("Congratulations, " .. name .. "!",    cx, 20, Config.colors.white)
+
+    rectb(40, 29, 160, 36, Config.colors.blue)
+    Print.text_center("your code",                           cx, 33, Config.colors.light_grey)
+    Print.text_center(code,                                  cx, 44, Config.colors.white, false, 2)
+
+    Print.text_center("Write it down!",                      cx, 70, Config.colors.item)
+
+    line(20, 82, 219, 82, Config.colors.dark_grey)
+    Print.text_center("To continue via telnet:",             cx, 87, Config.colors.light_grey)
+    Print.text_center("games.teletype.hu  2324",             cx, 98, Config.colors.white)
+    line(20, 110, 219, 110, Config.colors.dark_grey)
+
+    Print.text_center("Press Z to return to menu",           cx, 116, Config.colors.dark_grey)
   end
 end
 

@@ -102,17 +102,13 @@ function MenuWindow.update()
   end
 end
 
---- Starts a new game from the menu.
+--- Opens player name entry then starts a new game.
 --- @within MenuWindow
 function MenuWindow.new_game()
-  Context.new_game()
-end
-
---- Loads a game from the menu.
---- @within MenuWindow
-function MenuWindow.load_game()
-  Context.load_game()
-  GameWindow.set_state("game")
+  PlayerNameWindow.init(function()
+    Context.new_game()
+  end)
+  Window.set_current("player_name")
 end
 
 --- Saves the current game from the menu.
@@ -139,6 +135,20 @@ function MenuWindow.controls()
   Window.set_current("controls")
 end
 
+--- Opens the player name entry screen (test mode shortcut).
+--- @within MenuWindow
+function MenuWindow.player_name()
+  PlayerNameWindow.init()
+  Window.set_current("player_name")
+end
+
+--- Opens the credits screen.
+--- @within MenuWindow
+function MenuWindow.credits()
+  CreditsWindow.init()
+  Window.set_current("credits")
+end
+
 --- Opens the audio test menu.
 --- @within MenuWindow
 function MenuWindow.audio_test()
@@ -151,6 +161,14 @@ end
 function MenuWindow.continued()
   ContinuedWindow.timer = 300
   GameWindow.set_state("continued")
+end
+
+--- Opens the end screen for testing.
+--- @within MenuWindow
+function MenuWindow.end_screen()
+  Context._end.state     = "ending"
+  Context._end.selection = 1
+  GameWindow.set_state("end")
 end
 
 --- Opens the DDR minigame test.
@@ -178,14 +196,16 @@ function MenuWindow.refresh_menu_items()
   end
 
   table.insert(_menu_items, {label = "New Game",  decision = MenuWindow.new_game})
-  table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
   table.insert(_menu_items, {label = "Controls",  decision = MenuWindow.controls})
+  table.insert(_menu_items, {label = "Credits",   decision = MenuWindow.credits})
 
   if Context.test_mode then
     table.insert(_menu_items, {label = "Audio Test",         decision = MenuWindow.audio_test})
     table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
     table.insert(_menu_items, {label = "DDR Test",           decision = MenuWindow.ddr_test})
     table.insert(_menu_items, {label = "Start at ASCEND N",  decision = MenuWindow.ascend_debug})
+    table.insert(_menu_items, {label = "End Screen",         decision = MenuWindow.end_screen})
+    table.insert(_menu_items, {label = "Player Name",        decision = MenuWindow.player_name})
   end
 
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})

@@ -5,6 +5,7 @@ Screen.register({
     "go_to_home",
     "go_to_office",
     "sumphore_discussion",
+    "eating_fast_food",
     "go_to_truth",
   },
   init = function()
@@ -43,20 +44,28 @@ Screen.register({
     return CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 and "" or "street"
   end,
   draw = function()
-    if Window.get_current_id() == "game" then
+    local w = Window.get_current_id()
+    if w ~= "game" and w ~= "discussion" then
+      return
+    end
+
+    if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7 then
       Sprite.draw_at("norman",               7 * 8,  3 * 8)
       Sprite.draw_at("sumphore",             9 * 8,  2 * 8)
-
-      if not (CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 7) then
-        Sprite.draw_at("pizza_vendor",        19 * 8,  1 * 8)
-        Sprite.draw_at("dev_guard",           22 * 8,  2 * 8)
-      end
-
       CommuteGlitch.draw_sprite_list(Context.walking_to_home_sprites)
-
-      if CommuteGlitch.is_active() then
-        if CommuteGlitch.get_level() >= 7 then CommuteGlitch.draw_background_flicker() end
-        if CommuteGlitch.get_level() >= 6 then Glitch.draw() end
+      CommuteGlitch.draw_background_flicker()
+      Glitch.draw()
+    else
+      local norman_x = Context.fast_food_approaching and (19 * 8) or (7 * 8)
+      Sprite.draw_at("norman",               norman_x,  3 * 8)
+      Sprite.draw_at("sumphore",             9 * 8,  2 * 8)
+      if Context.fast_food_eaten_today < 3 then
+        Sprite.draw_at("pizza_vendor",        19 * 8,  1 * 8)
+      end
+      Sprite.draw_at("dev_guard",           22 * 8,  2 * 8)
+      CommuteGlitch.draw_sprite_list(Context.walking_to_home_sprites)
+      if CommuteGlitch.is_active() and CommuteGlitch.get_level() >= 6 then
+        Glitch.draw()
       end
     end
   end

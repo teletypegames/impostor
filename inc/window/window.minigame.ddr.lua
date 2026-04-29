@@ -130,6 +130,7 @@ function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
       Audio.sfx_arrowhit(arrow.note)
       game_context.special_mode_counter = game_context.special_mode_counter + 1
     else
+      game_context.total_misses = game_context.total_misses + 1
       if game_context.special_mode_condition then Audio.sfx_bloop() end
       game_context.special_mode_condition = false
     end
@@ -141,10 +142,12 @@ function MinigameDDRWindow.on_arrow_hit_special(arrow, game_context)
         game_context.bar_fill = game_context.bar_fill - game_context.fill_per_hit
       end
     else
+      game_context.total_misses = game_context.total_misses + 1
       if game_context.special_mode_condition then Audio.sfx_bloop() end
       game_context.special_mode_condition = false
     end
   elseif special_mode == "only_nothing" then
+    game_context.total_misses = game_context.total_misses + 1
     if game_context.special_mode_condition then Audio.sfx_bloop() end
     game_context.special_mode_condition = false
   end
@@ -173,6 +176,9 @@ function MinigameDDRWindow.on_end(game_context)
   end
 
   game_context.special_mode_condition = game_context.special_mode_condition and was_ok
+  if game_context.special_mode_condition and sm ~= "normal" then
+    game_context.bar_fill = game_context.max_fill
+  end
 end
 
 --- Initializes DDR minigame state.
@@ -336,7 +342,8 @@ function MinigameDDRWindow.update()
     mg.win_timer = mg.win_timer - 1
     if mg.win_timer == 0 then
       Audio.music_stop()
-      Meter.on_minigame_complete()
+      Meter.apply_ddr_reward(mg.total_misses)
+      if not Context.game_in_progress then return end
       if mg.on_win then
         mg.on_win(mg)
       else

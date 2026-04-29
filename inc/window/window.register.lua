@@ -34,6 +34,9 @@ Window.register("minigame_rhythm", MinigameRhythmWindow)
 MinigameDDRWindow = {}
 Window.register("minigame_ddr", MinigameDDRWindow)
 
+GameOverWindow = {}
+Window.register("game_over", GameOverWindow)
+
 EndWindow = {}
 Window.register("end", EndWindow)
 
@@ -42,3 +45,9 @@ Window.register("discussion", DiscussionWindow)
 
 ContinuedWindow = {}
 Window.register("continued", ContinuedWindow)
+
+CreditsWindow = {}
+Window.register("credits", CreditsWindow)
+
+PlayerNameWindow = {}
+Window.register("player_name", PlayerNameWindow)
