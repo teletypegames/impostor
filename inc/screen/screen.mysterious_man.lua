@@ -97,8 +97,8 @@ local ASC_89_TEXT = [[
 
 
 
-  you created this simulation 
-  
+  you created this simulation
+
   in the first place.
 
   I know,
@@ -114,8 +114,7 @@ local ASC_89_TEXT = [[
 
 
 
-  But 
-  
+  But
 
 
 
@@ -127,9 +126,8 @@ local ASC_89_TEXT = [[
   You are definitely
 
   not an impostor.
-  
 
-  
+
   So now,
 
 
@@ -141,7 +139,6 @@ local ASC_89_TEXT = [[
   before it takes over
 
   the world.
-  
 
 
 
@@ -151,9 +148,9 @@ local ASC_89_TEXT = [[
 
 
   You really need to stop
-  
-  talking to yourself 
-  
+
+  talking to yourself
+
   in your sleep.
 
 
