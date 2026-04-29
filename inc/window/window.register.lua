@@ -22,6 +22,9 @@ Window.register("controls", ControlsWindow)
 AudioTestWindow = {}
 Window.register("audiotest", AudioTestWindow)
 
+AscendDebugWindow = {}
+Window.register("ascend_debug", AscendDebugWindow)
+
 MinigameButtonMashWindow = {}
 Window.register("minigame_button_mash", MinigameButtonMashWindow)
 

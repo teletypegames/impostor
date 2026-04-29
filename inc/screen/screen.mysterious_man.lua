@@ -80,6 +80,85 @@ local ASC_67_TEXT = [[
   Not yet.
 ]]
 
+local ASC_78_TEXT = [[
+  The situation has reached
+
+  critical levels.
+
+  Norman is fully aware...
+
+  We need to stop him.
+
+  Commence full reset.
+]]
+
+local ASC_89_TEXT = [[
+  Norman
+
+
+
+  you created this simulation
+
+  in the first place.
+
+  I know,
+
+  you don't want to face
+
+  the world you left behind.
+
+  You, yourself,
+
+  have forgoten that.
+
+
+
+
+  But
+
+
+
+  it doesn't matter anymore.
+
+
+
+
+  You are definitely
+
+  not an impostor.
+
+
+  So now,
+
+
+
+  you need to wake up
+
+  and stop your best creation
+
+  before it takes over
+
+  the world.
+
+
+
+  One more thing:
+
+
+
+
+  You really need to stop
+
+  talking to yourself
+
+  in your sleep.
+
+
+
+
+  Damnit.
+]]
+
 local ascension_texts = {
   [1] = ASC_01_TEXT,
   [2] = ASC_12_TEXT,
@@ -88,6 +167,8 @@ local ascension_texts = {
   [5] = ASC_45_TEXT,
   [6] = ASC_56_TEXT,
   [7] = ASC_67_TEXT,
+  [8] = ASC_78_TEXT,
+  [9] = ASC_89_TEXT,
 }
 
 function MysteriousManScreen.get_text_for_level(level)
@@ -108,6 +189,7 @@ local day_text_override = nil
 local on_text_complete = nil
 local show_mysterious_screen = true
 local trigger_flash_on_wake = false
+local break_mode = false
 
 MysteriousManScreen.choices = {
   {
@@ -212,6 +294,8 @@ function MysteriousManScreen.start(options)
   text_y = Config.screen.height
   day_text_override = options.day_text
   on_text_complete = options.on_text_complete
+  break_mode = options.break_mode or false
+  MysteriousManScreen.pending_end = false
   Meter.hide()
   trigger_flash_on_wake = not options.skip_text
   if options.skip_text then
@@ -253,29 +337,29 @@ Screen.register({
           lines = lines + 1
         end
 
-        if text_y < -lines * 8 or Input.select() then
+        local skippable = Ascension.get_level() < 8
+        if text_y < -lines * 8 or (skippable and Input.select()) then
           text_done = true
           text_done_timer = TEXT_DONE_HOLD_SECONDS
           -- If skipped by user, go to day state immediately
-          if Input.select() then
+          if skippable and Input.select() then
             MysteriousManScreen.go_to_day_state()
           end
         end
       else
         text_done_timer = text_done_timer - Context.delta_time
-        if text_done_timer <= 0 or Input.select() then
+        if text_done_timer <= 0 or (Ascension.get_level() ~= 8 and Input.select()) then
           MysteriousManScreen.go_to_day_state()
-          -- to be continued
-          if 4 <= Ascension.get_level() then
-            Window.set_current("continued")
-          end
         end
       end
     elseif state == STATE_DAY then
       day_timer = day_timer - Context.delta_time
 
-      if day_timer <= 0 or Input.select() then
-        if trigger_flash_on_wake or Ascension.get_level() < 1 then
+      if day_timer <= 0 or (Ascension.get_level() ~= 8 and Input.select()) then
+        if break_mode then
+          state = STATE_CHOICE
+          selected_choice = 1
+        elseif trigger_flash_on_wake or Ascension.get_level() ~= 4 then
           MysteriousManScreen.wake_up()
         else
           state = STATE_CHOICE
@@ -283,23 +367,77 @@ Screen.register({
         end
       end
     elseif state == STATE_CHOICE then
-      local menu_x = (Config.screen.width - 60) / 2
-      local menu_y = (Config.screen.height - 20) / 2
-      local confirmed
-      selected_choice, confirmed = UI.update_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
+      if break_mode then
+        if MysteriousManScreen.pending_end then
+          if not Ascension.is_flashing() and not Ascension.is_fading() then
+            MysteriousManScreen.pending_end = false
+            Window.set_current("end")
+          end
+          return
+        end
 
-      if Input.select() or confirmed then
-        Audio.sfx_select()
-        if selected_choice == 1 then
-          MysteriousManScreen.wake_up()
-        else
-          MysteriousManScreen.stay_in_bed()
+        if Input.left() or Input.up() then
+          if selected_choice == 2 then
+            Audio.sfx_beep()
+            selected_choice = 1
+          end
+        elseif Input.right() or Input.down() then
+          if selected_choice == 1 then
+            Audio.sfx_beep()
+            selected_choice = 2
+          end
+        end
+
+        if Input.select() then
+          Audio.sfx_select()
+          if selected_choice == 1 then
+            Ascension.start_flash()
+            MysteriousManScreen.pending_end = true
+          else
+            Context.reset()
+            Context.game_in_progress = true
+            Context.home_norman_visible = true
+            Glitch.hide()
+            Meter.show()
+            MenuWindow.refresh_menu_items()
+            Util.go_to_screen_by_id("home")
+            Window.set_current("game")
+            local home_screen = Screen.get_by_id("home")
+            if home_screen and home_screen.init then
+              home_screen.init()
+            end
+          end
+        end
+      else
+        local menu_x = (Config.screen.width - 60) / 2
+        local menu_y = (Config.screen.height - 20) / 2
+        local confirmed
+        selected_choice, confirmed = UI.update_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
+
+        if Input.select() or confirmed then
+          Audio.sfx_select()
+          if selected_choice == 1 then
+            MysteriousManScreen.wake_up()
+          else
+            MysteriousManScreen.stay_in_bed()
+          end
         end
       end
     end
   end,
   draw = function()
-    if show_mysterious_screen then
+    if state == STATE_CHOICE and break_mode then
+      if not MysteriousManScreen.pending_end then
+        local nx = math.floor((Config.screen.width - 64) / 2)
+        local ny = math.floor((Config.screen.height - 96) / 2)
+        spr(272, nx,      ny,      Config.colors.transparent, 4)
+        spr(273, nx + 32, ny,      Config.colors.transparent, 4)
+        spr(288, nx,      ny + 32, Config.colors.transparent, 4)
+        spr(289, nx + 32, ny + 32, Config.colors.transparent, 4)
+        spr(304, nx,      ny + 64, Config.colors.transparent, 4)
+        spr(305, nx + 32, ny + 64, Config.colors.transparent, 4)
+      end
+    elseif show_mysterious_screen and not break_mode then
       MysteriousManScreen.draw_background()
     end
 
@@ -322,9 +460,42 @@ Screen.register({
         Config.colors.white
       )
     elseif state == STATE_CHOICE then
-      local menu_x = (Config.screen.width - 60) / 2
-      local menu_y = (Config.screen.height - 20) / 2
-      UI.draw_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
+      if break_mode then
+        if MysteriousManScreen.pending_end or Ascension.is_fading() or Ascension.is_flashing() then
+          Meter.draw_ascension_only()
+        else
+          local lines = {
+            "This is not a workplace.",
+            "This is a cycle.",
+            "And if it is a cycle...",
+            "it can be broken."
+          }
+          local y = 40
+          for _, line in ipairs(lines) do
+            Print.text_center_contour(line, Config.screen.width / 2, y, Config.colors.orange, false, 1, Config.colors.white)
+            y = y + 10
+          end
+
+          y = y + 20
+          local break_color = selected_choice == 1 and Config.colors.light_blue or Config.colors.white
+          local cont_color = selected_choice == 2 and Config.colors.light_blue or Config.colors.white
+          local break_text = (selected_choice == 1 and "> BREAK" or "  BREAK")
+          local cont_text = (selected_choice == 2 and "> CONTINUE" or "  CONTINUE")
+          local centerX = Config.screen.width / 2
+          local choice_gap = 20
+          local break_width = print(break_text, 0, -6, 0)
+          local cont_width = print(cont_text, 0, -6, 0)
+          local total_width = break_width + choice_gap + cont_width
+          local break_x = math.floor(centerX - (total_width / 2))
+          local cont_x = break_x + break_width + choice_gap
+          Print.text(break_text, break_x, y, break_color)
+          Print.text(cont_text, cont_x, y, cont_color)
+        end
+      else
+        local menu_x = (Config.screen.width - 60) / 2
+        local menu_y = (Config.screen.height - 20) / 2
+        UI.draw_menu(MysteriousManScreen.choices, selected_choice, menu_x, menu_y)
+      end
     end
   end,
 })

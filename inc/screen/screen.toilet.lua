@@ -92,5 +92,14 @@ Screen.register({
       local asc_x = math.floor((sw - asc_total_w) / 2)
       Ascension.draw(asc_x, asc_letter_y, { spacing = asc_spacing })
     end
+
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
+    end
+
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
+      Glitch.draw()
+    end
   end,
 })

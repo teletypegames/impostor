@@ -61,12 +61,16 @@ function Context.initial_data()
     fast_food_eaten_today = 0,
     office_sprites = {},
     walking_to_office_sprites = {},
+    walking_to_home_sprites = {},
     game = {
       current_screen = "home",
     },
     day_count = 1,
     delta_time = 0,
     last_frame_time = 0,
+    commute_glitch_level = 0,
+    talked_to_norman_echo = false,
+    talked_to_true_sumphore = false,
     glitch = {
       enabled = false,
       state = "active",

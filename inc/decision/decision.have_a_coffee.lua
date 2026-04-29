@@ -1,6 +1,9 @@
 Decision.register({
   id = "have_a_coffee",
   label = "Have a Coffee",
+  condition = function()
+    return Ascension.get_level() < 8 and not CommuteGlitch.is_max()
+  end,
   handle = function()
     local level = Ascension.get_level()
     local disc_id = "coworker_disc_0"
@@ -15,6 +18,11 @@ Decision.register({
         Discussion.start("coworker_disc_asc_6_" .. Context.glitch_conversation_count, "game")
         return
       end
+      local suffix = Context.have_done_work_today and ("_asc_5") or ("_5")
+      disc_id = "coworker_disc" .. suffix
+    elseif level == 7 then
+      local g = CommuteGlitch.get_level()
+      disc_id = "coworker_disc_cg_" .. g
     end
     Discussion.start(disc_id, "game")
   end,

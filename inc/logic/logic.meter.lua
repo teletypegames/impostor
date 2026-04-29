@@ -168,6 +168,7 @@ function Meter.apply_ddr_reward(mistake_count)
   if not Context or not Context.meters then return end
   local max = Meter.get_max()
   local m = Context.meters
+  local wpm_was_high = m.wpm > 900
   local wpm_pct, ism_pct, bm_pct
   if mistake_count == 0 then
     wpm_pct, ism_pct, bm_pct = -0.10, 0.05, 0.05
@@ -184,6 +185,10 @@ function Meter.apply_ddr_reward(mistake_count)
   end
   if bm_pct ~= 0 then
     Meter.add("bm", math.floor(max * bm_pct))
+  end
+  if wpm_was_high then
+    Meter.add("ism", math.floor(max * 0.05))
+    Meter.add("bm", math.floor(max * 0.05))
   end
   m.combo = m.combo + 1
   m.combo_timer = 0
@@ -308,6 +313,21 @@ function Meter.draw()
     ---print(meter.label, label_x, label_y, meter.color, false, 1, true)
   end
 
+  local ascension_y = start_y + 3 * line_h + 1
+  Ascension.draw(bar_x - 4, ascension_y, { spacing = 8 })
+end
+
+--- Draws only the ascension letters at the same position as in Meter.draw().
+--- Used when meters are hidden but ascension letters still need to be visible.
+--- @within Meter
+function Meter.draw_ascension_only()
+  local screen_w = Config.screen.width
+  local screen_h = Config.screen.height
+  local bar_w = screen_w * 0.25
+  local edge = math.max(2, math.floor(screen_w * 0.03))
+  local bar_x = screen_w - bar_w - edge
+  local line_h = 3
+  local start_y = screen_h * 0.05
   local ascension_y = start_y + 3 * line_h + 1
   Ascension.draw(bar_x - 4, ascension_y, { spacing = 8 })
 end

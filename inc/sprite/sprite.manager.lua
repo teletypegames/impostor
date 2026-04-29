@@ -80,7 +80,7 @@ function Sprite.draw_list(sprite_list)
   for _, sprite_info in ipairs(sprite_list) do
     local sprite_data = _sprites[sprite_info.id]
     if not sprite_data then
-      trace("Error: Attempted to draw non-registered sprite with id: " .. sprite_info.id)
+      trace("Error: Attempted to draw non-registered sprite with id: " .. tostring(sprite_info.id))
     else
       draw_sprite_instance(sprite_data, sprite_info)
     end
