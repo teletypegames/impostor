@@ -168,6 +168,7 @@ function Meter.apply_ddr_reward(mistake_count)
   if not Context or not Context.meters then return end
   local max = Meter.get_max()
   local m = Context.meters
+  local wpm_was_high = m.wpm > 900
   local wpm_pct, ism_pct, bm_pct
   if mistake_count == 0 then
     wpm_pct, ism_pct, bm_pct = -0.10, 0.05, 0.05
@@ -184,6 +185,10 @@ function Meter.apply_ddr_reward(mistake_count)
   end
   if bm_pct ~= 0 then
     Meter.add("bm", math.floor(max * bm_pct))
+  end
+  if wpm_was_high then
+    Meter.add("ism", math.floor(max * 0.05))
+    Meter.add("bm", math.floor(max * 0.05))
   end
   m.combo = m.combo + 1
   m.combo_timer = 0
