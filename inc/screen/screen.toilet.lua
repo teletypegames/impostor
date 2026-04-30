@@ -51,8 +51,8 @@ Screen.register({
     local decay_pct = Meter.get_decay_percentage()
     local decay_text = string.format("-%d%%", decay_pct)
     local combo_mult = Meter.get_combo_multiplier()
-    local combo_pct = math.floor((combo_mult - 1) * 100)
-    local mult_text = string.format("+%d%%", combo_pct)
+    local ism_bm_combo_pct = math.floor((combo_mult - 1) * 100)
+    local wpm_combo_pct = math.floor((1 / combo_mult - 1) * 100 + 0.5)
     local meter_start_y = text_y + 10
 
     local meter_list = {
@@ -73,6 +73,12 @@ Screen.register({
         rect(bar_x, bar_y, fill_w, bar_h, meter.color)
       end
 
+      local mult_text
+      if meter.key == "wpm" then
+        mult_text = string.format("%+d%%", wpm_combo_pct)
+      else
+        mult_text = string.format("+%d%%", ism_bm_combo_pct)
+      end
       local decay_w = print(decay_text, 0, -6, 0, false, 1)
       Print.text_contour(decay_text, bar_x - decay_w - 4, bar_y, Config.colors.light_blue, false, 1, Config.colors.white)
       Print.text_contour(mult_text, bar_x + bar_w + 4, bar_y, Config.colors.light_blue, false, 1, Config.colors.white)
@@ -85,6 +91,15 @@ Screen.register({
       local asc_total_w = Ascension.get_level() * asc_spacing
       local asc_x = math.floor((sw - asc_total_w) / 2)
       Ascension.draw(asc_x, asc_letter_y, { spacing = asc_spacing })
+    end
+
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
+    end
+
+    if Ascension.get_level() == 8 then
+      CommuteGlitch.draw_background_flicker()
+      Glitch.draw()
     end
   end,
 })

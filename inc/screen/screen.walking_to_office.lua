@@ -5,10 +5,9 @@ Screen.register({
     "go_to_home",
     "go_to_office",
     "sumphore_discussion",
+    "eating_fast_food",
   },
   init = function()
-    Audio.music_play_room_work()
-
     local possible_sprites = {
       "matrix_trinity",
       "matrix_neo",
@@ -29,16 +28,35 @@ Screen.register({
       {x = 27 * 8, y = 11 * 8},
     }
 
-    Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
+    if CommuteGlitch.is_max() then
+      Audio.music_play_mystery()
+      Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
+      Context.walking_to_office_sprites = CommuteGlitch.corrupt_sprite_list(Context.walking_to_office_sprites)
+    else
+      Audio.music_play_room_work()
+      Context.walking_to_office_sprites = Sprite.list_randomize(possible_sprites, possible_positions)
+    end
   end,
-  background = "street",
+  background = function()
+    return CommuteGlitch.is_max() and "" or "street"
+  end,
+  update = function()
+  end,
   draw = function()
-    if Window.get_current_id() == "game" then
-      Sprite.draw_at("norman",               7 * 8,  3 * 8)
-      Sprite.draw_at("sumphore",             9 * 8,  2 * 8)
-      Sprite.draw_at("pizza_vendor",        19 * 8,  1 * 8)
-      Sprite.draw_at("dev_guard",           22 * 8,  2 * 8)
+    local w = Window.get_current_id()
+    if w == "game" or w == "discussion" then
+      local norman_x = Context.fast_food_approaching and (19 * 8) or (7 * 8)
+      local show_sumphore = Ascension.get_level() ~= 8
+      Sprite.draw_at("norman",               norman_x,  3 * 8)
+      if show_sumphore then
+        Sprite.draw_at("sumphore",            9 * 8,    2 * 8)
+      end
 
+      if Context.fast_food_eaten_today < 3 then
+        Sprite.draw_at("pizza_vendor",     19 * 8,    1 * 8)
+      end
+
+      Sprite.draw_at("dev_guard",          22 * 8,    3 * 8)
       Sprite.draw_list(Context.walking_to_office_sprites)
     end
   end

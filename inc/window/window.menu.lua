@@ -5,6 +5,7 @@ local _anim = 0
 local _menu_max_w = 0
 local ANIM_SPEED = 2.5
 local HEADER_H = 28
+MenuWindow._scroll_offset = 0
 
 --- Calculates the animated x position of the menu block.
 --- @within MenuWindow
@@ -45,6 +46,17 @@ function MenuWindow.draw_norman()
   spr(305, nx + 32, ny + 64, Config.colors.transparent, 4)
 end
 
+--- Adjusts _scroll_offset so the selected item is within the visible window.
+--- @within MenuWindow
+function MenuWindow.ensure_visible()
+  local sel = Context.current_menu_item
+  if sel <= MenuWindow._scroll_offset then
+    MenuWindow._scroll_offset = sel - 1
+  elseif sel > MenuWindow._scroll_offset + 5 then
+    MenuWindow._scroll_offset = sel - 5
+  end
+end
+
 --- Draws the menu window.
 --- @within MenuWindow
 function MenuWindow.draw()
@@ -56,9 +68,19 @@ function MenuWindow.draw()
     MenuWindow.draw_norman()
   end
 
-  local menu_h = #_menu_items * 10
-  local y = HEADER_H + math.floor((Config.screen.height - HEADER_H - 10 - menu_h) / 2)
-  UI.draw_menu(_menu_items, Context.current_menu_item, MenuWindow.calc_menu_x(), y, false)
+  local menu_x = MenuWindow.calc_menu_x()
+  local arrow_cx = math.floor(menu_x + _menu_max_w / 2)
+  local y = HEADER_H + math.floor((Config.screen.height - HEADER_H - 50) / 2)
+
+  if MenuWindow._scroll_offset > 0 then
+    Print.text_center("^", arrow_cx, y - 8, Config.colors.light_blue)
+  end
+
+  UI.draw_menu(_menu_items, Context.current_menu_item, menu_x, y, false, MenuWindow._scroll_offset, 5)
+
+  if MenuWindow._scroll_offset + 5 < #_menu_items then
+    Print.text_center("v", arrow_cx, y + 52, Config.colors.light_blue)
+  end
 
   local ttg_text = "TTG"
   local ttg_w = print(ttg_text, 0, -10, 0, false, 1, false)
@@ -72,8 +94,8 @@ function MenuWindow.update()
     _anim = math.min(1, _anim + ANIM_SPEED * Context.delta_time)
   end
 
-  local menu_h = #_menu_items * 10
-  local y = HEADER_H + math.floor((Config.screen.height - HEADER_H - 10 - menu_h) / 2)
+  local menu_x = MenuWindow.calc_menu_x()
+  local y = HEADER_H + math.floor((Config.screen.height - HEADER_H - 50) / 2)
 
   if _click_timer > 0 then
     _click_timer = _click_timer - Context.delta_time
@@ -87,8 +109,9 @@ function MenuWindow.update()
     return
   end
 
-  local new_item, mouse_confirmed = UI.update_menu(_menu_items, Context.current_menu_item, MenuWindow.calc_menu_x(), y, false)
+  local new_item, mouse_confirmed = UI.update_menu(_menu_items, Context.current_menu_item, menu_x, y, false, MenuWindow._scroll_offset, 5)
   Context.current_menu_item = new_item
+  MenuWindow.ensure_visible()
 
   if mouse_confirmed then
     Audio.sfx_select()
@@ -102,17 +125,13 @@ function MenuWindow.update()
   end
 end
 
---- Starts a new game from the menu.
+--- Opens player name entry then starts a new game.
 --- @within MenuWindow
 function MenuWindow.new_game()
-  Context.new_game()
-end
-
---- Loads a game from the menu.
---- @within MenuWindow
-function MenuWindow.load_game()
-  Context.load_game()
-  GameWindow.set_state("game")
+  PlayerNameWindow.init(function()
+    Context.new_game()
+  end)
+  Window.set_current("player_name")
 end
 
 --- Saves the current game from the menu.
@@ -139,6 +158,20 @@ function MenuWindow.controls()
   Window.set_current("controls")
 end
 
+--- Opens the player name entry screen (test mode shortcut).
+--- @within MenuWindow
+function MenuWindow.player_name()
+  PlayerNameWindow.init()
+  Window.set_current("player_name")
+end
+
+--- Opens the credits screen.
+--- @within MenuWindow
+function MenuWindow.credits()
+  CreditsWindow.init()
+  Window.set_current("credits")
+end
+
 --- Opens the audio test menu.
 --- @within MenuWindow
 function MenuWindow.audio_test()
@@ -153,12 +186,33 @@ function MenuWindow.continued()
   GameWindow.set_state("continued")
 end
 
+--- Opens the end screen for testing.
+--- @within MenuWindow
+function MenuWindow.end_screen()
+  Context._end.state     = "ending"
+  Context._end.selection = 1
+  GameWindow.set_state("end")
+end
+
 --- Opens the DDR minigame test.
 --- @within MenuWindow
 function MenuWindow.ddr_test()
   AudioTestWindow.init()
   GameWindow.set_state("minigame_ddr")
   MinigameDDRWindow.start("menu", "generated", { special_mode = "only_nothing" })
+end
+
+--- Opens the ASCEND debug start window.
+--- @within MenuWindow
+function MenuWindow.ascend_debug()
+  AscendDebugWindow.init()
+  GameWindow.set_state("ascend_debug")
+end
+
+--- Triggers the Level Up flash animation for testing.
+--- @within MenuWindow
+function MenuWindow.level_up_flash()
+  Ascension.start_flash()
 end
 
 --- Refreshes the list of menu items based on current game state.
@@ -171,24 +225,32 @@ function MenuWindow.refresh_menu_items()
   end
 
   table.insert(_menu_items, {label = "New Game",  decision = MenuWindow.new_game})
-  table.insert(_menu_items, {label = "Load Game", decision = MenuWindow.load_game})
   table.insert(_menu_items, {label = "Controls",  decision = MenuWindow.controls})
+  table.insert(_menu_items, {label = "Credits",   decision = MenuWindow.credits})
 
   if Context.test_mode then
+    table.insert(_menu_items, {label = "Debug Menu",         header   = true})
+    table.insert(_menu_items, {label = "Level Up Flash",     decision = MenuWindow.level_up_flash})
     table.insert(_menu_items, {label = "Audio Test",         decision = MenuWindow.audio_test})
     table.insert(_menu_items, {label = "To Be Continued...", decision = MenuWindow.continued})
     table.insert(_menu_items, {label = "DDR Test",           decision = MenuWindow.ddr_test})
+    table.insert(_menu_items, {label = "Start at ASCEND N",  decision = MenuWindow.ascend_debug})
+    table.insert(_menu_items, {label = "End Screen",         decision = MenuWindow.end_screen})
+    table.insert(_menu_items, {label = "Player Name",        decision = MenuWindow.player_name})
   end
 
   table.insert(_menu_items, {label = "Exit", decision = MenuWindow.exit})
 
   _menu_max_w = 0
   for _, item in ipairs(_menu_items) do
-    local w = print(item.label, 0, -10, 0, false, 1, false)
-    if w > _menu_max_w then _menu_max_w = w end
+    if not item.header then
+      local w = print(item.label, 0, -10, 0, false, 1, false)
+      if w > _menu_max_w then _menu_max_w = w end
+    end
   end
 
   Context.current_menu_item = 1
+  MenuWindow._scroll_offset = 0
   _click_timer = 0
   _anim = 0
 end

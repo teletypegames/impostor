@@ -1,3 +1,35 @@
+# Build System & Include Architecture
+
+## impostor.inc Structure
+
+The `impostor.inc` file is a Lua include manifest that assembles the final `impostor.lua` executable. The build process uses the `make build` target in the Makefile to concatenate all included files in order.
+
+**Critical Rule:** Files must be ordered by symbol definition. All symbols (functions, tables, classes) defined in earlier files must be available for use in later files. This dependency chain ensures that:
+
+- Core utilities and base systems are defined first
+- Systems that depend on utilities come next
+- Game logic that uses multiple systems comes last
+
+### Build Process
+
+The `make build` target processes `impostor.inc` and concatenates all referenced files in the specified order to create the final `impostor.lua` file. This means:
+
+1. Each include path in `impostor.inc` must reference files relative to the project root
+2. The order of includes is critical - dependencies must be resolved top-to-bottom
+3. No forward references are possible - a file cannot use symbols from files included after it
+
+### File Organization Example
+
+```
+impostor.inc:
+1. Core utilities & helpers (no dependencies)
+2. Base classes/tables (depend on core utilities)
+3. Game systems (depend on base classes)
+4. Game logic (depends on all systems)
+```
+
+This ensures proper symbol resolution during the build and concatenation process.
+
 # TIC-80 Lua Code Regularities
 
 Based on the analysis of `impostor.lua`, the following regularities and conventions should be followed for future modifications and development within this project:

@@ -9,53 +9,79 @@ function UI.draw_top_bar(title)
 end
 
 --- Draws a menu.
+--- Items with header=true are drawn as non-selectable section headers in small font.
 --- @within UI
 --- @param items table A table of menu items.<br/>
 --- @param selected_item number The index of the currently selected item.<br/>
 --- @param x number The x-coordinate for the menu (ignored if centered is true).<br/>
 --- @param y number The y-coordinate for the menu.<br/>
 --- @param[opt] centered boolean Whether to center the menu block horizontally. Defaults to false.<br/>
-function UI.draw_menu(items, selected_item, x, y, centered)
+--- @param[opt] scroll_offset number 0-based index of the first visible item. Defaults to 0.<br/>
+--- @param[opt] visible_count number Maximum number of items to draw. Defaults to all.<br/>
+function UI.draw_menu(items, selected_item, x, y, centered, scroll_offset, visible_count)
+  scroll_offset = scroll_offset or 0
+  visible_count = visible_count or #items
+
   if centered then
     local max_w = 0
     for _, item in ipairs(items) do
-      local w = print(item.label, 0, -10, 0, false, 1, false)
-      if w > max_w then max_w = w end
+      if not item.header then
+        local w = print(item.label, 0, -10, 0, false, 1, false)
+        if w > max_w then max_w = w end
+      end
     end
     x = (Config.screen.width - max_w) / 2
   end
 
-  for i, item in ipairs(items) do
-    local current_y = y + (i-1)*10
-    if i == selected_item then
-      Print.text(">", x - 8, current_y, Config.colors.light_blue)
+  local current_y = y
+  for i = scroll_offset + 1, math.min(#items, scroll_offset + visible_count) do
+    local item = items[i]
+    if item.header then
+      Print.text(item.label, x, current_y, Config.colors.dark_grey, true, 1)
+      current_y = current_y + 8
+    else
+      if i == selected_item then
+        Print.text(">", x - 8, current_y, Config.colors.light_blue)
+      end
+      Print.text(item.label, x, current_y, Config.colors.light_blue)
+      current_y = current_y + 10
     end
-    Print.text(item.label, x, current_y, Config.colors.light_blue)
   end
 end
 
---- Updates menu selection.
+--- Updates menu selection. Skips items with header=true during navigation.
 --- @within UI
 --- @param items table A table of menu items.<br/>
 --- @param selected_item number The current index of the selected item.<br/>
 --- @param[opt] x number Menu x position (required for mouse support).<br/>
 --- @param[opt] y number Menu y position (required for mouse support).<br/>
 --- @param[opt] centered boolean Whether the menu is centered horizontally.<br/>
+--- @param[opt] scroll_offset number 0-based index of the first visible item. Defaults to 0.<br/>
+--- @param[opt] visible_count number Number of visible items (for mouse hit zones). Defaults to all.<br/>
 --- @return number selected_item The updated index of the selected item.
 --- @return boolean mouse_confirmed True if the user clicked on a menu item.
-function UI.update_menu(items, selected_item, x, y, centered)
+function UI.update_menu(items, selected_item, x, y, centered, scroll_offset, visible_count)
+  scroll_offset = scroll_offset or 0
+  visible_count = visible_count or #items
+  local n = #items
+
+  local function find_selectable(start, dir)
+    local idx = start
+    for _ = 1, n do
+      if not items[idx].header then return idx end
+      idx = (idx - 1 + dir + n) % n + 1
+    end
+    return start
+  end
+
   if Input.up() then
     Audio.sfx_beep()
-    selected_item = selected_item - 1
-    if selected_item < 1 then
-      selected_item = #items
-    end
+    local prev = (selected_item - 2 + n) % n + 1
+    selected_item = find_selectable(prev, -1)
   elseif Input.down() then
     Audio.sfx_beep()
-    selected_item = selected_item + 1
-    if selected_item > #items then
-      selected_item = 1
-    end
+    local next_i = selected_item % n + 1
+    selected_item = find_selectable(next_i, 1)
   end
 
   if x ~= nil and y ~= nil then
@@ -63,15 +89,23 @@ function UI.update_menu(items, selected_item, x, y, centered)
     if centered then
       local max_w = 0
       for _, item in ipairs(items) do
-        local w = print(item.label, 0, -10, 0, false, 1, false)
-        if w > max_w then max_w = w end
+        if not item.header then
+          local w = print(item.label, 0, -10, 0, false, 1, false)
+          if w > max_w then max_w = w end
+        end
       end
       menu_x = (Config.screen.width - max_w) / 2
     end
-    for i, _ in ipairs(items) do
-      if Mouse.zone({ x = menu_x - 8, y = y + (i-1) * 10, w = Config.screen.width, h = 10 }) then
-        return i, true
+    local current_y = y
+    for i = scroll_offset + 1, math.min(n, scroll_offset + visible_count) do
+      local item = items[i]
+      local step = item.header and 8 or 10
+      if not item.header then
+        if Mouse.zone({ x = menu_x - 8, y = current_y, w = Config.screen.width, h = 10 }) then
+          return i, true
+        end
       end
+      current_y = current_y + step
     end
   end
 

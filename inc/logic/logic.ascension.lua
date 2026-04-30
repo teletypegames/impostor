@@ -145,6 +145,11 @@ function Ascension.draw_flash()
   local flash_color = (pulse > 0.5) and Config.colors.white or Config.colors.light_grey
   rect(0, 0, sw, sh, flash_color)
 
+  local cx = math.floor(sw / 2)
+  local cy = math.floor(sh / 2)
+  Print.text_center("Level Up!", cx, cy - 12, Config.colors.black, false, 2)
+  Print.text_center("One step closer to ascension", cx, cy + 6, Config.colors.black, false, 1)
+
   if _flash_timer >= _flash_total then
     _flash_active = false
     Ascension.start_fade()
@@ -166,4 +171,11 @@ end
 --- @return boolean Whether the flash is playing.
 function Ascension.is_flashing()
   return _flash_active
+end
+
+--- Returns whether the fade-in effect is currently active.
+--- @within Ascension
+--- @return boolean Whether the letter fade-in is playing.
+function Ascension.is_fading()
+  return _fade_active
 end
