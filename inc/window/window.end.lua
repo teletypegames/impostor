@@ -20,7 +20,7 @@ function EndWindow.draw()
 
   line(20, 82, 219, 82, Config.colors.dark_grey)
   Print.text_center("To continue via telnet:",             cx, 87, Config.colors.light_grey)
-  Print.text_center("games.teletype.hu  2324",             cx, 98, Config.colors.white)
+  Print.text_center("teletypegames.org  2324",             cx, 98, Config.colors.white)
   line(20, 110, 219, 110, Config.colors.dark_grey)
 
   Print.text_center("Press Z to return to menu",           cx, 116, Config.colors.dark_grey)
