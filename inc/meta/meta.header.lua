@@ -2,7 +2,8 @@
 -- name: impostor
 -- author:  Teletype Games
 -- desc:    Life of a programmer
--- site:    https://git.teletype.hu/games/impostor
+-- site:    https://git.teletypegames.org/games/impostor
+-- repo:    https://git.teletypegames.org/games/impostor
 -- license: MIT License
 -- version: 1.0
 -- script:  lua
